@@ -1,0 +1,56 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{ebproof}
+\usepackage{amsmath}
+\usepackage{ebproof}
+\usepackage{virginialake}
+
+\parindent=0pt
+
+\usepackage{amsthm}
+\theoremstyle{plain}
+\newtheorem{thm}{Theorem}[section]
+
+\theoremstyle{definition}
+\newtheorem{definition}[thm]{Definition}
+\newtheorem{lemma}[thm]{Lemma}
+\newtheorem{notation}[thm]{Notation}
+\newtheorem{proposition}[thm]{Proposition}
+\newtheorem{theorem_}[thm]{Theorem}
+\newtheorem{example}[thm]{Example}
+\newtheorem{remark}[thm]{Remark}
+
+\title{On first-order combinatorial proofs}
+\author{Jui-Hsuan Wu, Lutz Strassburger}
+
+\begin{document}
+
+\maketitle
+
+\section{From skew bifibration to contraction/weakening}
+
+\begin{theorem_}
+Let $A$ and $B$ be two formulas and $f: G(A) \rightarrow G(B)$ a skew bifibration. Then there exists a derivation $\od{\odd{\odh {A}}{\Delta}{B}{\{\wD, \cD\}}}$.
+\end{theorem_}
+
+\begin{proof}
+$f$ can be seen as a skew fibration from $G(A^P)$ to $G(B^P)$, which gives the existence of the propositions $A'$ and $B'$, and of the following derivation:
+  \[\od{\odd{\odd{\odd{\odh{A^P} }
+  {\Delta }{A'}{\me} }
+  {\Delta’ }{B'}{\acD} }
+  {\Delta’’}{B^P}{\wD}} \]
+
+Now we prove that there exists $B''$ such that $B''^P$ = $B'$.
+
+We consider now the dervation $\Delta''$. If some $U_x$ (or $E_x$) is introduced
+via weakening, then all the atoms it binds in $B^P$ should also be introduced 
+via weakening. In fact, an atom of $B^P$ is introduced via weakening is 
+equivalent to the fact that its corresponding vertex is not in the image of $f$. 
+Since there is an edge from $U_x$ (resp. $E_x$) to all the literals it binds in the 
+binding graph $\overrightarrow{G(B)}$, if one of the atoms is in the image, 
+$U_x$ (resp. $E_x$) should also be in the image since $f$ is a fibration on binding graphs.
+
+This means that a such $B''$ can be obtained from $B$ by erasing all the $U_x$ and $E_x$ introduced via weakening and all the atoms they bind.
+
+\end{proof}
+\end{document}
