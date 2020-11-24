@@ -6,6 +6,7 @@
 \usepackage{virginialake}
 
 \parindent=0pt
+\parskip=0.6em
 
 \usepackage{amsthm}\theoremstyle{plain}
 \newtheorem{thm}{Theorem}[section]
@@ -128,6 +129,14 @@ We proceed by bottom-up induction in the derivation.
 Clearly, $B'*$ is a propositional encoding as there is no disjunction of $Q_x$
 in it.
 
+First consider the $\acD$ rule:
+\begin{prooftree}
+  \hypo{C \vee C}
+  \infer1[$\acD$]{C}
+\end{prooftree}
+
+It is clear that if $C$ is a propositional encoding, then so is $C \vee C$.
+
 Now consider the $\me$ rule:
 \begin{prooftree}
   \hypo{(C \wedge D) \vee (E \wedge F)}
@@ -141,7 +150,7 @@ $\me'$), $G$ can be written as $G_1 \wedge G_2$ with $C \vee E = G_1^P$ and $D
 
 We have thus $G_i = \forall x_i H_i$ or $J_i \vee K_i (i = 1, 2)$.
 
-If $G_i = \forall x H_i$ for some $i$, then there will a conjunction of $U_x*$
+If $G_i = \forall x H_i$ for some $i$, then there will a conjunction of $U_x^*$
 and some formula which can never be eliminated by the rules $\me$, $\me'$ and
 $\acD$. However, there exists no such conjunction in ${A^P}^*$, which leads to a
 contradiction.
@@ -149,6 +158,26 @@ contradiction.
 Hence, $G_i$ can be written as $J_i \vee K_i$ for $i = 1, 2$. We now have $(C
 \wedge D) \vee (E \wedge F) = ((J_1 \wedge J_2) \vee (K_1 \wedge K_2))^P$.
 
+Finally, consider the $\me'$ rule:
+
+\begin{prooftree}
+  \hypo{(Q_x^* \wedge C) \vee (Q_x^* \wedge D)}
+  \infer1[$\me'$]{Q_x^* \wedge (C \vee D)}
+\end{prooftree}
+
+Suppose that $Q_X^* \wedge (C \vee D)$ = $F^P$ for some $P$. It is clear
+that $Q_x^* = E_x^*$ and $F = \exists x G$ with $G^P = C \vee D$ for some $G$.
+We distinguish two cases:
+\begin{itemize}
+  \item $G = \forall y H$: in this case, $(Q_x^* \wedge C) \vee (Q_x^* \wedge
+D)$ has a subformula $(E_x^* \wedge U_y^*)$, which cannot be eliminated by the
+rules $\me$, $\me'$, $\acD$. It is clear that ${A^P}^*$ does not
+have a subformula of this form, which leads to a contradiction.
+  \item $G = G_1 \vee G_2$: in this case, $(Q_x^* \wedge C) \vee (Q_x^* \wedge
+	  D) = ((\exists x G_1) \vee (\exists x G_2))^P$.
+\end{itemize}
+
 \end{proof}	
 \end{lemma}
+
 \end{document}
