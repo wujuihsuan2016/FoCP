@@ -7,8 +7,7 @@
 
 \parindent=0pt
 
-\usepackage{amsthm}
-\theoremstyle{plain}
+\usepackage{amsthm}\theoremstyle{plain}
 \newtheorem{thm}{Theorem}[section]
 
 \theoremstyle{definition}
@@ -33,16 +32,16 @@
 Let $A$ and $B$ be two formulas and $f: G(A) \rightarrow G(B)$ a skew bifibration. Then there exists a derivation $\od{\odd{\odh {A}}{\Delta}{B}{\{\wD, \cD\}}}$.
 \end{theorem_}
 
-\begin{proof}
 $f$ can be seen as a skew fibration from $G(A^P)$ to $G(B^P)$, which gives the existence of the propositions $A'$ and $B'$, and of the following derivation:
   \[\od{\odd{\odd{\odd{\odh{A^P} }
   {\Delta }{A'}{\me} }
-  {\Delta’ }{B'}{\acD} }
-  {\Delta’’}{B^P}{\wD}} \]
+  {\Delta' }{B'}{\acD} }
+  {\Delta''}{B^P}{\wD}} \]
 
-Now we prove that there exists $B''$ such that $B''^P$ = $B'$.
+\begin{lemma} there exists $B''$ such that $B''^P$ = $B'$.
 
-We consider now the dervation $\Delta''$. If some $U_x$ (or $E_x$) is introduced
+\begin{proof}
+Consider the dervation $\Delta''$. If some $U_x$ (or $E_x$) is introduced
 via weakening, then all the atoms it binds in $B^P$ should also be introduced 
 via weakening. In fact, an atom of $B^P$ is introduced via weakening is 
 equivalent to the fact that its corresponding vertex is not in the image of $f$. 
@@ -51,6 +50,105 @@ binding graph $\overrightarrow{G(B)}$, if one of the atoms is in the image,
 $U_x$ (resp. $E_x$) should also be in the image since $f$ is a fibration on binding graphs.
 
 This means that a such $B''$ can be obtained from $B$ by erasing all the $U_x$ and $E_x$ introduced via weakening and all the atoms they bind.
-
 \end{proof}
+\end{lemma}
+
+We introduce new (atomic) symbols $E_x^*$ and $U_x^*$ which are used to
+represent disjunctions of $E_x$ and $U_x$ respectiveley.
+
+We define a translation $(\cdot)^*$ inductively by:
+\begin{itemize}
+  \item $(E_x \vee \cdots \vee E_x)* = E_x^*$
+  \item $(U_x \vee \cdots \vee U_x)* = U_x^*$
+  \item structural recursion in all the other cases.
+\end{itemize}
+
+Then the derivation:
+ \[\od{\odd{\odd{\odh{A^P} }
+  {\Delta }{A'}{\me} }
+  {\Delta' }{B'}{\acD}} \]
+can be translated to the derivation:
+\[\od{\odd{\odh{(A^P)^*} }
+{\Delta^* }{(B')^*}{}} \]
+
+where $\Delta^*$ is the derivation obtained by replacing all the formulas $F$
+with $F^*$.
+
+Note that we should also introduce new rules in the derivation $\Delta^*$.
+Otherwise, the rule applications cannot work in general.
+
+To do that, we define the following rule transformation:
+
+\begin{center}
+\mbox{
+\begin{prooftree}
+  \hypo{Q_x^*}
+  \infer1[$\acD$]{Q_x^*}
+\end{prooftree}
+
+$\leadsto$
+
+\begin{prooftree}
+  \hypo{Q_x^*}
+  \infer1[$=$]{Q_x^*}
+\end{prooftree}
+
+}
+\vspace{0.4cm}
+
+\mbox{
+\begin{prooftree}
+  \hypo{(Q_x^* \wedge C) \vee (Q_x^* \wedge D)}
+  \infer1[$\me$]{Q_x^* \wedge (C \vee D)}
+\end{prooftree}
+
+$\leadsto$
+
+\begin{prooftree}
+  \hypo{(Q_x^* \wedge C) \vee (Q_x^* \wedge D)}
+  \infer1[$\me'$]{Q_x^* \wedge (C \vee D)}
+\end{prooftree}
+
+}
+	
+\end{center}
+where $Q_x^*$ stands for $E_x^*$ or $U_x^*$.
+
+$\Delta^*$ can now be transformed into a valid derivation $\Delta_1$ by using the two
+transformation rules above and by applying them in a bottom-up theoremstyle:
+\[\od{\odd{\odh{(A^P)^*} }
+{\Delta_1 }{(B')^*}{\acD, \me, \me'}} \]
+
+\begin{lemma}
+Every line of $\Delta_1$ is a propositional encoding (by
+confounding $Q_x^*$ with $Q_x$).
+
+\begin{proof}
+We proceed by bottom-up induction in the derivation.
+Clearly, $B'*$ is a propositional encoding as there is no disjunction of $Q_x$
+in it.
+
+Now consider the $\me$ rule:
+\begin{prooftree}
+  \hypo{(C \wedge D) \vee (E \wedge F)}
+  \infer1[$\me$]{(C \vee E) \wedge (D \vee F)}
+\end{prooftree}
+
+Suppose that $(C \vee E) \wedge (D \vee F) = G^P$ for some $G$.
+Since $C \vee E$ cannot be $Q_x$ (otherwise, the rule applied would be
+$\me'$), $G$ can be written as $G_1 \wedge G_2$ with $C \vee E = G_1^P$ and $D
+\vee F = G_2^P$.
+
+We have thus $G_i = \forall x_i H_i$ or $J_i \vee K_i (i = 1, 2)$.
+
+If $G_i = \forall x H_i$ for some $i$, then there will a conjunction of $U_x*$
+and some formula which can never be eliminated by the rules $\me$, $\me'$ and
+$\acD$. However, there exists no such conjunction in ${A^P}^*$, which leads to a
+contradiction.
+
+Hence, $G_i$ can be written as $J_i \vee K_i$ for $i = 1, 2$. We now have $(C
+\wedge D) \vee (E \wedge F) = ((J_1 \wedge J_2) \vee (K_1 \wedge K_2))^P$.
+
+\end{proof}	
+\end{lemma}
 \end{document}
