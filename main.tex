@@ -6,9 +6,11 @@
 \usepackage{virginialake}
 \usepackage{cmll}
 \usepackage{tikz}
+\usepackage{natbib}
 
-\parindent=0pt
-\parskip=0.6em
+\parindent=0pt % indent spacing
+\parskip=0.6em % spacing between two paragraphs
+\setlength{\bibsep}{1.2ex} % bibliography vertical spacing
 
 \usepackage{amsthm}\theoremstyle{plain}
 \newtheorem{thm}{Theorem}[section]
@@ -32,7 +34,7 @@
 \section{From first-order logic to combinatorial proofs}
 
 \subsection{{\bf LK}}
-We start with Gentzen's sequent calculus system {\bf LK}.
+We start with Gentzen's sequent calculus system {\bf LK} \cite{Gentzen 1935}.
 
 \begin{center}
 
@@ -111,7 +113,7 @@ We also consider the mix rule here:
 
 Note that the mix rule is derivable via weakening in {\bf LK}.
 
-Consider the following deep rules:
+Consider the following deep rules \cite{BT 2001}:
 \begin{center}
 \mbox{
 \begin{prooftree}
@@ -358,7 +360,7 @@ now that the derivation $\Pi''$ consists of the $\wD$ rule only.
 
 \fi
 
-D. Hughes proves the soundness and completeness of
+D. Hughes proves in \cite{Hughes 2019} the soundness and completeness of
 unification nets with respect to {\bf MLL1} + $mix$. In the following, we establish the
 equivalence between unification nets and fonets.
 
@@ -1274,4 +1276,5 @@ have a subformula of this form, which leads to a contradiction.
 \end{proof}	
 \end{lemma}
 
+\input{bibliography}
 \end{document}
