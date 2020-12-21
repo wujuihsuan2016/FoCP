@@ -1,4 +1,66 @@
-\documentclass{article}
+
+%% bare_conf.tex
+%% V1.4b
+%% 2015/08/26
+%% by Michael Shell
+%% See:
+%% http://www.michaelshell.org/
+%% for current contact information.
+%%
+%% This is a skeleton file demonstrating the use of IEEEtran.cls
+%% (requires IEEEtran.cls version 1.8b or later) with an IEEE
+%% conference paper.
+%%
+%% Support sites:
+%% http://www.michaelshell.org/tex/ieeetran/
+%% http://www.ctan.org/pkg/ieeetran
+%% and
+%% http://www.ieee.org/
+
+%%*************************************************************************
+%% Legal Notice:
+%% This code is offered as-is without any warranty either expressed or
+%% implied; without even the implied warranty of MERCHANTABILITY or
+%% FITNESS FOR A PARTICULAR PURPOSE! 
+%% User assumes all risk.
+%% In no event shall the IEEE or any contributor to this code be liable for
+%% any damages or losses, including, but not limited to, incidental,
+%% consequential, or any other damages, resulting from the use or misuse
+%% of any information contained here.
+%%
+%% All comments are the opinions of their respective authors and are not
+%% necessarily endorsed by the IEEE.
+%%
+%% This work is distributed under the LaTeX Project Public License (LPPL)
+%% ( http://www.latex-project.org/ ) version 1.3, and may be freely used,
+%% distributed and modified. A copy of the LPPL, version 1.3, is included
+%% in the base LaTeX documentation of all distributions of LaTeX released
+%% 2003/12/01 or later.
+%% Retain all contribution notices and credits.
+%% ** Modified files should be clearly indicated as such, including  **
+%% ** renaming them and changing author support contact information. **
+%%*************************************************************************
+
+
+% *** Authors should verify (and, if needed, correct) their LaTeX system  ***
+% *** with the testflow diagnostic prior to trusting their LaTeX platform ***
+% *** with production work. The IEEE's font choices and paper sizes can   ***
+% *** trigger bugs that do not appear when using other class files.       ***                          ***
+% The testflow support page is at:
+% http://www.michaelshell.org/tex/testflow/
+
+
+
+\documentclass[conference]{IEEEtran}
+% Some Computer Society conferences also require the compsoc mode option,
+% but others use the standard conference format.
+%
+% If IEEEtran.cls has not been installed into the LaTeX system files,
+% manually specify the path to it like:
+% \documentclass[conference]{../sty/IEEEtran}
+
+% *** PACKAGES *** %
+
 \usepackage[utf8]{inputenc}
 \usepackage{ebproof}
 \usepackage{amsmath}
@@ -7,11 +69,6 @@
 \usepackage{cmll}
 \usepackage{tikz}
 \usepackage{natbib}
-
-\parindent=0pt % indent spacing
-\parskip=0.6em % spacing between two paragraphs
-\setlength{\bibsep}{1.2ex} % bibliography vertical spacing
-
 \usepackage{amsthm}\theoremstyle{plain}
 \newtheorem{thm}{Theorem}[section]
 
@@ -24,12 +81,344 @@
 \newtheorem{example}[thm]{Example}
 \newtheorem{remark}[thm]{Remark}
 
-\title{On first-order combinatorial proofs}
-\author{Jui-Hsuan Wu, Lutz Strassburger}
+% Some very useful LaTeX packages include:
+% (uncomment the ones you want to load)
+
+
+% *** MISC UTILITY PACKAGES ***
+%
+%\usepackage{ifpdf}
+% Heiko Oberdiek's ifpdf.sty is very useful if you need conditional
+% compilation based on whether the output is pdf or dvi.
+% usage:
+% \ifpdf
+%   % pdf code
+% \else
+%   % dvi code
+% \fi
+% The latest version of ifpdf.sty can be obtained from:
+% http://www.ctan.org/pkg/ifpdf
+% Also, note that IEEEtran.cls V1.7 and later provides a builtin
+% \ifCLASSINFOpdf conditional that works the same way.
+% When switching from latex to pdflatex and vice-versa, the compiler may
+% have to be run twice to clear warning/error messages.
+
+
+
+
+
+
+% *** CITATION PACKAGES ***
+%
+%\usepackage{cite}
+% cite.sty was written by Donald Arseneau
+% V1.6 and later of IEEEtran pre-defines the format of the cite.sty package
+% \cite{} output to follow that of the IEEE. Loading the cite package will
+% result in citation numbers being automatically sorted and properly
+% "compressed/ranged". e.g., [1], [9], [2], [7], [5], [6] without using
+% cite.sty will become [1], [2], [5]--[7], [9] using cite.sty. cite.sty's
+% \cite will automatically add leading space, if needed. Use cite.sty's
+% noadjust option (cite.sty V3.8 and later) if you want to turn this off
+% such as if a citation ever needs to be enclosed in parenthesis.
+% cite.sty is already installed on most LaTeX systems. Be sure and use
+% version 5.0 (2009-03-20) and later if using hyperref.sty.
+% The latest version can be obtained at:
+% http://www.ctan.org/pkg/cite
+% The documentation is contained in the cite.sty file itself.
+
+
+
+
+
+
+% *** GRAPHICS RELATED PACKAGES ***
+%
+\ifCLASSINFOpdf
+  % \usepackage[pdftex]{graphicx}
+  % declare the path(s) where your graphic files are
+  % \graphicspath{{../pdf/}{../jpeg/}}
+  % and their extensions so you won't have to specify these with
+  % every instance of \includegraphics
+  % \DeclareGraphicsExtensions{.pdf,.jpeg,.png}
+\else
+  % or other class option (dvipsone, dvipdf, if not using dvips). graphicx
+  % will default to the driver specified in the system graphics.cfg if no
+  % driver is specified.
+  % \usepackage[dvips]{graphicx}
+  % declare the path(s) where your graphic files are
+  % \graphicspath{{../eps/}}
+  % and their extensions so you won't have to specify these with
+  % every instance of \includegraphics
+  % \DeclareGraphicsExtensions{.eps}
+\fi
+% graphicx was written by David Carlisle and Sebastian Rahtz. It is
+% required if you want graphics, photos, etc. graphicx.sty is already
+% installed on most LaTeX systems. The latest version and documentation
+% can be obtained at: 
+% http://www.ctan.org/pkg/graphicx
+% Another good source of documentation is "Using Imported Graphics in
+% LaTeX2e" by Keith Reckdahl which can be found at:
+% http://www.ctan.org/pkg/epslatex
+%
+% latex, and pdflatex in dvi mode, support graphics in encapsulated
+% postscript (.eps) format. pdflatex in pdf mode supports graphics
+% in .pdf, .jpeg, .png and .mps (metapost) formats. Users should ensure
+% that all non-photo figures use a vector format (.eps, .pdf, .mps) and
+% not a bitmapped formats (.jpeg, .png). The IEEE frowns on bitmapped formats
+% which can result in "jaggedy"/blurry rendering of lines and letters as
+% well as large increases in file sizes.
+%
+% You can find documentation about the pdfTeX application at:
+% http://www.tug.org/applications/pdftex
+
+
+
+
+
+% *** MATH PACKAGES ***
+%
+%\usepackage{amsmath}
+% A popular package from the American Mathematical Society that provides
+% many useful and powerful commands for dealing with mathematics.
+%
+% Note that the amsmath package sets \interdisplaylinepenalty to 10000
+% thus preventing page breaks from occurring within multiline equations. Use:
+%\interdisplaylinepenalty=2500
+% after loading amsmath to restore such page breaks as IEEEtran.cls normally
+% does. amsmath.sty is already installed on most LaTeX systems. The latest
+% version and documentation can be obtained at:
+% http://www.ctan.org/pkg/amsmath
+
+
+
+
+
+% *** SPECIALIZED LIST PACKAGES ***
+%
+%\usepackage{algorithmic}
+% algorithmic.sty was written by Peter Williams and Rogerio Brito.
+% This package provides an algorithmic environment fo describing algorithms.
+% You can use the algorithmic environment in-text or within a figure
+% environment to provide for a floating algorithm. Do NOT use the algorithm
+% floating environment provided by algorithm.sty (by the same authors) or
+% algorithm2e.sty (by Christophe Fiorio) as the IEEE does not use dedicated
+% algorithm float types and packages that provide these will not provide
+% correct IEEE style captions. The latest version and documentation of
+% algorithmic.sty can be obtained at:
+% http://www.ctan.org/pkg/algorithms
+% Also of interest may be the (relatively newer and more customizable)
+% algorithmicx.sty package by Szasz Janos:
+% http://www.ctan.org/pkg/algorithmicx
+
+
+
+
+% *** ALIGNMENT PACKAGES ***
+%
+%\usepackage{array}
+% Frank Mittelbach's and David Carlisle's array.sty patches and improves
+% the standard LaTeX2e array and tabular environments to provide better
+% appearance and additional user controls. As the default LaTeX2e table
+% generation code is lacking to the point of almost being broken with
+% respect to the quality of the end results, all users are strongly
+% advised to use an enhanced (at the very least that provided by array.sty)
+% set of table tools. array.sty is already installed on most systems. The
+% latest version and documentation can be obtained at:
+% http://www.ctan.org/pkg/array
+
+
+% IEEEtran contains the IEEEeqnarray family of commands that can be used to
+% generate multiline equations as well as matrices, tables, etc., of high
+% quality.
+
+
+
+
+% *** SUBFIGURE PACKAGES ***
+%\ifCLASSOPTIONcompsoc
+%  \usepackage[caption=false,font=normalsize,labelfont=sf,textfont=sf]{subfig}
+%\else
+%  \usepackage[caption=false,font=footnotesize]{subfig}
+%\fi
+% subfig.sty, written by Steven Douglas Cochran, is the modern replacement
+% for subfigure.sty, the latter of which is no longer maintained and is
+% incompatible with some LaTeX packages including fixltx2e. However,
+% subfig.sty requires and automatically loads Axel Sommerfeldt's caption.sty
+% which will override IEEEtran.cls' handling of captions and this will result
+% in non-IEEE style figure/table captions. To prevent this problem, be sure
+% and invoke subfig.sty's "caption=false" package option (available since
+% subfig.sty version 1.3, 2005/06/28) as this is will preserve IEEEtran.cls
+% handling of captions.
+% Note that the Computer Society format requires a larger sans serif font
+% than the serif footnote size font used in traditional IEEE formatting
+% and thus the need to invoke different subfig.sty package options depending
+% on whether compsoc mode has been enabled.
+%
+% The latest version and documentation of subfig.sty can be obtained at:
+% http://www.ctan.org/pkg/subfig
+
+
+
+
+% *** FLOAT PACKAGES ***
+%
+%\usepackage{fixltx2e}
+% fixltx2e, the successor to the earlier fix2col.sty, was written by
+% Frank Mittelbach and David Carlisle. This package corrects a few problems
+% in the LaTeX2e kernel, the most notable of which is that in current
+% LaTeX2e releases, the ordering of single and double column floats is not
+% guaranteed to be preserved. Thus, an unpatched LaTeX2e can allow a
+% single column figure to be placed prior to an earlier double column
+% figure.
+% Be aware that LaTeX2e kernels dated 2015 and later have fixltx2e.sty's
+% corrections already built into the system in which case a warning will
+% be issued if an attempt is made to load fixltx2e.sty as it is no longer
+% needed.
+% The latest version and documentation can be found at:
+% http://www.ctan.org/pkg/fixltx2e
+
+
+%\usepackage{stfloats}
+% stfloats.sty was written by Sigitas Tolusis. This package gives LaTeX2e
+% the ability to do double column floats at the bottom of the page as well
+% as the top. (e.g., "\begin{figure*}[!b]" is not normally possible in
+% LaTeX2e). It also provides a command:
+%\fnbelowfloat
+% to enable the placement of footnotes below bottom floats (the standard
+% LaTeX2e kernel puts them above bottom floats). This is an invasive package
+% which rewrites many portions of the LaTeX2e float routines. It may not work
+% with other packages that modify the LaTeX2e float routines. The latest
+% version and documentation can be obtained at:
+% http://www.ctan.org/pkg/stfloats
+% Do not use the stfloats baselinefloat ability as the IEEE does not allow
+% \baselineskip to stretch. Authors submitting work to the IEEE should note
+% that the IEEE rarely uses double column equations and that authors should try
+% to avoid such use. Do not be tempted to use the cuted.sty or midfloat.sty
+% packages (also by Sigitas Tolusis) as the IEEE does not format its papers in
+% such ways.
+% Do not attempt to use stfloats with fixltx2e as they are incompatible.
+% Instead, use Morten Hogholm'a dblfloatfix which combines the features
+% of both fixltx2e and stfloats:
+%
+% \usepackage{dblfloatfix}
+% The latest version can be found at:
+% http://www.ctan.org/pkg/dblfloatfix
+
+
+
+
+% *** PDF, URL AND HYPERLINK PACKAGES ***
+%
+%\usepackage{url}
+% url.sty was written by Donald Arseneau. It provides better support for
+% handling and breaking URLs. url.sty is already installed on most LaTeX
+% systems. The latest version and documentation can be obtained at:
+% http://www.ctan.org/pkg/url
+% Basically, \url{my_url_here}.
+
+
+
+
+% *** Do not adjust lengths that control margins, column widths, etc. ***
+% *** Do not use packages that alter fonts (such as pslatex).         ***
+% There should be no need to do such things with IEEEtran.cls V1.6 and later.
+% (Unless specifically asked to do so by the journal or conference you plan
+% to submit to, of course. )
+
+% *** MACROS *** 
+
+% ** SYSTEMS **
+
+\newcommand*{\LK}{\mathsf{LK}}
+\newcommand*{\LKm}{\mathsf{LK + mix}}
+\newcommand*{\MLL}{\mathsf{MLL}}
+\newcommand*{\FOMLL}{\mathsf{MLL1}} 
+\newcommand*{\FOMLLm}{\mathsf{MLL1 + mix}}
+
+% correct bad hyphenation here
+\hyphenation{op-tical net-works semi-conduc-tor}
+
 
 \begin{document}
+%
+% paper title
+% Titles are generally capitalized except for words such as a, an, and, as,
+% at, but, by, for, in, nor, of, on, or, the, to and up, which are usually
+% not capitalized unless they are the first or last word of the title.
+% Linebreaks \\ can be used within to get better formatting as desired.
+% Do not put math or special symbols in the title.
+\title{On First-order Proofs without syntax}
 
+
+% author names and affiliations
+% use a multiple column layout for up to three different
+% affiliations
+\author{\IEEEauthorblockN{Dominic J. D. Hughes}
+\IEEEauthorblockA{}
+\and
+\IEEEauthorblockN{Lutz Straßburger}
+\IEEEauthorblockA{Inria, Equipe Partout\\
+Ecole Polytechnique\\
+LIX UMR 7161\\
+France}
+\and
+\IEEEauthorblockN{Jui-Hsuan Wu}
+\IEEEauthorblockA{Ecole Normale Supérieure\\
+France}}
+
+% conference papers do not typically use \thanks and this command
+% is locked out in conference mode. If really needed, such as for
+% the acknowledgment of grants, issue a \IEEEoverridecommandlockouts
+% after \documentclass
+
+% for over three affiliations, or if they all won't fit within the width
+% of the page, use this alternative format:
+% 
+%\author{\IEEEauthorblockN{Michael Shell\IEEEauthorrefmark{1},
+%Homer Simpson\IEEEauthorrefmark{2},
+%James Kirk\IEEEauthorrefmark{3}, 
+%Montgomery Scott\IEEEauthorrefmark{3} and
+%Eldon Tyrell\IEEEauthorrefmark{4}}
+%\IEEEauthorblockA{\IEEEauthorrefmark{1}School of Electrical and Computer Engineering\\
+%Georgia Institute of Technology,
+%Atlanta, Georgia 30332--0250\\ Email: see http://www.michaelshell.org/contact.html}
+%\IEEEauthorblockA{\IEEEauthorrefmark{2}Twentieth Century Fox, Springfield, USA\\
+%Email: homer@thesimpsons.com}
+%\IEEEauthorblockA{\IEEEauthorrefmark{3}Starfleet Academy, San Francisco, California 96678-2391\\
+%Telephone: (800) 555--1212, Fax: (888) 555--1212}
+%\IEEEauthorblockA{\IEEEauthorrefmark{4}Tyrell Inc., 123 Replicant Street, Los Angeles, California 90210--4321}}
+
+
+
+
+% use for special paper notices
+%\IEEEspecialpapernotice{(Invited Paper)}
+
+
+
+
+% make the title area
 \maketitle
+
+% As a general rule, do not put math, special symbols or citations
+% in the abstract
+\begin{abstract}
+\end{abstract}
+
+% no keywords
+
+
+
+
+% For peer review papers, you can put extra information on the cover
+% page as needed:
+% \ifCLASSOPTIONpeerreview
+% \begin{center} \bfseries EDICS Category: 3-BBND \end{center}
+% \fi
+%
+% For peerreview papers, this IEEEtran command inserts a page break and
+% creates the second title. It will be ignored for other modes.
+\IEEEpeerreviewmaketitle
 
 \section{From first-order logic to combinatorial proofs}
 
@@ -129,7 +518,6 @@ Consider the following deep rules \cite{BT 2001}:
 }
 \end{center}
 
-
 Note that the $ctr$ (resp. $wk$) rule in {\bf LK} is derivable in $\{\cD, \vee\}$
 (resp. $\{\wD, \fff\}$) and that $\cD$ and $\wD$ rules
 permute downwards with the non-structural rules of {\bf LK}. 
@@ -194,15 +582,15 @@ We want to establish the following theorem:
 
 \begin{theorem_}
 \label{thm1}
-Let $\Gamma$ be a sequent. Then there is a proof of $\Pi$ in {\bf LK} + $mix$ iff there is a proof of some sequent $\Delta$ in {\bf MLL1} + $mix$ and a derivation from $\Delta$ to $\Gamma$ consisting of the $\cD$ and $\wD$ rules only. 
+Let $\Gamma$ be a sequent. Then there is a proof of $\Pi$ in $\LKm$ iff there is a proof of some sequent $\Delta$ in $\FOMLLm$ and a derivation from $\Delta$ to $\Gamma$ consisting of the $\cD$ and $\wD$ rules only. 
 \end{theorem_}
 
 \begin{proof}
 ($\Rightarrow$) This direction comes from the above observation: it suffices to permute downwards all the instances of the $\cD$ and $\wD$ rules.
 
 ($\Leftarrow$)
-We regard the proof in {\bf MLL1} + $mix$ as a proof in {\bf LK} + $mix$.
-Then we put the derivation consisting of only $\cD$ and $\wD$ under the proof in {\bf LK} + $mix$. Now we try to permute all the instances $\cD$ and $\wD$ upwards with the rules of LK and $mix$. 
+We regard the proof in $\FOMLLm$ as a proof in $\LKm$.
+Then we put the derivation consisting of only $\cD$ and $\wD$ under the proof in $\LKm$. Now we try to permute all the instances $\cD$ and $\wD$ upwards with the rules of LK and $mix$. 
 For the $\cD$ part, the only non-trivial case is the permutation with the $\vee$ rule where the formula generated is $A \vee A$.
 
 \begin{center}
@@ -249,119 +637,8 @@ In this case, the permutation of this instance of $\wD$ stops and we continue wi
 
 \end{proof}
 
-\iffalse
-
-Now consider a proof $\Pi$ of some sequent $\Gamma$ in {\bf LK}:
-The observation above gives the possibility of
-transforming the proof into a proof in {\bf MLL} followed by a derivation consisting
-of the $\cD$ and $\wD$ rules only.
-
-Conversely, consider a proof $\Pi$ of some sequent $\Gamma$ consisting of a
-proof $\Pi'$ in {\bf LK} followed by a derivation $\Pi''$ consisting
-the $\cD$ and $\wD$ rules only. 
-We can assume that the proof $\Pi'$ is cut-free and contains only atomic
-axioms.
-Now consider some instance of $\cD$ in the derivation $\Pi''$:
-\begin{prooftree}
-  \hypo{S\{A \vee A\}} 
-  \infer1[$\cD$]{S\{A\}}
-\end{prooftree}
-
-If the subformula $A \vee A$ is erased at some point by the $\wD$ rule: 
-
-\begin{center}
-\begin{prooftree}
-  \hypo{\vdash T\{\fff\}}
-  \infer1[$\wD$]{\vdash T\{B\}}
-  \ellipsis{$\mathcal{D}$}{\vdash S\{A \vee A\}}
-  \infer1[$\cD$]{\vdash S\{A\}}
-\end{prooftree}
-\end{center}
-
-where $A \vee A$ is a subformula of $B$, then we can erase the instance of $\cD$
-rule considered
-and obtain the derivation:
-
-\begin{center}
-\begin{prooftree}
-  \hypo{\vdash T\{\fff\}}
-  \infer1[$\wD$]{\vdash T\{B[A \vee A \leftarrow A]\}}
-  \ellipsis{$\mathcal{D}[A \vee A \leftarrow A]$}{\vdash S\{A\}}
-\end{prooftree}
-\end{center}
-
-where $B[A \vee A \leftarrow A]$ (resp. $\mathcal{D}[A \vee A \leftarrow A]$) is the
-formula (resp. derivation) obtained from $B$ (resp. $\mathcal{D}$) by replacing every
-occurrence of $A \vee A$ with $A$.
-
-Now suppose that the subformula $A \vee A$ is not erased in the derivation
-$\Pi''$.
-
-Since there is the contraction rule $ctr$, the subformula $A \vee A$ might be duplicated in the proof $\Pi'$. We now consider a branch of the proof $\Pi'$ 
-
-Since $\Pi'$ is cut-free, it enjoys the subformula property and since all axioms
-are atomic, the "subformula" $A \vee A$ should be decomposed at some point in the
-proof and thus the proof $\Pi$ should be of the following form:
-
-\begin{center}
-\begin{prooftree}
-  \hypo{\cdots}
-  \hypo{\vdash \Gamma, A, A}
-  \infer1[$\vee$]{\vdash \Gamma, A \vee A}
-  \ellipsis{$\mathcal{D}$}{}
-  \infer2[]{\vdash T\{A \vee A\}}
-  \ellipsis{$\mathcal{D}_1$}{\vdash S\{A \vee A\}}
-  \infer1[$\cD$]{\vdash S\{A\}}
-  \ellipsis{$\mathcal{D}_2$}{\vdash \Gamma}
-\end{prooftree}
-\end{center}
-
-where $\Pi'$ =
-\begin{prooftree}
-  \hypo{\vdash T\{A \vee A\}}
-  \ellipsis{}{\vdash \Gamma}
-\end{prooftree}
-
-We can thus to apply the $ctr$ rule first and to replace each occurrence of $A
-\vee A$ in the derivation (branch) $\mathcal{D}$:
-
-\begin{center}
-\begin{prooftree}
-  \hypo{\cdots}
-  \hypo{\vdash \Gamma, A, A}
-  \infer1[$ctr$]{\vdash \Gamma, A}
-  \ellipsis{$\mathcal{D}[A \vee A \leftarrow A]$}{}
-  \infer2[]{\vdash T\{A \vee A\}}
-  \ellipsis{$\mathcal{D}_1$}{\vdash S\{A \vee A\}}
-  \infer1[$\cD$]{\vdash S\{A\}}
-  \ellipsis{$\mathcal{D}_2$}{\vdash \Gamma}
-\end{prooftree}
-\end{center}
-
-By applying the same process to all the branches of occurrences of $A \vee A$,
-we obtain a proof of $\Gamma$ without the instance
-\begin{prooftree}
-  \hypo{S\{A \vee A\}}
-  \infer1[$\cD$]{S\{A\}}
-\end{prooftree}
-of the $\cD$ rule. The derivation $\Pi'$ can be replaced by the following:
-\begin{center}
-\begin{prooftree}
-  \hypo{\vdash T\{A\}}
-  \ellipsis{$\mathcal{D}_1[A \vee A \leftarrow A]$}{\vdash S\{A\}}
-  \ellipsis{$\mathcal{D}_2[A \vee A \leftarrow A]$}{\vdash \Gamma}
-\end{prooftree}
-\end{center}
-
-We can thus eliminate all the instances of the $\cD$ rule in the proof. Suppose
-now that the derivation $\Pi''$ consists of the $\wD$ rule only.
-
-[PROOF TO DO]
-
-\fi
-
 D. Hughes proves in \cite{Hughes 2019} the soundness and completeness of
-unification nets with respect to {\bf MLL1} + $mix$. In the following, we establish the
+unification nets with respect to $\FOMLLm$. In the following, we establish the
 equivalence between unification nets and fonets.
 
 \subsection{Equivalence between unification nets and fonets}
@@ -526,14 +803,12 @@ If there exists an induced bimatching of the linked fograph $G = G(\phi)$, then 
 If one of the switching graphs of the unification structure of $\phi$
 contains a cycle or is not connected, then there exists an induced bimatching of the
 corresponding linked fograph.
-
 \begin{proof}
-
-We use frames introduced by Hughes in Section 4 of \cite{Hughes 2015}.
+We use frames introduced by D. Hughes in Section 4 of \cite{Hughes 2015}.
 
 \begin{definition}
-Let $\theta$ be a unification structure on an {\bf MLL1} sequent $\Gamma$.
-We define the \textit{frame}  of $\theta$ by exhaustively applying the following subformula rewriting steps, to obtain a proof structure $\theta_m$ on an {\bf MLL} sequent $\Gamma_m$:
+Let $\theta$ be a unification structure on an $\FOMLL$ sequent $\Gamma$.
+We define the \textit{frame}  of $\theta$ by exhaustively applying the following subformula rewriting steps, to obtain a proof structure $\theta_m$ on an $\MLL$ sequent $\Gamma_m$:
 
 \begin{enumerate}
   \item {\bf Encode dependencies as fresh links.} For each dependency $\exists x \rightarrow \forall y$, with corresponding subformulas $\exists x A$ and $\forall y B$, we add a fresh link as follows. Let $P$ be a fresh (nullary) predicate symbol. Replace $\exists x A$ with $P \otimes \exists x A$ and $\forall y B$ with $\overline{P} \parr \forall y B$, and add an axiom link between $P$ and $\overline{P}$.
@@ -543,7 +818,6 @@ We define the \textit{frame}  of $\theta$ by exhaustively applying the following
 \end{definition}
 
 \begin{center}
-\mbox{
 \begin{tikzpicture}
   \tikzstyle{every node}=[circle, minimum size=20pt, inner sep=2pt]
   \draw (0, 0) node (par1) {$\parr$};
@@ -570,7 +844,7 @@ We define the \textit{frame}  of $\theta$ by exhaustively applying the following
     \draw[color=blue, dashed] (px) to [bend left] (pz);
     \draw[color=red, dashed] (qy) to [bend left] (qfz);
 \end{tikzpicture}
-\hspace{0.5cm}
+\vspace{0.5cm}
 
 \begin{tikzpicture}
   \tikzstyle{every node}=[circle, minimum size=20pt, inner sep=2pt]
@@ -608,9 +882,8 @@ We define the \textit{frame}  of $\theta$ by exhaustively applying the following
   \draw (S) to [bend left] (nS);
   \draw (R) to [bend left] (nR);
 \end{tikzpicture}
-}
 
-{\bf Figure 8.} The unification net in Example \ref{exunif} and its frame. The colored part shows how the dependency ${\color{red} \exists x} \rightarrow {\color{blue} \forall z}$ is transformed.
+{\bf Figure 8.} A unification net and its frame. The colored part shows how the dependency ${\color{red} \exists x} \rightarrow {\color{blue} \forall z}$ is transformed.
 \end{center}
 
 We have the following results: 
@@ -621,161 +894,7 @@ Consider now a switching graph $H$ of a unification structure $\theta$ of $\phi$
 
 If $H$ contains a cycle, then the corresponding switching graph of $\theta_m$ also contains a cycle. Hence, by applying the propositional results (Theorem 7) from \cite{Retore 2003}, we conclude that there exists a chordless, alternating, and elementary cycle in the bicoloured graph ($W, E_W \uplus L_W$), which corresponds to an induced bimatching in the linked fograph. (Note that the linked fograph (cograph) corresponding to $\theta_m$ is equivalent to the one corresponding to $\theta$.)
 
-
-\iffalse
-Consider a switching graph.
-We associate to this switching graph a proof net for {\bf MLL} by replacing quantifiers with fresh atoms and dependencies with new axiom links using the following schema:
-
-\begin{center}	
-\mbox{
-    \begin{tikzpicture}
-    \tikzstyle{every node}=[circle, minimum size=12pt, inner sep=2pt]
-    \draw (0, -2) node (existsx) {$\exists x$};
-    \draw (0, 0) node (A) {$A$};
-    \draw (existsx) -- (A) ;
-    \end{tikzpicture}
-    
-    \vspace{0.5cm}
-    \begin{tikzpicture}
-    \draw (0, 1) node
-    {$\leadsto$};
-    \draw (0, 2) node {};
-    \draw (0, 0) node {};
-    \end{tikzpicture}
-    \vspace{0.5cm}
-    
-    \begin{tikzpicture}
-    \tikzstyle{every node}=[draw, circle, minimum size= 12 pt, inner sep=3pt]
-    \draw (0, 0) node (existx) {$E_x$};
-    \draw (1.2, -2) node (tens) {$\otimes$};
-    \draw (2.4, 0) node (A) {$A$};
-    \draw (tens) -- (A);
-    \draw (tens) -- (existx);
-    \end{tikzpicture}
-}
-\vspace{0.3cm}
-
-\mbox{
-    \begin{tikzpicture}
-    \tikzstyle{every node}=[circle, minimum size=12pt, inner sep=2pt]
-    \draw (0, -2) node (forallx) {$\forall x$};
-    \draw (0, 0) node (A) {$A$};
-    \draw (forallx) -- (A) ;
-    \end{tikzpicture}
-    
-    \vspace{0.5cm}
-    \begin{tikzpicture}
-    \draw (0, 1) node
-    {$\leadsto$};
-    \draw (0, 2) node {};
-    \draw (0, 0) node {};
-    \end{tikzpicture}
-    \vspace{0.5cm}
-    
-    \begin{tikzpicture}
-    \tikzstyle{every node}=[draw, circle, minimum size= 12 pt, inner sep=3pt]
-     \draw (0, 0) node (Ux) {$U_x$};
-    \draw (1.2, -2) node (parr) {$\parr$};
-    \draw (2.4, 0) node (A) {$A$};
-    \draw (parr) -- (A);
-    \draw (parr) -- (Ux);
-    \end{tikzpicture}
-}
-
-\mbox{
-    \begin{tikzpicture}
-    \tikzstyle{every node}=[circle, minimum size=12pt, inner sep=2pt]
-    \draw (-2, -2) node (existsx) {$\exists x$};
-    \draw (-2, 0) node (A) {$A$}; 
-    \draw (0, -2) node (forally) {$\forall y$};
-    \draw (0, 0) node (B) {$B$};
-    \draw (forally) -- (B);
-    \draw (existsx) -- (A);
-    \draw[->] (existsx) -- (forally);
-    \end{tikzpicture}
-    
-    \vspace{0.5cm}
-    \begin{tikzpicture}
-    \draw (0, 1) node
-    {$\leadsto$};
-    \draw (0, 2) node {};
-    \draw (0, 0) node {};
-    \end{tikzpicture}
-    \vspace{0.5cm}
-    
-    \begin{tikzpicture}
-    \tikzstyle{every node}=[draw, circle, minimum size= 12 pt, inner sep=3pt]
-    \draw (4.8, 0) node (Uy) {$U_y$};
-    \draw (6, -2) node (parr) {$\parr$};
-    \draw (7.2, 0) node (B) {$B$};
-    \draw (parr) -- (B);
-    \draw (parr) -- (Uy);
-    \draw (2.4, 0) node (existx) {$E_x$};
-    \draw (1.2, -2) node (tens) {$\otimes$};
-    \draw (0, 0) node (A) {$A$};
-    \draw (tens) -- (A);
-    \draw (tens) -- (existx);
-    \draw (3.6, 2) node (ax) {$ax$};
-    \draw (ax) to [bend right] (existx);
-    \draw (ax) to [bend left] (Uy);
-   
-    
-    \end{tikzpicture}
-}
-\end{center}
-\fi
-
-
-
 \end{proof}
-
-\iffalse
-
-\begin{proof}
-Let $C$ be a cycle contained in a switching graph. We can suppose that $C$ is
-minimum, i.e., for all $V' \subsetneq V $, there is no cycle going through exactly $V'$ in a switching graph of the unification structure, where $V$ is the set of vertices of $C$. 
-
-Now write $C$ as the
-concatenation of $l_1, p_1, l_2, p_2, ..., l_n, p_n$ where the $l_i$ are
-leaps and the $p_i$ are paths consisting of the other edges. We first prove that
-for all $i$, $p_i$ is non-empty.
-
-Suppose that $p_k$ is empty. The only possible case is:
-\begin{center}
-\begin{tikzpicture}
-  \node (x0) at (0, 0) {$\forall y$};
-  \node (x1) at (2, 0) {$\exists x$};
-  \node (x2) at (4, 0) {$\forall z$}; 
-  \draw [->] (x1) -- (x0) node [midway, above=7pt] {$l_k$};
-  \draw [->] (x1) -- (x2) node [midway, above=7pt] {$l_{k+1}$};
-\end{tikzpicture}
-\end{center}
-
-This means that every unifier of the unification structure assigns a term
-containing $y$ and $z$ to the existential binder $x$, which also implies
-the existence of an atom which is a descendant of the $\exists x$. Without loss of
-generality, we can assume that the predual of this atom is in the scope
-of $\forall y$, then it must contain $y$ and $z$, which is contradictory.
-
-Hence, all the $p_i$ are non-empty.
-
-Let $u_i$ and $v_i$ be the two extremes of the path $p_i$. Since $C$ is
-elementary, $u_i$ and $v_i$ are distinct. If one of them, say $u_i$, is a
-universal quantifier $\forall x$, then $v_i$ is not in its scope. In fact, since a
-dependency edge incident to $\forall x$ is in the switching graph, the
-incoming edge from the direct subterm of $\forall x$ to $\forall x$ in the
-unification structure is removed in the switching graph.\\
-Hence, $u_i$ and $v_i$ are adjacent in the corresponding fograph by proposition
-\ref{prop2}.
-
-We now prove that $W = \{u_i | 1 \leq i \leq n \} \cup \{v_i | 1 \leq i \leq n \}$ induces a bimatching in the corresponding linked fograph.
-
-If $u_i$ and $u_j$ (resp. $v_j$ ($i \neq j$) are adjacent in the fograph, then $C$ is not minimum. Hence $u_i$ and $v_i$ are the only neighbours to each other in the fograph.
-
-The reasoning for proving that $p_k$ is non-empty also proves that every existential quantifier has a unique neighbour in the leap graph. The uniqueness of neighbours of universal quantifiers in the leap graph is guaranteed by the definition of switching graph.
-
-\end{proof}
-\fi
 \end{proposition}
 
 \subsection{From contraction/weakening to skew bifibrations}
@@ -1056,70 +1175,14 @@ that $b'$ binds $v$.
 
   Therefore, all of these maps are skew bifibrations and since skew bifibrations on fographs compose (Lemma 10.32, \cite{Hughes 2019}), there exists a skew bifibration from $G(A)$ to $G(B)$.
 
-\iffalse
-
-By Proposition \ref{prop311}, $\od{\odd{\odh {A^P}}{}{B^P}{\{\wD, \cD\}}}$.
-Since both $A^P$ and $B^P$ are propositional (without quantifier), we
-can place ourselves in a propositional setting. We have thus a skew
-fibration $f$ from $G(A^P) = G(A)$ to $G(B^P) = G(B)$ by Theorem 7.8
-of \cite{Strassburger 2007}. To check that it is a skew bifibration, it suffices to check that:
-\begin{center}
-	for each $x$-binder $b$ in $G(B^P)$, for each vertex $v \in V(G(A^P))$
-such that $f(v)$ is bound by $b$, there exists a unique binder $b'$ such
-that $b'$ binds $v$.
-\end{center}
-	
-According to \cite{Strassburger 2007}, a such map $f$ can be seen as a
-composition of:
-\begin{itemize}
-  \item an identity map on labels $i: G(A^P) \rightarrow G(C)$ which is a skew fibration,
-  \item a label-preserving atomic contraction map $c: G(C) \rightarrow G(D)$, i.e., a
-	surjective skew fibration such that for all $u, v \in V_{G(C)}$,
-	we have $u \frown_{C} v$ iff $c(u) \frown_{D} c(v)$, and
-  \item a label-preserving weakening map $w: G(D) \rightarrow G(B^P)$, i.e., an
-	injective skew fibration such that for all $u, v \in V_{G(D)}$, we have 
-	$u \frown_{D} v$ iff $w(u) \frown_{B^P} w(v)$.
-
-\end{itemize}
-Here, $u \frown_{C} v$ means that the first common ancestor of $u$ and $v$ in
-the "propositional" formula $C$ is a $\wedge$, i.e., $u$ and $v$ are adjacent in
-$G(C)$. 
-
-	Let $b$ be an $x$-binder in $G(B)$ and let $v \in V_{G(A^P)}$. Suppose that $f(v)$ is bound by $b$. 
-
-We distinguish two cases:
-\begin{itemize}
-	\item $b$ is existential: $b$ and $f(v)$ are adjacent in $V_{G(B)}$ since
-	$f(v)$ is in the scope of $b$ and its atom contains $x$. Hence, the
-	$E_x$-labelled vertex $u$ corresponding to $b$ is such that
-	$u \frown_{B^P} f(v) = w(c(v))$. \\
-	Now we prove that $u$ is in the image of $w$. Since $w$ is a skew
-	fibration, there exists $\tilde{u} \in V_{G(D)}$ such that
-		$\tilde{u} \frown_{D} c(v)$ and $w(\tilde{u}) \nfrown_{B^P} u$.
-	Suppose that $w(\tilde{u}) \neq u$.
-	We distinguish two cases:
-	\begin{itemize}
-	  \item $w(\tilde{u})$ corresponds to a descendant of $b$ in $B$: we have $w(\tilde{u}) \frown_{B^P} u$ by definition of $B^P$, which is contradictory.
-	  \item $w(\tilde{u})$ does not correspond to a descendant of $b$ in $B$: this implies that in $B^P$, $b$ is a descendant of the first common ancestor of $w(\tilde{u})$ and $f(v)$ . We have also $w(\tilde{u}) \frown {B^P} f(v)$. Hence, the first common ancestor of $b$ and $w(\tilde{u})$ is equal to the latter. We have thus $w(\tilde{u}) \frown_{B^P}$, which is again contradictory.
-  \end{itemize}
-  Hence, $w(\tilde{u}) = u$.
-  And since $w$ is injective, such $\tilde{u}$ is unique.
-  We have thus a unique u such that $w(\tilde{u}) \frown_{B^P} f(v) = w(c(v))$, which is equivalent to $\tilde{u} \frown_{D} c(v)$. Since $c$ is a skew fibration, there exists $\tilde{\tilde{u}} \in V_(G(C))$ such that $\tilde{\tilde{u}} \frown{C} v$ and 
-  $c(\tilde{\tilde{u}}) \nfrown_{D} \tilde{u}$.
-  The same reasoning as the previous one proves that $c(\tilde{\tilde{u}}) = \tilde{u}$.  
-  \item 
-\end{itemize}
-
-\fi
-
 \end{proof}
 
 \begin{theorem_}
-If a formula $\phi$ is provable in {\bf LK}, then it has a combinatorial proof.
+If a formula $\phi$ is provable in $\LK$, then it has a combinatorial proof.
 \end{theorem_}
 
 \begin{proof}
-By Theorem \ref{thm1}, there exists a formula $\phi'$ such that there is a proof $\Pi$ of $\phi'$ in {\bf MLL1} and a derivation $D$ from $\phi'$ to $\phi$ consisting of the $\wD$ and $\cD$ rules only. The proof $\Pi$ corresponds to a unique unification net which is equivalent to the fonet corresponding to $\Pi$, i.e., the fograph $G(\phi')$ together with the links of $\Pi$. By Lemma \ref{mlem}, there exists a skew bifibration $G(\phi') \rightarrow G(\phi)$. We have thus a combinatorial proof of $\phi$.
+By Theorem \ref{thm1}, there exists a formula $\phi'$ such that there is a proof $\Pi$ of $\phi'$ in $\FOMLL$ and a derivation $D$ from $\phi'$ to $\phi$ consisting of the $\wD$ and $\cD$ rules only. The proof $\Pi$ corresponds to a unique unification net which is equivalent to the fonet corresponding to $\Pi$, i.e., the fograph $G(\phi')$ together with the links of $\Pi$. By Lemma \ref{mlem}, there exists a skew bifibration $G(\phi') \rightarrow G(\phi)$. We have thus a combinatorial proof of $\phi$.
 
 \end{proof}
 
@@ -1276,5 +1339,158 @@ have a subformula of this form, which leads to a contradiction.
 \end{proof}	
 \end{lemma}
 
+% An example of a floating figure using the graphicx package.
+% Note that \label must occur AFTER (or within) \caption.
+% For figures, \caption should occur after the \includegraphics.
+% Note that IEEEtran v1.7 and later has special internal code that
+% is designed to preserve the operation of \label within \caption
+% even when the captionsoff option is in effect. However, because
+% of issues like this, it may be the safest practice to put all your
+% \label just after \caption rather than within \caption{}.
+%
+% Reminder: the "draftcls" or "draftclsnofoot", not "draft", class
+% option should be used if it is desired that the figures are to be
+% displayed while in draft mode.
+%
+%\begin{figure}[!t]
+%\centering
+%\includegraphics[width=2.5in]{myfigure}
+% where an .eps filename suffix will be assumed under latex, 
+% and a .pdf suffix will be assumed for pdflatex; or what has been declared
+% via \DeclareGraphicsExtensions.
+%\caption{Simulation results for the network.}
+%\label{fig_sim}
+%\end{figure}
+
+% Note that the IEEE typically puts floats only at the top, even when this
+% results in a large percentage of a column being occupied by floats.
+
+
+% An example of a double column floating figure using two subfigures.
+% (The subfig.sty package must be loaded for this to work.)
+% The subfigure \label commands are set within each subfloat command,
+% and the \label for the overall figure must come after \caption.
+% \hfil is used as a separator to get equal spacing.
+% Watch out that the combined width of all the subfigures on a 
+% line do not exceed the text width or a line break will occur.
+%
+%\begin{figure*}[!t]
+%\centering
+%\subfloat[Case I]{\includegraphics[width=2.5in]{box}%
+%\label{fig_first_case}}
+%\hfil
+%\subfloat[Case II]{\includegraphics[width=2.5in]{box}%
+%\label{fig_second_case}}
+%\caption{Simulation results for the network.}
+%\label{fig_sim}
+%\end{figure*}
+%
+% Note that often IEEE papers with subfigures do not employ subfigure
+% captions (using the optional argument to \subfloat[]), but instead will
+% reference/describe all of them (a), (b), etc., within the main caption.
+% Be aware that for subfig.sty to generate the (a), (b), etc., subfigure
+% labels, the optional argument to \subfloat must be present. If a
+% subcaption is not desired, just leave its contents blank,
+% e.g., \subfloat[].
+
+
+% An example of a floating table. Note that, for IEEE style tables, the
+% \caption command should come BEFORE the table and, given that table
+% captions serve much like titles, are usually capitalized except for words
+% such as a, an, and, as, at, but, by, for, in, nor, of, on, or, the, to
+% and up, which are usually not capitalized unless they are the first or
+% last word of the caption. Table text will default to \footnotesize as
+% the IEEE normally uses this smaller font for tables.
+% The \label must come after \caption as always.
+%
+%\begin{table}[!t]
+%% increase table row spacing, adjust to taste
+%\renewcommand{\arraystretch}{1.3}
+% if using array.sty, it might be a good idea to tweak the value of
+% \extrarowheight as needed to properly center the text within the cells
+%\caption{An Example of a Table}
+%\label{table_example}
+%\centering
+%% Some packages, such as MDW tools, offer better commands for making tables
+%% than the plain LaTeX2e tabular which is used here.
+%\begin{tabular}{|c||c|}
+%\hline
+%One & Two\\
+%\hline
+%Three & Four\\
+%\hline
+%\end{tabular}
+%\end{table}
+
+
+% Note that the IEEE does not put floats in the very first column
+% - or typically anywhere on the first page for that matter. Also,
+% in-text middle ("here") positioning is typically not used, but it
+% is allowed and encouraged for Computer Society conferences (but
+% not Computer Society journals). Most IEEE journals/conferences use
+% top floats exclusively. 
+% Note that, LaTeX2e, unlike IEEE journals/conferences, places
+% footnotes above bottom floats. This can be corrected via the
+% \fnbelowfloat command of the stfloats package.
+
+
+
+
+\section{Conclusion}
+
+
+
+
+
+% conference papers do not normally have an appendix
+
+
+% use section* for acknowledgment
+%\section*{Acknowledgment}
+
+
+%The authors would like to thank...
+
+
+
+
+
+% trigger a \newpage just before the given reference
+% number - used to balance the columns on the last page
+% adjust value as needed - may need to be readjusted if
+% the document is modified later
+%\IEEEtriggeratref{8}
+% The "triggered" command can be changed if desired:
+%\IEEEtriggercmd{\enlargethispage{-5in}}
+
+% references section
+
+% can use a bibliography generated by BibTeX as a .bbl file
+% BibTeX documentation can be easily obtained at:
+% http://mirror.ctan.org/biblio/bibtex/contrib/doc/
+% The IEEEtran BibTeX style support page is at:
+% http://www.michaelshell.org/tex/ieeetran/bibtex/
+%\bibliographystyle{IEEEtran}
+% argument is your BibTeX string definitions and bibliography database(s)
+%\bibliography{IEEEabrv,../bib/paper}
+%
+% <OR> manually copy in the resultant .bbl file
+% set second argument of \begin to the number of references
+% (used to reserve space for the reference number labels box)
+
 \input{bibliography}
+
+\begin{thebibliography}{1}
+
+\bibitem{IEEEhowto:kopka}
+H.~Kopka and P.~W. Daly, \emph{A Guide to \LaTeX}, 3rd~ed.\hskip 1em plus
+  0.5em minus 0.4em\relax Harlow, England: Addison-Wesley, 1999.
+
+\end{thebibliography}
+
+
+
+
+% that's all folks
 \end{document}
+
