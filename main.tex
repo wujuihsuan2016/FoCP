@@ -335,6 +335,10 @@
 \newcommand*{\FOMLL}{\mathsf{MLL1}} 
 \newcommand*{\FOMLLm}{\mathsf{MLL1 + mix}}
 
+% ** FONT STYLE **
+
+\DeclareTextFontCommand{\bfit}{\bfseries\itshape}
+
 % correct bad hyphenation here
 \hyphenation{op-tical net-works semi-conduc-tor}
 
@@ -420,10 +424,58 @@ France}}
 % creates the second title. It will be ignored for other modes.
 \IEEEpeerreviewmaketitle
 
+\section{Introduction}
+
+\section{First-order Combinatorial Proofs}
+\subsection{First-order Logic and Graphs}
+
+\bfit{Terms} $s, t, u, \ldots$ and \bfit{atoms} (atomic formulas) $\alpha, \beta,
+\gamma, \ldots$ are generated inductively from variables $x, y, z, \ldots$: if
+$f$ (resp. $p$) is an $n$-ary function (resp. predicate) symbol and $t_1, \ldots,
+t_n$ are terms, then $ft_1 \ldots t_n$ (resp. $pt_1 \ldots t_n$) is a term
+(resp. atom). The set of atoms is extended with logical constant $\ttt$ and
+$\fff$. We also assume that each predicate symbol $p$ has a \bfit{dual}
+predicate symbol $\overline{p}$ with $\overline{p} \neq p$ and
+$\overline{\overline{p}} = p$. We extend the duality to atoms with
+$\overline{pt_1 \ldots t_n} = \overline{p}t_1 \ldots t_n$, $\overline{\ttt} =
+\fff$, and $\overline{\fff} = \ttt$. \bfit{Formulas} $f, g, h$ are generated inductively from atoms by binary
+connectives $\vee$ and $\wedge$ and quantifiers $\forall x$ and $\exists x$.
+The \bfit{negation} $\neg$ is defined in the usual way.
+
+A \bfit{directed graph} $G = (V, E)$ consists of a finite set $V$ of
+\bfit{vertices} and a set of $E \subseteq V \times V$ of \bfit{direct edges}. An
+\bfit{undirected graph} $G = (V, E)$ consists of a finite set $V$ of vertices
+and a set of $E$ of \bfit{undirected edges} (two-element subsets of $V$).
+For a given (directed or undirected) graph $G$, we write $V_G$ and $E_G$ for its
+vertex and edge sets respectively. We write $vw$ for an edge $(v, w)$ or $\{v,
+w\}$. Let $G = (V, E)$ and $G' = (V', E')$ be two undirected graphs. Without
+loss of generality, we assume that $V$ and $V'$ are disjoint. The \bfit{union}
+$G + G'$ is the graph $(V \cup V', E \cup E')$ and the \bfit{join} $G \times G'$
+is the graph $(V \cup V', E \cup E' \cup \{vv' | v \ in V, v' \in V'\})$. A
+\bfit{cograph} is a $P_4$-free undireced grpah, i.e., for any distinct vertices $v_1,
+v_2, v_3, v_4 \in V$, the restriction of the edge sets on them is not equal to
+$\{v_1v_2, v_2v_3, v_3v_4\}$. In a graph $G = (V, E)$, the \bfit{neighbourhood}
+$N(v)$ of $v \in V$ is defined as the set $\{w | vw \in E\}$, and a module is a
+set $M \subseteq V$ such that $N(v) \ M = N(w) \ M$ for all $v, w \in M$. A
+\bfit{module} $M$ is strong if for every module $M'$, we have $M' \subseteq M$, $M
+\subseteq$ or $M \cap M' = \emptyset$.
+
+\subsection{First-order graphs}
+A cograph is \bfit{logical} if every vertex is labelled either by an atom or variable,
+and it has at least one atom-labelled vertex. An atom-labelled vertex is called
+a \bfit{literal} and a variable-labelled vertex is called a \bfit{binder}. A
+binder labelled with $x$ is called an \bfit{$x$-binder}. The \bfit{scope} of a binder
+$b$ is the smallest strong module containing at least two vertices, including
+the binder itself.
+In a logical cograph $G$, a binder $b$ is \bfit{existential} (resp. \bfit{universal}) if, for every other
+vertex $v$ in its scope, we have $bv \in E_G$ (resp. $bv \notin E_G$). An
+$x$-binder is \bfit{legal} if its scope contains no other $x$-binder and at least one
+literal.
+
 \section{From first-order logic to combinatorial proofs}
 
-\subsection{{\bf LK}}
-We start with Gentzen's sequent calculus system {\bf LK} \cite{Gentzen 1935}.
+\subsection{$\LK$}
+We start with Gentzen's sequent calculus system $\LK$ \cite{Gentzen 1935}.
 
 \begin{center}
 
@@ -500,7 +552,7 @@ We also consider the mix rule here:
 \end{prooftree}
 \end{center}
 
-Note that the mix rule is derivable via weakening in {\bf LK}.
+Note that the mix rule is derivable via weakening in $\LK$.
 
 Consider the following deep rules \cite{BT 2001}:
 \begin{center}
@@ -518,9 +570,9 @@ Consider the following deep rules \cite{BT 2001}:
 }
 \end{center}
 
-Note that the $ctr$ (resp. $wk$) rule in {\bf LK} is derivable in $\{\cD, \vee\}$
+Note that the $ctr$ (resp. $wk$) rule in $\LK$ is derivable in $\{\cD, \vee\}$
 (resp. $\{\wD, \fff\}$) and that $\cD$ and $\wD$ rules
-permute downwards with the non-structural rules of {\bf LK}. 
+permute downwards with the non-structural rules of $\LK$. 
 
 \begin{center}
 \mbox{
