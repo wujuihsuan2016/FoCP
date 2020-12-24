@@ -335,10 +335,21 @@
 \newcommand*{\FOMLL}{\mathsf{MLL1}} 
 \newcommand*{\FOMLLm}{\mathsf{MLL1 + mix}}
 
+% ** SYMBOLS **
+
+\newcommand{\ax}{\mathsf{ax}}
+\newcommand{\cut}{\mathsf{cut}}
+\newcommand{\conj}{\mathsf{\wedge}}
+\newcommand{\disj}{\mathsf{\vee}}
+\newcommand{\univ}{\mathsf{\forall}}
+\newcommand{\exist}{\mathsf{\exists}}
+\newcommand{\mix}{\mathsf{mix}}
 % ** SPECIAL **
 
-\newcommand*{\Gr}{\mathcal{G}}
-\newcommand*{\LG}{\mathcal{L}}
+\newcommand{\Gr}{\mathcal{G}}
+\newcommand{\LG}{\mathcal{L}}
+\newcommand{\FT}{\mathcal{F}}
+\newcommand{\US}{\mathcal{U}}
 
 % ** FONT STYLE **
 
@@ -436,8 +447,8 @@ France}}
 
 \bfit{Terms} $s, t, u, \ldots$ and \bfit{atoms} (atomic formulas) $\alpha, \beta,
 \gamma, \ldots$ are generated inductively from variables $x, y, z, \ldots$: if
-$f$ (resp. $p$) is an $n$-ary function (resp. predicate) symbol and $t_1, \ldots,
-t_n$ are terms, then $ft_1 \ldots t_n$ (resp. $pt_1 \ldots t_n$) is a term
+$\delta$ (resp. $p$) is an $n$-ary function (resp. predicate) symbol and $t_1, \ldots,
+t_n$ are terms, then $\delta t_1 \ldots t_n$ (resp. $pt_1 \ldots t_n$) is a term
 (resp. atom). The set of atoms is extended with logical constant $\ttt$ and
 $\fff$. We also assume that each predicate symbol $p$ has a \bfit{dual}
 predicate symbol $\overline{p}$ with $\overline{p} \neq p$ and
@@ -464,11 +475,11 @@ $N(v)$ of $v \in V$ is defined as the set $\{w | vw \in E\}$, a set $W \subseteq
 V$ induces a \bfit{matching} if for all $w \in W$, $N(w) \cap E$ is a singleton, and a module is a
 set $M \subseteq V$ such that $N(v) \ M = N(w) \ M$ for all $v, w \in M$. A
 \bfit{module} $M$ is strong if for every module $M'$, we have $M' \subseteq M$, $M
-\subseteq$ or $M \cap M' = \emptyset$. A \bfit{graph homomorphism} $h: (V, E)
-\rightarrow (V', E')$ is a function $h : V \rightarrow V'$ such that $h(v)h(w)
+\subseteq$ or $M \cap M' = \emptyset$. A \bfit{graph homomorphism} $f: (V, E)
+\rightarrow (V', E')$ is a function $f : V \rightarrow V'$ such that $f(v)f(w)
 \in E'$ whenever $vw \in E$.
 
-\subsection{First-order Graphs}
+\subsection{First-order combinatorial proofs}
 A cograph is \bfit{logical} if every vertex is labelled either by an atom or variable,
 and it has at least one atom-labelled vertex. We denote by $label_G(v)$, or simply
 $label(v)$ the label of a vertex in a logical cograph $G$. An atom-labelled vertex is called
@@ -491,7 +502,6 @@ For a formula $A$, we can define its associated fograph $\Gr(A)$ inductively by:
 The \bfit{binding graph} of a forgraph $G$ is the directed graph $(V_G, \{(b,
 l) | b \text{ binds } l\})$.
 
-\subsection{Fonets}
 In a fograph, two atoms are \bfit{pre-dual} if their predicate symbols are dual
 (e.g. $pxy$ and $\overline{p}yz$) and two literals are \bfit{pre-dual} if their
 labels (atoms) are pre-dual. A \bfit{linked fograph} is a coloured fograph such
@@ -515,24 +525,135 @@ A \bfit{first-order net} or \bfit{fonet} is a linked fograph which has
 dualizer but no induced bimatching.  
 \end{definition}
 
-\subsection{Skew bifibrations}
-
-A graph homomorphism $h: (V, E) \rightarrow (V', E')$ is a \bfit{fibration} if
-for all $v \in V$ and $wh(v) \in E'$, there exists a unique $\tilde{w}$ such
-that $\tilde{w}v \in E$ and $h(\tilde{w}) = w$, and is a \bfit{skew fibration}
-if for all $v \in V$ and $wh(v) \in E'$ there exists $\tilde{w}$ such that
-$\tilde{w}v \in E$ and $h(\tilde{w})w \notin E'$. A \bfit{fograph homomorphism}
+A graph homomorphism $f: (V, E) \rightarrow (V', E')$ is a \bfit{fibration} if
+for all $v \in V$ and $wf(v) \in E'$, there exists a unique $\tilde{w}$ such
+that $\tilde{w}v \in E$ and $f(\tilde{w}) = w$, and is a \bfit{skew fibration}
+if for all $v \in V$ and $wf(v) \in E'$ there exists $\tilde{w}$ such that
+$\tilde{w}v \in E$ and $f(\tilde{w})w \notin E'$. A \bfit{fograph homomorphism}
 is a graph homomorphism between the underlying graphs of the fographs
-considered. A fograph homomorphism $h : G \rightarrow G'$ is
-\bfit{label-preserving} if forall $v \in V_G, label(v) = label(h(v))$, and is
+considered. A fograph homomorphism $f : G \rightarrow G'$ is
+\bfit{label-preserving} if forall $v \in V_G, label(v) = label(f(v))$, and is
 \bfit{existential-preserving} if for all existental binder $b$ in $G$, the
-vertex $h(b)$ is an existential binder in $G'$.
+vertex $f(b)$ is an existential binder in $G'$.
 
 \begin{definition}
 A \bfit{skew bifibration} between fographs is a label-preserving and
 	existential-preserving fograph homomorphism whose restriction to the
 	binding graphs is a fibration.
 \end{definition}
+
+\begin{definition}
+	A \bfit{first-order combinatorial proof} of a fograph $G$ is a skew
+bifibration $f: N \rightarrow G$ where $N$ is a fonet. A \bfit{first-order
+combinatorial proof} of a formula $A$ is a combinatorial proof of its graph
+	$\Gr(A)$.
+\end{definition}
+
+\subsection{$\FOMLL$ and Unification Nets}
+
+In $\FOMLL$, terms, atoms, formulas are defined as in first-order logic. For
+simplicity, we choose to use $\vee$ and $\wedge$ instead of $\parr$ and
+$\otimes$ which are generally used in the presentation of linear logic.
+A formula $A$ is identified with its \bfit{formula tree} $\FT(A)$, a directed
+tree with leaves labelled by atoms, internal nodes labelled by connectives and
+quantifiers, and edges directed from leaves to the root. A \bfit{sequent} $\Gamma$ is simply a disjoint union of formulas. We write
+comma for disjoint union.
+
+Sequents are proved using the inference rules of $\FOMLL$:
+\begin{center}
+
+\mbox{
+\begin{prooftree}
+  \infer0[$\ax$]{\vdash A, \neg A}
+\end{prooftree}
+\hspace{2cm}
+
+\begin{prooftree}
+  \hypo{\vdash \Gamma, A}
+  \hypo{\vdash \Delta, \neg A}
+  \infer2[$\cut$]{\vdash \Gamma, \Delta}
+\end{prooftree}}
+
+\mbox{
+\begin{prooftree}
+  \hypo{\vdash \Gamma, A}
+  \hypo{\vdash \Delta, B}
+  \infer2[$\conj$]{\vdash \Gamma, \Delta, A \wedge B}
+\end{prooftree}
+\hspace{1.5cm}
+
+\begin{prooftree}
+  \hypo{\vdash \Gamma, A, B}
+  \infer1[$\disj$]{\vdash \Gamma, A \vee B}
+\end{prooftree}}
+
+\mbox{
+\begin{prooftree}
+  \hypo{\vdash \Gamma, A}
+  \infer1[$\univ$]{\vdash \Gamma, \forall x A}
+\end{prooftree}
+($x \notin fv(\Gamma)$)
+\hspace{2cm}
+
+\begin{prooftree}
+  \hypo{\vdash \Gamma, A[t/x]}
+  \infer1[$\exist$]{\vdash \Gamma, \exists x A}
+\end{prooftree}}
+\end{center}
+
+We also consider the $\mix$ rule:
+
+\begin{center}
+\begin{prooftree}
+\hypo{\vdash \Gamma}
+\hypo{\vdash \Delta}
+\infer2[$\mix$]{\vdash \Gamma, \Delta}
+\end{prooftree}
+\end{center}
+
+Let $\Gamma$ be a sequent in $\FOMLLm$. A \bfit{link} on $\Gamma$ is a pair of
+leaves whose atoms are pre-dual. A \bfit{linking} on $\Gamma$ is a set of 
+disjoint links such that each leaf of $\Gamma$ is in exacly one link. Similar
+to the set of links in the linked fograph, a linking can be seen as a
+unification problem, and a link is said \bfit{unifiable} if the corresponding
+unification problem is solvable. \bfit{Dependencies} are defined as previously.
+
+Let $\lambda$ is a unifiable linking on $\Gamma = A_1, \ldots, A_n$.
+Let $A = A_1 \vee \ldots \vee A_n$. The \bfit{unification structure}
+$\US(\lambda)$
+associated to $\lambda$ is the formula tree $\FT(A)$ together with an undirected
+edge between leaves $l$ and $l'$ for every link $\{l, l'\}$ in $\lambda$ and a
+directed edge from $\exists x$ to $\forall y$ for every dependency $\exists x
+\rightarrow \forall y$.
+
+A \bfit{switching graph} of a unification structure $\US(\lambda)$ is any
+derivative of $\US(\lambda)$ obtained by keeping only one edge into each $\parr$
+and $\forall$ and undirecting remaining edges. A linking is \bfit{correct} if it
+is unifiable and all of the switching graphs of its associated unification
+structure are acyclic.
+
+\begin{definition}
+  A \bfit{unification net} on a sequent $\Gamma$ is a correct linking on $\Gamma$.
+\end{definition}
+
+\subsection{Deep Inference}
+In this paper we also use some \bfit{deep inference} \cite{BT 2001} rules that are in the
+following form:
+\begin{center}
+\begin{prooftree}
+  \hypo{\vdash S\{A\}}
+  \infer1[]{\vdash S\{B\}}
+\end{prooftree}
+\end{center}
+where $S\{ \ \}$ stands for a \bfit{context}, which corresponds to a sequent
+or a formula with a hole taking the place of an atom, and $S\{A\}$ represents
+the sequent or formula obtained by replacing the hole in $S\{ \ \}$ with the formula $A$. Formally, 
+
+  \[C ::= \Box \ | \ A \vee C \ | \ C \wedge A \ | \ \exists x C \ | \ \forall x C \].
+  \[S ::= C \ | \ A, S \ | \ S, A \] where $A$ is a formula.
+The above rule can be thus seen as the rewriting rule $A \rightarrow B$.
+
+We use the notation $\vlderivation{\vlde{}{\mathcal{P}}{B}{\vlhy {A}}}$ for denoting that there is a derivation from premise $\vdash S\{A\}$ to conclusion $\vdash S\{B\}$ in system $P$ for any context $S$.
 
 \section{From first-order logic to combinatorial proofs}
 
@@ -1592,7 +1713,7 @@ have a subformula of this form, which leads to a contradiction.
 % set second argument of \begin to the number of references
 % (used to reserve space for the reference number labels box)
 
-%\input{bibliography}
+\input{bibliography}
 
 %\begin{thebibliography}{1}
 
