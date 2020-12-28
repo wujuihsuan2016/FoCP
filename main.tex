@@ -646,7 +646,7 @@ following form:
 \end{prooftree}
 \end{center}
 where $S\{ \ \}$ stands for a \bfit{context}, which corresponds to a sequent
-or a formula with a hole taking the place of an atom, and $S\{A\}$ represents
+with a hole taking the place of an atom, and $S\{A\}$ represents
 the sequent or formula obtained by replacing the hole in $S\{ \ \}$ with the formula $A$. Formally, 
 
   \[C ::= \Box \ | \ A \vee C \ | \ C \wedge A \ | \ \exists x C \ | \ \forall x C \].
@@ -885,7 +885,8 @@ nets and first-order nets (fonets) are defined in different contexts.
 \begin{definition} A \textit{switching path} of a unification structure $U(\lambda)$ is a path in a switching graph of $U(\lambda)$.
 \end{definition}
 
-\begin{definition} A \textit{switching path} of a  formula tree $F(\phi)$ is a path in $F(\phi)$ that does not go through both incoming edges of a $\parr$.
+\begin{definition} A \textit{switching path} of a  formula tree $\FT(A)$ is a
+	path in $\FT(A)$ that does not go through both incoming edges of a $\parr$.
 \end{definition}
 
 \begin{proposition}
@@ -898,50 +899,50 @@ tree.
 
 \begin{proposition}
 \label{prop2}
-Let $u$ and $v$ be two distinct vertices of a fograph $G(\phi)$, then we have the equivalence
+Let $u$ and $v$ be two distinct vertices of a fograph $\Gr(A)$, then we have the equivalence
 between:
 \begin{itemize}
-  \item $u$ and $v$ are adjacent in $G(\phi)$
-  \item $u$ and $v$ are connected by a switching path of $F(\phi)$, and if one of them is a universal quantifier, then the other is
+  \item $u$ and $v$ are adjacent in $\Gr(A)$
+  \item $u$ and $v$ are connected by a switching path of $F(A)$, and if one of them is a universal quantifier, then the other is
 	not a descendant of the former.
   \end{itemize}
 \begin{proof}
-By induction on $\phi$.
+By induction on $A$.
 \begin{itemize}
-  \item If $\phi$ is an atom, trivial.
-  \item If $\phi = \phi_1 \wedge \phi_2$, then we distinguish two cases:
+  \item If $A$ is an atom, trivial.
+  \item If $A = A_1 \wedge A_2$, then we distinguish two cases:
     \begin{itemize}
-      \item $u$ and $v$ are both in $\phi_1$ (resp. $\phi_2$): trivial by
+      \item $u$ and $v$ are both in $A_1$ (resp. $A_2$): trivial by
 	      the induction hypothesis.
-      \item one of them is in $\phi_1$ and the other is in $\phi_2$: they are
-	      adjacent in $G(\phi)$ by definition. By Proposition \ref{prop1},
-		    the one in $\phi_1$ (resp. $\phi_2$) is connected to the
-		    vertex representing $\phi_1$ (resp. $\phi_2$) by a switching
-		    path. Together with the two edges incident to $\phi_1 \wedge
-		    \phi_2$, we obtain a switching path connecting $u$ and $v$.
+      \item one of them is in $A_1$ and the other is in $A_2$: they are
+	      adjacent in $\Gr(A)$ by definition. By Proposition \ref{prop1},
+		    the one in $A_1$ (resp. $A_2$) is connected to the
+		    vertex representing $A_1$ (resp. $A_2$) by a switching
+		    path. Together with the two edges incident to $A_1 \wedge
+		    A_2$, we obtain a switching path connecting $u$ and $v$.
     \end{itemize}
-  \item If $\phi = \phi_1 \vee \phi_2$, then we distinguish two cases:
+  \item If $A = A_1 \vee A_2$, then we distinguish two cases:
     \begin{itemize}
-      \item $u$ and $v$ are both in $\phi_1$ (resp. $\phi_2$): trivial by
+      \item $u$ and $v$ are both in $A_1$ (resp. $A_2$): trivial by
 	      the induction hypothesis.
-      \item one of them is in $\phi_1$ and the other is in $\phi_2$: they are not
-	      adjacent in $G(\phi)$ by definition. It is clear that they
+      \item one of them is in $A_1$ and the other is in $A_2$: they are not
+	      adjacent in $\Gr(A)$ by definition. It is clear that they
 		    are not connected by a switching path.
     \end{itemize}
-  \item If $\phi = \exists x \ \phi'$, then we distinguish two cases:
+  \item If $A = \exists x \ A'$, then we distinguish two cases:
     \begin{itemize}
-      \item $u$ and $v$ are both in $\phi'$: trivial by the induction
+      \item $u$ and $v$ are both in $A'$: trivial by the induction
 	      hypothesis.
-      \item one of them is $\exists x$ and the other is in $\phi'$: trivial
+      \item one of them is $\exists x$ and the other is in $A'$: trivial
 	      by Proposition \ref{prop1}
 
     \end{itemize}
-  \item If $\phi = \forall x \ \phi'$, then we distinguish two cases:
+  \item If $A = \forall x \ A'$, then we distinguish two cases:
     \begin{itemize}
-      \item $u$ and $v$ are both in $\phi'$: trivial by the induction
+      \item $u$ and $v$ are both in $A'$: trivial by the induction
 	      hypothesis.
-      \item one of them is $\forall x$ and the other is in $\phi'$:
-	they are not adjacent in $G(\phi)$ by definition and it is clear that
+      \item one of them is $\forall x$ and the other is in $A'$:
+	      they are not adjacent in $\Gr(A)$ by definition and it is clear that
 		    the former is a descendant of $\forall x$.
     \end{itemize}
 \end{itemize}
@@ -949,18 +950,18 @@ By induction on $\phi$.
 \end{proposition}
 
 \begin{proposition}
-If there exists an induced bimatching of the linked fograph $G = G(\phi)$, then there exists a switching graph of the corresponding unification net which contains a cycle.
+If there exists an induced bimatching of the linked fograph $G = \Gr(A)$, then there exists a switching graph of the corresponding unification net which contains a cycle.
 \begin{proof}
   Suppose that there exists a set $W$ inducing a bimatching in $G$.
   Then $(W, E_G)$ and $(W, L_G)$ are matchings.\\
   Let $E_W$ (resp. $L_W$) be the restriction of $E_G$ (resp. $L_G$) to $W$. \\
   If $E_W \cap L_W \neq \emptyset$, then there exist $u$ and $v$ such that $uv
   \in E_G$ and $uv \in L_G$. By Proposition \ref{prop2}, there exists a
-  switching path of the formula tree of $\phi$. Together with the leap
+  switching path of the formula tree of $A$. Together with the leap
   $uv$, this path induces a cycle in a switching graph of the
   corresponding unification structure. \\
   We can now suppose that $E_W$ and $L_W$ are disjoint. It is not difficult to
-  see the existence of an alternating and elementary cycle  in the bicoloured graph $(W, E_W \uplus L_W)$, i.e. a cycle of which the edges are alternately in $E_W$ and $L_W$ and containing no two equal vertices.
+  see the existence of an alternating and elementary cycle in the bicoloured graph $(W, E_W \uplus L_W)$, i.e. a cycle of which the edges are alternately in $E_W$ and $L_W$ and containing no two equal vertices.
   By Proposition \ref{prop2}, this cycle induces a cycle in the unification
   structure. Now we want to construct a switching graph that contains this cycle.\\
   Consider a universal quantifier $\forall x$. If $\forall x \notin W$, then        
@@ -1035,7 +1036,7 @@ If there exists an induced bimatching of the linked fograph $G = G(\phi)$, then 
 \end{proposition}
 
 \begin{proposition}
-If one of the switching graphs of the unification structure of $\phi$
+If one of the switching graphs of the unification structure of $A$
 contains a cycle or is not connected, then there exists an induced bimatching of the
 corresponding linked fograph.
 \begin{proof}
@@ -1125,7 +1126,7 @@ We have the following results:
 
 Let $u$ and $v$ be atoms or quantifiers in a unification structure $\theta$. Then they are connected by a switching path in the unification structure if, and only if, their corresponding nodes are connected by a switching path in $\theta_m$.
 
-Consider now a switching graph $H$ of a unification structure $\theta$ of $\phi$.
+Consider now a switching graph $H$ of a unification structure $\theta$ of $A$.
 
 If $H$ contains a cycle, then the corresponding switching graph of $\theta_m$ also contains a cycle. Hence, by applying the propositional results (Theorem 7) from \cite{Retore 2003}, we conclude that there exists a chordless, alternating, and elementary cycle in the bicoloured graph ($W, E_W \uplus L_W$), which corresponds to an induced bimatching in the linked fograph. (Note that the linked fograph (cograph) corresponding to $\theta_m$ is equivalent to the one corresponding to $\theta$.)
 
@@ -1148,9 +1149,10 @@ on quantifiers.
 \begin{prooftree}
   \hypo{\vdash S\{(A \wedge B) \vee (C \wedge D)\}}
   \infer1[$\me$]{\vdash S\{(A \vee C) \wedge (B \vee D)\}}
-\end{prooftree}
-\hspace{0.3cm}
+\end{prooftree}}
+\vspace{0.2cm}
 
+\mbox{
 \begin{prooftree}
   \hypo{\vdash S\{\exists x A \vee \exists x B\}}
   \infer1[$\mee$]{\vdash S\{\exists x (A \vee B)\}}
@@ -1295,9 +1297,9 @@ We have the following facts:
 For any context $S$ and any formula $A$:
 \begin{itemize}
   \item $A^P$ is a formula containing no quantifier for any formula $A$.
-  \item $G(A^P) = G(A)$ by confounding the atoms $U_x$, $E_x$ with the variable
-	  $x$. Thus, a map $f : G(A^P) \rightarrow G(B^P)$ can be seen as a map
-		$f : G(A) \rightarrow G(B)$.
+  \item $\Gr(A^P) = \Gr(A)$ by confounding the atoms $U_x$, $E_x$ with the variable
+	  $x$. Thus, a map $f : \Gr(A^P) \rightarrow \Gr(B^P)$ can be seen as a map
+		$f : \Gr(A) \rightarrow \Gr(B)$.
   \item $(S\{A\})^P = S^P\{A^P\}$.
 \end{itemize}
 
@@ -1397,7 +1399,7 @@ By considering propositional encodings, the maps defined are label-preserving sk
 
 Now we prove that each map $g \in \{wk, ac, m, m_1, m_2 \}$ is a skew bifibration. To do that, it suffices to prove that $g$ is a fibration between the corresponding binding graphs since it is already a skew fibration on the corresponding fographs and it is label-preserving and existential-preserving.
 \begin{center}
-	for each $x$-binder $b$ in $G(B^P)$, for each vertex $v \in V(G(A^P))$
+for each $x$-binder $b$ in $\Gr(B^P)$, for each vertex $v \in V(\Gr(A^P))$
 such that $g(v)$ is bound by $b$, there exists a unique binder $b'$ such
 that $b'$ binds $v$.
 \end{center}
@@ -1408,16 +1410,24 @@ that $b'$ binds $v$.
   \item $m_1$ and $m_2$ are fibrations: in the conclusion, for every atom $a$ in $A \vee B$ bound by the $x$-labelled quantifier, $a$ has exactly one preimage and it is bound by the $x$-llabelled quantifier in the premise.
 \end{itemize}
 
-  Therefore, all of these maps are skew bifibrations and since skew bifibrations on fographs compose (Lemma 10.32, \cite{Hughes 2019}), there exists a skew bifibration from $G(A)$ to $G(B)$.
+  Therefore, all of these maps are skew bifibrations and since skew bifibrations
+on fographs compose (Lemma 10.32, \cite{Hughes 2019}), there exists a skew
+bifibration from $\Gr(A)$ to $\Gr(B)$.
 
 \end{proof}
 
 \begin{theorem_}
-If a formula $\phi$ is provable in $\LK$, then it has a combinatorial proof.
+If a formula $A$ is provable in $\LK$, then it has a combinatorial proof.
 \end{theorem_}
 
 \begin{proof}
-By Theorem \ref{thm1}, there exists a formula $\phi'$ such that there is a proof $\Pi$ of $\phi'$ in $\FOMLL$ and a derivation $D$ from $\phi'$ to $\phi$ consisting of the $\wD$ and $\cD$ rules only. The proof $\Pi$ corresponds to a unique unification net which is equivalent to the fonet corresponding to $\Pi$, i.e., the fograph $G(\phi')$ together with the links of $\Pi$. By Lemma \ref{mlem}, there exists a skew bifibration $G(\phi') \rightarrow G(\phi)$. We have thus a combinatorial proof of $\phi$.
+By Theorem \ref{thm1}, there exists a formula $A'$ such that there is a proof
+$\Pi$ of $A'$ in $\FOMLL$ and a derivation $D$ from $A'$ to $A$ consisting of
+the $\wD$ and $\cD$ rules only. The proof $\Pi$ corresponds to a unique
+unification net which is equivalent to the fonet corresponding to $\Pi$, i.e.,
+the fograph $\Gr(A')$ together with the links of $\Pi$. By Lemma \ref{mlem}, 
+there exists a skew bifibration $\Gr(A') \rightarrow \Gr(A)$. We have thus a
+combinatorial proof of $A$.
 
 \end{proof}
 
