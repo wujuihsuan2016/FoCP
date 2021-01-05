@@ -654,7 +654,9 @@ the sequent or formula obtained by replacing the hole in $S\{ \ \}$ with the for
   \[S ::= C \ | \ A, S \ | \ S, A \] where $A$ is a formula.
 The above rule can be thus seen as the rewriting rule $A \rightarrow B$.
 
-We use the notation $\vlderivation{\vlde{}{\mathcal{P}}{B}{\vlhy {A}}}$ for denoting that there is a derivation from premise $\vdash S\{A\}$ to conclusion $\vdash S\{B\}$ in system $P$ for any context $S$.
+We use the notation $\vlderivation{\vlde{}{\mathcal{P}}{B}{\vlhy {A}}}$ for
+denoting that there is a derivation from premise $\vdash S\{A\}$ to conclusion
+$\vdash S\{B\}$ in system $\mathcal{P}$ for any context $S$.
 
 \section{From first-order logic to combinatorial proofs}
 
@@ -726,19 +728,9 @@ We start with Gentzen's sequent calculus system $\LK$ \cite{Gentzen 1935}.
 
 \end{center}
 
-We also consider the mix rule here:
+Note that the $\mix$ rule is derivable via weakening in $\LK$.
 
-\begin{center}
-\begin{prooftree}
-\hypo{\vdash \Gamma}
-\hypo{\vdash \Delta}
-\infer2[$mix$]{\vdash \Gamma, \Delta}
-\end{prooftree}
-\end{center}
-
-Note that the mix rule is derivable via weakening in $\LK$.
-
-Consider the following deep rules \cite{BT 2001}:
+Consider the following deep inference rules \cite{BT 2001}:
 \begin{center}
 \mbox{
 \begin{prooftree}
@@ -1315,6 +1307,9 @@ Let $A$ and $B$ be two formulas such that
 $\od{\odd{\odh {A}}{}{B}{\{\wD, \cD\}}}$. Then 
 $\od{\odd{\odh {\PE{A}}}{}{\PE{B}}{\{\wD, \cD\}}}$.
 \end{proposition}
+\begin{proof}
+  Trivial by induction.
+\end{proof}
 
 \begin{lemma}
 \label{mlem}
@@ -1437,39 +1432,34 @@ represent disjunctions of $E_x$ and $U_x$ respectiveley.
 
 We define a translation $(\cdot)^*$ inductively by:
 \begin{itemize}
-  \item $(E_x \vee \cdots \vee E_x)* = E_x^*$
-  \item $(U_x \vee \cdots \vee U_x)* = U_x^*$
+  \item $(E_x \vee \cdots \vee E_x)* = E_x$
+  \item $(U_x \vee \cdots \vee U_x)* = U_x$
   \item structural recursion in all the other cases.
 \end{itemize}
 
 Then the derivation:
  \[\od{\odd{\odd{\odh{\PE{A}} }
   {\Delta }{A'}{\me} }
-  {\Delta' }{B'}{\acD}} \]
+  {\Delta' }{\PE{B''}}{\acD}} \]
 can be translated to the derivation:
 \[\od{\odd{\odh{(\PE{A})^*} }
-{\Delta^* }{(B')^*}{}} \]
+{\Delta^* }{(\PE{B''})^*}{}} \]
 
 where $\Delta^*$ is the derivation obtained by replacing all the formulas $F$
-with $F^*$.
-
-Note that we should also introduce new rules in the derivation $\Delta^*$.
-Otherwise, the rule applications cannot work in general.
-
-To do that, we define the following rule transformation:
+with $F^*$ and by applying the following rule transformation:
 
 \begin{center}
 \mbox{
 \begin{prooftree}
-  \hypo{Q_x^*}
-  \infer1[$\acD$]{Q_x^*}
+  \hypo{Q_x}
+  \infer1[$\acD$]{Q_x}
 \end{prooftree}
 
 $\leadsto$
 
 \begin{prooftree}
-  \hypo{Q_x^*}
-  \infer1[$=$]{Q_x^*}
+  \hypo{Q_x}
+  \infer1[$=$]{Q_x}
 \end{prooftree}
 
 }
@@ -1477,34 +1467,33 @@ $\leadsto$
 
 \mbox{
 \begin{prooftree}
-  \hypo{(Q_x^* \wedge C) \vee (Q_x^* \wedge D)}
-  \infer1[$\me$]{Q_x^* \wedge (C \vee D)}
+  \hypo{(E_x \wedge C) \vee (E_x \wedge D)}
+  \infer1[$\me$]{E_x \wedge (C \vee D)}
 \end{prooftree}
 
 $\leadsto$
 
 \begin{prooftree}
-  \hypo{(Q_x^* \wedge C) \vee (Q_x^* \wedge D)}
-  \infer1[$\me'$]{Q_x^* \wedge (C \vee D)}
+  \hypo{(E_x \wedge C) \vee (E_x \wedge D)}
+  \infer1[$\me'$]{E_x \wedge (C \vee D)}
 \end{prooftree}
 
 }
 	
 \end{center}
-where $Q_x^*$ stands for $E_x^*$ or $U_x^*$.
+where $Q_x$ stands for $E_x$ or $U_x$.
 
 $\Delta^*$ can now be transformed into a valid derivation $\Delta_1$ by using the two
 transformation rules above and by applying them in a bottom-up style:
 \[\od{\odd{\odh{(\PE{A})^*} }
-{\Delta_1 }{(B')^*}{\acD, \me, \me'}} \]
+{\Delta_1 }{(\PE{B''})^*}{\acD, \me, \me'}} \]
 
 \begin{lemma}
-Every line of $\Delta_1$ is a propositional encoding (by
-confounding $Q_x^*$ with $Q_x$).
+Every line of $\Delta_1$ is a propositional encoding.
 
 \begin{proof}
 We proceed by bottom-up induction in the derivation.
-Clearly, $B'*$ is a propositional encoding as there is no disjunction of $Q_x$
+Clearly, $(\PE{B''})^*$ is a propositional encoding as there is no disjunction of $Q_x$
 in it.
 
 First consider the $\acD$ rule:
@@ -1528,7 +1517,7 @@ $\me'$), $G$ can be written as $G_1 \wedge G_2$ with $C \vee E = \PE{G_1}$ and $
 
 We have thus $G_i = \forall x_i H_i$ or $J_i \vee K_i (i = 1, 2)$.
 
-If $G_i = \forall x H_i$ for some $i$, then there will be a conjunction of $U_x^*$
+If $G_i = \forall x H_i$ for some $i$, then there will be a conjunction of $U_x$
 and some formula which can never be eliminated by the rules $\me$, $\me'$ and
 $\acD$. However, there exists no such conjunction in ${\PE{A}}^*$, which leads to a
 contradiction.
@@ -1540,19 +1529,19 @@ K_2))}$.
 Finally, consider the $\me'$ rule:
 
 \begin{prooftree}
-  \hypo{(Q_x^* \wedge C) \vee (Q_x^* \wedge D)}
-  \infer1[$\me'$]{Q_x^* \wedge (C \vee D)}
+  \hypo{(E_x \wedge C) \vee (E_x \wedge D)}
+  \infer1[$\me'$]{E_x \wedge (C \vee D)}
 \end{prooftree}
 
-Suppose that $Q_X^* \wedge (C \vee D)$ = $\PE{F}$ for some $F$. It is clear
-that $Q_x^* = E_x^*$ and $F = \exists x G$ with $\PE{G} = C \vee D$ for some $G$.
+Suppose that $E_X \wedge (C \vee D)$ = $\PE{F}$ for some $F$. It is clear
+that $F = \exists x G$ with $\PE{G} = C \vee D$ for some $G$.
 We distinguish two cases:
 \begin{itemize}
-  \item $G = \forall y H$: in this case, $(Q_x^* \wedge C) \vee (Q_x^* \wedge
-D)$ has a subformula $(E_x^* \wedge U_y^*)$, which cannot be eliminated by the
+  \item $G = \forall y H$: in this case, $(E_x \wedge C) \vee (E_x \wedge
+D)$ has a subformula $(E_x \wedge U_y)$, which cannot be eliminated by the
 	rules $\me$, $\me'$, $\acD$. It is clear that ${\PE{A}}^*$ does not
 have a subformula of this form, which leads to a contradiction.
-  \item $G = G_1 \vee G_2$: in this case, $(Q_x^* \wedge C) \vee (Q_x^* \wedge
+  \item $G = G_1 \vee G_2$: in this case, $(E_x \wedge C) \vee (E_x \wedge
   D) = \PE{((\exists x G_1) \vee (\exists x G_2))}$.
 \end{itemize}
 
