@@ -614,7 +614,7 @@ We also consider the $\mix$ rule:
 
 Let $\Gamma$ be a sequent in $\FOMLLm$. A \bfit{link} on $\Gamma$ is a pair of
 leaves whose atoms are pre-dual. A \bfit{linking} on $\Gamma$ is a set of 
-disjoint links such that each leaf of $\Gamma$ is in exacly one link. Similar
+disjoint links such that each leaf of $\Gamma$ is in exactly one link. Similar
 to the set of links in the linked fograph, a linking can be seen as a
 unification problem, and a link is said \bfit{unifiable} if the corresponding
 unification problem is solvable. \bfit{Dependencies} are defined as previously.
@@ -628,7 +628,7 @@ directed edge from $\exists x$ to $\forall y$ for every dependency $\exists x
 \rightarrow \forall y$.
 
 A \bfit{switching graph} of a unification structure $\US(\lambda)$ is any
-derivative of $\US(\lambda)$ obtained by keeping only one edge into each $\parr$
+derivative of $\US(\lambda)$ obtained by keeping only one edge into each $\vee$
 and $\forall$ and undirecting remaining edges. A linking is \bfit{correct} if it
 is unifiable and all of the switching graphs of its associated unification
 structure are acyclic.
@@ -872,14 +872,11 @@ equivalence between unification nets and fonets.
 \subsection{Equivalence between unification nets and fonets}
 In the following, we usually confound a vertex with its label. 
 
-We also confound $\parr$ with $\vee$ and $\otimes$ with $\wedge$ as unification
-nets and first-order nets (fonets) are defined in different contexts.
-
 \begin{definition} A \textit{switching path} of a unification structure $U(\lambda)$ is a path in a switching graph of $U(\lambda)$.
 \end{definition}
 
 \begin{definition} A \textit{switching path} of a  formula tree $\FT(A)$ is a
-	path in $\FT(A)$ that does not go through both incoming edges of a $\parr$.
+	path in $\FT(A)$ that does not go through both incoming edges of a $\vee$.
 \end{definition}
 
 \begin{proposition}
@@ -962,22 +959,24 @@ If there exists an induced bimatching of the linked fograph $G = \Gr(A)$, then t
   dependencies. Otherwise, since $(W, L_G)$ is a matching, there exists a
   unique existential quantifier adjacent to $\forall x$ and we keep thus the
   corresponding edge in the unification structure. \\
-  Now consider a $\parr$. We distinguish three cases:
+  Now consider a $\vee$. We distinguish three cases:
   \begin{itemize}
     \item the cycle goes through none of the two branches (incoming edges) of
-	    the $\parr$: we can choose an
-	    arbitrary switching for this $\parr$
+	    the $\vee$: we can choose an
+	    arbitrary switching for this $\vee$
     \item the cycle goes through exactly one branch: we choose the corresponding
 	    switching
     \item the cycle goes through both branches:
 	    this means that there exist $v_L \in W$ (resp. $v_R$) in the left
 		  (resp. right) branch, $u_L$, $u_R \in W$, such that
-		  $u_Lv_L, u_Rv_R \in E_W$ and that the corresponding switching path from $u_L$ to $v_L$ (resp. from $u_R$ to $v_R$) goes through the left (resp. right) edge of $\parr$.
+		  $u_Lv_L, u_Rv_R \in E_W$ and that the corresponding switching
+		  path from $u_L$ to $v_L$ (resp. from $u_R$ to $v_R$) goes
+		  through the left (resp. right) edge of $\vee$.
 		  
     \begin{center}	
     \begin{tikzpicture}
     \tikzstyle{every node}=[circle, minimum size=12pt, inner sep=2pt]
-    \draw (0, 0) node (par) {$\parr$};
+    \draw (0, 0) node (par) {$\vee$};
     \draw (1, 1.7) node (dots1) {$\vdots$};
     \draw (-1, 1.7) node (dots2) {$\vdots$};
     \draw (1, 3.4) node (vr) {$v_R$};
@@ -996,19 +995,19 @@ If there exists an induced bimatching of the linked fograph $G = \Gr(A)$, then t
     \draw (dots3) -- (par) [color=red];
     \end{tikzpicture}
     
-    {\bf Figure 7.} A schema showing that the two branches of the same $\parr$ cannot be used in the cycle at the same time. 
+    {\bf Figure 7.} A schema showing that the two branches of the same $\vee$ cannot be used in the cycle at the same time. 
     \end{center}
     
     The red (resp. blue) path is the switching path corresponding to the edge $u_Lv_L$ (resp. $u_Rv_R$) in $E_W$.  
     
     It is clear that $u_L$ (resp. $u_R$) is not in the branches of the
-	 $\parr$. Otherwise, there will be no switching path from $u_L$ to $v_L$ 
+	 $\vee$. Otherwise, there will be no switching path from $u_L$ to $v_L$ 
 
     By Proposition \ref{prop2}, we know that $u_L$ and $u_R$ are not
-	universal quantifiers which are ancestors the $\parr$
+	universal quantifiers which are ancestors the $\vee$
 	and that there exist one switching path from $u_L$ to $v_L$ and one
 	from $u_R$ to $v_R$. In particular, there exist one switching path from
-	$u_L$ to the $\parr$ and one from the $\parr$ to $v_R$, and by
+	$u_L$ to the $\vee$ and one from the $\vee$ to $v_R$, and by
 	concatenating the two, we obtain a switching path from $u_L$ to $v_R$. 
 	By Proposition \ref{prop2}, $u_L$ and $v_R$ are thus adjacent in $(W,
 	E_G)$, which is impossible since $(W, E_W)$ is a matching.
@@ -1040,7 +1039,11 @@ Let $\theta$ be a unification structure on an $\FOMLL$ sequent $\Gamma$.
 We define the \textit{frame}  of $\theta$ by exhaustively applying the following subformula rewriting steps, to obtain a proof structure $\theta_m$ on an $\MLL$ sequent $\Gamma_m$:
 
 \begin{enumerate}
-  \item {\bf Encode dependencies as fresh links.} For each dependency $\exists x \rightarrow \forall y$, with corresponding subformulas $\exists x A$ and $\forall y B$, we add a fresh link as follows. Let $P$ be a fresh (nullary) predicate symbol. Replace $\exists x A$ with $P \otimes \exists x A$ and $\forall y B$ with $\overline{P} \parr \forall y B$, and add an axiom link between $P$ and $\overline{P}$.
+  \item {\bf Encode dependencies as fresh links.} For each dependency $\exists x
+	  \rightarrow \forall y$, with corresponding subformulas $\exists x A$
+		and $\forall y B$, we add a fresh link as follows. Let $P$ be a
+		fresh (nullary) predicate symbol. Replace $\exists x A$ with $P
+		\wedge \exists x A$ and $\forall y B$ with $\overline{P} \vee \forall y B$, and add an axiom link between $P$ and $\overline{P}$.
   \item {\bf Erase quantifiers.} After step 1, erase all the quantifiers. (We no longer need their leaps since they are encoded as links in step 1.
   \item {\bf Simplify atoms.} After step 2, replace every predicate $Pt_1 \cdots t_n$ with a nullary predicate symbol $P$.
 \end{enumerate}
@@ -1049,14 +1052,14 @@ We define the \textit{frame}  of $\theta$ by exhaustively applying the following
 \begin{center}
 \begin{tikzpicture}
   \tikzstyle{every node}=[circle, minimum size=20pt, inner sep=2pt]
-  \draw (0, 0) node (par1) {$\parr$};
+  \draw (0, 0) node (par1) {$\vee$};
   \draw (1.8, 1.2) node (z) {\color{blue} $\forall z$};
-  \draw (-1.8, 1.2) node (par2) {$\parr$};
+  \draw (-1.8, 1.2) node (par2) {$\vee$};
     \draw (-2.8, 2.4) node (x) {\color{red} $\exists x$};
     \draw (-0.8, 2.4) node (y) {$\exists y$};
     \draw (-2.8, 3.6) node (px) {$\overline{p}x$};
     \draw (-0.8, 3.6) node (qy) {$\overline{q}y$};
-    \draw (1.8, 2.4) node (tens) {$\otimes$};
+    \draw (1.8, 2.4) node (tens) {$\wedge$};
     \draw (0.8, 3.6) node (pz) {$pz$};
     \draw (2.8, 3.6) node (qfz) {$qfz$};
     \draw (par1) -- (par2) [<-];
@@ -1077,18 +1080,18 @@ We define the \textit{frame}  of $\theta$ by exhaustively applying the following
 
 \begin{tikzpicture}
   \tikzstyle{every node}=[circle, minimum size=20pt, inner sep=2pt]
-  \draw (0, 0) node (par1) {$\parr$};
-  \draw (1, 0.9) node (par3) {\color{blue} $\parr$};
-  \draw (-1.8, 1.2) node (par2) {$\parr$};
-  \draw (-2.6, 2.4) node (tens1) {\color{red} $\otimes$};
-  \draw (-1, 2.4) node (tens2) {$\otimes$};
+  \draw (0, 0) node (par1) {$\vee$};
+  \draw (1, 0.9) node (par3) {\color{blue} $\vee$};
+  \draw (-1.8, 1.2) node (par2) {$\vee$};
+  \draw (-2.6, 2.4) node (tens1) {\color{red} $\wedge$};
+  \draw (-1, 2.4) node (tens2) {$\wedge$};
   \draw (-2.2, 3.6) node (S) {\color{red} $S$};
   \draw (-0.6, 3.6) node (R) {$R$};
   \draw (-3, 3.6) node (nP) {$\overline{P}$};
   \draw (-1.4, 3.6) node (nQ) {$\overline{Q}$};
   \draw (0.4, 3.6) node (nS) {\color{blue} $\overline{S}$};
-  \draw (1.6, 1.8) node (par4) {$\parr$};
-  \draw (2.2, 2.7) node (tens3) {$\otimes$};
+  \draw (1.6, 1.8) node (par4) {$\vee$};
+  \draw (2.2, 2.7) node (tens3) {$\wedge$};
   \draw (2, 3.6) node (P) {$P$};
   \draw (2.8, 3.6) node (Q) {$Q$};
   \draw (1.2, 3.6) node (nR) {$\overline{R}$};
