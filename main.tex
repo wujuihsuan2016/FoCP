@@ -335,7 +335,7 @@
 \newcommand*{\FOMLL}{\mathsf{MLL1}} 
 \newcommand*{\FOMLLm}{\mathsf{MLL1 + mix}}
 
-% ** SYMBOLS **
+% ** RULES **
 
 \newcommand{\ax}{\mathsf{ax}}
 \newcommand{\cut}{\mathsf{cut}}
@@ -344,6 +344,14 @@
 \newcommand{\univ}{\mathsf{\forall}}
 \newcommand{\exist}{\mathsf{\exists}}
 \newcommand{\mix}{\mathsf{mix}}
+\newcommand{\ctr}{\mathsf{ctr}}
+\newcommand{\wk}{\mathsf{wk}}
+
+% ** SYMBOLS **
+
+\newcommand{\cor}{\vee}
+\newcommand{\cand}{\wedge}
+
 % ** SPECIAL **
 
 \newcommand{\Gr}{\mathcal{G}}
@@ -353,6 +361,7 @@
 \newcommand{\PE}[1]{#1^P}
 
 % ** FONT STYLE **
+
 
 \DeclareTextFontCommand{\bfit}{\bfseries\itshape}
 
@@ -368,7 +377,7 @@
 % not capitalized unless they are the first or last word of the title.
 % Linebreaks \\ can be used within to get better formatting as desired.
 % Do not put math or special symbols in the title.
-\title{On First-order Proofs without syntax}
+\title{Combinatorial Proofs and Decomposition Theorem for First-order Logic}
 
 
 % author names and affiliations
@@ -444,7 +453,7 @@ France}}
 \section{Introduction}
 
 \section{First-order Combinatorial Proofs}
-\subsection{First-order Logic and Graphs}
+\subsection{First-order Logic}
 
 \bfit{Terms} $s, t, u, \ldots$ and \bfit{atoms} (atomic formulas) $\alpha, \beta,
 \gamma, \ldots$ are generated inductively from variables $x, y, z, \ldots$: if
@@ -456,8 +465,106 @@ predicate symbol $\overline{p}$ with $\overline{p} \neq p$ and
 $\overline{\overline{p}} = p$. We extend the duality to atoms with
 $\overline{pt_1 \ldots t_n} = \overline{p}t_1 \ldots t_n$, $\overline{\ttt} =
 \fff$, and $\overline{\fff} = \ttt$. \bfit{Formulas} $A, B, C$ are generated inductively from atoms by binary
-connectives $\vee$ and $\wedge$ and quantifiers $\forall x$ and $\exists x$.
-The \bfit{negation} $\neg$ is defined in the usual way. A formula is \bfit{rectified} if all bound variables are distinct from one another and from all free variables. Without loss of generality, we assume that all formulas are rectifed throughtout the paper as every formula has a logically equivalent rectified form.
+connectives $\cor$ and $\cand$ and quantifiers $\forall x$ and $\exists x$.
+The \bfit{negation} $\neg$ is defined in the usual way. A formula is
+\bfit{rectified} if all bound variables are distinct from one another and from
+all free variables. Without loss of generality, we assume that all formulas are
+rectifed throughtout the paper as every formula has a logically equivalent
+rectified form. A formula is \bfit{semi-rectified} if it can be rectified in a
+unique way via variable renaming.
+
+We consider Gentzen's sequent calculus system $\LK$ \cite{Gentzen 1935}.
+
+A \bfit{sequent} is a multiset of formulas and sequents are proved using the
+following inference rules.
+\begin{center}
+
+\mbox{
+\begin{prooftree}
+  \infer0[$\ax$]{\vdash A, \neg A}
+\end{prooftree}
+\hspace{2cm}
+
+\begin{prooftree}
+  \hypo{\vdash \Gamma, A}
+  \hypo{\vdash \Delta, \neg A}
+  \infer2[$\cut$]{\vdash \Gamma, \Delta}
+\end{prooftree}}
+\vspace{0.2cm}
+
+\mbox{
+\begin{prooftree}
+  \hypo{\vdash \Gamma, A}
+  \hypo{\vdash \Delta, B}
+  \infer2[$\cand$]{\vdash \Gamma, \Delta, A \cand B}
+\end{prooftree}
+\hspace{1.5cm}
+
+\begin{prooftree}
+  \hypo{\vdash \Gamma, A, B}
+  \infer1[$\cor$]{\vdash \Gamma, A \cor B}
+\end{prooftree}}
+\vspace{0.2cm}
+
+\mbox{
+\begin{prooftree}
+  \hypo{\vdash \Gamma, A, A}
+  \infer1[$\ctr$]{\vdash \Gamma, A}
+\end{prooftree}
+	\hspace{2cm}
+
+\begin{prooftree}
+  \hypo{\vdash \Gamma}
+  \infer1[$\wk$]{\vdash \Gamma, A}
+\end{prooftree}}
+
+\mbox{
+\begin{prooftree}
+\infer0[$\ttt$]{\vdash \ttt}
+\end{prooftree}
+\hspace{2cm}
+
+\begin{prooftree}
+  \hypo{\vdash \Gamma}
+	\infer1[$\fff$]{\vdash \Gamma, \fff}
+\end{prooftree}}
+
+\mbox{
+\begin{prooftree}
+  \hypo{\vdash \Gamma, A}
+  \infer1[$\forall$]{\vdash \Gamma, \forall x A}
+\end{prooftree}
+($x \notin fv(\Gamma)$)
+\hspace{1.2cm}
+
+\begin{prooftree}
+  \hypo{\vdash \Gamma, A[t/x]}
+  \infer1[$\exists$]{\vdash \Gamma, \exists x A}
+\end{prooftree}}
+
+\end{center}
+
+In this paper, we also use some \bfit{deep inference} \cite{BT 2001} rules that are in the
+following form:
+\begin{center}
+\begin{prooftree}
+  \hypo{\vdash S\{A\}}
+  \infer1[]{\vdash S\{B\}}
+\end{prooftree}
+\end{center}
+where $S\{ \ \}$ stands for a \bfit{context}, which corresponds to a sequent
+with a hole taking the place of an atom, and $S\{A\}$ represents
+the sequent or formula obtained by replacing the hole in $S\{ \ \}$ with the formula $A$. Formally, 
+
+  \[C ::= \Box \ | \ A \cor C \ | \ C \cand A \ | \ \exists x C \ | \ \forall x C \].
+  \[S ::= C \ | \ A, S \ | \ S, A \] where $A$ is a formula.
+The above rule can be thus seen as the rewriting rule $A \rightarrow B$.
+
+We use the notation $\vlderivation{\vlde{}{\mathcal{P}}{B}{\vlhy {A}}}$ for
+denoting that there is a derivation from premise $\vdash S\{A\}$ to conclusion
+$\vdash S\{B\}$ in system $\mathcal{P}$ for any context $S$.
+
+\subsection{Graphs}
 
 A \bfit{directed graph} $G = (V, E)$ consists of a finite set $V$ of
 \bfit{vertices} and a set of $E \subseteq V \times V$ of \bfit{direct edges}. An
@@ -499,7 +606,7 @@ We now introduce first-order graphs which are used to represent first-order form
 A \bfit{first-order graph} or \bfit{fograph} is a logical cograph with legal binders.
 \end{definition}
 
-For a formula $A$, we can define its associated fograph $\Gr(A)$ inductively by: $\Gr(\alpha) = \cdot \alpha$ (a single-vertex graph whose vertex is labelled by $\alpha$); $\Gr(A \vee B) = \Gr(A) + \Gr(B)$ and $\Gr(A \wedge B) = \Gr(A) \times \Gr(B)$.
+For a formula $A$, we can define its associated fograph $\Gr(A)$ inductively by: $\Gr(\alpha) = \cdot \alpha$ (a single-vertex graph whose vertex is labelled by $\alpha$); $\Gr(A \cor B) = \Gr(A) + \Gr(B)$ and $\Gr(A \cand B) = \Gr(A) \times \Gr(B)$.
 The \bfit{binding graph} of a forgraph $G$ is the directed graph $(V_G, \{(b,
 l) | b \text{ binds } l\})$.
 
@@ -553,7 +660,7 @@ combinatorial proof} of a formula $A$ is a combinatorial proof of its graph
 \subsection{$\FOMLL$ and Unification Nets}
 
 In $\FOMLL$, terms, atoms, formulas are defined as in first-order logic. For
-simplicity, we choose to use $\vee$ and $\wedge$ instead of $\parr$ and
+simplicity, we choose to use $\cor$ and $\cand$ instead of $\parr$ and
 $\otimes$ which are generally used in the presentation of linear logic.
 A formula $A$ is identified with its \bfit{formula tree} $\FT(A)$, a directed
 tree with leaves labelled by atoms, internal nodes labelled by connectives and
@@ -579,13 +686,13 @@ Sequents are proved using the inference rules of $\FOMLL$:
 \begin{prooftree}
   \hypo{\vdash \Gamma, A}
   \hypo{\vdash \Delta, B}
-  \infer2[$\conj$]{\vdash \Gamma, \Delta, A \wedge B}
+  \infer2[$\conj$]{\vdash \Gamma, \Delta, A \cand B}
 \end{prooftree}
 \hspace{1.5cm}
 
 \begin{prooftree}
   \hypo{\vdash \Gamma, A, B}
-  \infer1[$\disj$]{\vdash \Gamma, A \vee B}
+  \infer1[$\disj$]{\vdash \Gamma, A \cor B}
 \end{prooftree}}
 
 \mbox{
@@ -620,7 +727,7 @@ unification problem, and a link is said \bfit{unifiable} if the corresponding
 unification problem is solvable. \bfit{Dependencies} are defined as previously.
 
 Let $\lambda$ is a unifiable linking on $\Gamma = A_1, \ldots, A_n$.
-Let $A = A_1 \vee \ldots \vee A_n$. The \bfit{unification structure}
+Let $A = A_1 \cor \ldots \cor A_n$. The \bfit{unification structure}
 $\US(\lambda)$
 associated to $\lambda$ is the formula tree $\FT(A)$ together with an undirected
 edge between leaves $l$ and $l'$ for every link $\{l, l'\}$ in $\lambda$ and a
@@ -628,7 +735,7 @@ directed edge from $\exists x$ to $\forall y$ for every dependency $\exists x
 \rightarrow \forall y$.
 
 A \bfit{switching graph} of a unification structure $\US(\lambda)$ is any
-derivative of $\US(\lambda)$ obtained by keeping only one edge into each $\vee$
+derivative of $\US(\lambda)$ obtained by keeping only one edge into each $\cor$
 and $\forall$ and undirecting remaining edges. A linking is \bfit{correct} if it
 is unifiable and all of the switching graphs of its associated unification
 structure are acyclic.
@@ -637,104 +744,14 @@ structure are acyclic.
   A \bfit{unification net} on a sequent $\Gamma$ is a correct linking on $\Gamma$.
 \end{definition}
 
-\subsection{Deep Inference}
-In this paper we also use some \bfit{deep inference} \cite{BT 2001} rules that are in the
-following form:
-\begin{center}
-\begin{prooftree}
-  \hypo{\vdash S\{A\}}
-  \infer1[]{\vdash S\{B\}}
-\end{prooftree}
-\end{center}
-where $S\{ \ \}$ stands for a \bfit{context}, which corresponds to a sequent
-with a hole taking the place of an atom, and $S\{A\}$ represents
-the sequent or formula obtained by replacing the hole in $S\{ \ \}$ with the formula $A$. Formally, 
-
-  \[C ::= \Box \ | \ A \vee C \ | \ C \wedge A \ | \ \exists x C \ | \ \forall x C \].
-  \[S ::= C \ | \ A, S \ | \ S, A \] where $A$ is a formula.
-The above rule can be thus seen as the rewriting rule $A \rightarrow B$.
-
-We use the notation $\vlderivation{\vlde{}{\mathcal{P}}{B}{\vlhy {A}}}$ for
-denoting that there is a derivation from premise $\vdash S\{A\}$ to conclusion
-$\vdash S\{B\}$ in system $\mathcal{P}$ for any context $S$.
-
 \section{From first-order logic to combinatorial proofs}
 
-\subsection{$\LK$}
-We start with Gentzen's sequent calculus system $\LK$ \cite{Gentzen 1935}.
-
-\begin{center}
-
-\mbox{
-\begin{prooftree}
-  \infer0[$ax$]{\vdash A, \neg A}
-\end{prooftree}
-\hspace{2cm}
-
-\begin{prooftree}
-  \hypo{\vdash \Gamma, A}
-  \hypo{\vdash \Delta, \neg A}
-  \infer2[$cut$]{\vdash \Gamma, \Delta}
-\end{prooftree}}
-
-\mbox{
-\begin{prooftree}
-  \hypo{\vdash \Gamma, A}
-  \hypo{\vdash \Delta, B}
-  \infer2[$\wedge$]{\vdash \Gamma, \Delta, A \wedge B}
-\end{prooftree}
-\hspace{1.5cm}
-
-\begin{prooftree}
-  \hypo{\vdash \Gamma, A, B}
-  \infer1[$\vee$]{\vdash \Gamma, A \vee B}
-\end{prooftree}}
-
-\mbox{
-\begin{prooftree}
-  \hypo{\vdash \Gamma, A, A}
-  \infer1[$ctr$]{\vdash \Gamma, A}
-\end{prooftree}
-	\hspace{2cm}
-
-\begin{prooftree}
-  \hypo{\vdash \Gamma}
-  \infer1[$wk$]{\vdash \Gamma, A}
-\end{prooftree}}
-
-\mbox{
-\begin{prooftree}
-\infer0[$\ttt$]{\vdash \ttt}
-\end{prooftree}
-\hspace{2cm}
-
-\begin{prooftree}
-  \hypo{\vdash \Gamma}
-	\infer1[$\fff$]{\vdash \Gamma, \fff}
-\end{prooftree}}
-
-\mbox{
-\begin{prooftree}
-  \hypo{\vdash \Gamma, A}
-  \infer1[$\forall$]{\vdash \Gamma, \forall x A}
-\end{prooftree}
-($x \notin fv(\Gamma)$)
-\hspace{2cm}
-
-\begin{prooftree}
-  \hypo{\vdash \Gamma, A[t/x]}
-  \infer1[$\exists$]{\vdash \Gamma, \exists x A}
-\end{prooftree}}
-
-\end{center}
-
-Note that the $\mix$ rule is derivable via weakening in $\LK$.
-
+\subsection{Decomposition Theorem}
 Consider the following deep inference rules \cite{BT 2001}:
 \begin{center}
 \mbox{
 \begin{prooftree}
-  \hypo{\vdash S\{A \vee A\}}
+  \hypo{\vdash S\{A \cor A\}}
   \infer1[$\cD$]{\vdash S\{A\}}
 \end{prooftree}
 \hspace{2cm}
@@ -746,7 +763,7 @@ Consider the following deep inference rules \cite{BT 2001}:
 }
 \end{center}
 
-Note that the $ctr$ (resp. $wk$) rule in $\LK$ is derivable in $\{\cD, \vee\}$
+Note that the $\ctr$ (resp. $\wk$) rule in $\LK$ is derivable in $\{\cD, \cor\}$
 (resp. $\{\wD, \fff\}$) and that $\cD$ and $\wD$ rules
 permute downwards with the non-structural rules of $\LK$. 
 
@@ -755,14 +772,14 @@ permute downwards with the non-structural rules of $\LK$.
 
 \begin{prooftree}
   \hypo{\vdash \Gamma, A, A}
-  \infer1[$ctr$]{\vdash \Gamma, A}
+  \infer1[$\ctr$]{\vdash \Gamma, A}
 \end{prooftree}
 
 $\ \leadsto \ $
 
 \begin{prooftree}
   \hypo{\vdash \Gamma, A, A}
-  \infer1[$\vee$]{\vdash \Gamma, A \vee A}
+  \infer1[$\cor$]{\vdash \Gamma, A \cor A}
   \infer1[$\cD$]{\vdash \Gamma, A}
 \end{prooftree}}
 \vspace{0.2cm}
@@ -770,7 +787,7 @@ $\ \leadsto \ $
 \mbox{
 \begin{prooftree}
   \hypo{\vdash \Gamma}
-  \infer1[$wk$]{\vdash \Gamma, A}
+  \infer1[$\wk$]{\vdash \Gamma, A}
 \end{prooftree}
 
 $\ \leadsto \ $
@@ -789,19 +806,19 @@ We also give an example to show how rule permutation works:
 
 \mbox{
 \begin{prooftree}
-\hypo{\Gamma,A \vee A}
+\hypo{\Gamma,A \cor A}
 \infer1[$\cD$]{\Gamma,A} 
 \hypo{\Delta,B}
-\infer2[$\wedge$]{\Gamma, \Delta, A \wedge B} 
+\infer2[$\cand$]{\Gamma, \Delta, A \cand B} 
 \end{prooftree}
 
 $\ \leadsto \ $
 
 \begin{prooftree}
-\hypo{\Gamma,A \vee A}
+\hypo{\Gamma,A \cor A}
 \hypo{\Delta,B}
-\infer2[$\wedge$]{\Gamma, \Delta, (A \vee A) \wedge B} 
-\infer1[$\cD$]{\Gamma, \Delta, A \wedge B} 
+\infer2[$\cand$]{\Gamma, \Delta, (A \cor A) \cand B} 
+\infer1[$\cD$]{\Gamma, \Delta, A \cand B} 
 \end{prooftree}}
 
 \end{center}
@@ -819,13 +836,13 @@ Let $\Gamma$ be a sequent. Then there is a proof of $\Pi$ in $\LKm$ iff there is
 ($\Leftarrow$)
 We regard the proof in $\FOMLLm$ as a proof in $\LKm$.
 Then we put the derivation consisting of only $\cD$ and $\wD$ under the proof in $\LKm$. Now we try to permute all the instances $\cD$ and $\wD$ upwards with the rules of LK and $mix$. 
-For the $\cD$ part, the only non-trivial case is the permutation with the $\vee$ rule where the formula generated is $A \vee A$.
+For the $\cD$ part, the only non-trivial case is the permutation with the $\cor$ rule where the formula generated is $A \cor A$.
 
 \begin{center}
 \mbox{
 \begin{prooftree}
 \hypo{\vdash \Gamma, A, A}
-\infer1[$\vee$]{\vdash \Gamma, A \vee A}
+\infer1[$\cor$]{\vdash \Gamma, A \cor A}
 \infer1[$\cD$]{\vdash \Gamma, A}
 \end{prooftree}
 
@@ -833,7 +850,7 @@ $\ \leadsto \ $
 
 \begin{prooftree}
 \hypo{\vdash \Gamma, A, A}
-\infer1[$ctr$]{\vdash \Gamma, A}
+\infer1[$\ctr$]{\vdash \Gamma, A}
 \end{prooftree}
 
 } 
@@ -855,7 +872,7 @@ $\ \leadsto \ $
 
 \begin{prooftree}
 \hypo{\vdash \Gamma}
-\infer1[$wk$]{\vdash \Gamma, A}
+\infer1[$\wk$]{\vdash \Gamma, A}
 \end{prooftree}
 
 } 
@@ -872,11 +889,11 @@ equivalence between unification nets and fonets.
 \subsection{Equivalence between unification nets and fonets}
 In the following, we usually confound a vertex with its label. 
 
-\begin{definition} A \textit{switching path} of a unification structure $U(\lambda)$ is a path in a switching graph of $U(\lambda)$.
+\begin{definition} A \bfit{switching path} of a unification structure $U(\lambda)$ is a path in a switching graph of $U(\lambda)$.
 \end{definition}
 
-\begin{definition} A \textit{switching path} of a  formula tree $\FT(A)$ is a
-	path in $\FT(A)$ that does not go through both incoming edges of a $\vee$.
+\begin{definition} A \bfit{switching path} of a  formula tree $\FT(A)$ is a
+	path in $\FT(A)$ that does not go through both incoming edges of a $\cor$.
 \end{definition}
 
 \begin{proposition}
@@ -893,14 +910,14 @@ Let $u$ and $v$ be two distinct vertices of a fograph $\Gr(A)$, then we have the
 between:
 \begin{itemize}
   \item $u$ and $v$ are adjacent in $\Gr(A)$
-  \item $u$ and $v$ are connected by a switching path of $F(A)$, and if one of them is a universal quantifier, then the other is
+  \item $u$ and $v$ are connected by a switching path of $\FT(A)$, and if one of them is a universal quantifier, then the other is
 	not a descendant of the former.
   \end{itemize}
 \begin{proof}
 By induction on $A$.
 \begin{itemize}
   \item If $A$ is an atom, trivial.
-  \item If $A = A_1 \wedge A_2$, then we distinguish two cases:
+  \item If $A = A_1 \cand A_2$, then we distinguish two cases:
     \begin{itemize}
       \item $u$ and $v$ are both in $A_1$ (resp. $A_2$): trivial by
 	      the induction hypothesis.
@@ -908,10 +925,10 @@ By induction on $A$.
 	      adjacent in $\Gr(A)$ by definition. By Proposition \ref{prop1},
 		    the one in $A_1$ (resp. $A_2$) is connected to the
 		    vertex representing $A_1$ (resp. $A_2$) by a switching
-		    path. Together with the two edges incident to $A_1 \wedge
+		    path. Together with the two edges incident to $A_1 \cand
 		    A_2$, we obtain a switching path connecting $u$ and $v$.
     \end{itemize}
-  \item If $A = A_1 \vee A_2$, then we distinguish two cases:
+  \item If $A = A_1 \cor A_2$, then we distinguish two cases:
     \begin{itemize}
       \item $u$ and $v$ are both in $A_1$ (resp. $A_2$): trivial by
 	      the induction hypothesis.
@@ -959,11 +976,11 @@ If there exists an induced bimatching of the linked fograph $G = \Gr(A)$, then t
   dependencies. Otherwise, since $(W, L_G)$ is a matching, there exists a
   unique existential quantifier adjacent to $\forall x$ and we keep thus the
   corresponding edge in the unification structure. \\
-  Now consider a $\vee$. We distinguish three cases:
+  Now consider a $\cor$. We distinguish three cases:
   \begin{itemize}
     \item the cycle goes through none of the two branches (incoming edges) of
-	    the $\vee$: we can choose an
-	    arbitrary switching for this $\vee$
+	    the $\cor$: we can choose an
+	    arbitrary switching for this $\cor$
     \item the cycle goes through exactly one branch: we choose the corresponding
 	    switching
     \item the cycle goes through both branches:
@@ -971,12 +988,12 @@ If there exists an induced bimatching of the linked fograph $G = \Gr(A)$, then t
 		  (resp. right) branch, $u_L$, $u_R \in W$, such that
 		  $u_Lv_L, u_Rv_R \in E_W$ and that the corresponding switching
 		  path from $u_L$ to $v_L$ (resp. from $u_R$ to $v_R$) goes
-		  through the left (resp. right) edge of $\vee$.
+		  through the left (resp. right) edge of $\cor$.
 		  
     \begin{center}	
     \begin{tikzpicture}
     \tikzstyle{every node}=[circle, minimum size=12pt, inner sep=2pt]
-    \draw (0, 0) node (par) {$\vee$};
+    \draw (0, 0) node (par) {$\cor$};
     \draw (1, 1.7) node (dots1) {$\vdots$};
     \draw (-1, 1.7) node (dots2) {$\vdots$};
     \draw (1, 3.4) node (vr) {$v_R$};
@@ -995,19 +1012,19 @@ If there exists an induced bimatching of the linked fograph $G = \Gr(A)$, then t
     \draw (dots3) -- (par) [color=red];
     \end{tikzpicture}
     
-    {\bf Figure 7.} A schema showing that the two branches of the same $\vee$ cannot be used in the cycle at the same time. 
+    {\bf Figure 7.} A schema showing that the two branches of the same $\cor$ cannot be used in the cycle at the same time. 
     \end{center}
     
     The red (resp. blue) path is the switching path corresponding to the edge $u_Lv_L$ (resp. $u_Rv_R$) in $E_W$.  
     
     It is clear that $u_L$ (resp. $u_R$) is not in the branches of the
-	 $\vee$. Otherwise, there will be no switching path from $u_L$ to $v_L$ 
+	 $\cor$. Otherwise, there will be no switching path from $u_L$ to $v_L$ 
 
     By Proposition \ref{prop2}, we know that $u_L$ and $u_R$ are not
-	universal quantifiers which are ancestors the $\vee$
+	universal quantifiers which are ancestors the $\cor$
 	and that there exist one switching path from $u_L$ to $v_L$ and one
 	from $u_R$ to $v_R$. In particular, there exist one switching path from
-	$u_L$ to the $\vee$ and one from the $\vee$ to $v_R$, and by
+	$u_L$ to the $\cor$ and one from the $\cor$ to $v_R$, and by
 	concatenating the two, we obtain a switching path from $u_L$ to $v_R$. 
 	By Proposition \ref{prop2}, $u_L$ and $v_R$ are thus adjacent in $(W,
 	E_G)$, which is impossible since $(W, E_W)$ is a matching.
@@ -1036,14 +1053,14 @@ We use frames introduced by D. Hughes in Section 4 of \cite{Hughes 2015}.
 
 \begin{definition}
 Let $\theta$ be a unification structure on an $\FOMLL$ sequent $\Gamma$.
-We define the \textit{frame}  of $\theta$ by exhaustively applying the following subformula rewriting steps, to obtain a proof structure $\theta_m$ on an $\MLL$ sequent $\Gamma_m$:
+We define the \bfit{frame}  of $\theta$ by exhaustively applying the following subformula rewriting steps, to obtain a proof structure $\theta_m$ on an $\MLL$ sequent $\Gamma_m$:
 
 \begin{enumerate}
   \item {\bf Encode dependencies as fresh links.} For each dependency $\exists x
 	  \rightarrow \forall y$, with corresponding subformulas $\exists x A$
 		and $\forall y B$, we add a fresh link as follows. Let $P$ be a
 		fresh (nullary) predicate symbol. Replace $\exists x A$ with $P
-		\wedge \exists x A$ and $\forall y B$ with $\overline{P} \vee \forall y B$, and add an axiom link between $P$ and $\overline{P}$.
+		\cand \exists x A$ and $\forall y B$ with $\overline{P} \cor \forall y B$, and add an axiom link between $P$ and $\overline{P}$.
   \item {\bf Erase quantifiers.} After step 1, erase all the quantifiers. (We no longer need their leaps since they are encoded as links in step 1.
   \item {\bf Simplify atoms.} After step 2, replace every predicate $Pt_1 \cdots t_n$ with a nullary predicate symbol $P$.
 \end{enumerate}
@@ -1052,14 +1069,14 @@ We define the \textit{frame}  of $\theta$ by exhaustively applying the following
 \begin{center}
 \begin{tikzpicture}
   \tikzstyle{every node}=[circle, minimum size=20pt, inner sep=2pt]
-  \draw (0, 0) node (par1) {$\vee$};
+  \draw (0, 0) node (par1) {$\cor$};
   \draw (1.8, 1.2) node (z) {\color{blue} $\forall z$};
-  \draw (-1.8, 1.2) node (par2) {$\vee$};
+  \draw (-1.8, 1.2) node (par2) {$\cor$};
     \draw (-2.8, 2.4) node (x) {\color{red} $\exists x$};
     \draw (-0.8, 2.4) node (y) {$\exists y$};
     \draw (-2.8, 3.6) node (px) {$\overline{p}x$};
     \draw (-0.8, 3.6) node (qy) {$\overline{q}y$};
-    \draw (1.8, 2.4) node (tens) {$\wedge$};
+    \draw (1.8, 2.4) node (tens) {$\cand$};
     \draw (0.8, 3.6) node (pz) {$pz$};
     \draw (2.8, 3.6) node (qfz) {$qfz$};
     \draw (par1) -- (par2) [<-];
@@ -1080,18 +1097,18 @@ We define the \textit{frame}  of $\theta$ by exhaustively applying the following
 
 \begin{tikzpicture}
   \tikzstyle{every node}=[circle, minimum size=20pt, inner sep=2pt]
-  \draw (0, 0) node (par1) {$\vee$};
-  \draw (1, 0.9) node (par3) {\color{blue} $\vee$};
-  \draw (-1.8, 1.2) node (par2) {$\vee$};
-  \draw (-2.6, 2.4) node (tens1) {\color{red} $\wedge$};
-  \draw (-1, 2.4) node (tens2) {$\wedge$};
+  \draw (0, 0) node (par1) {$\cor$};
+  \draw (1, 0.9) node (par3) {\color{blue} $\cor$};
+  \draw (-1.8, 1.2) node (par2) {$\cor$};
+  \draw (-2.6, 2.4) node (tens1) {\color{red} $\cand$};
+  \draw (-1, 2.4) node (tens2) {$\cand$};
   \draw (-2.2, 3.6) node (S) {\color{red} $S$};
   \draw (-0.6, 3.6) node (R) {$R$};
   \draw (-3, 3.6) node (nP) {$\overline{P}$};
   \draw (-1.4, 3.6) node (nQ) {$\overline{Q}$};
   \draw (0.4, 3.6) node (nS) {\color{blue} $\overline{S}$};
-  \draw (1.6, 1.8) node (par4) {$\vee$};
-  \draw (2.2, 2.7) node (tens3) {$\wedge$};
+  \draw (1.6, 1.8) node (par4) {$\cor$};
+  \draw (2.2, 2.7) node (tens3) {$\cand$};
   \draw (2, 3.6) node (P) {$P$};
   \draw (2.8, 3.6) node (Q) {$Q$};
   \draw (1.2, 3.6) node (nR) {$\overline{R}$};
@@ -1137,32 +1154,32 @@ on quantifiers.
 \begin{center}
 \mbox{
 \begin{prooftree}
-  \hypo{\vdash S\{a \vee a\}}
+  \hypo{\vdash S\{a \cor a\}}
   \infer1[$\acD$]{\vdash S\{a\}}
 \end{prooftree}
 \hspace{0.3cm}
 
 \begin{prooftree}
-  \hypo{\vdash S\{(A \wedge B) \vee (C \wedge D)\}}
-  \infer1[$\me$]{\vdash S\{(A \vee C) \wedge (B \vee D)\}}
+  \hypo{\vdash S\{(A \cand B) \cor (C \cand D)\}}
+  \infer1[$\me$]{\vdash S\{(A \cor C) \cand (B \cor D)\}}
 \end{prooftree}}
 \vspace{0.2cm}
 
 \mbox{
 \begin{prooftree}
-  \hypo{\vdash S\{\exists x A \vee \exists x B\}}
-  \infer1[$\mee$]{\vdash S\{\exists x (A \vee B)\}}
+  \hypo{\vdash S\{\exists x A \cor \exists x B\}}
+  \infer1[$\mee$]{\vdash S\{\exists x (A \cor B)\}}
 \end{prooftree}	
 \hspace{0.3cm}
 
 \begin{prooftree}
-  \hypo{\vdash S\{\forall x A \vee \forall x B\}}
-  \infer1[$\meee$]{\vdash S\{\forall x (A \vee B)\}}
+  \hypo{\vdash S\{\forall x A \cor \forall x B\}}
+  \infer1[$\meee$]{\vdash S\{\forall x (A \cor B)\}}
 \end{prooftree}	
 }
 \end{center}
 
-Here, we also consider the equivalence generated by the associativity, commutativity of $\vee$ and the equations $\ttt \vee A \equiv \ttt$ and $\fff \vee A \equiv A$.
+Here, we also consider the equivalence generated by the associativity, commutativity of $\cor$ and the equations $\ttt \cor A \equiv \ttt$ and $\fff \cor A \equiv A$.
 
 Now we have the following lemma:
 
@@ -1172,61 +1189,61 @@ The contraction rule $\cD$ is derivable for $\{\acD, \me, \mee, \meee\}$.
 \end{lemma}
 \begin{proof}
 	We prove that there is always $\vlderivation{\vlde{}{\{\acD, \me, \mee,
-	\meee\}}{A}{\vlhy {A \vee A}}}$ by structural induction on $A$.
+	\meee\}}{A}{\vlhy {A \cor A}}}$ by structural induction on $A$.
 \begin{itemize}
   \item If $A = \ttt$ or $A = \fff$, we have 
 	  \begin{prooftree} 
-	    \hypo{\vdash S\{A \vee A\}}
+	    \hypo{\vdash S\{A \cor A\}}
 	    \infer1[$\equiv$]{\vdash S\{A\}}
 	  \end{prooftree}. (the premiss and the conclusion are equivalent)
   \item If $A = a$, then we have 
 	  \begin{prooftree}
-	    \hypo{\vdash S\{a \vee a\}}
+	    \hypo{\vdash S\{a \cor a\}}
 	    \infer1[$\acD$]{\vdash S\{a\}}.
 	  \end{prooftree}
-  \item If $A = A_1 \vee A_2$, then by the induction hypothesis, we have 
+  \item If $A = A_1 \cor A_2$, then by the induction hypothesis, we have 
 	  $\vlderivation{\vlde{}{\{\acD, \me, \mee,
-	\meee\}}{A_i}{\vlhy {A_i \vee A_i}}}$ for $i = 1, 2$.
+	\meee\}}{A_i}{\vlhy {A_i \cor A_i}}}$ for $i = 1, 2$.
 	
 	Hence, we have
 	\begin{prooftree}
-	  \hypo{\vdash S\{(A_1 \vee A_2) \vee (A_1 \vee A_2)\}}
-	  \infer1[$\equiv$]{\vdash S\{(A_1 \vee A_1) \vee (A_2 \vee A_2)\}}
+	  \hypo{\vdash S\{(A_1 \cor A_2) \cor (A_1 \cor A_2)\}}
+	  \infer1[$\equiv$]{\vdash S\{(A_1 \cor A_1) \cor (A_2 \cor A_2)\}}
 	  \ellipsis{$\{\acD, \me, \mee, \meee\}$}
-		   {\vdash S\{A_1 \vee (A_2 \vee A_2)\}}
+		   {\vdash S\{A_1 \cor (A_2 \cor A_2)\}}
 	  \ellipsis{$\{\acD, \me, \mee, \meee\}$}
-		   {\vdash S\{A_1 \vee A_2\}}
+		   {\vdash S\{A_1 \cor A_2\}}
 	\end{prooftree}
-  \item If $A = A_1 \wedge A_2$, then by the induction hypothesis, we have 
+  \item If $A = A_1 \cand A_2$, then by the induction hypothesis, we have 
 $\vlderivation{\vlde{}{\{\acD, \me, \mee, \meee\}}{A_i}
-	      {\vlhy {A_i \vee A_i}}}$ for $i = 1, 2$.
+	      {\vlhy {A_i \cor A_i}}}$ for $i = 1, 2$.
 
  	Hence, we have
 	\begin{prooftree}
-	  \hypo{\vdash S\{(A_1 \wedge A_2) \vee (A_1 \wedge A_2)\}}
-	  \infer1[$\me$]{\vdash S\{(A_1 \vee A_1) \wedge (A_2 \vee A_2)\}}
+	  \hypo{\vdash S\{(A_1 \cand A_2) \cor (A_1 \cand A_2)\}}
+	  \infer1[$\me$]{\vdash S\{(A_1 \cor A_1) \cand (A_2 \cor A_2)\}}
 	  \ellipsis{$\{\acD, \me, \mee, \meee\}$}
-		   {\vdash S\{A_1 \wedge (A_2 \vee A_2)\}}
+		   {\vdash S\{A_1 \cand (A_2 \cor A_2)\}}
 	  \ellipsis{$\{\acD, \me, \mee, \meee\}$}
-		   {\vdash S\{A_1 \wedge A_2\}}
+		   {\vdash S\{A_1 \cand A_2\}}
 	\end{prooftree}
   \item If $A = \exists x A'$, then by the induction hypothesis, we have $\vlderivation{\vlde{}{\{\acD, \me, \mee,
-	\meee\}}{A'}{\vlhy {A' \vee A'}}}$.
+	\meee\}}{A'}{\vlhy {A' \cor A'}}}$.
 
 	Hence, we have
 	\begin{prooftree}
-	  \hypo{\vdash S\{\exists x A' \vee \exists x A'\}}
- 	  \infer1[$\mee$]{\vdash S\{\exists x (A' \vee A')\}}
+	  \hypo{\vdash S\{\exists x A' \cor \exists x A'\}}
+ 	  \infer1[$\mee$]{\vdash S\{\exists x (A' \cor A')\}}
 	  \ellipsis{$\{\acD, \me, \mee, \meee\}$}
 		   {\vdash S\{\exists x A'\}}
 	\end{prooftree}
   \item If $A = \forall x A'$, then by the induction hypothesis, we have $\vlderivation{\vlde{}{\{\acD, \me, \mee,
-	\meee\}}{A'}{\vlhy {A' \vee A'}}}$.
+	\meee\}}{A'}{\vlhy {A' \cor A'}}}$.
 
 	Hence, we have
 	\begin{prooftree}
-	  \hypo{\vdash S\{\forall x A' \vee \forall x A'\}}
- 	  \infer1[$\meee$]{\vdash S\{\forall x (A' \vee A')\}}
+	  \hypo{\vdash S\{\forall x A' \cor \forall x A'\}}
+ 	  \infer1[$\meee$]{\vdash S\{\forall x (A' \cor A')\}}
 	  \ellipsis{$\{\acD, \me, \mee, \meee\}$}
 		   {\vdash S\{\forall x A'\}}
 	\end{prooftree}
@@ -1243,26 +1260,26 @@ The rules $\mee$ and $\meee$ are derivable for $\{\wD, \cD\}$.
 We have:
 \begin{center}
 \begin{prooftree}
-\hypo{\exists x A}
-\infer1[$\equiv$]{\exists x (A \vee \fff)}
-\infer1[$\wD$]{\exists x (A \vee B)}
+  \hypo{\vdash S\{\exists x A\}}
+  \infer1[$\equiv$]{\vdash S\{\exists x (A \cor \fff)\}}
+  \infer1[$\wD$]{\vdash S\{\exists x (A \cor B)\}}
 \end{prooftree}
 \hspace{0.5cm}
 and 
 \hspace{0.5cm}
 \begin{prooftree}
-\hypo{\exists x B}
-\infer1[$\equiv$]{\exists x (\fff \vee B)}
-\infer1[$\wD$]{\exists x (A \vee B)}
+  \hypo{\vdash S\{\exists x B\}}
+  \infer1[$\equiv$]{\vdash S\{\exists x (\fff \cor B)\}}
+  \infer1[$\wD$]{\vdash S\{\exists x (A \cor B)\}}
 \end{prooftree}
 \end{center}
 Thus, we have:
 
 \begin{center}
 \begin{prooftree}
-\hypo{\exists x A \vee \exists x B}
-\ellipsis{}{\exists x (A \vee B) \vee \exists x (A \vee B)}
-\infer1[$\cD$]{\exists x (A \vee B)}
+  \hypo{\vdash S\{\exists x A \cor \exists x B\}}
+  \ellipsis{}{\vdash S\{\exists x (A \cor B) \cor \exists x (A \cor B)\}}
+  \infer1[$\cD$]{\vdash S\{\exists x (A \cor B)\}}
 \end{prooftree}
 \end{center}
 Similar for $\meee$.
@@ -1276,11 +1293,11 @@ The propositional encoding $\PE{A}$ of a formula $A$ is defined inductively by:
 \begin{centering}
 	$\PE{a} = a$ for every atom $a$
 
-	$\PE{(A \vee B)} = \PE{A} \vee \PE{B}$ \hspace{2cm} $\PE{(A \wedge B)} =
-	\PE{A} \wedge \PE{B}$
+	$\PE{(A \cor B)} = \PE{A} \cor \PE{B}$ \hspace{2cm} $\PE{(A \cand B)} =
+	\PE{A} \cand \PE{B}$
 
-	$\PE{(\forall x A)} = U_x \vee \PE{A}$ \hspace{2cm} $\PE{(\exists x A)}
-	= E_x \wedge \PE{A}$
+	$\PE{(\forall x A)} = U_x \cor \PE{A}$ \hspace{2cm} $\PE{(\exists x A)}
+	= E_x \cand \PE{A}$
 
 \end{centering}
 where $U_x$ and $E_x$ are fresh nullary atoms.
@@ -1334,10 +1351,10 @@ For each rule from $\{\wD, \acD, \me, \mee, \meee \}$, we define a map and show 
 \end{prooftree}:
 
   the map $wk$ maps $\fff$ to anything and is identity elsewhere.   
-  
+ 
   \item
     \begin{prooftree}
-      \hypo{\vdash S\{a \vee a\}}
+      \hypo{\vdash S\{a \cor a\}}
        \infer1[$\acD$]{\vdash S\{a\}} 
     \end{prooftree}: 
     
@@ -1345,22 +1362,22 @@ For each rule from $\{\wD, \acD, \me, \mee, \meee \}$, we define a map and show 
 
   \item 
     \begin{prooftree}
-      \hypo{\vdash S\{(A \wedge B) \vee (C \wedge D)\}}
-      \infer1[$\me$]{\vdash S\{(A \vee C) \wedge (B \vee D)\}}
+      \hypo{\vdash S\{(A \cand B) \cor (C \cand D)\}}
+      \infer1[$\me$]{\vdash S\{(A \cor C) \cand (B \cor D)\}}
     \end{prooftree}:
     
     the map $m$ is the canonical identity that maps $A$ to $A$, $\cdots$, $D$ to $D$.
   \item 
     \begin{prooftree}
-      \hypo{\vdash S\{\exists x A \vee \exists x B\}}
-      \infer1[$\mee$]{\vdash S\{\exists x (A \vee B)\}}
+      \hypo{\vdash S\{\exists x A \cor \exists x B\}}
+      \infer1[$\mee$]{\vdash S\{\exists x (A \cor B)\}}
     \end{prooftree}: 
    
     the map $m_1$ maps the two $x$-labelled binders in the premise to the $x$-labelled binder in the conclusion,  $A$ to $A$ and $B$ to $B$.
   \item
     \begin{prooftree}
-      \hypo{\vdash S\{\forall x A \vee \forall x B\}}
-      \infer1[$\meee$]{\vdash S\{\forall x (A \vee B)\}}
+      \hypo{\vdash S\{\forall x A \cor \forall x B\}}
+      \infer1[$\meee$]{\vdash S\{\forall x (A \cor B)\}}
     \end{prooftree}:
     
     the map $m_2$ maps the two $x$-labelled binders in the premise to the $x$-labelled binder in the conclusion,  $A$ to $A$ and $B$ to $B$. 
@@ -1379,7 +1396,7 @@ that $b'$ binds $v$.
 \begin{itemize}
   \item $wk$ and $m$ are clearly fibrations: the binding relations of the premise and the conclusion are exactly the same.
   \item $ac$ is a fibration: suppose that $a$ that in the conclusion $a$ is bound by some quantifier $b$ in $S$, then for each of its preimages by $ac$, there exists exactly one binder (in fact, $b$) in $S$ that binds it.
-  \item $m_1$ and $m_2$ are fibrations: in the conclusion, for every atom $a$ in $A \vee B$ bound by the $x$-labelled quantifier, $a$ has exactly one preimage and it is bound by the $x$-llabelled quantifier in the premise.
+  \item $m_1$ and $m_2$ are fibrations: in the conclusion, for every atom $a$ in $A \cor B$ bound by the $x$-labelled quantifier, $a$ has exactly one preimage and it is bound by the $x$-llabelled quantifier in the premise.
 \end{itemize}
 
   Therefore, all of these maps are skew bifibrations and since skew bifibrations
@@ -1435,8 +1452,8 @@ represent disjunctions of $E_x$ and $U_x$ respectiveley.
 
 We define a translation $(\cdot)^*$ inductively by:
 \begin{itemize}
-  \item $(E_x \vee \cdots \vee E_x)* = E_x$
-  \item $(U_x \vee \cdots \vee U_x)* = U_x$
+  \item $(E_x \cor \cdots \cor E_x)^* = E_x$
+  \item $(U_x \cor \cdots \cor U_x)^* = U_x$
   \item structural recursion in all the other cases.
 \end{itemize}
 
@@ -1454,15 +1471,15 @@ with $F^*$ and by applying the following rule transformation:
 \begin{center}
 \mbox{
 \begin{prooftree}
-  \hypo{Q_x}
-  \infer1[$\acD$]{Q_x}
+  \hypo{S\{Q_x\}}
+  \infer1[$\acD$]{S\{Q_x\}}
 \end{prooftree}
 
 $\leadsto$
 
 \begin{prooftree}
-  \hypo{Q_x}
-  \infer1[$=$]{Q_x}
+  \hypo{S\{Q_x\}}
+  \infer1[$=$]{S\{Q_x\}}
 \end{prooftree}
 
 }
@@ -1470,15 +1487,15 @@ $\leadsto$
 
 \mbox{
 \begin{prooftree}
-  \hypo{(E_x \wedge C) \vee (E_x \wedge D)}
-  \infer1[$\me$]{E_x \wedge (C \vee D)}
+  \hypo{S\{(E_x \cand C) \cor (E_x \cand D)\}}
+  \infer1[$\me$]{S\{E_x \cand (C \cor D)\}}
 \end{prooftree}
 
 $\leadsto$
 
 \begin{prooftree}
-  \hypo{(E_x \wedge C) \vee (E_x \wedge D)}
-  \infer1[$\me'$]{E_x \wedge (C \vee D)}
+  \hypo{S\{(E_x \cand C) \cor (E_x \cand D)\}}
+  \infer1[$\me'$]{S\{E_x \cand (C \cor D)\}}
 \end{prooftree}
 
 }
@@ -1501,51 +1518,52 @@ in it.
 
 First consider the $\acD$ rule:
 \begin{prooftree}
-  \hypo{C \vee C}
+  \hypo{C \cor C}
   \infer1[$\acD$]{C}
 \end{prooftree}
 
-It is clear that if $C$ is a propositional encoding, then so is $C \vee C$.
+It is clear that if $C$ is a propositional encoding, then so is $C \cor C$.
 
 Now consider the $\me$ rule:
+\begin{center}
 \begin{prooftree}
-  \hypo{(C \wedge D) \vee (E \wedge F)}
-  \infer1[$\me$]{(C \vee E) \wedge (D \vee F)}
+  \hypo{S\{(C \cand D) \cor (E \cand F)\}}
+  \infer1[$\me$]{S\{(C \cor E) \cand (D \cor F)\}}
 \end{prooftree}
+\end{center}
+Suppose that $(C \cor E) \cand (D \cor F) = \PE{G}$ for some $G$.
+Since $C \cor E$ cannot be $Q_x$ (otherwise, the rule applied would be
+$\me'$), $G$ can be written as $G_1 \cand G_2$ with $C \cor E = \PE{G_1}$ and $D
+\cor F = \PE{G_2}$.
 
-Suppose that $(C \vee E) \wedge (D \vee F) = \PE{G}$ for some $G$.
-Since $C \vee E$ cannot be $Q_x$ (otherwise, the rule applied would be
-$\me'$), $G$ can be written as $G_1 \wedge G_2$ with $C \vee E = \PE{G_1}$ and $D
-\vee F = \PE{G_2}$.
-
-We have thus $G_i = \forall x_i H_i$ or $J_i \vee K_i (i = 1, 2)$.
+We have thus $G_i = \forall x_i H_i$ or $J_i \cor K_i (i = 1, 2)$.
 
 If $G_i = \forall x H_i$ for some $i$, then there will be a conjunction of $U_x$
 and some formula which can never be eliminated by the rules $\me$, $\me'$ and
 $\acD$. However, there exists no such conjunction in ${\PE{A}}^*$, which leads to a
 contradiction.
 
-Hence, $G_i$ can be written as $J_i \vee K_i$ for $i = 1, 2$. We now have $(C
-\wedge D) \vee (E \wedge F) = \PE{((J_1 \wedge J_2) \vee (K_1 \wedge
+Hence, $G_i$ can be written as $J_i \cor K_i$ for $i = 1, 2$. We now have $(C
+\cand D) \cor (E \cand F) = \PE{((J_1 \cand J_2) \cor (K_1 \cand
 K_2))}$.
 
 Finally, consider the $\me'$ rule:
-
+\begin{center}
 \begin{prooftree}
-  \hypo{(E_x \wedge C) \vee (E_x \wedge D)}
-  \infer1[$\me'$]{E_x \wedge (C \vee D)}
+  \hypo{S\{(E_x \cand C) \cor (E_x \cand D)\}}
+  \infer1[$\me'$]{S\{E_x \cand (C \cor D)\}}
 \end{prooftree}
-
-Suppose that $E_X \wedge (C \vee D)$ = $\PE{F}$ for some $F$. It is clear
-that $F = \exists x G$ with $\PE{G} = C \vee D$ for some $G$.
+\end{center}
+Suppose that $E_X \cand (C \cor D)$ = $\PE{F}$ for some $F$. It is clear
+that $F = \exists x G$ with $\PE{G} = C \cor D$ for some $G$.
 We distinguish two cases:
 \begin{itemize}
-  \item $G = \forall y H$: in this case, $(E_x \wedge C) \vee (E_x \wedge
-D)$ has a subformula $(E_x \wedge U_y)$, which cannot be eliminated by the
+  \item $G = \forall y H$: in this case, $(E_x \cand C) \cor (E_x \cand
+D)$ has a subformula $(E_x \cand U_y)$, which cannot be eliminated by the
 	rules $\me$, $\me'$, $\acD$. It is clear that ${\PE{A}}^*$ does not
 have a subformula of this form, which leads to a contradiction.
-  \item $G = G_1 \vee G_2$: in this case, $(E_x \wedge C) \vee (E_x \wedge
-  D) = \PE{((\exists x G_1) \vee (\exists x G_2))}$.
+  \item $G = G_1 \cor G_2$: in this case, $(E_x \cand C) \cor (E_x \cand
+  D) = \PE{((\exists x G_1) \cor (\exists x G_2))}$.
 \end{itemize}
 
 \end{proof}	
