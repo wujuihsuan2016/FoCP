@@ -478,79 +478,68 @@ The \bfit{negation} $\neg$ is defined in the usual way. A formula is
 \bfit{rectified} if all bound variables are distinct from one another and from
 all free variables. Without loss of generality, we assume that all formulas are
 rectifed throughtout the paper as every formula has a logically equivalent
-rectified form. A formula is \bfit{semi-rectified} if it can be rectified in a
-unique way via variable renaming.
+rectified form.
 
 We consider Gentzen's sequent calculus system $\LK$ \cite{Gentzen 1935}.
 
 A \bfit{sequent} is a multiset of formulas and sequents are proved using the
-following inference rules.
-\begin{center}
+following inference rules:
 
-\mbox{
+\begin{figure}[h]
+\begin{center}
 \begin{prooftree}
   \infer0[$\ax$]{\vdash A, \neg A}
 \end{prooftree}
-\hspace{2cm}
-
+\qquad
 \begin{prooftree}
   \hypo{\vdash \Gamma, A}
   \hypo{\vdash \Delta, \neg A}
   \infer2[$\cut$]{\vdash \Gamma, \Delta}
-\end{prooftree}}
-\vspace{0.2cm}
-
-\mbox{
+\end{prooftree}
+\\[1.5ex]
 \begin{prooftree}
   \hypo{\vdash \Gamma, A}
   \hypo{\vdash \Delta, B}
   \infer2[$\cand$]{\vdash \Gamma, \Delta, A \cand B}
 \end{prooftree}
-\hspace{1.5cm}
-
+\qquad
 \begin{prooftree}
   \hypo{\vdash \Gamma, A, B}
   \infer1[$\cor$]{\vdash \Gamma, A \cor B}
-\end{prooftree}}
-\vspace{0.2cm}
-
-\mbox{
+\end{prooftree}
+\\[1.5ex]
 \begin{prooftree}
   \hypo{\vdash \Gamma, A, A}
   \infer1[$\ctr$]{\vdash \Gamma, A}
 \end{prooftree}
-	\hspace{2cm}
-
+\qquad
 \begin{prooftree}
   \hypo{\vdash \Gamma}
   \infer1[$\wk$]{\vdash \Gamma, A}
-\end{prooftree}}
-
-\mbox{
+\end{prooftree}
+\\[1.5ex]
 \begin{prooftree}
 \infer0[$\ttt$]{\vdash \ttt}
 \end{prooftree}
-\hspace{2cm}
-
+\qquad
 \begin{prooftree}
   \hypo{\vdash \Gamma}
 	\infer1[$\fff$]{\vdash \Gamma, \fff}
-\end{prooftree}}
-
-\mbox{
+\end{prooftree}
+\\[1.5ex]
 \begin{prooftree}
   \hypo{\vdash \Gamma, A}
   \infer1[$\forall$]{\vdash \Gamma, \forall x A}
 \end{prooftree}
 ($x \notin fv(\Gamma)$)
-\hspace{1.2cm}
-
+\qquad
 \begin{prooftree}
   \hypo{\vdash \Gamma, A[t/x]}
   \infer1[$\exists$]{\vdash \Gamma, \exists x A}
-\end{prooftree}}
-
+\end{prooftree}
+\caption{Gentzen's sequent calculus $\LK$}
 \end{center}
+\end{figure}
 
 In this paper, we also use some \bfit{deep inference} \cite{BT 2001} rules that are in the
 following form:
@@ -563,9 +552,13 @@ following form:
 where $S\{ \ \}$ stands for a \bfit{context}, which corresponds to a sequent
 with a hole taking the place of an atom, and $S\{A\}$ represents
 the sequent or formula obtained by replacing the hole in $S\{ \ \}$ with the formula $A$. Formally, 
-
-  \[C ::= \Box \ | \ A \cor C \ | \ C \cand A \ | \ \exists x C \ | \ \forall x C \].
-  \[S ::= C \ | \ A, S \ | \ S, A \] where $A$ is a formula.
+\begin{center}
+  $C ::= \Box \ | \ A \cor C \ | \ C \cand A \ | \ \exists x C \ | \ \forall x 
+C$.
+\\[1.5ex]
+  $S ::= C \ | \ A, S \ | \ S, A$ 
+\end{center}
+where $A$ is a formula.
 The above rule can be thus seen as the rewriting rule $A \rightarrow B$.
 
 We use the notation $\vlderivation{\vlde{}{\mathcal{P}}{B}{\vlhy {A}}}$ for
@@ -676,46 +669,42 @@ quantifiers, and edges directed from leaves to the root. A \bfit{sequent} $\Gamm
 comma for disjoint union.
 
 Sequents are proved using the inference rules of $\FOMLL$:
+\begin{figure}[h]
 \begin{center}
-
-\mbox{
 \begin{prooftree}
   \infer0[$\ax$]{\vdash A, \neg A}
 \end{prooftree}
-\hspace{2cm}
-
+\qquad
 \begin{prooftree}
   \hypo{\vdash \Gamma, A}
   \hypo{\vdash \Delta, \neg A}
   \infer2[$\cut$]{\vdash \Gamma, \Delta}
-\end{prooftree}}
-
-\mbox{
+\end{prooftree}
+\\[1.5ex]
 \begin{prooftree}
   \hypo{\vdash \Gamma, A}
   \hypo{\vdash \Delta, B}
   \infer2[$\conj$]{\vdash \Gamma, \Delta, A \cand B}
 \end{prooftree}
-\hspace{1.5cm}
-
+\qquad
 \begin{prooftree}
   \hypo{\vdash \Gamma, A, B}
   \infer1[$\disj$]{\vdash \Gamma, A \cor B}
-\end{prooftree}}
-
-\mbox{
+\end{prooftree}
+\\[1.5ex]
 \begin{prooftree}
   \hypo{\vdash \Gamma, A}
   \infer1[$\univ$]{\vdash \Gamma, \forall x A}
 \end{prooftree}
 ($x \notin fv(\Gamma)$)
-\hspace{2cm}
-
+\qquad
 \begin{prooftree}
   \hypo{\vdash \Gamma, A[t/x]}
   \infer1[$\exist$]{\vdash \Gamma, \exists x A}
-\end{prooftree}}
+\end{prooftree}
 \end{center}
+\caption{Sequent calculus for $\FOMLL$}
+\end{figure}
 
 We also consider the $\mix$ rule:
 
@@ -997,7 +986,8 @@ If there exists an induced bimatching of the linked fograph $G = \Gr(A)$, then t
 		  $u_Lv_L, u_Rv_R \in E_W$ and that the corresponding switching
 		  path from $u_L$ to $v_L$ (resp. from $u_R$ to $v_R$) goes
 		  through the left (resp. right) edge of $\cor$.
-		  
+
+\begin{figure}[h]
     \begin{center}	
     \begin{tikzpicture}
     \tikzstyle{every node}=[circle, minimum size=12pt, inner sep=2pt]
@@ -1020,8 +1010,10 @@ If there exists an induced bimatching of the linked fograph $G = \Gr(A)$, then t
     \draw (dots3) -- (par) [color=red];
     \end{tikzpicture}
     
-    {\bf Figure 7.} A schema showing that the two branches of the same $\cor$ cannot be used in the cycle at the same time. 
-    \end{center}
+    \caption{A schema showing that the two branches of the same $\cor$ cannot be
+	    used in the cycle at the same time.}
+\end{center}
+\end{figure}
     
     The red (resp. blue) path is the switching path corresponding to the edge $u_Lv_L$ (resp. $u_Rv_R$) in $E_W$.  
     
@@ -1074,6 +1066,7 @@ We define the \bfit{frame}  of $\theta$ by exhaustively applying the following s
 \end{enumerate}
 \end{definition}
 
+\begin{figure}
 \begin{center}
 \begin{tikzpicture}
   \tikzstyle{every node}=[circle, minimum size=20pt, inner sep=2pt]
@@ -1101,7 +1094,7 @@ We define the \bfit{frame}  of $\theta$ by exhaustively applying the following s
     \draw[color=blue, dashed] (px) to [bend left] (pz);
     \draw[color=red, dashed] (qy) to [bend left] (qfz);
 \end{tikzpicture}
-\vspace{0.5cm}
+\vspace{1.5ex}
 
 \begin{tikzpicture}
   \tikzstyle{every node}=[circle, minimum size=20pt, inner sep=2pt]
@@ -1140,8 +1133,11 @@ We define the \bfit{frame}  of $\theta$ by exhaustively applying the following s
   \draw (R) to [bend left] (nR);
 \end{tikzpicture}
 
-{\bf Figure 8.} A unification net and its frame. The colored part shows how the dependency ${\color{red} \exists x} \rightarrow {\color{blue} \forall z}$ is transformed.
+\caption{A unification net and its frame. The colored part shows how the
+dependency ${\color{red} \exists x} \rightarrow {\color{blue} \forall z}$ is
+transformed.}
 \end{center}
+\end{figure}
 
 We have the following results: 
 
@@ -1160,31 +1156,25 @@ We first introduce the atomic contraction rule, the medial rule, and two rules
 on quantifiers.
 
 \begin{center}
-\mbox{
 \begin{prooftree}
   \hypo{\vdash S\{a \cor a\}}
   \infer1[$\acD$]{\vdash S\{a\}}
 \end{prooftree}
-\hspace{0.3cm}
-
+\qquad
 \begin{prooftree}
   \hypo{\vdash S\{(A \cand B) \cor (C \cand D)\}}
   \infer1[$\me$]{\vdash S\{(A \cor C) \cand (B \cor D)\}}
-\end{prooftree}}
-\vspace{0.2cm}
-
-\mbox{
+\end{prooftree}
+\\[1.5ex]
 \begin{prooftree}
   \hypo{\vdash S\{\exists x A \cor \exists x B\}}
   \infer1[$\mee$]{\vdash S\{\exists x (A \cor B)\}}
 \end{prooftree}	
-\hspace{0.3cm}
-
+\qquad
 \begin{prooftree}
   \hypo{\vdash S\{\forall x A \cor \forall x B\}}
   \infer1[$\meee$]{\vdash S\{\forall x (A \cor B)\}}
 \end{prooftree}	
-}
 \end{center}
 
 Here, we also consider the equivalence generated by the associativity, commutativity of $\cor$ and the equations $\ttt \cor A \equiv \ttt$ and $\fff \cor A \equiv A$.
