@@ -349,6 +349,7 @@
 \newcommand*{\MLL}{\mathsf{MLL}}
 \newcommand*{\FOMLL}{\mathsf{MLL1}} 
 \newcommand*{\FOMLLm}{\mathsf{MLL1 + mix}}
+\newcommand*{\FOKS}{\mathsf{KS1}}
 
 % ** RULES **
 
@@ -506,7 +507,66 @@ different sytactic proof systems, based on different sets of inference rules.
 This is where \emph{combinatorial proofs} come in. They have been
 introduced by Hughes~\cite{hughes:pws} for classical propositional
 logic as ``syntax-free'' notion of proof, and as a possible solution
-to Hilbert's 24th problem~\cite{hughes:invar} (see also~\cite{str:hilbert:24}).
+to Hilbert's 24th problem~\cite{hughes:invar} (see
+also~\cite{str:hilbert:24}). The basic idea is to abstract away from
+the syntax of the inference rules used in the proof and consider the
+proof as a combinatorial object, more precisely as a special kind
+homomorphism between two graphs obeying certain properties.
+\lutz{an example here?}
+
+It has been shown by several authors how syntactic proofs in various
+proof systems can be translated to propositional combinatorial proofs:
+for sequent proofs in~\cite{hughes:invar}, for deep inference proofs
+in~\cite{str:fscd17}, for Frege systems in~\cite{str:RR-9048}, and for
+tableaux systems and resolution in~\cite{acc:str:18}. This allows to
+define a natural notion of proof identity for propositional logic: two
+proofs are \emph{the same}, if they are mapped to the same
+combinatorial proof.
+
+Recently, Acclavio and Stra\ss burger extended this notion to relevant
+logics~\cite{acc:str:relevant} and to modal
+logics~\cite{acc:str:modal}; and Heijlties, Hughes and Stra\ss burger
+have provided combinatorial proofs for intuitionistic propositional
+logic~\cite{HHS:lics19}.
+
+In this paper we would like to push forward the idea that
+combinatorial proofs can also for first order logic be used as a
+notion of proof identity. \emph{First-order combinatorial proofs} have
+been introduced by Hughes in~\cite{hughes:fopws}. But even though
+Hughes shows that the conclusion of every first-order combinatorial
+proof is a valid formula, his proof is not really satisfactory, as (i)
+it is long and cumbersome, and (ii) it does not allow to read back a
+syntactic proof based inference rules. In fact, there is the
+fundamental problem that not all combinatorial proofs can be obtained
+as translations of sequent calculus proofs.
+
+In this paper we solve this issue by moving to a deep inference
+system. More precisely, we introduce a new proof system, called
+$\FOKS$, for first-order logic, that (i) reflects every combinatorial
+proof, i.e., there is a surjective mapping from proofs in $\FOKS$ to
+combinatorial proofs, that (ii) allows to provide simpler proofs of
+soundness and completeness of combinatorial proofs, and (iii) admits
+new decomposition theorems establishing a precise correspondence
+between certain syntactic inference rules and certain combinatiorial
+notions.
+
+In general, a \emph{decomposition theorem} provides normal forms of
+proofs, separating subsets of infernence rules of a proof system. A
+prominent example of a decomposion theorem is Herbrand's
+theorem~\cite{herbrand:phd}, which allows a separation between the
+proposotional part and the quantifier part in a first-order
+proof~\cite{gentzen:35:II,brunnler:06:herbrand}. Through the advent of
+deep inference, new kinds of proof decompositions became possible,
+most notably the separation between the linear part of a proof and the
+resource management of a proof. It has been shown by
+Stra{\ss}burger~\cite{str:07:RTA} that a proof in classical
+propositional logic can be decomposed into a proof of (multiplicative)
+linear logic, followed by a proof consisting only of contractions and
+weakenings. In this paper we show that the same is possible for
+first-order logic.
+
+In summary, this paper contains the following contributions:
+
 
 
 
