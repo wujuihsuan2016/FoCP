@@ -345,11 +345,13 @@
 % ** SYSTEMS **
 
 \newcommand*{\LK}{\mathsf{LK}}
+\newcommand*{\FOLK}{\mathsf{LK1}}
 \newcommand*{\LKm}{\mathsf{LK + mix}}
 \newcommand*{\MLL}{\mathsf{MLL}}
-\newcommand*{\FOMLL}{\mathsf{MLL1}} 
-\newcommand*{\FOMLLm}{\mathsf{MLL1 + mix}}
+\newcommand*{\FOMLL}{\mathsf{MLL1^\times}} 
+\newcommand*{\FOMLLm}{\mathsf{MLL1+mix}}
 \newcommand*{\FOKS}{\mathsf{KS1}}
+\newcommand*{\FOMLS}{\mathsf{MLS1^\times}}
 
 % ** RULES **
 
@@ -380,6 +382,11 @@
 
 
 \DeclareTextFontCommand{\bfit}{\bfseries\itshape}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand{\set}[1]{\{#1\}}
+
 
 % correct bad hyphenation here
 \hyphenation{op-tical net-works semi-conduc-tor}
@@ -582,6 +589,68 @@ paper.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Preliminaries: First-order Logic}\label{sec:fologic}
+
+\subsection{Terms and Formulas}
+
+\subsection{Sequent Calculus $\FOLK$}
+
+
+\section{Preliminaries: First-order Graphs}\label{sec:fographs}
+
+\subsection{Graphs}
+
+\subsection{Cographs}
+
+\subsection{Fographs}
+
+\section{First-order Combinatorial Proofs}\label{sec:focp}
+
+\subsection{Fonets}
+
+\subsection{Skew Bifibrations}
+
+\section{First-order Deep Inference system $\FOKS$}\label{sec:foks}
+
+\section{Main Results}
+
+\section{Translating between $\FOLK$ and $\FOKS$}
+
+\subsection{The Linear Variants $\FOMLL$ and $\FOMLS$}
+
+\subsection{Contraction and Weakining}
+
+\subsection{A First Decomposition Theorem}
+
+$$
+\vlderivation{
+  \vlde{\set{\wD,\cD}}{}{C}{
+    \vlde{\FOMLS}{}{C'}{
+      \vlhy{\ttt}}}}
+$$
+
+\section{Fonets and Linear Proofs}
+
+\subsection{Unification Nets}
+
+\subsection{Translation between Unification Nets and $\FOMLL$}
+
+\subsection{Translation between Unification Nets and Fonets}
+
+\section{Skew Bifibrations and Resource Management}
+
+\subsection{From Contraction and Weakening to Skew Bifibrations}
+
+\subsection{From Skew Bifibrations to Contraction and Weakening}
+
+\section{Summary and Proofs of Main Results}
+
+\section{Conclusion}
+
+\bigskip
+\hrule
+\bigskip
 
 
 \section{First-order Combinatorial Proofs}
