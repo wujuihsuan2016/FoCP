@@ -64,6 +64,14 @@
 \pagestyle{plain}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+\newcommand{\dominic}[1]{{\color{green}     \noindent[\![\![{\bf Dominic: }#1]\!]\!]}}
+\newcommand{\lutz}[1]{{\color{blue}     \noindent[\![\![{\bf Lutz: }#1]\!]\!]}}
+\newcommand{\juihsuan}[1]{{\color{violet}     \noindent[\![\![{\bf Jui-Hsuan: }#1]\!]\!]}}
+
+
+\newcommand{\todo}[1]{{\color{red}     \noindent[\![\![{\bf TODO: }#1]\!]\!]}}
+\newcommand{\TODO}[1]{\todo{#1}}
+\newcommand{\tocheck}[1][]{{\color{red}     \noindent[\![\![{\bf TO CHECK: }#1]\!]\!]}}
 
 
 % *** PACKAGES *** %
@@ -384,7 +392,7 @@
 % not capitalized unless they are the first or last word of the title.
 % Linebreaks \\ can be used within to get better formatting as desired.
 % Do not put math or special symbols in the title.
-\title{Combinatorial Proofs and Decomposition Theorem for First-order Logic}
+\title{Combinatorial Proofs and Decomposition Theorems for First-order Logic}
 
 
 % author names and affiliations
@@ -395,8 +403,7 @@
 \and
 \IEEEauthorblockN{Lutz Straßburger}
 \IEEEauthorblockA{Inria, Equipe Partout\\
-Ecole Polytechnique\\
-LIX UMR 7161\\
+Ecole Polytechnique, LIX \\ %UMR 7161\\
 France}
 \and
 \IEEEauthorblockN{Jui-Hsuan Wu}
@@ -458,7 +465,56 @@ France}}
 \IEEEpeerreviewmaketitle
 
 \linenumbers
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 \section{Introduction}
+
+First-order predicate logic is one of the cornerstones of modern
+logic. Since its formalisation by Frege~\cite{frege:79} it has seen a
+growing usage in many fields of mathematics and computer sience. Since
+the development of proof theory by Hilbert~\cite{hilbert:22},
+\emph{proofs} became first-class citizens as mathematical objects that
+could be studied on its own. Since Gentzen's \emph{sequent
+calculus}~\cite{gentzen:35:I,gentzen:35:II}, many other proof systems
+have been developed that allow the implementation of efficient proof
+search, for example \emph{analytic tableaux}~\cite{smullyan:68} or
+\emph{resolution}~\cite{robinson:65}. Despite the immense progress
+that has been made in proof theory in general and in the area of
+automated and interactive theorem provers in particular\cite{}\todo{find references}, we still have
+no satisfactory notion of proof identity for first-order logic. In
+this respect, proof theory is quite different from any other
+mathematical field. For example in group theory, two groups are
+\emph{the same} iff they are isomorphic; in topology, two spaces are
+\emph{the same} iff they are homeomorphic; etc. In proof theory, we
+have no such notion telling us when two proofs are \emph{the same},
+even though Hilbert was considering this problem as possible 24th
+problem for his famous lecture~\cite{hilbert:00} in
+1900~\cite{thiele:03}, before proof theory existed as a mathematical
+field.
+
+The main reason for this problem is that formal proofs, as they are
+usually studied in logic, are in inextricably tied to the syntactic
+(inference rule based) proof system in which they are carried out. And
+it is difficult to compare two proofs that are produced within two
+different sytactic proof systems, based on different sets of inference rules.
+\lutz{an example here?}
+
+This is where \emph{combinatorial proofs} come in. They have been
+introduced by Hughes~\cite{hughes:pws} for classical propositional
+logic as ``syntax-free'' notion of proof, and as a possible solution
+to Hilbert's 24th problem~\cite{hughes:invar} (see also~\cite{str:hilbert:24}).
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 
 \section{First-order Combinatorial Proofs}
 \subsection{First-order Logic}
