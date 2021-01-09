@@ -494,7 +494,7 @@ have been developed that allow the implementation of efficient proof
 search, for example \emph{analytic tableaux}~\cite{smullyan:68} or
 \emph{resolution}~\cite{robinson:65}. Despite the immense progress
 that has been made in proof theory in general and in the area of
-automated and interactive theorem provers in particular\cite{}\todo{find references}, we still have
+automated and interactive theorem provers in particular\cite{paulson:isabelle}\todo{find references}, we still have
 no satisfactory notion of proof identity for first-order logic. In
 this respect, proof theory is quite different from any other
 mathematical field. For example in group theory, two groups are
@@ -596,68 +596,6 @@ paper.
 
 \subsection{Terms and Formulas}
 
-\subsection{Sequent Calculus $\FOLK$}
-
-
-\section{Preliminaries: First-order Graphs}\label{sec:fographs}
-
-\subsection{Graphs}
-
-\subsection{Cographs}
-
-\subsection{Fographs}
-
-\section{First-order Combinatorial Proofs}\label{sec:focp}
-
-\subsection{Fonets}
-
-\subsection{Skew Bifibrations}
-
-\section{First-order Deep Inference system $\FOKS$}\label{sec:foks}
-
-\section{Main Results}
-
-\section{Translating between $\FOLK$ and $\FOKS$}
-
-\subsection{The Linear Variants $\FOMLL$ and $\FOMLS$}
-
-\subsection{Contraction and Weakining}
-
-\subsection{A First Decomposition Theorem}
-
-$$
-\vlderivation{
-  \vlde{\set{\wD,\cD}}{}{C}{
-    \vlde{\FOMLS}{}{C'}{
-      \vlhy{\ttt}}}}
-$$
-
-\section{Fonets and Linear Proofs}
-
-\subsection{Unification Nets}
-
-\subsection{Translation between Unification Nets and $\FOMLL$}
-
-\subsection{Translation between Unification Nets and Fonets}
-
-\section{Skew Bifibrations and Resource Management}
-
-\subsection{From Contraction and Weakening to Skew Bifibrations}
-
-\subsection{From Skew Bifibrations to Contraction and Weakening}
-
-\section{Summary and Proofs of Main Results}
-
-\section{Conclusion}
-
-\bigskip
-\hrule
-\bigskip
-
-
-\section{First-order Combinatorial Proofs}
-\subsection{First-order Logic}
-
 \bfit{Terms} $s, t, u, \ldots$ and \bfit{atoms} (atomic formulas) $\alpha, \beta,
 \gamma, \ldots$ are generated inductively from variables $x, y, z, \ldots$: if
 $\delta$ (resp. $p$) is an $n$-ary function (resp. predicate) symbol and $t_1, \ldots,
@@ -675,7 +613,9 @@ all free variables. Without loss of generality, we assume that all formulas are
 rectifed throughtout the paper as every formula has a logically equivalent
 rectified form.
 
-We consider Gentzen's sequent calculus system $\LK$ \cite{gentzen:35:I}.
+\subsection{Sequent Calculus $\FOLK$}
+
+We consider Gentzen's sequent calculus system $\FOLK$ \cite{gentzen:35:I}.
 
 A \bfit{sequent} is a multiset of formulas and sequents are proved using the
 following inference rules:
@@ -732,9 +672,162 @@ following inference rules:
   \hypo{\vdash \Gamma, A[t/x]}
   \infer1[$\exists$]{\vdash \Gamma, \exists x A}
 \end{prooftree}
-\caption{Gentzen's sequent calculus $\LK$}
+\caption{Gentzen's sequent calculus $\FOLK$}
 \end{center}
 \end{figure}
+
+
+\section{Preliminaries: First-order Graphs}\label{sec:fographs}
+
+\subsection{Graphs}
+
+A \bfit{directed graph} $G = (V, E)$ consists of a finite set $V$ of
+\bfit{vertices} and a set of $E \subseteq V \times V$ of \bfit{direct edges}. An
+\bfit{undirected graph} $G = (V, E)$ consists of a finite set $V$ of vertices
+and a set of $E$ of \bfit{undirected edges} (two-element subsets of $V$).
+For a given (directed or undirected) graph $G$, we write $V_G$ and $E_G$ for its
+vertex and edge sets respectively. We write $vw$ for an edge $(v, w)$ or $\{v,
+w\}$. Let $G = (V, E)$ and $G' = (V', E')$ be two undirected graphs. Without
+loss of generality, we assume that $V$ and $V'$ are disjoint. The \bfit{union}
+$G + G'$ is the graph $(V \cup V', E \cup E')$ and the \bfit{join} $G \times G'$
+is the graph $(V \cup V', E \cup E' \cup \{vv' | v \in V, v' \in V'\})$. A
+\bfit{cograph} is a $P_4$-free undireced grpah, i.e., for any distinct vertices $v_1,
+v_2, v_3, v_4 \in V$, the restriction of the edge sets on them is not equal to
+$\{v_1v_2, v_2v_3, v_3v_4\}$. In a graph $G = (V, E)$, the \bfit{neighbourhood}
+$N(v)$ of $v \in V$ is defined as the set $\{w | vw \in E\}$, a set $W \subseteq
+V$ induces a \bfit{matching} if for all $w \in W$, $N(w) \cap E$ is a singleton, and a module is a
+set $M \subseteq V$ such that $N(v) \ M = N(w) \ M$ for all $v, w \in M$. A
+\bfit{module} $M$ is strong if for every module $M'$, we have $M' \subseteq M$, $M
+\subseteq$ or $M \cap M' = \emptyset$. A \bfit{graph homomorphism} $f: (V, E)
+\rightarrow (V', E')$ is a function $f : V \rightarrow V'$ such that $f(v)f(w)
+\in E'$ whenever $vw \in E$.
+
+\subsection{Cographs}
+
+\subsection{Fographs}
+
+A cograph is \bfit{logical} if every vertex is labelled either by an atom or variable,
+and it has at least one atom-labelled vertex. We denote by $label_G(v)$, or simply
+$label(v)$ the label of a vertex in a logical cograph $G$. An atom-labelled vertex is called
+a \bfit{literal} and a variable-labelled vertex is called a \bfit{binder}. A
+binder labelled with $x$ is called an \bfit{$x$-binder}. The \bfit{scope} of a binder
+$b$ is the smallest strong module containing at least two vertices, including
+the binder itself. An \bfit{$x$-literal} is a literal whose atom contains the variable $x$. An $x$-binder \bfit{binds} every $x$-literal in its scope.
+In a logical cograph $G$, a binder $b$ is \bfit{existential} (resp. \bfit{universal}) if, for every other
+vertex $v$ in its scope, we have $bv \in E_G$ (resp. $bv \notin E_G$). An
+$x$-binder is \bfit{legal} if its scope contains no other $x$-binder and at least one
+literal. 
+
+We now introduce first-order graphs which are used to represent first-order formulas.
+
+\begin{definition}
+A \bfit{first-order graph} or \bfit{fograph} is a logical cograph with legal binders.
+\end{definition}
+
+For a formula $A$, we can define its associated fograph $\Gr(A)$ inductively by: $\Gr(\alpha) = \cdot \alpha$ (a single-vertex graph whose vertex is labelled by $\alpha$); $\Gr(A \cor B) = \Gr(A) + \Gr(B)$ and $\Gr(A \cand B) = \Gr(A) \times \Gr(B)$.
+The \bfit{binding graph} of a forgraph $G$ is the directed graph $(V_G, \{(b,
+l) \ | \ b \text{ binds } l\})$.
+
+
+\section{First-order Combinatorial Proofs}\label{sec:focp}
+
+\subsection{Fonets}
+
+In a fograph, two atoms are \bfit{pre-dual} if their predicate symbols are dual
+(e.g. $pxy$ and $\overline{p}yz$) and two literals are \bfit{pre-dual} if their
+labels (atoms) are pre-dual. A \bfit{linked fograph} is a coloured fograph such
+that every colour, called a \bfit{link}, consists of two pre-dual literals, and
+every literal is either $\ttt$-labelled or in a link.
+
+Let $G$ be a linked fograph. The set of links can be seen as a unification problem
+by identifying dual predicate symbols. A \bfit{dualizer} of $G$ is an assignment
+unifying all the links of $G$. Since a first-order unification problem is either
+solvable or has a most general unifier, we can define the notion of \bfit{most
+general dualizer}. A \bfit{dependency} is a pair $(\cdot x, \cdot y)$ of an
+existential binder $\cdot x$ and a universal binder $\cdot y$ such that the most
+general dualizer assigns to $x$ a term containing $y$. A \bfit{leap} is either a
+link or a dependency. The \bfit{leap graph} $\LG_G$ of $G$ is the undirected graph $(V_G,
+L_G)$ where $L_G$ is the set of leaps of $G$. A set $W \subseteq V_G$ induces a
+\bfit{bimatching} in $G$ if $W$ induces a matching in $G$ and in the leap graph
+$\LG_G$ as well.
+
+\begin{definition}
+A \bfit{first-order net} or \bfit{fonet} is a linked fograph which has
+dualizer but no induced bimatching.  
+\end{definition}
+
+\subsection{Skew Bifibrations}
+
+A graph homomorphism $f: (V, E) \rightarrow (V', E')$ is a \bfit{fibration} if
+for all $v \in V$ and $wf(v) \in E'$, there exists a unique $\tilde{w}$ such
+that $\tilde{w}v \in E$ and $f(\tilde{w}) = w$, and is a \bfit{skew fibration}
+if for all $v \in V$ and $wf(v) \in E'$ there exists $\tilde{w}$ such that
+$\tilde{w}v \in E$ and $f(\tilde{w})w \notin E'$. A \bfit{fograph homomorphism}
+is a graph homomorphism between the underlying graphs of the fographs
+considered. A fograph homomorphism $f : G \rightarrow G'$ is
+\bfit{label-preserving} if forall $v \in V_G, label(v) = label(f(v))$, and is
+\bfit{existential-preserving} if for all existental binder $b$ in $G$, the
+vertex $f(b)$ is an existential binder in $G'$.
+
+\begin{definition}
+A \bfit{skew bifibration} between fographs is a label-preserving and
+existential-preserving fograph homomorphism whose restriction to the
+binding graphs is a fibration.
+\end{definition}
+
+\subsection{First-order combinatorial proofs}
+
+\begin{definition}
+A \bfit{first-order combinatorial proof} of a fograph $G$ is a skew
+bifibration $f: N \rightarrow G$ where $N$ is a fonet. A \bfit{first-order
+combinatorial proof} of a formula $A$ is a combinatorial proof of its graph
+$\Gr(A)$.
+\end{definition}
+
+\section{First-order Deep Inference system $\FOKS$}\label{sec:foks}
+
+\section{Main Results}
+
+\section{Translating between $\FOLK$ and $\FOKS$}
+
+\subsection{The Linear Variants $\FOMLL$ and $\FOMLS$}
+
+\subsection{Contraction and Weakining}
+
+\subsection{A First Decomposition Theorem}
+
+$$
+\vlderivation{
+  \vlde{\set{\wD,\cD}}{}{C}{
+    \vlde{\FOMLS}{}{C'}{
+      \vlhy{\ttt}}}}
+$$
+
+\section{Fonets and Linear Proofs}
+
+\subsection{Unification Nets}
+
+\subsection{Translation between Unification Nets and $\FOMLL$}
+
+\subsection{Translation between Unification Nets and Fonets}
+
+\section{Skew Bifibrations and Resource Management}
+
+\subsection{From Contraction and Weakening to Skew Bifibrations}
+
+\subsection{From Skew Bifibrations to Contraction and Weakening}
+
+\section{Summary and Proofs of Main Results}
+
+\section{Conclusion}
+
+\bigskip
+\hrule
+\bigskip
+
+
+\section{First-order Combinatorial Proofs}
+\subsection{First-order Logic}
 
 In this paper, we also use some \bfit{deep inference} \cite{brunnler:tiu:01} rules that are in the
 following form:
@@ -762,96 +855,8 @@ $\vdash S\{B\}$ in system $\mathcal{P}$ for any context $S$.
 
 \subsection{Graphs}
 
-A \bfit{directed graph} $G = (V, E)$ consists of a finite set $V$ of
-\bfit{vertices} and a set of $E \subseteq V \times V$ of \bfit{direct edges}. An
-\bfit{undirected graph} $G = (V, E)$ consists of a finite set $V$ of vertices
-and a set of $E$ of \bfit{undirected edges} (two-element subsets of $V$).
-For a given (directed or undirected) graph $G$, we write $V_G$ and $E_G$ for its
-vertex and edge sets respectively. We write $vw$ for an edge $(v, w)$ or $\{v,
-w\}$. Let $G = (V, E)$ and $G' = (V', E')$ be two undirected graphs. Without
-loss of generality, we assume that $V$ and $V'$ are disjoint. The \bfit{union}
-$G + G'$ is the graph $(V \cup V', E \cup E')$ and the \bfit{join} $G \times G'$
-is the graph $(V \cup V', E \cup E' \cup \{vv' | v \in V, v' \in V'\})$. A
-\bfit{cograph} is a $P_4$-free undireced grpah, i.e., for any distinct vertices $v_1,
-v_2, v_3, v_4 \in V$, the restriction of the edge sets on them is not equal to
-$\{v_1v_2, v_2v_3, v_3v_4\}$. In a graph $G = (V, E)$, the \bfit{neighbourhood}
-$N(v)$ of $v \in V$ is defined as the set $\{w | vw \in E\}$, a set $W \subseteq
-V$ induces a \bfit{matching} if for all $w \in W$, $N(w) \cap E$ is a singleton, and a module is a
-set $M \subseteq V$ such that $N(v) \ M = N(w) \ M$ for all $v, w \in M$. A
-\bfit{module} $M$ is strong if for every module $M'$, we have $M' \subseteq M$, $M
-\subseteq$ or $M \cap M' = \emptyset$. A \bfit{graph homomorphism} $f: (V, E)
-\rightarrow (V', E')$ is a function $f : V \rightarrow V'$ such that $f(v)f(w)
-\in E'$ whenever $vw \in E$.
-
 \subsection{First-order combinatorial proofs}
-A cograph is \bfit{logical} if every vertex is labelled either by an atom or variable,
-and it has at least one atom-labelled vertex. We denote by $label_G(v)$, or simply
-$label(v)$ the label of a vertex in a logical cograph $G$. An atom-labelled vertex is called
-a \bfit{literal} and a variable-labelled vertex is called a \bfit{binder}. A
-binder labelled with $x$ is called an \bfit{$x$-binder}. The \bfit{scope} of a binder
-$b$ is the smallest strong module containing at least two vertices, including
-the binder itself. An \bfit{$x$-literal} is a literal whose atom contains the variable $x$. An $x$-binder \bfit{binds} every $x$-literal in its scope.
-In a logical cograph $G$, a binder $b$ is \bfit{existential} (resp. \bfit{universal}) if, for every other
-vertex $v$ in its scope, we have $bv \in E_G$ (resp. $bv \notin E_G$). An
-$x$-binder is \bfit{legal} if its scope contains no other $x$-binder and at least one
-literal. 
 
-We now introduce first-order graphs which are used to represent first-order formulas.
-
-\begin{definition}
-A \bfit{first-order graph} or \bfit{fograph} is a logical cograph with legal binders.
-\end{definition}
-
-For a formula $A$, we can define its associated fograph $\Gr(A)$ inductively by: $\Gr(\alpha) = \cdot \alpha$ (a single-vertex graph whose vertex is labelled by $\alpha$); $\Gr(A \cor B) = \Gr(A) + \Gr(B)$ and $\Gr(A \cand B) = \Gr(A) \times \Gr(B)$.
-The \bfit{binding graph} of a forgraph $G$ is the directed graph $(V_G, \{(b,
-l) | b \text{ binds } l\})$.
-
-In a fograph, two atoms are \bfit{pre-dual} if their predicate symbols are dual
-(e.g. $pxy$ and $\overline{p}yz$) and two literals are \bfit{pre-dual} if their
-labels (atoms) are pre-dual. A \bfit{linked fograph} is a coloured fograph such
-that every colour, called a \bfit{link}, consists of two pre-dual literals, and
-every literal is either $\ttt$-labelled or in a link.
-
-Let $G$ be a linked fograph. The set of links can be seen as a unification problem
-by identifying dual predicate symbols. A \bfit{dualizer} of $G$ is an assignment
-unifying all the links of $G$. Since a first-order unification problem is either
-solvable or has a most general unifier, we can define the notion of \bfit{most
-general dualizer}. A \bfit{dependency} is a pair $(\cdot x, \cdot y)$ of an
-existential binder $\cdot x$ and a universal binder $\cdot y$ such that the most
-general dualizer assigns to $x$ a term containing $y$. A \bfit{leap} is either a
-link or a dependency. The \bfit{leap graph} $\LG_G$ of $G$ is the undirected graph $(V_G,
-L_G)$ where $L_G$ is the set of leaps of $G$. A set $W \subseteq V_G$ induces a
-\bfit{bimatching} in $G$ if $W$ induces a matching in $G$ and in the leap graph
-$\LG_G$ as well.
-
-\begin{definition}
-A \bfit{first-order net} or \bfit{fonet} is a linked fograph which has
-dualizer but no induced bimatching.  
-\end{definition}
-
-A graph homomorphism $f: (V, E) \rightarrow (V', E')$ is a \bfit{fibration} if
-for all $v \in V$ and $wf(v) \in E'$, there exists a unique $\tilde{w}$ such
-that $\tilde{w}v \in E$ and $f(\tilde{w}) = w$, and is a \bfit{skew fibration}
-if for all $v \in V$ and $wf(v) \in E'$ there exists $\tilde{w}$ such that
-$\tilde{w}v \in E$ and $f(\tilde{w})w \notin E'$. A \bfit{fograph homomorphism}
-is a graph homomorphism between the underlying graphs of the fographs
-considered. A fograph homomorphism $f : G \rightarrow G'$ is
-\bfit{label-preserving} if forall $v \in V_G, label(v) = label(f(v))$, and is
-\bfit{existential-preserving} if for all existental binder $b$ in $G$, the
-vertex $f(b)$ is an existential binder in $G'$.
-
-\begin{definition}
-A \bfit{skew bifibration} between fographs is a label-preserving and
-	existential-preserving fograph homomorphism whose restriction to the
-	binding graphs is a fibration.
-\end{definition}
-
-\begin{definition}
-	A \bfit{first-order combinatorial proof} of a fograph $G$ is a skew
-bifibration $f: N \rightarrow G$ where $N$ is a fonet. A \bfit{first-order
-combinatorial proof} of a formula $A$ is a combinatorial proof of its graph
-	$\Gr(A)$.
-\end{definition}
 
 \subsection{$\FOMLL$ and Unification Nets}
 
