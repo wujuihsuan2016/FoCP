@@ -74,6 +74,8 @@
 \newcommand{\tocheck}[1][]{{\color{red}     \noindent[\![\![{\bf TO CHECK: }#1]\!]\!]}}
 
 
+
+
 % *** PACKAGES *** %
 
 \usepackage[utf8]{inputenc}
@@ -83,7 +85,6 @@
 \usepackage{virginialake}
 \usepackage{cmll}
 \usepackage{tikz}
-\usepackage{natbib}
 \usepackage{amsthm}\theoremstyle{plain}
 \newtheorem{thm}{Theorem}[section]
 
@@ -393,6 +394,7 @@
 
 
 \begin{document}
+\bstctlcite{refs:BSTcontrol}
 %
 % paper title
 % Titles are generally capitalized except for words such as a, an, and, as,
@@ -673,7 +675,7 @@ all free variables. Without loss of generality, we assume that all formulas are
 rectifed throughtout the paper as every formula has a logically equivalent
 rectified form.
 
-We consider Gentzen's sequent calculus system $\LK$ \cite{Gentzen 1935}.
+We consider Gentzen's sequent calculus system $\LK$ \cite{gentzen:35:I}.
 
 A \bfit{sequent} is a multiset of formulas and sequents are proved using the
 following inference rules:
@@ -734,7 +736,7 @@ following inference rules:
 \end{center}
 \end{figure}
 
-In this paper, we also use some \bfit{deep inference} \cite{BT 2001} rules that are in the
+In this paper, we also use some \bfit{deep inference} \cite{brunnler:tiu:01} rules that are in the
 following form:
 \begin{center}
 \begin{prooftree}
@@ -937,7 +939,7 @@ structure are acyclic.
 \section{From first-order logic to combinatorial proofs}
 
 \subsection{Decomposition Theorem}
-Consider the following deep inference rules \cite{BT 2001}:
+Consider the following deep inference rules \cite{brunnler:tiu:01}:
 \begin{center}
 \mbox{
 \begin{prooftree}
@@ -1072,7 +1074,7 @@ In this case, the permutation of this instance of $\wD$ stops and we continue wi
 
 \end{proof}
 
-D. Hughes proves in \cite{Hughes 2019} the soundness and completeness of
+D. Hughes proves in \cite{hughes:unifn} the soundness and completeness of
 unification nets with respect to $\FOMLLm$. In the following, we establish the
 equivalence between unification nets and fonets.
 
@@ -1242,7 +1244,7 @@ If one of the switching graphs of the unification structure of $A$
 contains a cycle or is not connected, then there exists an induced bimatching of the
 corresponding linked fograph.
 \begin{proof}
-We use frames introduced by D. Hughes in Section 4 of \cite{Hughes 2015}.
+We use frames introduced by D. Hughes in Section 4 of \cite{hughes:unifn}.
 
 \begin{definition}
 Let $\theta$ be a unification structure on an $\FOMLL$ sequent $\Gamma$.
@@ -1338,7 +1340,9 @@ Let $u$ and $v$ be atoms or quantifiers in a unification structure $\theta$. The
 
 Consider now a switching graph $H$ of a unification structure $\theta$ of $A$.
 
-If $H$ contains a cycle, then the corresponding switching graph of $\theta_m$ also contains a cycle. Hence, by applying the propositional results (Theorem 7) from \cite{Retore 2003}, we conclude that there exists a chordless, alternating, and elementary cycle in the bicoloured graph ($W, E_W \uplus L_W$), which corresponds to an induced bimatching in the linked fograph. (Note that the linked fograph (cograph) corresponding to $\theta_m$ is equivalent to the one corresponding to $\theta$.)
+If $H$ contains a cycle, then the corresponding switching graph of $\theta_m$
+also contains a cycle. Hence, by applying the propositional results (Theorem 7)
+from \cite{retore:03}, we conclude that there exists a chordless, alternating, and elementary cycle in the bicoloured graph ($W, E_W \uplus L_W$), which corresponds to an induced bimatching in the linked fograph. (Note that the linked fograph (cograph) corresponding to $\theta_m$ is equivalent to the one corresponding to $\theta$.)
 
 \end{proof}
 \end{proposition}
@@ -1575,7 +1579,9 @@ For each rule from $\{\wD, \acD, \me, \mee, \meee \}$, we define a map and show 
 
 \end{itemize}
 
-By considering propositional encodings, the maps defined are label-preserving skew fibrations on the underlying fographs according to \cite{Strassburger 2007}.
+By considering propositional encodings, the maps defined are label-preserving
+skew fibrations on the underlying fographs according to
+\cite{str:07:RTA}.
 
 Now we prove that each map $g \in \{wk, ac, m, m_1, m_2 \}$ is a skew bifibration. To do that, it suffices to prove that $g$ is a fibration between the corresponding binding graphs since it is already a skew fibration on the corresponding fographs and it is label-preserving and existential-preserving.
 \begin{center}
@@ -1591,7 +1597,7 @@ that $b'$ binds $v$.
 \end{itemize}
 
   Therefore, all of these maps are skew bifibrations and since skew bifibrations
-on fographs compose (Lemma 10.32, \cite{Hughes 2019}), there exists a skew
+on fographs compose (Lemma 10.32, \cite{hughes:fopws}), there exists a skew
 bifibration from $\Gr(A)$ to $\Gr(B)$.
 
 \end{proof}
@@ -1899,7 +1905,8 @@ have a subformula of this form, which leads to a contradiction.
 % set second argument of \begin to the number of references
 % (used to reserve space for the reference number labels box)
 
-\input{bibliography}
+\bibliographystyle{IEEEtran}
+\bibliography{refs}
 
 %\begin{thebibliography}{1}
 
