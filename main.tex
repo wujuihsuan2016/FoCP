@@ -98,8 +98,23 @@
 
 % Some very useful LaTeX packages include:
 % (uncomment the ones you want to load)
+\makeatletter
+ \newcommand{\coloneqq}{%
+ \mathrel{%
+   \rlap{\raisebox{0.3ex}{$\m@th\cdot$}}\raisebox{-0.3ex}{$\m@th\cdot$}%
+   \rlap{\raisebox{0.3ex}{$\m@th\cdot$}}\raisebox{-0.3ex}{$\m@th\cdot$}%
+ }=}
+\makeatother
 
+\newcommand{\dual}[1]{\overline{#1}}
+\newcommand{\cneg}[1]{\dual{#1}}
 
+\newcommand{\VAR}{\textsc{var}}
+\newcommand{\FUN}{\textsc{fun}}
+\newcommand{\PRED}{\textsc{pred}}
+\newcommand{\ATOM}{\textsc{atom}}
+\newcommand{\FORM}{\textsc{form}}
+\newcommand{\TERM}{\textsc{term}}
 % *** MISC UTILITY PACKAGES ***
 %
 %\usepackage{ifpdf}
@@ -594,7 +609,51 @@ paper.
 
 \subsection{Terms and Formulas}
 
+We start from a countable set $\VAR=\set{x,y,z,\ldots}$ of variables,
+a countable set $\FUN=\set{f,g,\ldots}$ of function symbols, and a
+counrable set $\PRED=\set{p,q,\ldots}$ of predicate symbols. Each function symbol and
+each predicate symbol has a finite arity. The grammars below generate
+the set $\TERM$ of \bfit{terms}, denoted by $s,t,u,\ldots$, the set
+$\ATOM$ of \bfit{atoms}, denoted by $a,b,c,\ldots$, and the set
+$\FORM$ of \bfit{formulas}, denoted by $A,B,C,\ldots$:
+\begin{equation*}
+  \begin{array}{r@{~}l}
+    t &\coloneqq~ x \mid f(t_1,\dots,t_n)
+    \\[.5ex]
+    a &\coloneqq~ \ttt\mid\fff\mid p(t_1,\dots,t_n) \mid \dual p(t_1,\dots,t_n)
+    \\[.5ex]
+    A &\coloneqq~ a \mid A\vlan A \mid A\vlor A \mid \exists x.A \mid \forall x.A
+\end{array}
+\end{equation*}
+where the arity of $t$ and $p$ is $n$. Note, that in this paper we
+consider the truth constants $\ttt$ (\emph{true}) and $\fff$
+(\emph{false}) as atoms, and we consider all formulas in negation
+normalform. The \bfit{negation} $(\dual\cdot)$ is defined for all
+atoms and formulas via the De Morgan laws as follows:
+\begin{equation*}
+  \dual\ttt =\fff
+  \quad
+  \dual\fff = \ttt
+  \quad
+  \dual{p(t_1 \ldots t_n)} = \dual{p}(t_1 \ldots t_n)
+  \quad
+  \dual{\dual p(t_1 \ldots t_n)} = p(t_1 \ldots t_n)
+\\
+  \dual{\dual a} = a
+\end{equation*}
+
+\todo{add missing equations and make it look nice}
+
+ A formula is
+\bfit{rectified} if all bound variables are distinct from one another and from
+all free variables. As every formula has a logically equivalent
+rectified form, we will most of the results in this paper to rectified formulas.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 \subsection{Sequent Calculus $\FOLK$}
+
 
 
 \section{Preliminaries: First-order Graphs}\label{sec:fographs}
