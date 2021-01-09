@@ -79,11 +79,14 @@
 % *** PACKAGES *** %
 
 \usepackage[utf8]{inputenc}
+\usepackage{dashbox}
 \usepackage{ebproof}
 \usepackage{amsmath}
 \usepackage{ebproof}
 \usepackage{virginialake}
+
 \usepackage{cmll}
+
 \usepackage{tikz}
 \usepackage{amsthm}\theoremstyle{plain}
 \newtheorem{thm}{Theorem}[section]
@@ -381,6 +384,12 @@
 \newcommand{\ctr}{\mathsf{ctr}}
 \newcommand{\wk}{\mathsf{wk}}
 
+\newcommand{\axr}{\mathsf{ax}}
+\newcommand{\cutr}{\mathsf{cut}}
+\newcommand{\mixr}{\mathsf{mix}}
+\newcommand{\conr}{\mathsf{ctr}}
+\newcommand{\weakr}{\mathsf{wk}}
+
 % ** SYMBOLS **
 
 \newcommand{\cor}{\vee}
@@ -402,13 +411,21 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \newcommand{\set}[1]{\{#1\}}
+\newcommand{\sqn}[1]{\vdash#1}
 
+\newcommand{\sublist}[1]{\set{#1}}
+\newcommand{\subst}[2]{#1\mathord{\scriptstyle\mapsto} #2}
+\newcommand{\ssubst}[2]{\sublist{\subst{#1}{#2}}}
+
+\newcommand{\form}[1]{\mathrm{fm}(#1)}
 
 % correct bad hyphenation here
 \hyphenation{op-tical net-works semi-conduc-tor}
 
 
 \begin{document}
+\vlnosmallleftlabels
+
 \bstctlcite{refs:BSTcontrol}
 %
 % paper title
@@ -651,11 +668,63 @@ atoms and formulas via the De Morgan laws as follows:
 all free variables. As every formula has a logically equivalent
 rectified form, we will most of the results in this paper to rectified formulas.
 
+A \bfit{substitution} is a function $\sigma\colon\VAR\to\TERM$ that is
+the identity almost everywhere. We denote substitutions as
+$\sigma=\sublist{\subst{x_1}{t_1},\ldots,\subst{x_n}{t_n}}$, where
+$\sigma(x_i)=t_i$ for $i=1..n$ and $\sigma(x)=x$ for all
+$x\notin\set{x_1,\ldots,x_n}$. 
+We write $A\sigma$ for the formula
+obtained from $A$ by applying $\sigma$, i.e., by simultaneously
+replacing all occurrences of $x_i$ by $t_i$.
+A \bfit{renaming} is a substitution $\sigma$ with $\sigma(x)\in\VAR$ for all variables.
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \subsection{Sequent Calculus $\FOLK$}
 
+\begin{figure}[!t]
+  \begin{center}
+    \framebox{%
+      $
+      \begin{array}{@{}c@{}}
+        \dbox{%
+          $
+          \begin{array}{c}
+            \vlinf{\axr}{}{\sqn{a,\cneg a}}{}
+            \qquad
+            \vlinf{\ttt}{}{\sqn{\ttt}}{}
+            \qquad
+            \vliinf{\mixr}{}{\sqn{\Gamma,\Delta}}{\sqn\Gamma}{\sqn\Delta}
+            \\ \\[-1ex]
+            \vlinf{\vlor}{}{\sqn{\Gamma,A\vlor B}}{\sqn{\Gamma,A,B}}
+            \qquad
+            \vliinf{\vlan}{}{\sqn{\Gamma,A\vlan B}}{\sqn{\Gamma,A}}{\sqn{B,\Delta}}
+            \\ \\[-1ex]
+            \vlinf{\exists}{}{\sqn{\Gamma,\exists x.A}}{\sqn{\Gamma,A\ssubst{x}{t}}}
+            \qquad
+            \vlinf{\forall}{\text{($x$ not free in $\Gamma$)}}{\sqn{\Gamma,\forall x.A}}{\sqn{\Gamma,A}}
+          \end{array}
+          $%
+        }%
+        \\\\[-1ex]
+        \vlinf{\conr}{}{\sqn{\Gamma,A}}{\sqn{\Gamma,A,A}}
+        \qquad
+        \vlinf{\weakr}{}{\sqn{\Gamma,A}}{\sqn{\Gamma}}
+      \end{array}
+      $
+    }
+  \end{center}
+  \caption{Sequent calculi $\FOLK$ (all rules) and $\FOMLL$ (rules in the dashed box)}
+  \label{fig:LK1}
+\end{figure}
+
+\bfit{Sequents}, denoted by $\Gamma,\Delta,\ldots$, are finite
+multisets of formulas, written as lists, separated by comma. The
+\bfit{corresponding formula} of a sequent $\Gamma=A_1,A_2,\ldots,A_n$
+is the disjunction of its formulas: $\form\Gamma=A_1\vlor
+A_2\vlor\cdots\vlor A_n$. A sequent is \bfit{rectified} iff its
+corresponding formula is.
 
 
 \section{Preliminaries: First-order Graphs}\label{sec:fographs}
