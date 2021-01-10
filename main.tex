@@ -644,7 +644,7 @@ $\FORM$ of \bfit{formulas}, denoted by $A,B,C,\ldots$:
     A &\coloneqq~ a \mid A\vlan A \mid A\vlor A \mid \exists x.A \mid \forall x.A
 \end{array}
 \end{equation*}
-where the arity of $t$ and $p$ is $n$. Note, that in this paper we
+where the arity of $f$ and $p$ is $n$. Note, that in this paper we
 consider the truth constants $\ttt$ (\emph{true}) and $\fff$
 (\emph{false}) as atoms, and we consider all formulas in negation
 normalform. The \bfit{negation} $(\dual\cdot)$ is defined for all
@@ -726,145 +726,22 @@ is the disjunction of its formulas: $\form\Gamma=A_1\vlor
 A_2\vlor\cdots\vlor A_n$. A sequent is \bfit{rectified} iff its
 corresponding formula is.
 
-
-\section{Preliminaries: First-order Graphs}\label{sec:fographs}
-
-\subsection{Graphs}
-
-\subsection{Cographs}
-
-\subsection{Fographs}
-
-\section{First-order Combinatorial Proofs}\label{sec:focp}
-
-\subsection{Fonets}
-
-\subsection{Skew Bifibrations}
-
-\section{First-order Deep Inference system $\FOKS$}\label{sec:foks}
-
-\section{Main Results}
-
-\section{Translating between $\FOLK$ and $\FOKS$}
-
-\subsection{The Linear Variants $\FOMLL$ and $\FOMLS$}
-
-\subsection{Contraction and Weakining}
-
-\subsection{A First Decomposition Theorem}
-
-$$
-\vlderivation{
-  \vlde{\set{\wD,\cD}}{}{C}{
-    \vlde{\FOMLS}{}{C'}{
-      \vlhy{\ttt}}}}
-$$
-
-\section{Fonets and Linear Proofs}
-
-\subsection{Unification Nets}
-
-\subsection{Translation between Unification Nets and $\FOMLL$}
-
-\subsection{Translation between Unification Nets and Fonets}
-
-\section{Skew Bifibrations and Resource Management}
-
-\subsection{From Contraction and Weakening to Skew Bifibrations}
-
-\subsection{From Skew Bifibrations to Contraction and Weakening}
-
-\section{Summary and Proofs of Main Results}
-
-\section{Conclusion}
-
-\bigskip
-\hrule
-\bigskip
+In this paper we use the sequent calculus $\FOLK$, shown in
+Figure~\ref{fig:LK1}, which is a one-sided variant of Gentzen's
+original calculus~\cite{gentzen:35:I} for first-order logic. To
+simplify some technicalities later in this paper, we also include here
+the $\mixr$-rule. The linear fragment of $\FOLK$, i.e., the fragment
+without the rules $\conr$ (\emph{contraction}) and $\weakr$
+(\emph{weakening}) defines \emph{first-order multiplicative linear
+logic}~\cite{girard:87,girard:88} \emph{with
+mix}~\cite{fleury:retore:94,bellin:97}~(MLL1+mix). We denote that system
+here with $\FOMLL$ (shown in Figure~\ref{fig:LK1} in the dashed box).
 
 
-\section{First-order Combinatorial Proofs}
-\subsection{First-order Logic}
-
-\bfit{Terms} $s, t, u, \ldots$ and \bfit{atoms} (atomic formulas) $\alpha, \beta,
-\gamma, \ldots$ are generated inductively from variables $x, y, z, \ldots$: if
-$\delta$ (resp. $p$) is an $n$-ary function (resp. predicate) symbol and $t_1, \ldots,
-t_n$ are terms, then $\delta t_1 \ldots t_n$ (resp. $pt_1 \ldots t_n$) is a term
-(resp. atom). The set of atoms is extended with logical constant $\ttt$ and
-$\fff$. We also assume that each predicate symbol $p$ has a \bfit{dual}
-predicate symbol $\overline{p}$ with $\overline{p} \neq p$ and
-$\overline{\overline{p}} = p$. We extend the duality to atoms with
-$\overline{pt_1 \ldots t_n} = \overline{p}t_1 \ldots t_n$, $\overline{\ttt} =
-\fff$, and $\overline{\fff} = \ttt$. \bfit{Formulas} $A, B, C$ are generated inductively from atoms by binary
-connectives $\cor$ and $\cand$ and quantifiers $\forall x$ and $\exists x$.
-The \bfit{negation} $\neg$ is defined in the usual way. A formula is
-\bfit{rectified} if all bound variables are distinct from one another and from
-all free variables. Without loss of generality, we assume that all formulas are
-rectifed throughtout the paper as every formula has a logically equivalent
-rectified form.
-
-\subsection{Sequent Calculus $\FOLK$}
-
-We consider Gentzen's sequent calculus system $\FOLK$ \cite{gentzen:35:I}.
-
-A \bfit{sequent} is a multiset of formulas and sequents are proved using the
-following inference rules:
-
-\begin{figure}[h]
-\begin{center}
-\begin{prooftree}
-  \infer0[$\ax$]{\vdash A, \neg A}
-\end{prooftree}
-\qquad
-\begin{prooftree}
-  \hypo{\vdash \Gamma, A}
-  \hypo{\vdash \Delta, \neg A}
-  \infer2[$\cut$]{\vdash \Gamma, \Delta}
-\end{prooftree}
-\\[1.5ex]
-\begin{prooftree}
-  \hypo{\vdash \Gamma, A}
-  \hypo{\vdash \Delta, B}
-  \infer2[$\cand$]{\vdash \Gamma, \Delta, A \cand B}
-\end{prooftree}
-\qquad
-\begin{prooftree}
-  \hypo{\vdash \Gamma, A, B}
-  \infer1[$\cor$]{\vdash \Gamma, A \cor B}
-\end{prooftree}
-\\[1.5ex]
-\begin{prooftree}
-  \hypo{\vdash \Gamma, A, A}
-  \infer1[$\ctr$]{\vdash \Gamma, A}
-\end{prooftree}
-\qquad
-\begin{prooftree}
-  \hypo{\vdash \Gamma}
-  \infer1[$\wk$]{\vdash \Gamma, A}
-\end{prooftree}
-\\[1.5ex]
-\begin{prooftree}
-\infer0[$\ttt$]{\vdash \ttt}
-\end{prooftree}
-\qquad
-\begin{prooftree}
-  \hypo{\vdash \Gamma}
-	\infer1[$\fff$]{\vdash \Gamma, \fff}
-\end{prooftree}
-\\[1.5ex]
-\begin{prooftree}
-  \hypo{\vdash \Gamma, A}
-  \infer1[$\forall$]{\vdash \Gamma, \forall x A}
-\end{prooftree}
-($x \notin fv(\Gamma)$)
-\qquad
-\begin{prooftree}
-  \hypo{\vdash \Gamma, A[t/x]}
-  \infer1[$\exists$]{\vdash \Gamma, \exists x A}
-\end{prooftree}
-\caption{Gentzen's sequent calculus $\FOLK$}
-\end{center}
-\end{figure}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
 \section{Preliminaries: First-order Graphs}\label{sec:fographs}
@@ -917,6 +794,62 @@ A \bfit{first-order graph} or \bfit{fograph} is a logical cograph with legal bin
 For a formula $A$, we can define its associated fograph $\Gr(A)$ inductively by: $\Gr(\alpha) = \cdot \alpha$ (a single-vertex graph whose vertex is labelled by $\alpha$); $\Gr(A \cor B) = \Gr(A) + \Gr(B)$ and $\Gr(A \cand B) = \Gr(A) \times \Gr(B)$.
 The \bfit{binding graph} of a forgraph $G$ is the directed graph $(V_G, \{(b,
 l) \ | \ b \text{ binds } l\})$.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\section{First-order Combinatorial Proofs}\label{sec:focp}
+
+\subsection{Fonets}
+
+\subsection{Skew Bifibrations}
+
+\section{First-order Deep Inference system $\FOKS$}\label{sec:foks}
+
+\section{Main Results}
+
+\section{Translating between $\FOLK$ and $\FOKS$}
+
+\subsection{The Linear Variants $\FOMLL$ and $\FOMLS$}
+
+\subsection{Contraction and Weakining}
+
+\subsection{A First Decomposition Theorem}
+
+$$
+\vlderivation{
+  \vlde{\set{\wD,\cD}}{}{C}{
+    \vlde{\FOMLS}{}{C'}{
+      \vlhy{\ttt}}}}
+$$
+
+\section{Fonets and Linear Proofs}
+
+\subsection{Unification Nets}
+
+\subsection{Translation between Unification Nets and $\FOMLL$}
+
+\subsection{Translation between Unification Nets and Fonets}
+
+\section{Skew Bifibrations and Resource Management}
+
+\subsection{From Contraction and Weakening to Skew Bifibrations}
+
+\subsection{From Skew Bifibrations to Contraction and Weakening}
+
+\section{Summary and Proofs of Main Results}
+
+\section{Conclusion}
+
+\bigskip
+\hrule
+\bigskip
+
+
+
 
 
 \section{First-order Combinatorial Proofs}\label{sec:focp}
