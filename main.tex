@@ -588,7 +588,7 @@ proof, i.e., there is a surjective mapping from proofs in $\FOKS$ to
 combinatorial proofs, that (ii) allows to provide simpler proofs of
 soundness and completeness of combinatorial proofs, and (iii) admits
 new decomposition theorems establishing a precise correspondence
-between certain syntactic inference rules and certain combinatiorial
+between certain syntactic inference rules and certain combinatorial
 notions.
 
 In general, a \emph{decomposition theorem} provides normal forms of
@@ -647,18 +647,19 @@ $\FORM$ of \bfit{formulas}, denoted by $A,B,C,\ldots$:
 where the arity of $t$ and $p$ is $n$. Note, that in this paper we
 consider the truth constants $\ttt$ (\emph{true}) and $\fff$
 (\emph{false}) as atoms, and we consider all formulas in negation
-normalform. The \bfit{negation} $(\dual\cdot)$ is defined for all
+normal form. The \bfit{negation} $(\dual\cdot)$ is defined for all
 atoms and formulas via the De Morgan laws as follows:
 \begin{equation*}
-  \dual\ttt =\fff
-  \quad
-  \dual\fff = \ttt
-  \quad
-  \dual{p(t_1 \ldots t_n)} = \dual{p}(t_1 \ldots t_n)
-  \quad
-  \dual{\dual p(t_1 \ldots t_n)} = p(t_1 \ldots t_n)
-\\
-  \dual{\dual a} = a
+  \begin{array}{cc}
+  \dual\ttt =\fff &
+  \dual{p(t_1,\ldots,t_n)} = \dual{p}(t_1,\ldots,t_n) \\[.5ex]
+  \dual\fff = \ttt &
+  \dual{\dual p(t_1,\ldots,t_n)} = p(t_1,\ldots,t_n) \\[.5ex]
+  \dual{A \vlan B} = \dual{A} \ \vlor \ \dual{B} &
+  \dual{\exists x.A} = \forall x.\dual{A} \\[.5ex]
+  \dual{A \vlor B} = \dual{A} \ \vlan \ \dual{B} & 
+  \dual{\forall x.A} = \exists x.\dual{A} 
+  \end{array}
 \end{equation*}
 
 \todo{add missing equations and make it look nice}
@@ -666,7 +667,7 @@ atoms and formulas via the De Morgan laws as follows:
  A formula is
 \bfit{rectified} if all bound variables are distinct from one another and from
 all free variables. As every formula has a logically equivalent
-rectified form, we will most of the results in this paper to rectified formulas.
+rectified form, we will restrict most of the results in this paper to rectified formulas.
 
 A \bfit{substitution} is a function $\sigma\colon\VAR\to\TERM$ that is
 the identity almost everywhere. We denote substitutions as
