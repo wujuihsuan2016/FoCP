@@ -78,6 +78,7 @@
 
 % *** PACKAGES *** %
 
+\usepackage{xifthen}
 \usepackage[utf8]{inputenc}
 \usepackage{dashbox}
 \usepackage{ebproof}
@@ -119,6 +120,32 @@
 \newcommand{\ATOM}{\textsc{atom}}
 \newcommand{\FORM}{\textsc{form}}
 \newcommand{\TERM}{\textsc{term}}
+
+\newcommand{\fequ}{\equiv}
+\newcommand{\fequp}{\mathrel{\equiv'\mkern-2mu}}
+
+\newcommand{\graph}[1]{\mathcal{#1}}
+\newcommand{\vertices}[1][]{\ifthenelse{\isempty{#1}}{V}{V_{\graph{#1}}}}
+\newcommand{\edges}[1][]{\ifthenelse{\isempty{#1}}{E}{E_{\graph{#1}}}}
+
+\newcommand{\gA}{\graph{A}}
+\newcommand{\gC}{\graph{C}}
+\newcommand{\gG}{\graph{G}}
+\newcommand{\gH}{\graph{H}}
+
+\newcommand{\vA}{\vertices[A]}
+\newcommand{\vC}{\vertices[C]}
+\newcommand{\vG}{\vertices[G]}
+\newcommand{\vH}{\vertices[H]}
+
+\newcommand{\eA}{\edges[A]}
+\newcommand{\eC}{\edges[C]}
+\newcommand{\eG}{\edges[G]}
+\newcommand{\eH}{\edges[H]}
+
+
+
+
 % *** MISC UTILITY PACKAGES ***
 %
 %\usepackage{ifpdf}
@@ -410,9 +437,12 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+\newcommand{\tuple}[1]{\langle#1\rangle}
+\newcommand{\pair}[1]{(#1)}
 \newcommand{\set}[1]{\{#1\}}
 \newcommand{\sqn}[1]{\vdash#1}
 
+\newcommand{\compl}[1]{#1^\complement}
 \newcommand{\sublist}[1]{\set{#1}}
 \newcommand{\subst}[2]{#1\mathord{\scriptstyle\mapsto} #2}
 \newcommand{\ssubst}[2]{\sublist{\subst{#1}{#2}}}
@@ -661,8 +691,8 @@ atoms and formulas via the De Morgan laws as follows:
   \dual{\forall x.A} = \exists x.\dual{A} 
   \end{array}
 \end{equation*}
-
 \todo{add missing equations and make it look nice}
+\lutz{don't we need   $\dual{\dual a} = a$? (then it should follow that $\dual{\dual A} = A$)}
 
  A formula is
 \bfit{rectified} if all bound variables are distinct from one another and from
@@ -749,8 +779,42 @@ here with $\FOMLL$ (shown in Figure~\ref{fig:LK1} in the dashed box).
 
 \subsection{Graphs}
 
-A \bfit{directed graph} $G = (V, E)$ consists of a finite set $V$ of
-\bfit{vertices} and a set of $E \subseteq V \times V$ of \bfit{direct edges}. An
+A \bfit{graph} $\gG=\tuple{\vG,\eG}$ is a pair where $\vG$ is a finite
+set of \bfit{vertices} and $\eG$ is a finite set of \bfit{edges},
+which are two-element subsets of $\vG$. We write $vw$ for an edge
+$\set{v,w}$.
+
+The \bfit{complement} of a graph $\gG=\tuple{\vG,\eG}$ is
+the graph $\compl\gG=\tuple{\vG,\compl\eG}$ where $vw\in\compl\eG$ iff
+$vw\neq\eG$. 
+
+Let $\gG=\tuple{\vG,\eG}$ and $\gH=\tuple{\vH,\eH}$ be graphs such
+that $\vG\cap\vH=\emptyset$. A \bfit{homomorphism}
+$\phi\colon\gG\to\gH$ is a function $\phi\colon\vG\to\vH$ such that if
+$vw\in\eG$ then $\phi(v)\phi(w)\in\eH$. The \bfit{union} $\gG +\gH$ is
+the graph $\tuple{\vG \cup\vH,\eG\cup \eH}$ and the \bfit{join} $\gG
+\times \gH$ is the graph $\tuple{\vG \cup\vH,\eG \cup \eH \cup \set{vw
+    | v \in \vG, w \in \vH}}$.  A graph $\gG$ is \bfit{disconnected}
+if $\gG=\gG_1+\gG_2$ for two non-empty graphs $\gG_1,\gG_2$, otherwise
+it is \bfit{connected}. It is \emph{coconnected} if its complement is
+connected.
+
+A graph $\gG$ is \bfit{labelled} in a set $L$ if
+each vertex $v\in\vG$ has an element $\ell(v)\in L$ associated with it, its \bfit{label}.
+
+A \bfit{directed graph} $\gG =\tuple{\vG,\eG}$ is set $V$ of
+\bfit{vertices} and a set $\eG\subseteq \vG\times\vG$ of \bfit{direct edges}.
+A \bfit{directed graph homomorphism}
+$\phi\colon\tuple{\vG,\eG}\to\tuple{\vH,\eH}$ is function $\phi\colon\vG\to\vH$ such that if
+$\pair{v,w}\in\eG$ then $\pair{\phi(v),\phi(w)}\in\eH$.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Cographs}
+
+An
 \bfit{undirected graph} $G = (V, E)$ consists of a finite set $V$ of vertices
 and a set of $E$ of \bfit{undirected edges} (two-element subsets of $V$).
 For a given (directed or undirected) graph $G$, we write $V_G$ and $E_G$ for its
@@ -769,9 +833,6 @@ set $M \subseteq V$ such that $N(v) \ M = N(w) \ M$ for all $v, w \in M$. A
 \subseteq$ or $M \cap M' = \emptyset$. A \bfit{graph homomorphism} $f: (V, E)
 \rightarrow (V', E')$ is a function $f : V \rightarrow V'$ such that $f(v)f(w)
 \in E'$ whenever $vw \in E$.
-
-\subsection{Cographs}
-
 \subsection{Fographs}
 
 A cograph is \bfit{logical} if every vertex is labelled either by an atom or variable,
