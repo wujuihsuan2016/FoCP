@@ -715,10 +715,10 @@ atoms and formulas via the De Morgan laws as follows:
   \dual{p(t_1,\ldots,t_n)} = \dual{p}(t_1,\ldots,t_n) \\[.5ex]
   \dual\fff = \ttt &
   \dual{\dual p(t_1,\ldots,t_n)} = p(t_1,\ldots,t_n) \\[.5ex]
-  \dual{A \vlan B} = \dual{A} \ \vlor \ \dual{B} &
-  \dual{\exists x.A} = \forall x.\dual{A} \\[.5ex]
-  \dual{A \vlor B} = \dual{A} \ \vlan \ \dual{B} & 
-  \dual{\forall x.A} = \exists x.\dual{A} 
+  \dual{\dual a} = a & \dual{\exists x.A} = \forall x.\dual{A} \\[.5ex]
+  \dual{A \vlan B} = \dual{A} \ \vlor \ \dual{B} & \dual{\forall x.A} = \exists x.\dual{A} 
+  \\[.5ex]
+  \dual{A \vlor B} = \dual{A} \ \vlan \ \dual{B} &  
   \end{array}
 \end{equation*}
 \todo{add missing equations and make it look nice}
@@ -727,6 +727,9 @@ atoms and formulas via the De Morgan laws as follows:
 \juihsuan{isn't it given by the first four equations? I think that we use the
 notation of negation for atoms and formulas. We may also need to precise that each
 predicate symbol $p$ has a dual $\dual{p}$.}\lutz{we either have to say $\dual{\dual a} = a$ or $\dual{\dual p} = p$. I prefer the first.}
+\juihsuan{okay I see. I didn't realize that the negation is regarded as a
+connective for predicate symbols. The notation got me confused since $\dual{p}$
+is also a predicate symbol.}  
 
 A formula is
 \bfit{rectified} if all bound variables are distinct from one another and from
@@ -879,9 +882,7 @@ cographs for our paper comes from the following well-known fact.
 \todo{ad the reference} \juihsuan{done}
 
 In a graph $\gG$, the \bfit{neighbourhood} $N(v)$ of a vertex $v \in\vG$ is defined as
-the set $\set{w \mid vw \in\eG}$. A set $W \subseteq \vG$ induces a \bfit{matching} in
-$\gG$ if for all $w \in W$, $N(w) \cap W$ is a singleton.
-A \bfit{module} is a set $M \subseteq \vG$ such that $N(v) \ M = N(w) \ M$
+the set $\set{w \mid vw \in\eG}$. A \bfit{module} is a set $M \subseteq \vG$ such that $N(v) \ M = N(w) \ M$
 for all $v, w \in M$. A module $M$ is \bfit{strong} if for every
 module $M'$, we have $M' \subseteq M$, $M \subseteq$ or $M \cap M' =
 \emptyset$. A module is \bfit{proper} if it has two or more vertices.
@@ -923,16 +924,21 @@ graphs, inductively as follows:
 For a formula $A$, we can define its
 associated fograph $\graphof(A)$ inductively by: 
 \begin{equation*}
-  \begin{array}{l}
-    \graphof{\alpha} = \cdot \alpha (\text{single-vertex graph whose vertex is 
-    labelled by } \alpha); \\[.5ex]
-    \graphof{A \cor B} = \graphof{A} + \graphof{B};
-    \graphof{A \cand B} = \graphof{A} \times \graphof{B}; \\[.5ex]
-    \graphof{\forall x . A} = \cdot x + \graphof{A};
-    \graphof{\exists x . A} = \cdot x \times \graphof{A}.
+  \begin{array}{cc}
+    \graphof{\alpha} = \single \alpha & 
+    \graphof{\forall x . A} = \single x + \graphof{A} \\[.5ex]
+    \graphof{A \cor B} = \graphof{A} + \graphof{B} &
+    \graphof{\exists x . A} = \single x \times \graphof{A} \\[.5ex]
+    \graphof{A \cand B} = \graphof{A} \times \graphof{B} &
+    
   \end{array}
 \end{equation*}
-\todo{make look nice, use array} \juihsuan{done}\lutz{use the single macro (see above), so that we can change the notation later if we need to (and make the array with two columns)}
+where $\single \alpha$ (resp. $\single x$) is a single-vertex graph whose vertex is 
+    labelled by $\alpha$ (resp. $x$).
+\todo{make look nice, use array} \juihsuan{done}\lutz{use the single macro (see
+above), so that we can change the notation later if we need to (and make the
+array with two columns)} \juihsuan{fixed}
+
 
 \begin{lemma}
   If $A$ is a rectified formula then $\graphof A$ is a fograph.
@@ -992,16 +998,17 @@ Let $\gG$ be a linked fograph. The set of links can be seen as a unification pro
 by identifying dual predicate symbols. A \bfit{dualizer} of $\gG$ is an assignment
 unifying all the links of $\gG$. Since a first-order unification problem is either
 solvable or has a most general unifier, we can define the notion of \bfit{most
-general dualizer}. A \bfit{dependency} is a pair $(\cdot x, \cdot y)$ of an
-existential binder $\cdot x$ and a universal binder $\cdot y$ such that the most
+general dualizer}. A \bfit{dependency} is a pair $(\single x, \single y)$ of an
+existential binder $\single x$ and a universal binder $\single y$ such that the most
 general dualizer assigns to $x$ a term containing $y$. A \bfit{leap} is either a
 link or a dependency. The \bfit{leap graph} $\lgG$ of $\gG$ is the undirected
-graph $(\vG, \lpG)$ where $\lpG$ is the set of leaps of $\gG$. A set $W
-\subseteq \vG$ induces a
-\bfit{bimatching} in $\gG$ if $W$ induces a matching in $\gG$ and in the leap graph
+graph $(\vG, \lpG)$ where $\lpG$ is the set of leaps of $\gG$. A set $W \subseteq \vG$ induces a \bfit{matching} in
+$\gG$ if for all $w \in W$, $N(w) \cap W$ is a singleton, and induces a
+\bfit{bimatching} in $\gG$ if it induces a matching in $\gG$ and in the leap graph
 $\lgG$ as well.
 
 \todo{define matching} \juihsuan{done in the cograph part}\lutz{no, it should be here}
+\juihsuan{fixed}
 
 \todo{adjust notation}
 
@@ -1035,7 +1042,7 @@ binding graphs is a fibration.
 A \bfit{first-order combinatorial proof} of a fograph $G$ is a skew
 bifibration $f: N \rightarrow G$ where $N$ is a fonet. A \bfit{first-order
 combinatorial proof} of a formula $A$ is a combinatorial proof of its graph
-$\graphof(A)$.
+$\graphof{A}$.
 \end{definition}
 
 
