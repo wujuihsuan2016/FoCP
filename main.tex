@@ -90,7 +90,7 @@
 
 \usepackage{tikz}
 \usepackage{amsthm}\theoremstyle{plain}
-\newtheorem{thm}{Theorem}[section]
+\newtheorem{thm}{Theorem}%[section]
 
 \theoremstyle{definition}
 \newtheorem{definition}[thm]{Definition}
@@ -121,17 +121,24 @@
 \newcommand{\FORM}{\textsc{form}}
 \newcommand{\TERM}{\textsc{term}}
 
+\newcommand{\samecol}{\sim}
 \newcommand{\fequ}{\equiv}
 \newcommand{\fequp}{\mathrel{\equiv'\mkern-2mu}}
 
 \newcommand{\graph}[1]{\mathcal{#1}}
 \newcommand{\vertices}[1][]{\ifthenelse{\isempty{#1}}{V}{V_{\graph{#1}}}}
 \newcommand{\edges}[1][]{\ifthenelse{\isempty{#1}}{E}{E_{\graph{#1}}}}
+\newcommand{\bgraph}[1]{\mathcal{\vec{#1}}}
 
 \newcommand{\gA}{\graph{A}}
 \newcommand{\gC}{\graph{C}}
 \newcommand{\gG}{\graph{G}}
 \newcommand{\gH}{\graph{H}}
+
+\newcommand{\bA}{\bgraph{A}}
+\newcommand{\bC}{\bgraph{C}}
+\newcommand{\bG}{\bgraph{G}}
+\newcommand{\bH}{\bgraph{H}}
 
 \newcommand{\vA}{\vertices[A]}
 \newcommand{\vC}{\vertices[C]}
@@ -436,12 +443,16 @@
 \DeclareTextFontCommand{\bfit}{\bfseries\itshape}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\Pfour}{\mathbf{P_4}}
 
 \newcommand{\tuple}[1]{\langle#1\rangle}
 \newcommand{\pair}[1]{(#1)}
 \newcommand{\set}[1]{\{#1\}}
 \newcommand{\sqn}[1]{\vdash#1}
 
+\newcommand{\single}[1]{\bullet#1}
+
+\newcommand{\graphof}[1]{\llbracket#1\rrbracket}
 \newcommand{\compl}[1]{#1^\complement}
 \newcommand{\sublist}[1]{\set{#1}}
 \newcommand{\subst}[2]{#1\mathord{\scriptstyle\mapsto} #2}
@@ -765,7 +776,13 @@ In this paper we use the sequent calculus $\FOLK$, shown in
 Figure~\ref{fig:LK1}, which is a one-sided variant of Gentzen's
 original calculus~\cite{gentzen:35:I} for first-order logic. To
 simplify some technicalities later in this paper, we also include here
-the $\mixr$-rule. The linear fragment of $\FOLK$, i.e., the fragment
+the $\mixr$-rule.
+
+\begin{thm}
+  A formula $A$ is a theorem of first-order logic iff the sequent $\sqn A$ is derivable in $\FOLK$.
+\end{thm}
+
+The linear fragment of $\FOLK$, i.e., the fragment
 without the rules $\conr$ (\emph{contraction}) and $\weakr$
 (\emph{weakening}) defines \emph{first-order multiplicative linear
 logic}~\cite{girard:87,girard:88} \emph{with
@@ -803,8 +820,16 @@ if $\gG=\gG_1+\gG_2$ for two non-empty graphs $\gG_1,\gG_2$, otherwise
 it is \bfit{connected}. It is \emph{coconnected} if its complement is
 connected.
 
-A graph $\gG$ is \bfit{labelled} in a set $L$ if
-each vertex $v\in\vG$ has an element $\ell(v)\in L$ associated with it, its \bfit{label}.
+A graph $\gG$ is \bfit{labelled} in a set $L$ if each vertex $v\in\vG$
+has an element $\ell(v)\in L$ associated with it, its \bfit{label}.  A
+graph $\gG$ is (partially) \bfit{coloured} if it carries a partial
+equivalence relation $\samecol$ on $\vG$; each equivalence class is a
+\bfit{colour}.  A \bfit{vertex renaming} of $\gG=\tuple{\vG,\eG}$
+along a bijection $(\hat\cdot)\colon\vG\to\hat\vG$ is the graph
+$\hat\gG=\tuple{\hat\vG,\set{\hat v\hat w\mid vw\in\eG}}$, with
+colouring and/or labelling inherited (i.e., $\hat v\samecol\hat w$ if
+$v\samecol w$, and $\ell(\hat v)=\ell(v)$). Following standard graph
+theory, we identify graphs modulo vertex renaming.
 
 A \bfit{directed graph} $\gG =\tuple{\vG,\eG}$ is a set $\vG$ of
 \bfit{vertices} and a set $\eG\subseteq \vG\times\vG$ of \bfit{direct edges}.
@@ -818,111 +843,104 @@ $\pair{v,w}\in\eG$ then $\pair{\phi(v),\phi(w)}\in\eH$.
 
 \subsection{Cographs}
 
-An
-\bfit{undirected graph} $G = (V, E)$ consists of a finite set $V$ of vertices
-and a set of $E$ of \bfit{undirected edges} (two-element subsets of $V$).
-For a given (directed or undirected) graph $G$, we write $V_G$ and $E_G$ for its
-vertex and edge sets respectively. We write $vw$ for an edge $(v, w)$ or $\{v,
-w\}$. Let $G = (V, E)$ and $G' = (V', E')$ be two undirected graphs. Without
-loss of generality, we assume that $V$ and $V'$ are disjoint. The \bfit{union}
-$G + G'$ is the graph $(V \cup V', E \cup E')$ and the \bfit{join} $G \times G'$
-is the graph $(V \cup V', E \cup E' \cup \{vv' | v \in V, v' \in V'\})$. A
-\bfit{cograph} is a $P_4$-free undireced grpah, i.e., for any distinct vertices $v_1,
-v_2, v_3, v_4 \in V$, the restriction of the edge sets on them is not equal to
-$\{v_1v_2, v_2v_3, v_3v_4\}$. In a graph $G = (V, E)$, the \bfit{neighbourhood}
-$N(v)$ of $v \in V$ is defined as the set $\{w | vw \in E\}$, a set $W \subseteq
-V$ induces a \bfit{matching} if for all $w \in W$, $N(w) \cap E$ is a singleton, and a module is a
-set $M \subseteq V$ such that $N(v) \ M = N(w) \ M$ for all $v, w \in M$. A
-\bfit{module} $M$ is strong if for every module $M'$, we have $M' \subseteq M$, $M
-\subseteq$ or $M \cap M' = \emptyset$. A \bfit{graph homomorphism} $f: (V, E)
-\rightarrow (V', E')$ is a function $f : V \rightarrow V'$ such that $f(v)f(w)
-\in E'$ whenever $vw \in E$.
+A graph $\gH=\tuple{\vH,\eH}$ is a \bfit{subgraph} of a graph
+$\gG=\tuple{\vG,\eG}$ if $\vH\subseteq\vG$ and $\eH\subseteq\eG$. It
+is \bfit{induced} if $v,w\in\vH$ and $vw\in\eG$ implies $vw\in\eH$.  A
+graph is \bfit{$\gH$-free} if it does not contain $\gH$ as an induced
+subgraph.  The graph $\Pfour$ is the (undirected) graph
+$\tuple{\set{v_1, v_2, v_3, v_4},\set{v_1v_2, v_2v_3, v_3v_4}}$.  A
+\bfit{cograph} is a $P_4$-free undirected graph. The interest in
+cographs for our paper comes from the following well-known fact.
+
+\begin{thm}[\cite{}]\label{thm:cograph}
+  A graph is a cograph iff it can be constructed from the singletons via the operations $+$ and~$\times$.
+\end{thm}
+\todo{ad the reference}
+
+In a graph $\gG$, the \bfit{neighbourhood} $N(v)$ of a vertex $v \in\vG$ is defined as
+the set $\set{w | vw \in\eG}$. 
+A \bfit{module} is a set $M \subseteq \vG$ such that $N(v) \ M = N(w) \ M$
+for all $v, w \in M$. A module $M$ is \bfit{strong} if for every
+module $M'$, we have $M' \subseteq M$, $M \subseteq$ or $M \cap M' =
+\emptyset$. A module is \bfit{proper} if it has two or more vertices.
+
+Modules in cographs correspond precisely to the subtrees of the
+cotrees (the term-trees constructing the graph via $+$ and~$\times$).
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
 \subsection{Fographs}
 
-A cograph is \bfit{logical} if every vertex is labelled either by an atom or variable,
-and it has at least one atom-labelled vertex. We denote by $label_G(v)$, or simply
-$label(v)$ the label of a vertex in a logical cograph $G$. An atom-labelled vertex is called
-a \bfit{literal} and a variable-labelled vertex is called a \bfit{binder}. A
-binder labelled with $x$ is called an \bfit{$x$-binder}. The \bfit{scope} of a binder
-$b$ is the smallest strong module containing at least two vertices, including
-the binder itself. An \bfit{$x$-literal} is a literal whose atom contains the variable $x$. An $x$-binder \bfit{binds} every $x$-literal in its scope.
-In a logical cograph $G$, a binder $b$ is \bfit{existential} (resp. \bfit{universal}) if, for every other
-vertex $v$ in its scope, we have $bv \in E_G$ (resp. $bv \notin E_G$). An
-$x$-binder is \bfit{legal} if its scope contains no other $x$-binder and at least one
-literal. 
-
-We now introduce first-order graphs which are used to represent first-order formulas.
+A cograph is \bfit{logical} if every vertex is labelled either by an
+atom or variable, and it has at least one atom-labelled vertex. We
+write $\single\alpha$ for an $\alpha$-labelled vertex. An
+atom-labelled vertex is called a \bfit{literal} and a
+variable-labelled vertex is called a \bfit{binder}. A binder labelled
+with $x$ is called an \bfit{$x$-binder}. The \bfit{scope} of a binder
+$b$ is the smallest proper strong module containing $b$.
+An \bfit{$x$-literal} is a literal whose
+atom contains the variable $x$. An $x$-binder \bfit{binds} every
+$x$-literal in its scope.  In a logical cograph $G$, a binder $b$ is
+\bfit{existential} (resp. \bfit{universal}) if, for every other vertex
+$v$ in its scope, we have $bv \in E_G$ (resp. $bv \notin E_G$). An
+$x$-binder is \bfit{legal} if its scope contains no other $x$-binder
+and at least one literal.
 
 \begin{definition}
-A \bfit{first-order graph} or \bfit{fograph} is a logical cograph with legal binders.
+A \bfit{first-order graph} or \bfit{fograph} is a logical cograph with legal binders. The
+\bfit{binding graph} of a fograph $\gG$ is the directed graph $\bG=\tuple{\vG,
+\set{(b, l) \mid b \text{ binds } l}}$.
 \end{definition}
 
-For a formula $A$, we can define its associated fograph $\Gr(A)$ inductively by: $\Gr(\alpha) = \cdot \alpha$ (a single-vertex graph whose vertex is labelled by $\alpha$); $\Gr(A \cor B) = \Gr(A) + \Gr(B)$ and $\Gr(A \cand B) = \Gr(A) \times \Gr(B)$.
-The \bfit{binding graph} of a forgraph $G$ is the directed graph $(V_G, \{(b,
-l) \ | \ b \text{ binds } l\})$.
+We now define a mapping $\graphof\cdot$ from formulas to (labelled)
+graphs, inductively as follows:
 
+For a formula $A$, we can define its
+associated fograph $\graphof(A)$ inductively by: $\graphof(\alpha) =
+\cdot \alpha$ (a single-vertex graph whose vertex is labelled by
+$\alpha$); $\graphof(A \cor B) = \graphof(A) + \graphof(B)$ and
+$\graphof(A \cand B) = \graphof(A) \times \graphof(B)$.
+\todo{make look nice, use array}
+
+\begin{lemma}
+  If $A$ is a rectified formula then $\graphof A$ is a fograph.
+\end{lemma}
+
+\begin{proof}
+  That  $\graphof A$ is a logical cograph follows immediately from the definition and Theorem~\ref{thm:cograph}. 
+  \todo{}\lutz{maybe mention also fn 2-5 in arxiv-paper}
+\end{proof}
+
+
+\todo{def $\fequ$}
+
+\begin{thm}
+  Let $A,B$ be rectified formulas. Then
+  $$
+  A\fequ B \iff \graphof A =\graphof B
+  $$
+\end{thm}
+
+\begin{proof}
+  \todo{}
+\end{proof}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-
-\section{First-order Combinatorial Proofs}\label{sec:focp}
-
-\subsection{Fonets}
-
-\subsection{Skew Bifibrations}
-
-\section{First-order Deep Inference system $\FOKS$}\label{sec:foks}
-
-\section{Main Results}
-
-\section{Translating between $\FOLK$ and $\FOKS$}
-
-\subsection{The Linear Variants $\FOMLL$ and $\FOMLS$}
-
-\subsection{Contraction and Weakining}
-
-\subsection{A First Decomposition Theorem}
-
-$$
-\vlderivation{
-  \vlde{\set{\wD,\cD}}{}{C}{
-    \vlde{\FOMLS}{}{C'}{
-      \vlhy{\ttt}}}}
-$$
-
-\section{Fonets and Linear Proofs}
-
-\subsection{Unification Nets}
-
-\subsection{Translation between Unification Nets and $\FOMLL$}
-
-\subsection{Translation between Unification Nets and Fonets}
-
-\section{Skew Bifibrations and Resource Management}
-
-\subsection{From Contraction and Weakening to Skew Bifibrations}
-
-\subsection{From Skew Bifibrations to Contraction and Weakening}
-
-\section{Summary and Proofs of Main Results}
-
-\section{Conclusion}
-
-\bigskip
-\hrule
-\bigskip
-
 
 
 
 
 \section{First-order Combinatorial Proofs}\label{sec:focp}
 
+
 \subsection{Fonets}
 
-In a fograph, two atoms are \bfit{pre-dual} if their predicate symbols are dual
+Two atoms are \bfit{pre-dual} if their predicate symbols are dual
 (e.g. $pxy$ and $\overline{p}yz$) and two literals are \bfit{pre-dual} if their
 labels (atoms) are pre-dual. A \bfit{linked fograph} is a coloured fograph such
 that every colour, called a \bfit{link}, consists of two pre-dual literals, and
@@ -939,6 +957,10 @@ link or a dependency. The \bfit{leap graph} $\LG_G$ of $G$ is the undirected gra
 L_G)$ where $L_G$ is the set of leaps of $G$. A set $W \subseteq V_G$ induces a
 \bfit{bimatching} in $G$ if $W$ induces a matching in $G$ and in the leap graph
 $\LG_G$ as well.
+
+\todo{define matching}
+
+\todo{adjust notation}
 
 \begin{definition}
 A \bfit{first-order net} or \bfit{fonet} is a linked fograph which has
@@ -964,14 +986,20 @@ existential-preserving fograph homomorphism whose restriction to the
 binding graphs is a fibration.
 \end{definition}
 
-\subsection{First-order combinatorial proofs}
+%%\subsection{First-order combinatorial proofs}
 
 \begin{definition}
 A \bfit{first-order combinatorial proof} of a fograph $G$ is a skew
 bifibration $f: N \rightarrow G$ where $N$ is a fonet. A \bfit{first-order
 combinatorial proof} of a formula $A$ is a combinatorial proof of its graph
-$\Gr(A)$.
+$\graphof(A)$.
 \end{definition}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 
 \section{First-order Deep Inference system $\FOKS$}\label{sec:foks}
 
@@ -1292,10 +1320,10 @@ tree.
 
 \begin{proposition}
 \label{prop2}
-Let $u$ and $v$ be two distinct vertices of a fograph $\Gr(A)$, then we have the equivalence
+Let $u$ and $v$ be two distinct vertices of a fograph $\graphof(A)$, then we have the equivalence
 between:
 \begin{itemize}
-  \item $u$ and $v$ are adjacent in $\Gr(A)$
+  \item $u$ and $v$ are adjacent in $\graphof(A)$
   \item $u$ and $v$ are connected by a switching path of $\FT(A)$, and if one of them is a universal quantifier, then the other is
 	not a descendant of the former.
   \end{itemize}
@@ -1308,7 +1336,7 @@ By induction on $A$.
       \item $u$ and $v$ are both in $A_1$ (resp. $A_2$): trivial by
 	      the induction hypothesis.
       \item one of them is in $A_1$ and the other is in $A_2$: they are
-	      adjacent in $\Gr(A)$ by definition. By Proposition \ref{prop1},
+	      adjacent in $\graphof(A)$ by definition. By Proposition \ref{prop1},
 		    the one in $A_1$ (resp. $A_2$) is connected to the
 		    vertex representing $A_1$ (resp. $A_2$) by a switching
 		    path. Together with the two edges incident to $A_1 \cand
@@ -1319,7 +1347,7 @@ By induction on $A$.
       \item $u$ and $v$ are both in $A_1$ (resp. $A_2$): trivial by
 	      the induction hypothesis.
       \item one of them is in $A_1$ and the other is in $A_2$: they are not
-	      adjacent in $\Gr(A)$ by definition. It is clear that they
+	      adjacent in $\graphof(A)$ by definition. It is clear that they
 		    are not connected by a switching path.
     \end{itemize}
   \item If $A = \exists x \ A'$, then we distinguish two cases:
@@ -1335,7 +1363,7 @@ By induction on $A$.
       \item $u$ and $v$ are both in $A'$: trivial by the induction
 	      hypothesis.
       \item one of them is $\forall x$ and the other is in $A'$:
-	      they are not adjacent in $\Gr(A)$ by definition and it is clear that
+	      they are not adjacent in $\graphof(A)$ by definition and it is clear that
 		    the former is a descendant of $\forall x$.
     \end{itemize}
 \end{itemize}
@@ -1343,7 +1371,7 @@ By induction on $A$.
 \end{proposition}
 
 \begin{proposition}
-If there exists an induced bimatching of the linked fograph $G = \Gr(A)$, then there exists a switching graph of the corresponding unification net which contains a cycle.
+If there exists an induced bimatching of the linked fograph $G = \graphof(A)$, then there exists a switching graph of the corresponding unification net which contains a cycle.
 \begin{proof}
   Suppose that there exists a set $W$ inducing a bimatching in $G$.
   Then $(W, E_G)$ and $(W, L_G)$ are matchings.\\
@@ -1702,9 +1730,9 @@ We have the following facts:
 For any context $S$ and any formula $A$:
 \begin{itemize}
   \item $\PE{A}$ is a formula containing no quantifier for any formula $A$.
-  \item $\Gr(\PE{A}) = \Gr(A)$ by confounding the atoms $U_x$, $E_x$ with the variable
-	  $x$. Thus, a map $f : \Gr(\PE{A}) \rightarrow \Gr(\PE{B})$ can be seen as a map
-		$f : \Gr(A) \rightarrow \Gr(B)$.
+  \item $\graphof(\PE{A}) = \graphof(A)$ by confounding the atoms $U_x$, $E_x$ with the variable
+	  $x$. Thus, a map $f : \graphof(\PE{A}) \rightarrow \graphof(\PE{B})$ can be seen as a map
+		$f : \graphof(A) \rightarrow \graphof(B)$.
   \item $\PE{(S\{A\})} = \PE{S}\{\PE{A}\}$.
 \end{itemize}
 
@@ -1779,7 +1807,7 @@ skew fibrations on the underlying fographs according to
 
 Now we prove that each map $g \in \{wk, ac, m, m_1, m_2 \}$ is a skew bifibration. To do that, it suffices to prove that $g$ is a fibration between the corresponding binding graphs since it is already a skew fibration on the corresponding fographs and it is label-preserving and existential-preserving.
 \begin{center}
-for each $x$-binder $b$ in $\Gr(\PE{B})$, for each vertex $v \in V(\Gr(\PE{A}))$
+for each $x$-binder $b$ in $\graphof(\PE{B})$, for each vertex $v \in V(\graphof(\PE{A}))$
 such that $g(v)$ is bound by $b$, there exists a unique binder $b'$ such
 that $b'$ binds $v$.
 \end{center}
@@ -1792,7 +1820,7 @@ that $b'$ binds $v$.
 
   Therefore, all of these maps are skew bifibrations and since skew bifibrations
 on fographs compose (Lemma 10.32, \cite{hughes:fopws}), there exists a skew
-bifibration from $\Gr(A)$ to $\Gr(B)$.
+bifibration from $\graphof(A)$ to $\graphof(B)$.
 
 \end{proof}
 
@@ -1805,8 +1833,8 @@ By Theorem \ref{thm1}, there exists a formula $A'$ such that there is a proof
 $\Pi$ of $A'$ in $\FOMLL$ and a derivation $D$ from $A'$ to $A$ consisting of
 the $\wD$ and $\cD$ rules only. The proof $\Pi$ corresponds to a unique
 unification net which is equivalent to the fonet corresponding to $\Pi$, i.e.,
-the fograph $\Gr(A')$ together with the links of $\Pi$. By Lemma \ref{mlem}, 
-there exists a skew bifibration $\Gr(A') \rightarrow \Gr(A)$. We have thus a
+the fograph $\graphof(A')$ together with the links of $\Pi$. By Lemma \ref{mlem}, 
+there exists a skew bifibration $\graphof(A') \rightarrow \graphof(A)$. We have thus a
 combinatorial proof of $A$.
 
 \end{proof}
@@ -1831,7 +1859,7 @@ via weakening, then all the atoms it binds in $\PE{B}$ should also be introduced
 via weakening. In fact, an atom of $\PE{B}$ is introduced via weakening is 
 equivalent to the fact that its corresponding vertex is not in the image of $f$. 
 Since there is an edge from $U_x$ (resp. $E_x$) to all the literals it binds in the 
-binding graph $\overrightarrow{\Gr(B)}$, if one of the atoms is in the image, 
+binding graph $\overrightarrow{\graphof(B)}$, if one of the atoms is in the image, 
 $U_x$ (resp. $E_x$) should also be in the image since $f$ is a fibration on binding graphs.
 
 This means that a such $B''$ can be obtained from $B$ by erasing all the $U_x$ and $E_x$ introduced via weakening and all the atoms they bind.
