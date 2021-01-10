@@ -694,6 +694,10 @@ atoms and formulas via the De Morgan laws as follows:
 \todo{add missing equations and make it look nice}
 \lutz{don't we need   $\dual{\dual a} = a$? (then it should follow that $\dual{\dual A} = A$)}
 
+\juihsuan{isn't it given by the first four equations? I think that we use the
+notation of negation for atoms and formulas. We may also need to precise that each
+predicate symbol $p$ has a dual $\dual{p}$.}
+
  A formula is
 \bfit{rectified} if all bound variables are distinct from one another and from
 all free variables. As every formula has a logically equivalent
@@ -707,7 +711,7 @@ $x\notin\set{x_1,\ldots,x_n}$.
 We write $A\sigma$ for the formula
 obtained from $A$ by applying $\sigma$, i.e., by simultaneously
 replacing all occurrences of $x_i$ by $t_i$.
-A \bfit{renaming} is a substitution $\sigma$ with $\sigma(x)\in\VAR$ for all variables.
+A \bfit{renaming} is a substitution $\sigma$ with $\sigma(x)\in\VAR$ for all variable $x$.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -786,7 +790,7 @@ $\set{v,w}$.
 
 The \bfit{complement} of a graph $\gG=\tuple{\vG,\eG}$ is
 the graph $\compl\gG=\tuple{\vG,\compl\eG}$ where $vw\in\compl\eG$ iff
-$vw\neq\eG$. 
+$vw\notin\eG$. 
 
 Let $\gG=\tuple{\vG,\eG}$ and $\gH=\tuple{\vH,\eH}$ be graphs such
 that $\vG\cap\vH=\emptyset$. A \bfit{homomorphism}
@@ -802,7 +806,7 @@ connected.
 A graph $\gG$ is \bfit{labelled} in a set $L$ if
 each vertex $v\in\vG$ has an element $\ell(v)\in L$ associated with it, its \bfit{label}.
 
-A \bfit{directed graph} $\gG =\tuple{\vG,\eG}$ is set $V$ of
+A \bfit{directed graph} $\gG =\tuple{\vG,\eG}$ is a set $\vG$ of
 \bfit{vertices} and a set $\eG\subseteq \vG\times\vG$ of \bfit{direct edges}.
 A \bfit{directed graph homomorphism}
 $\phi\colon\tuple{\vG,\eG}\to\tuple{\vH,\eH}$ is function $\phi\colon\vG\to\vH$ such that if
