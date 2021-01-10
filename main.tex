@@ -424,6 +424,21 @@
 \newcommand{\conr}{\mathsf{ctr}}
 \newcommand{\weakr}{\mathsf{wk}}
 
+\newcommand\aiD {\mathsf{ai}}
+\newcommand\faD {\forall}
+\newcommand\exD {\exists}
+\newcommand\tttD {\ttt}
+\renewcommand\wD {\mathsf{w}}
+\renewcommand\cD {\mathsf{c}}
+\renewcommand\acD {\mathsf{ac}}
+\newcommand\mfaD {\mathsf{m_\forall}}
+\newcommand\mexD {\mathsf{m_\exists}}
+
+\newcommand{\cons}[1]{\{#1\}}
+\newcommand{\Scons}[1]{S\cons{#1}}
+\newcommand{\conhole}{\cons{~}}
+\newcommand{\Sconhole}{S\conhole}
+
 % ** SYMBOLS **
 
 \newcommand{\cor}{\vee}
@@ -454,8 +469,10 @@
 
 \newcommand{\graphof}[1]{\llbracket#1\rrbracket}
 \newcommand{\compl}[1]{#1^\complement}
-\newcommand{\sublist}[1]{\set{#1}}
-\newcommand{\subst}[2]{#1\mathord{\scriptstyle\mapsto} #2}
+%\newcommand{\sublist}[1]{\set{#1}}
+%\newcommand{\subst}[2]{#1\mathord{\scriptstyle\mapsto} #2}
+\newcommand{\sublist}[1]{[#1]}
+\newcommand{\subst}[2]{#1/#2}
 \newcommand{\ssubst}[2]{\sublist{\subst{#1}{#2}}}
 
 \newcommand{\form}[1]{\mathrm{fm}(#1)}
@@ -707,7 +724,7 @@ atoms and formulas via the De Morgan laws as follows:
 
 \juihsuan{isn't it given by the first four equations? I think that we use the
 notation of negation for atoms and formulas. We may also need to precise that each
-predicate symbol $p$ has a dual $\dual{p}$.}
+predicate symbol $p$ has a dual $\dual{p}$.}\lutz{we either have to say $\dual{\dual a} = a$ or $\dual{\dual p} = p$. I prefer the first.}
 
  A formula is
 \bfit{rectified} if all bound variables are distinct from one another and from
@@ -781,6 +798,8 @@ the $\mixr$-rule.
 \begin{thm}
   A formula $A$ is a theorem of first-order logic iff the sequent $\sqn A$ is derivable in $\FOLK$.
 \end{thm}
+
+For a proof we refer to reader to any standard textbook, e.g.~\cite{TS:00}.
 
 The linear fragment of $\FOLK$, i.e., the fragment
 without the rules $\conr$ (\emph{contraction}) and $\weakr$
@@ -911,7 +930,7 @@ $\graphof(A \cand B) = \graphof(A) \times \graphof(B)$.
 
 \begin{proof}
   That  $\graphof A$ is a logical cograph follows immediately from the definition and Theorem~\ref{thm:cograph}. 
-  \todo{}\lutz{maybe mention also fn 2-5 in arxiv-paper}
+  \todo{}\lutz{maybe mention also fn 2-5 in Dominic's arxiv-paper}
 \end{proof}
 
 
@@ -999,15 +1018,79 @@ $\graphof(A)$.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
 \section{First-order Deep Inference system $\FOKS$}\label{sec:foks}
 
+
+\begin{figure}
+  \begin{center}
+    \framebox{%
+      $
+      \begin{array}{@{}c@{}}
+        \dbox{%
+          $
+          \begin{array}{c}
+            \vlinf{\faD}{}{\Scons{\forall x.\ttt}}{\Scons\ttt}
+            \qquad
+            \vlinf{\aiD}{}{\Scons{a\vlor\cneg a}}{\Scons\ttt}
+            \qquad
+            \vlinf{\tttD}{}{\Scons{A\vlan\ttt}}{\Scons A}
+            \\ \\[-1ex]
+            \vlinf{\sw}{}{\Scons{(A\vlan B)\vlor C}}{\Scons{A\vlan (B\vlor C)}}
+            \qquad
+            \vlinf{\mix}{}{\Scons{A\vlor B}}{\Scons{A\vlan B}}            
+            \\ \\[-1ex]
+            \vlinf{\exD}{}{\Scons{\exists x.A}}{\Scons{A\ssubst x t}}
+            \qquad
+            \vlinf{\fequ}{\text{(where $A\fequ B$)}}{\Scons{A}}{\Scons{B}}
+          \end{array}
+          $
+        }
+        \\ \\[-1ex]
+        \vlinf{\mfaD}{}{\Scons{\forall x.(A\vlor B)}}{\Scons{(\forall x.A)\vlor(\forall x.B)}}
+        \qquad
+        \vlinf{\mexD}{}{\Scons{\exists x.(A\vlor B)}}{\Scons{(\exists x.A)\vlor(\exists x.B)}}        
+        \\ \\[-1ex]
+        \vlinf{\me}{}{\Scons{(A\vlor B)\vlan(C\vlor D)}}{\Scons{(A\vlan C)\vlor(B\vlan D)}}
+        \\ \\[-1ex]
+        \vlinf{\wD}{}{\Scons{A\vlor B}}{\Scons{A}}
+        \qquad
+        \vlinf{\acD}{}{\Scons{a}}{\Scons{a\vlor a}}
+      \end{array}
+      $
+    }
+  \end{center}
+  \caption{Deep inference systems $\FOKS$ (all rules) and $\FOMLS$ (rules in the dashed box)}
+  \label{fig:KS1}
+\end{figure}
+
+Contrary to standard proof formalisms, like sequent calculi or
+tableaux, where inference rules decompose the principal formula along
+its root connective, can \emph{deep inference rules} be applied like
+rewriting rules inside any (positve) formula or sequent
+\bfit{context}, which is denoted as $\Sconhole$, and which is a
+formula (resp.~sequent) with exactly one occurrence of the \bfit{hole}
+$\conhole$ in the position of an atom. Then $\Scons A$ is the result
+of replacing the hole $\conhole$ in $\Sconhole$ with $A$.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
 \section{Main Results}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section{Translating between $\FOLK$ and $\FOKS$}
 
-\subsection{The Linear Variants $\FOMLL$ and $\FOMLS$}
+\subsection{The Linear Fragments $\FOMLL$ and $\FOMLS$}
 
 \subsection{Contraction and Weakining}
 
@@ -1020,6 +1103,11 @@ $$
       \vlhy{\ttt}}}}
 $$
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 \section{Fonets and Linear Proofs}
 
 \subsection{Unification Nets}
@@ -1028,13 +1116,28 @@ $$
 
 \subsection{Translation between Unification Nets and Fonets}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 \section{Skew Bifibrations and Resource Management}
 
 \subsection{From Contraction and Weakening to Skew Bifibrations}
 
 \subsection{From Skew Bifibrations to Contraction and Weakening}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 \section{Summary and Proofs of Main Results}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section{Conclusion}
 
