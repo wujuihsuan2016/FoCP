@@ -129,6 +129,8 @@
 \newcommand{\vertices}[1][]{\ifthenelse{\isempty{#1}}{V}{V_{\graph{#1}}}}
 \newcommand{\edges}[1][]{\ifthenelse{\isempty{#1}}{E}{E_{\graph{#1}}}}
 \newcommand{\bgraph}[1]{\mathcal{\vec{#1}}}
+\newcommand{\lgraph}[1]{\mathcal{L_{#1}}}
+\newcommand{\leaps}[1]{L_{#1}}
 
 \newcommand{\gA}{\graph{A}}
 \newcommand{\gC}{\graph{C}}
@@ -150,8 +152,9 @@
 \newcommand{\eG}{\edges[G]}
 \newcommand{\eH}{\edges[H]}
 
+\newcommand{\lgG}{\lgraph{\gG}}
 
-
+\newcommand{\lpG}{\leaps{\gG}}
 
 % *** MISC UTILITY PACKAGES ***
 %
@@ -432,7 +435,6 @@
 % ** SPECIAL **
 
 \newcommand{\Gr}{\mathcal{G}}
-\newcommand{\LG}{\mathcal{L}}
 \newcommand{\FT}{\mathcal{F}}
 \newcommand{\US}{\mathcal{U}}
 \newcommand{\PE}[1]{#1^P}
@@ -709,7 +711,7 @@ atoms and formulas via the De Morgan laws as follows:
 notation of negation for atoms and formulas. We may also need to precise that each
 predicate symbol $p$ has a dual $\dual{p}$.}
 
- A formula is
+A formula is
 \bfit{rectified} if all bound variables are distinct from one another and from
 all free variables. As every formula has a logically equivalent
 rectified form, we will restrict most of the results in this paper to rectified formulas.
@@ -815,7 +817,7 @@ $\phi\colon\gG\to\gH$ is a function $\phi\colon\vG\to\vH$ such that if
 $vw\in\eG$ then $\phi(v)\phi(w)\in\eH$. The \bfit{union} $\gG +\gH$ is
 the graph $\tuple{\vG \cup\vH,\eG\cup \eH}$ and the \bfit{join} $\gG
 \times \gH$ is the graph $\tuple{\vG \cup\vH,\eG \cup \eH \cup \set{vw
-    | v \in \vG, w \in \vH}}$.  A graph $\gG$ is \bfit{disconnected}
+\mid v \in \vG, w \in \vH}}$.  A graph $\gG$ is \bfit{disconnected}
 if $\gG=\gG_1+\gG_2$ for two non-empty graphs $\gG_1,\gG_2$, otherwise
 it is \bfit{connected}. It is \emph{coconnected} if its complement is
 connected.
@@ -852,13 +854,14 @@ $\tuple{\set{v_1, v_2, v_3, v_4},\set{v_1v_2, v_2v_3, v_3v_4}}$.  A
 \bfit{cograph} is a $P_4$-free undirected graph. The interest in
 cographs for our paper comes from the following well-known fact.
 
-\begin{thm}[\cite{}]\label{thm:cograph}
+\begin{thm}[\cite{duffin:65}]\label{thm:cograph}
   A graph is a cograph iff it can be constructed from the singletons via the operations $+$ and~$\times$.
 \end{thm}
-\todo{ad the reference}
+\todo{ad the reference} \juihsuan{done}
 
 In a graph $\gG$, the \bfit{neighbourhood} $N(v)$ of a vertex $v \in\vG$ is defined as
-the set $\set{w | vw \in\eG}$. 
+the set $\set{w \mid vw \in\eG}$. A set $W \subseteq \vG$ induces a \bfit{matching} in
+$\gG$ if for all $w \in W$, $N(w) \cap W$ is a singleton.
 A \bfit{module} is a set $M \subseteq \vG$ such that $N(v) \ M = N(w) \ M$
 for all $v, w \in M$. A module $M$ is \bfit{strong} if for every
 module $M'$, we have $M' \subseteq M$, $M \subseteq$ or $M \cap M' =
@@ -883,9 +886,9 @@ with $x$ is called an \bfit{$x$-binder}. The \bfit{scope} of a binder
 $b$ is the smallest proper strong module containing $b$.
 An \bfit{$x$-literal} is a literal whose
 atom contains the variable $x$. An $x$-binder \bfit{binds} every
-$x$-literal in its scope.  In a logical cograph $G$, a binder $b$ is
+$x$-literal in its scope.  In a logical cograph $\gG$, a binder $b$ is
 \bfit{existential} (resp. \bfit{universal}) if, for every other vertex
-$v$ in its scope, we have $bv \in E_G$ (resp. $bv \notin E_G$). An
+$v$ in its scope, we have $bv \in \eG$ (resp. $bv \notin \eG$). An
 $x$-binder is \bfit{legal} if its scope contains no other $x$-binder
 and at least one literal.
 
@@ -899,11 +902,18 @@ We now define a mapping $\graphof\cdot$ from formulas to (labelled)
 graphs, inductively as follows:
 
 For a formula $A$, we can define its
-associated fograph $\graphof(A)$ inductively by: $\graphof(\alpha) =
-\cdot \alpha$ (a single-vertex graph whose vertex is labelled by
-$\alpha$); $\graphof(A \cor B) = \graphof(A) + \graphof(B)$ and
-$\graphof(A \cand B) = \graphof(A) \times \graphof(B)$.
-\todo{make look nice, use array}
+associated fograph $\graphof(A)$ inductively by: 
+\begin{equation*}
+  \begin{array}{l}
+    \graphof{\alpha} = \cdot \alpha (\text{single-vertex graph whose vertex is 
+    labelled by } \alpha); \\[.5ex]
+    \graphof{A \cor B} = \graphof{A} + \graphof{B};
+    \graphof{A \cand B} = \graphof{A} \times \graphof{B}; \\[.5ex]
+    \graphof{\forall x . A} = \cdot x + \graphof{A};
+    \graphof{\exists x . A} = \cdot x \times \graphof{A}.
+  \end{array}
+\end{equation*}
+\todo{make look nice, use array} \juihsuan{done}
 
 \begin{lemma}
   If $A$ is a rectified formula then $\graphof A$ is a fograph.
@@ -914,8 +924,21 @@ $\graphof(A \cand B) = \graphof(A) \times \graphof(B)$.
   \todo{}\lutz{maybe mention also fn 2-5 in arxiv-paper}
 \end{proof}
 
-
 \todo{def $\fequ$}
+
+We define a congruence relation on formulas by the following equations:
+\begin{equation*}
+  \begin{array}{cc}
+    A \vlan B \fequ B \vlan A & \forall x . (A \vlor B) \fequ (\forall x . A)
+    \vlor B \\
+    A \vlor B \fequ B \vlor A & \exists x . (A \vlan B) \fequ (\exists x . A)
+    \vlan B \\
+    (A \vlan B) \vlan C \fequ A \vlan (B \vlan C) & \forall x . \forall y . A
+    \fequ \forall y . \forall x . A \\
+    (A \vlor B) \vlor C \fequ A \vlor (B \vlor C) & \exists x . \exists y . A
+    \fequ \exists y . \exists x . A \\
+  \end{array}
+\end{equation*}
 
 \begin{thm}
   Let $A,B$ be rectified formulas. Then
@@ -941,24 +964,25 @@ $\graphof(A \cand B) = \graphof(A) \times \graphof(B)$.
 \subsection{Fonets}
 
 Two atoms are \bfit{pre-dual} if their predicate symbols are dual
-(e.g. $pxy$ and $\overline{p}yz$) and two literals are \bfit{pre-dual} if their
+(e.g. $p(x, y)$ and $\dual{p}(y, z)$) and two literals are \bfit{pre-dual} if their
 labels (atoms) are pre-dual. A \bfit{linked fograph} is a coloured fograph such
 that every colour, called a \bfit{link}, consists of two pre-dual literals, and
 every literal is either $\ttt$-labelled or in a link.
 
-Let $G$ be a linked fograph. The set of links can be seen as a unification problem
-by identifying dual predicate symbols. A \bfit{dualizer} of $G$ is an assignment
-unifying all the links of $G$. Since a first-order unification problem is either
+Let $\gG$ be a linked fograph. The set of links can be seen as a unification problem
+by identifying dual predicate symbols. A \bfit{dualizer} of $\gG$ is an assignment
+unifying all the links of $\gG$. Since a first-order unification problem is either
 solvable or has a most general unifier, we can define the notion of \bfit{most
 general dualizer}. A \bfit{dependency} is a pair $(\cdot x, \cdot y)$ of an
 existential binder $\cdot x$ and a universal binder $\cdot y$ such that the most
 general dualizer assigns to $x$ a term containing $y$. A \bfit{leap} is either a
-link or a dependency. The \bfit{leap graph} $\LG_G$ of $G$ is the undirected graph $(V_G,
-L_G)$ where $L_G$ is the set of leaps of $G$. A set $W \subseteq V_G$ induces a
-\bfit{bimatching} in $G$ if $W$ induces a matching in $G$ and in the leap graph
-$\LG_G$ as well.
+link or a dependency. The \bfit{leap graph} $\lgG$ of $\gG$ is the undirected
+graph $(\vG, \lpG)$ where $\lpG$ is the set of leaps of $\gG$. A set $W
+\subseteq \vG$ induces a
+\bfit{bimatching} in $\gG$ if $W$ induces a matching in $\gG$ and in the leap graph
+$\lgG$ as well.
 
-\todo{define matching}
+\todo{define matching} \juihsuan{done in the cograph part}
 
 \todo{adjust notation}
 
