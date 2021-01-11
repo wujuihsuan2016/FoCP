@@ -152,6 +152,9 @@
 \newcommand{\eG}{\edges[G]}
 \newcommand{\eH}{\edges[H]}
 
+\newcommand{\sysS}{\mathsf{S}}
+\newcommand{\Deri}{\Phi}
+
 \newcommand{\lgG}{\lgraph{\gG}}
 
 \newcommand{\lpG}{\leaps{\gG}}
@@ -432,6 +435,8 @@
 \newcommand\exD {\exists}
 \newcommand\tttD {\ttt}
 \renewcommand\wD {\mathsf{w}}
+\newcommand\wlD {\mathsf{w_l}}
+\newcommand\wrD {\mathsf{w_r}}
 \renewcommand\cD {\mathsf{c}}
 \renewcommand\acD {\mathsf{ac}}
 \newcommand\mfaD {\mathsf{m_\forall}}
@@ -801,7 +806,7 @@ simplify some technicalities later in this paper, we also include here
 the $\mixr$-rule.
 
 \begin{thm}
-  A formula $A$ is a theorem of first-order logic iff the sequent $\sqn A$ is derivable in $\FOLK$.
+  $\FOLK$ is sound and complete for first-order logic.
 \end{thm}
 
 For a proof we refer to reader to any standard textbook, e.g.~\cite{TS:00}.
@@ -1086,7 +1091,9 @@ $\graphof{A}$.
         \\ \\[-1ex]
         \vlinf{\me}{}{\Scons{(A\vlor B)\vlan(C\vlor D)}}{\Scons{(A\vlan C)\vlor(B\vlan D)}}
         \\ \\[-1ex]
-        \vlinf{\wD}{}{\Scons{A\vlor B}}{\Scons{A}}
+        \vlinf{\wrD}{}{\Scons{A\vlor B}}{\Scons{A}}
+        \qquad
+        \vlinf{\wlD}{}{\Scons{B\vlor A}}{\Scons{A}}
         \qquad
         \vlinf{\acD}{}{\Scons{a}}{\Scons{a\vlor a}}
       \end{array}
@@ -1125,6 +1132,16 @@ As with the sequent system $\FOLK$, we also need for $\FOKS$ the
 \emph{linear fragment}, that we call here $\FOMLS$, and that is shown
 in Figure~\ref{fig:KS1} in the dashed box.
 
+We write $\vlder{\sysS}{\Deri}{A}{B}$ to denote a derivation $\Deri$
+from $B$ to $A$ using the rules from system $\sysS$. A formula $A$ is
+\bfit{provable} in a system $\sysS$ if there is a derivation in
+$\sysS$ from $\ttt$ to $A$.
+
+In the course of this paper we are also going to make use of the
+general (non-atomic) version of the contraction rule:
+\begin{equation*}
+  \vlinf{\cD}{}{\Scons{A}}{\Scons{A\vlor A}}  
+\end{equation*}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1134,7 +1151,52 @@ in Figure~\ref{fig:KS1} in the dashed box.
 
 \section{Main Results}
 
-We are now ready to see the main results of this paper.
+We are now ready to see the main results of this paper. We only state
+them here and give the proofs in the later sections of the paper. The
+first one is routine and expected, but needs to be proved nonetheless:
+
+\begin{thm}\label{thm:KS1}
+  $\FOKS$ is sound and complete for first-order logic.
+\end{thm}
+
+Our second results is more surprising, as it is a very strong
+decomposition result for first order logic.
+
+\begin{thm}\label{thm:decomposition}
+  For every derivation $\vlder{\FOKS}{\Deri}{A}{\ttt}$ there are formulas $A_1,\ldots,A_5$, such that there is a derivation:
+  \begin{equation*}
+    \vlderivation{
+      \vlde{\set{\wlD,\wrD}}{}{A}{
+        \vlde{\set{\acD}}{}{A_1}{
+          \vlde{\set{\me,\mfaD,\mexD,\fequ}}{}{A_2}{
+            \vlde{\set{\exD}}{}{A_3}{
+              \vlde{\set{\sw,\mix,\fequ}}{}{A_4}{
+                \vlde{\set{\faD,\aiD,\tttD}}{}{A_5}{
+                  \vlhy{\ttt}}}}}}}}
+  \end{equation*}
+\end{thm}
+
+This theorem is stronger than the existing decompositions for
+first-order logic, which either separated only atomic contraction and
+atomic weakening~\cite{brunnler:phd} or only
+contraction~\cite{ralph:phd} or only the quantifiers in form of a
+Herbrand theorem~\cite{brunnler:06:locality,ralph:phd}.
+
+There is a weaker version of Theorem~\ref{thm:decomposition} that will
+also be useful:
+
+\begin{thm}\label{thm:decompositionA}
+  For every derivation $\vlder{\FOKS}{\Deri}{A}{\ttt}$ there is a formula $A_1$, such that there is a derivation:
+  \begin{equation*}
+    \vlderivation{
+      \vlde{\set{\wlD,\wrD,\cD}}{}{A}{
+        \vlde{\FOMLS}{}{A_1}{
+          \vlhy{\ttt}}}}}}}}
+  \end{equation*}
+\end{thm}
+
+
+
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
