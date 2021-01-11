@@ -586,7 +586,9 @@ have been developed that allow the implementation of efficient proof
 search, for example \emph{analytic tableaux}~\cite{smullyan:68} or
 \emph{resolution}~\cite{robinson:65}. Despite the immense progress
 that has been made in proof theory in general and in the area of
-automated and interactive theorem provers in particular\cite{paulson:isabelle}\todo{find references}, we still have
+automated and interactive theorem provers in
+particular\cite{DSAV:15lean,paulson:isabelle}\todo{find
+references}\juihsuan{done}, we still have
 no satisfactory notion of proof identity for first-order logic. In
 this respect, proof theory is quite different from any other
 mathematical field. For example in group theory, two groups are
@@ -795,7 +797,7 @@ A_2\vlor\cdots\vlor A_n$. A sequent is \bfit{rectified} iff its
 corresponding formula is.
 
 In this paper we use the sequent calculus $\FOLK$, shown in
-Figure~\ref{fig:LK1}, which is a one-sided variant of Gentzen's
+Figure~\ref{fig:LK1}, which is an one-sided variant of Gentzen's
 original calculus~\cite{gentzen:35:I} for first-order logic. To
 simplify some technicalities later in this paper, we also include here
 the $\mixr$-rule.
@@ -858,7 +860,7 @@ theory, we identify graphs modulo vertex renaming.
 A \bfit{directed graph} $\gG =\tuple{\vG,\eG}$ is a set $\vG$ of
 \bfit{vertices} and a set $\eG\subseteq \vG\times\vG$ of \bfit{direct edges}.
 A \bfit{directed graph homomorphism}
-$\phi\colon\tuple{\vG,\eG}\to\tuple{\vH,\eH}$ is function $\phi\colon\vG\to\vH$ such that if
+$\phi\colon\tuple{\vG,\eG}\to\tuple{\vH,\eH}$ is a function $\phi\colon\vG\to\vH$ such that if
 $\pair{v,w}\in\eG$ then $\pair{\phi(v),\phi(w)}\in\eH$.
 
 
@@ -882,7 +884,8 @@ cographs for our paper comes from the following well-known fact.
 \todo{ad the reference} \juihsuan{done}
 
 In a graph $\gG$, the \bfit{neighbourhood} $N(v)$ of a vertex $v \in\vG$ is defined as
-the set $\set{w \mid vw \in\eG}$. A \bfit{module} is a set $M \subseteq \vG$ such that $N(v) \ M = N(w) \ M$
+the set $\set{w \mid vw \in\eG}$. A \bfit{module} is a set $M \subseteq \vG$
+such that $N(v) \setminus M = N(w) \setminus M$
 for all $v, w \in M$. A module $M$ is \bfit{strong} if for every
 module $M'$, we have $M' \subseteq M$, $M \subseteq$ or $M \cap M' =
 \emptyset$. A module is \bfit{proper} if it has two or more vertices.
@@ -945,9 +948,22 @@ array with two columns)} \juihsuan{fixed}
 \end{lemma}
 
 \begin{proof}
-  That  $\graphof A$ is a logical cograph follows immediately from the definition and Theorem~\ref{thm:cograph}. 
+  That $\graphof A$ is a logical cograph follows immediately from the definition and Theorem~\ref{thm:cograph}.
+  The fact that every binder of $\graphof A$ is legal can be proved by
+structural induction on $A$:
+  \begin{itemize}
+    \item Trivial if $A$ is an atom.
+    \item The induction step uses the following fact:
+	  if $M$ is a module of $\gG$ and $M' \subseteq M$, then $M'$ is a
+          module of $\gG$ if and only if it is a module of $\gG[X]$.
+  \end{itemize}
   \todo{}\lutz{maybe mention also fn 2-5 in Dominic's arxiv-paper}
 \end{proof}
+\juihsuan{I'm still looking for a simple proof}
+\footnote{Note that $\graphof A$ is not necessarily a fograph if $A$ is not
+rectified. If $A = (\forall x. p(x)) \vlor (\forall x. q(x))$, then $\graphof A = \single x \quad
+\single p(x) \quad \single x \quad \single q(x)$, the scope of each $x$-binder
+contains all the vertices, in particular, the two $x$-binders.}
 
 \todo{def $\fequ$}
 
@@ -1107,11 +1123,11 @@ formula (resp.~sequent) with exactly one occurrence of the \bfit{hole}
 $\conhole$ in the position of an atom. Then $\Scons A$ is the result
 of replacing the hole $\conhole$ in $\Sconhole$ with $A$.
 
-Figure~\ref{fig:KS1} shows the inference rule for the deep inference
-system~$\FOKS$ that we are using this paper. It is a slight variation
+Figure~\ref{fig:KS1} shows the inference rules for the deep inference
+system~$\FOKS$ that we are using in this paper. It is a slight variation
 of the systems presented by Br\"unnler~\cite{brunnler:phd} and
 Ralph~\cite{ralph:phd} in their PhD-theses. The main differences being
-that we (i) the explicit presence of the $\mixr$-rule, (ii) a
+that we have (i) the explicit presence of the $\mixr$-rule, (ii) a
 different choice of how the formula equivalence $\fequ$ is defined,
 and (iii) an explicit rule for the equivalence.
 
