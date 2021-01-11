@@ -601,10 +601,10 @@ problem for his famous lecture~\cite{hilbert:00} in
 field.
 
 The main reason for this problem is that formal proofs, as they are
-usually studied in logic, are in inextricably tied to the syntactic
+usually studied in logic, are inextricably tied to the syntactic
 (inference rule based) proof system in which they are carried out. And
 it is difficult to compare two proofs that are produced within two
-different sytactic proof systems, based on different sets of inference rules.
+different syntactic proof systems, based on different sets of inference rules.
 \lutz{an example here?}
 
 This is where \emph{combinatorial proofs} come in. They have been
@@ -613,7 +613,7 @@ logic as ``syntax-free'' notion of proof, and as a possible solution
 to Hilbert's 24th problem~\cite{hughes:invar} (see
 also~\cite{str:hilbert:24}). The basic idea is to abstract away from
 the syntax of the inference rules used in the proof and consider the
-proof as a combinatorial object, more precisely as a special kind
+proof as a combinatorial object, more precisely as a special kind of
 homomorphism between two graphs obeying certain properties.
 \lutz{an example here?}
 
@@ -670,10 +670,10 @@ first-order logic.
 
 Combinatorial proofs and deep infernence can be seen as opposite ends
 of a spectrum: whereas deep inference allows for a very fine
-franularity of inference rules---one inference rule in a standard
+granularity of inference rules---one inference rule in a standard
 formalism, like sequent calculus or semantic tableaux, is usually
 simulated by a sequence of different deep inference rules---have
-combinatorial proofs comletely abolished the concept of inference
+combinatorial proofs completely abolished the concept of inference
 rule. Nonetheless, there is a close relationship between the two,
 realized through a decomposition theorem, as we establish it in this
 paper.
@@ -692,7 +692,7 @@ paper.
 
 We start from a countable set $\VAR=\set{x,y,z,\ldots}$ of variables,
 a countable set $\FUN=\set{f,g,\ldots}$ of function symbols, and a
-counrable set $\PRED=\set{p,q,\ldots}$ of predicate symbols. Each function symbol and
+countable set $\PRED=\set{p,q,\ldots}$ of predicate symbols. Each function symbol and
 each predicate symbol has a finite arity. The grammars below generate
 the set $\TERM$ of \bfit{terms}, denoted by $s,t,u,\ldots$, the set
 $\ATOM$ of \bfit{atoms}, denoted by $a,b,c,\ldots$, and the set
@@ -961,25 +961,25 @@ structural induction on $A$:
 \end{proof}
 \juihsuan{I'm still looking for a simple proof}
 \footnote{Note that $\graphof A$ is not necessarily a fograph if $A$ is not
-rectified. If $A = (\forall x. p(x)) \vlor (\forall x. q(x))$, then $\graphof A = \single x \quad
-\single p(x) \quad \single x \quad \single q(x)$, the scope of each $x$-binder
-contains all the vertices, in particular, the two $x$-binders.}
+rectified. If $A = (\forall x. p(x)) \vlor (\forall x. q(x))$, then $\graphof A
+= \single x \ \single p(x) \ \single x \ \single q(x)$, the scope of each
+$x$-binder contains all the vertices, in particular, the two $x$-binders.}
 
 \todo{def $\fequ$}
 
 We define a congruence relation on formulas by the following equations:
 \begin{equation*}
   \begin{array}{cc}
-    A \vlan B \fequ B \vlan A & \forall x . (A \vlor B) \fequ (\forall x . A)
-    \vlor B \\
-    A \vlor B \fequ B \vlor A & \exists x . (A \vlan B) \fequ (\exists x . A)
-    \vlan B \\
-    (A \vlan B) \vlan C \fequ A \vlan (B \vlan C) & \forall x . \forall y . A
-    \fequ \forall y . \forall x . A \\
-    (A \vlor B) \vlor C \fequ A \vlor (B \vlor C) & \exists x . \exists y . A
-    \fequ \exists y . \exists x . A \\
+    A \vlan B \fequ B \vlan A & A \vlor B \fequ B \vlor A \\
+    (A \vlan B) \vlan C \fequ A \vlan (B \vlan C) &
+    (A \vlor B) \vlor C \fequ A \vlor (B \vlor C) \\
+    \forall x . \forall y . A \fequ \forall y . \forall x . A &
+    \exists x . \exists y . A \fequ \exists y . \exists x . A \\
+    \forall x . (A \vlor B) \fequ (\forall x . A) \vlor B &
+    \exists x . (A \vlan B) \fequ (\exists x . A) \vlan B
   \end{array}
 \end{equation*}
+where $x \notin fv(B)$ in the last two equations.
 
 \begin{thm}
   Let $A,B$ be rectified formulas. Then
@@ -1014,7 +1014,7 @@ every literal is either $\ttt$-labelled or in a link.
 Let $\gG$ be a linked fograph. The set of links can be seen as a unification problem
 by identifying dual predicate symbols. A \bfit{dualizer} of $\gG$ is an assignment
 unifying all the links of $\gG$. Since a first-order unification problem is either
-solvable or has a most general unifier, we can define the notion of \bfit{most
+unsolvable or has a most general unifier, we can define the notion of \bfit{most
 general dualizer}. A \bfit{dependency} is a pair $(\single x, \single y)$ of an
 existential binder $\single x$ and a universal binder $\single y$ such that the most
 general dualizer assigns to $x$ a term containing $y$. A \bfit{leap} is either a
@@ -1036,16 +1036,16 @@ dualizer but no induced bimatching.
 
 \subsection{Skew Bifibrations}
 
-A graph homomorphism $f: (V, E) \rightarrow (V', E')$ is a \bfit{fibration} if
-for all $v \in V$ and $wf(v) \in E'$, there exists a unique $\tilde{w}$ such
-that $\tilde{w}v \in E$ and $f(\tilde{w}) = w$, and is a \bfit{skew fibration}
-if for all $v \in V$ and $wf(v) \in E'$ there exists $\tilde{w}$ such that
-$\tilde{w}v \in E$ and $f(\tilde{w})w \notin E'$. A \bfit{fograph homomorphism}
+A graph homomorphism $f: (\vG, \eG) \rightarrow (\vH, \eH)$ is a \bfit{fibration} if
+for all $v \in \vG$ and $wf(v) \in \eH$, there exists a unique $\tilde{w} \in
+\vG$ such that $\tilde{w}v \in \eG$ and $f(\tilde{w}) = w$, and is a \bfit{skew fibration}
+if for all $v \in \vG$ and $wf(v) \in \eH$ there exists $\tilde{w} \in \vG$ such that
+$\tilde{w}v \in \eG$ and $f(\tilde{w})w \notin \eH$. A \bfit{fograph homomorphism}
 is a graph homomorphism between the underlying graphs of the fographs
-considered. A fograph homomorphism $f : G \rightarrow G'$ is
-\bfit{label-preserving} if forall $v \in V_G, label(v) = label(f(v))$, and is
-\bfit{existential-preserving} if for all existental binder $b$ in $G$, the
-vertex $f(b)$ is an existential binder in $G'$.
+considered. A fograph homomorphism $f : \gG \rightarrow \gH$ is
+\bfit{label-preserving} if for all $v \in \vG, label(v) = label(f(v))$, and is
+\bfit{existential-preserving} if for all existental binder $b$ in $\gG$, the
+vertex $f(b)$ is an existential binder in $\gH$.
 
 \begin{definition}
 A \bfit{skew bifibration} between fographs is a label-preserving and
@@ -1057,7 +1057,7 @@ binding graphs is a fibration.
 
 \begin{definition}
 A \bfit{first-order combinatorial proof} of a fograph $G$ is a skew
-bifibration $f: N \rightarrow G$ where $N$ is a fonet. A \bfit{first-order
+bifibration $f: N \rightarrow \gG$ where $N$ is a fonet. A \bfit{first-order
 combinatorial proof} of a formula $A$ is a combinatorial proof of its graph
 $\graphof{A}$.
 \end{definition}
