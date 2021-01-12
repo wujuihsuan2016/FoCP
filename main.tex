@@ -474,6 +474,7 @@
 
 \newcommand{\single}[1]{\bullet#1}
 
+\newcommand{\rectif}[1]{\widehat{#1}}
 \newcommand{\graphof}[1]{\llbracket#1\rrbracket}
 \newcommand{\compl}[1]{#1^\complement}
 %\newcommand{\sublist}[1]{\set{#1}}
@@ -738,10 +739,14 @@ predicate symbol $p$ has a dual $\dual{p}$.}\lutz{we either have to say $\dual{\
 connective for predicate symbols. The notation got me confused since $\dual{p}$
 is also a predicate symbol.}  
 
-A formula is
-\bfit{rectified} if all bound variables are distinct from one another and from
-all free variables. As every formula has a logically equivalent
-rectified form, we will restrict most of the results in this paper to rectified formulas.
+A formula is \bfit{rectified} if all bound variables are distinct from
+one another and from all free variables. Every formula can be
+transformed into a logically equivalent rectified form, by simply
+renaming the bound variables. If we consider formulas equivalent
+modulo $\alpha$-conversion (renaming of bound variables), then the
+rectified form of a formula $A$ is uniquely defined, and we denote it
+by $\rectif A$.
+
 
 A \bfit{substitution} is a function $\sigma\colon\VAR\to\TERM$ that is
 the identity almost everywhere. We denote substitutions as
@@ -1065,12 +1070,16 @@ binding graphs is a fibration.
 %%\subsection{First-order combinatorial proofs}
 
 \begin{definition}
-A \bfit{first-order combinatorial proof} of a fograph $G$ is a skew
+A \bfit{first-order combinatorial proof} (\bfit{FOCP}) of a fograph $G$ is a skew
 bifibration $f: N \rightarrow \gG$ where $N$ is a fonet. A \bfit{first-order
 combinatorial proof} of a formula $A$ is a combinatorial proof of its graph
 $\graphof{A}$.
 \end{definition}
 
+\begin{thm}[\cite{hughes:fopws}]
+  \label{thm:FOCP}
+  FOCPs are sound and complete for first-order logic.
+\end{thm}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1218,7 +1227,42 @@ also be useful:
   \end{equation*}
 \end{thm}
 
+Let us now establish the connection between derivations in $\FOKS$ and
+combinatorial proofs.
 
+\begin{thm}\label{thm:CP-DI}
+  Let $A$ be a rectified formula, and assume we have a combinatorial proof $\phi\colon\gC\to\graphof A$. Then there is a derivation
+  \begin{equation}
+    \label{eq:decom}
+    \vlderivation{
+      \vlde{\set{\wlD,\wrD,\acD,\me,\mfaD,\mexD,\fequ}}{\Deri_2}{A}{
+        \vlde{\FOMLS}{\Deri_1}{A'}{
+          \vlhy{\ttt}}}}
+  \end{equation}
+  for some $A'$ such that $\graphof{\rectif{A'}}=\gC$. Conversely,
+  whenever we have a derivation as in~\eqref{eq:decom} above, then
+  there is a combinatiorial proof $\phi\colon\gC\to\graphof A$ such that $\gC=\graphof{\rectif{A'}}$.
+\end{thm}
+
+Furthermore, in the proof of Theorem~\ref{thm:CP-DI}, we will see that
+(i) the links in the fonet $\gC$ correspond precicely to the pairs of
+atoms that meet in the instances of the $\aiD$-rule in the derivation
+$\Deri_1$, and (ii) the ''flow-graph'' of $\Deri_2$ that traces the
+quatifier- and atom-occurrences in the derivation corresponds exactly
+to the vertex-mapping induced by $\phi$.
+
+Thus, combinatorial proofs are closely related to derivations of the
+form~\eqref{eq:decom}, and since by Theorem~\ref{thm:decomposition}
+every derivation can be transformed into that form, we can say that
+combinatorial proofs form a canononical proof representation for first
+order logic, similarly to what proof nets are for linear
+logic~\cite{girard:96:PN}.
+
+Finally, Theorems~\ref{thm:KS1}, \ref{thm:decomposition}
+and~\ref{thm:CP-DI} imply Theorem~\ref{thm:FOCP}, which means that we
+have here and alterantive proof of the soundness and competeness of
+first-order combinatorial proofs which is simpler than the one given
+in~\cite{hughes:fopws}.
 
 
 
@@ -1229,6 +1273,7 @@ also be useful:
 
 \section{Translating between $\FOLK$ and $\FOKS$}
 
+In this section we prove Theorems
 \subsection{The Linear Fragments $\FOMLL$ and $\FOMLS$}
 
 \subsection{Contraction and Weakining}
