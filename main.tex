@@ -405,15 +405,18 @@
 
 \newcommand*{\LK}{\mathsf{LK}}
 \newcommand*{\FOLK}{\mathsf{LK1}}
+\newcommand*{\FOLKcut}{\FOLK\mathord+\cut}
 \newcommand*{\LKm}{\mathsf{LK + mix}}
 \newcommand*{\MLL}{\mathsf{MLL}}
-\newcommand*{\FOMLL}{\mathsf{MLL1^\times}} 
+\newcommand*{\FOMLL}{\mathsf{MLL1^X}} 
+\newcommand*{\FOMLLcut}{\FOMLL\mathord+\cut}
 \newcommand*{\FOMLLm}{\mathsf{MLL1+mix}}
 \newcommand*{\FOKS}{\mathsf{KS1}}
-\newcommand*{\FOMLS}{\mathsf{MLS1^\times}}
+\newcommand*{\FOMLS}{\mathsf{MLS1^X}}
 
 % ** RULES **
 
+\newcommand{\rr}{\mathsf{r}}
 \newcommand{\ax}{\mathsf{ax}}
 \newcommand{\cut}{\mathsf{cut}}
 \newcommand{\conj}{\mathsf{\wedge}}
@@ -825,6 +828,19 @@ logic}~\cite{girard:87,girard:88} \emph{with
 mix}~\cite{fleury:retore:94,bellin:97}~(MLL1+mix). We denote that system
 here with $\FOMLL$ (shown in Figure~\ref{fig:LK1} in the dashed box).
 
+In this paper we make also use of the cut elimination theorem. The \bfit{cut} rule is
+\begin{equation}
+  \vliinf{\cutr}{}{\sqn{\Gamma,\Delta}}{\sqn{\Gamma,A}}{\sqn{\dual A,\Delta}}
+\end{equation}
+
+\begin{thm}
+  \label{thm:cutelim}
+  If a sequent $\sqn\Gamma$ is provable in $\FOLKcut$ then it is also
+  provable in $\FOLK$. Furthermore, if $\sqn\Gamma$ is provable in
+  $\FOMLLcut$ then it is also provable in $\FOMLL$.
+\end{thm}
+
+As before, this is standard, see e.g.~\cite{TS:00} for a proof.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1271,8 +1287,74 @@ in~\cite{hughes:fopws}.
 
 \section{Translating between $\FOLK$ and $\FOKS$}
 
-In this section we prove Theorems
+In this section we prove Theorems~\ref{thm:KS1},
+\ref{thm:decomposition}, and~\ref{thm:decompositionA}, mainly by
+translating derivations to and from the sequent calculus, and by rule
+permutation arguments.
+
 \subsection{The Linear Fragments $\FOMLL$ and $\FOMLS$}
+
+In this section we show the equivalence of $\FOMLL$ and $\FOMLS$.
+
+\begin{lemma}\label{lem:MLL1->MLS1}
+  If $\sqn\Gamma$ is rectified and provable in $\FOMLL$ then $\form\Gamma$ is provable in  $\FOMLS$. \todo{check: do we need rectified here?}
+\end{lemma}
+
+\begin{proof}
+  This is a straightforward induction on the proof of $\sqn\Gamma$ in
+  $\FOMLL$, making a case analysis on the bottommost rule instance. We
+  show here only the case of $\vlinf{\forall}{}{\sqn{\Delta,\forall
+      x.A}}{\sqn{\Delta,A}}$ (all other cases are simpler and have
+  been shown before, e.g.~\cite{brunnler:phd}): By induction
+  hypothesis, there is a proof of $\form\Delta\vlor A$ in $\FOMLS$. We
+  can prefix every line in that proof by $\forall x$ and then compose
+  the following derivation:
+  \begin{equation*}
+    \vlderivation{
+      \vlin{\fequ}{}{\form\Delta\vlor\forall x.A}{
+        \vlde{\FOMLS}{}{\forall x.\form\Delta\vlor A}{
+          \vlin{\forall}{}{\forall x.\ttt}{
+            \vlhy{\ttt}}}}}
+  \end{equation*}
+  where we can apply the $\fequ$-rule because $x$ is not free in $\Delta$.
+\end{proof}
+
+\begin{lemma}\label{lem:shallow}
+  Let $\vlinf{\rr}{}{\Scons B}{\Scons A}$ be an inference rule in
+  $\FOMLS$. Then the sequent $\sqn{\cneg A,B}$ is provable in $\FOMLL$.
+\end{lemma}
+
+\begin{proof}
+  This is a straightforward exercise that we leave to the reader.
+\end{proof}
+
+\begin{lemma}\label{lem:context}
+  Let $A,B$ be formulas, and let $\Sconhole$ be a (positive)
+  context. If $\sqn{\cneg A,B}$ is provable in $\FOMLL$, then so is
+  $\sqn{\cneg{\Scons A},\Scons B}$.
+\end{lemma}
+
+\begin{proof}
+  Straightforward induction on  $\Sconhole$. (see e.g. \cite{gug:str:01})
+\end{proof}
+
+\begin{lemma}\label{lem:MLS1->MLL1}
+  If a formula $C$ is provable in $\FOMLS$ then $\sqn C$ is provable in  $\FOMLL$. \todo{check: do we need rectified here?}
+\end{lemma}
+
+\begin{proof}
+  We proceed by induction on the number of inference steps in the
+  proof of $C$ in $\FOMLS$. Consider the bottommost rule instance
+  $\vlinf{\rr}{}{\Scons B}{\Scons A}$. By induction hypothesis we have
+  a $\FOMLL$ proof of $\sqn{\Scons A}$, and by
+  Lemma~\ref{lem:context}, we have a $\FOMLL$ proof of
+  $\sqn{\cneg{\Scons A},\Scons B}$. We can compose them via $\cutr$:
+  \begin{equation*}
+    \vliinf{\cutr}{}{\sqn{\Scons B}}{\sqn{\Scons A}}{\sqn{\cneg{\Scons
+          A},\Scons B}}
+  \end{equation*}
+  and then apply Theorem~\ref{thm:cutelim}.
+\end{proof}
 
 \subsection{Contraction and Weakining}
 
