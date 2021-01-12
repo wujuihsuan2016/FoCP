@@ -1301,6 +1301,7 @@ In this section we show the equivalence of $\FOMLL$ and $\FOMLS$.
 
 \begin{lemma}\label{lem:MLL1->MLS1}
   If $\sqn\Gamma$ is rectified and provable in $\FOMLL$ then $\form\Gamma$ is provable in  $\FOMLS$. \todo{check: do we need rectified here?}
+\juihsuan{no}
 \end{lemma}
 
 \begin{proof}
@@ -1326,6 +1327,9 @@ In this section we show the equivalence of $\FOMLL$ and $\FOMLS$.
   Let $\vlinf{\rr}{}{\Scons B}{\Scons A}$ be an inference rule in
   $\FOMLS$. Then the sequent $\sqn{\cneg A,B}$ is provable in $\FOMLL$.
 \end{lemma}
+\juihsuan{For this, we need the introduction rule of $\fff$ in $\FOMLL$
+(consider the $\aiD$ rule). But if we add it, we'll need the
+$\mathsf{ai}\downarrow$ rule to have Lemma \ref{lem:MLL1->MLS1}}
 
 \begin{proof}
   This is a straightforward exercise that we leave to the reader.
