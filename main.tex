@@ -876,8 +876,10 @@ $\pair{v,w}\in\eG$ then $\pair{\phi(v),\phi(w)}\in\eH$.
 
 A graph $\gH=\tuple{\vH,\eH}$ is a \bfit{subgraph} of a graph
 $\gG=\tuple{\vG,\eG}$ if $\vH\subseteq\vG$ and $\eH\subseteq\eG$. It
-is \bfit{induced} if $v,w\in\vH$ and $vw\in\eG$ implies $vw\in\eH$.  A
-graph is \bfit{$\gH$-free} if it does not contain $\gH$ as an induced
+is \bfit{induced} if $v,w\in\vH$ and $vw\in\eG$ implies $vw\in\eH$. An induced
+subgraph of $\gG=\tuple{\vG,\eG}$ is uniquely determined by its set of vertices
+$V$ and we denote it by $\gG[V]$.
+A graph is \bfit{$\gH$-free} if it does not contain $\gH$ as an induced
 subgraph.  The graph $\Pfour$ is the (undirected) graph
 $\tuple{\set{v_1, v_2, v_3, v_4},\set{v_1v_2, v_2v_3, v_3v_4}}$.  A
 \bfit{cograph} is a $P_4$-free undirected graph. The interest in
@@ -1178,7 +1180,7 @@ first one is routine and expected, but needs to be proved nonetheless:
   $\FOKS$ is sound and complete for first-order logic.
 \end{thm}
 
-Our second results is more surprising, as it is a very strong
+Our second result is more surprising, as it is a very strong
 decomposition result for first order logic.
 
 \begin{thm}\label{thm:decomposition}
