@@ -974,7 +974,7 @@ $x$-binder contains all the vertices, in particular, the two $x$-binders.}
 
 \todo{def $\fequ$}
 
-We define a congruence relation on formulas by the following equations:
+We define a congruence relation $\fequ$ on formulas by the following equations:
 \begin{equation*}
   \begin{array}{cc}
     A \vlan B \fequ B \vlan A & A \vlor B \fequ B \vlor A \\
@@ -987,7 +987,9 @@ We define a congruence relation on formulas by the following equations:
   \end{array}
 \end{equation*}
 where $x \notin fv(B)$ in the last two equations.
-
+Two formulas $A$ and $B$ are \bfit{equivalent} if $A \fequ B$. The following
+theorem shows that the set of fographs can been seen as the quotient
+$\FORM / \fequ$.
 \begin{thm}
   Let $A,B$ be rectified formulas. Then
   $$
