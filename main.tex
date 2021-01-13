@@ -85,6 +85,7 @@
 \usepackage{amsmath}
 \usepackage{ebproof}
 \usepackage{virginialake}
+\vlstemheight=12pt
 
 \usepackage{cmll}
 
@@ -475,6 +476,7 @@
 \newcommand{\pair}[1]{(#1)}
 \newcommand{\set}[1]{\{#1\}}
 \newcommand{\sqn}[1]{\vdash#1}
+\newcommand{\sqns}[1]{\vdash#1\phantom{\vdash}}
 
 \newcommand{\single}[1]{\bullet#1}
 
@@ -486,6 +488,8 @@
 \newcommand{\sublist}[1]{[#1]}
 \newcommand{\subst}[2]{#1/#2}
 \newcommand{\ssubst}[2]{\sublist{\subst{#1}{#2}}}
+\newcommand{\substof}[1]{\sigma(#1)}
+\newcommand{\linkingof}[1]{\sim_{#1}}
 
 \newcommand{\form}[1]{\mathrm{fm}(#1)}
 
@@ -583,6 +587,7 @@ France}}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+\todo{Examples,examples,examples}
 \section{Introduction}
 
 First-order predicate logic is one of the cornerstones of modern
@@ -1398,21 +1403,108 @@ other results.
 
 \begin{lemma}
   Let $A$ and $B$ be formulas. Then
-  \begin{equation}
-    x
-  \end{equation}
+  \begin{equation*}
+    \vlderivation{
+      \vlde{\set{\wlD,\wrD,\cD,\fequ}}{}{B}{
+        \vlhy{A}}}
+    \qquad
+    \iff
+    \qquad
+    \vlderivation{
+      \vlde{\set{\wlD,\wrD,\acD,\me,\mfaD,\mexD,\fequ}}{}{B}{
+        \vlhy{A}}}
+  \end{equation*}
 \end{lemma}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{A First Decomposition Theorem}
+\begin{proof}
+  This follows immediately from Lemmas~\ref{lem:ac} and~\ref{lem:me}.
+\end{proof}
 
-$$
-\vlderivation{
-  \vlde{\set{\wD,\cD}}{}{C}{
-    \vlde{\FOMLS}{}{C'}{
-      \vlhy{\ttt}}}}
-$$
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Rule Permutations}
+
+%All statements in this section are proved by rule permutation arguments.
+\begin{thm}\label{thm:LK1-decompose}
+  Let $\Gamma$ be a sequent. If\/ $\sqn\Gamma$ is provable in $\FOLK$ (as depicted on the left below) then there is a sequent
+  $\Gamma'$ such that there is a derivation as shown on the right below:\vadjust{\vskip-2ex}
+  \begin{equation*}
+    \vlderivation{
+        \vltrl{}{\FOLK}{\Deri}{\sqns{\Gamma}}{
+          \vlhy{\quad}}{
+          \vlhy{}}{
+          \vlhy{}}}
+    \qquad
+    \Longrightarrow
+    \qquad
+    \vlderivation{
+      \vlde{\set{\wlD,\wrD,\cD}}{\Deri_2}{\sqns\Gamma}{
+        \vltrl{}{\FOMLL}{\Deri_1}{\sqns{\Gamma'}}{
+          \vlhy{\quad}}{
+          \vlhy{}}{
+          \vlhy{}}}}
+  \end{equation*}
+\end{thm}
+
+\begin{proof}
+  Note that the instances of $\wlD,\wrD,\cD$ in $\Deri_2$ are deep, but inside sequent contexts.
+  \todo{}
+\end{proof}
+
+
+\begin{lemma}\label{lem:MLS1-decomposition}
+  For every derivation
+  $\vlderivation{
+      \vlde{\FOMLS}{}{A}{
+        \vlhy{\ttt}}}$
+  there are formulas $A'$ and $A''$ such that 
+  \begin{equation*}
+    \vlderivation{
+      \vlde{\set{\exists}}{}{A}{
+        \vlde{\set{\sw,\mix,\fequ}}{}{A'}{
+          \vlde{\set{\forall,\aiD,\tttD}}{}{A''}{
+            \vlhy{\ttt}}}}}
+  \end{equation*}
+\end{lemma}
+
+\begin{proof}
+  \todo{}
+\end{proof}
+
+\begin{lemma}\label{lem:cw-decomposition}
+  For every derivation
+  $\vlderivation{
+      \vlde{\set{\wlD,\wrD,\acD,\me,\mfaD,\mexD,\fequ}}{}{B}{
+        \vlhy{A}}}$
+  there are formulas $A'$ and $B'$ such that 
+  \begin{equation*}
+    \vlderivation{
+      \vlde{\set{\wlD,\wrD}}{}{B}{
+        \vlde{\set{\acD}}{}{B'}{
+          \vlde{\set{\me,\mfaD,\mexD,\fequ}}{}{A'}{
+            \vlhy{A}}}}}
+  \end{equation*}
+\end{lemma}
+
+\begin{proof}
+  \todo{}
+\end{proof}
+
+We can now complete the proof of Theorems~\ref{thm:decomposition} and~\ref{thm:decompositionA}.
+
+\begin{proof}[Proof of Theorem~\ref{thm:decompositionA}]
+  Assume we have a proof of $A$ in $\FOKS$. By
+  Theorem~\ref{thm:LK1-KS1} we have a proof of $\sqn A$ in $\FOLK$ to
+  which we can apply Theorem~\ref{thm:LK1-decompose}. Finally, we
+  apply Lemma~\ref{lem:MLL1->MLS1} to get the desired shape.
+\end{proof}
+
+\begin{proof}[Proof of Theorem~\ref{thm:decomposition}]
+  Assume we have a proof of $A$ in $\FOKS$. We first apply
+  Theorem~\ref{thm:decompositionA}, and then
+  Lemma~\ref{lem:MLS1-decomposition} to the upper half and
+  Lemma~\ref{lem:cw-decomposition} to the lower half.
+\end{proof}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1421,17 +1513,50 @@ $$
 
 \section{Fonets and Linear Proofs}
 
+\todo{}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Unification Nets}
 
+\todo{}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Translation between Unification Nets and $\FOMLL$}
 
+\todo{}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Translation between Unification Nets and Fonets}
+
+\todo{}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Translation between $\FOMLS$ and Fonets}
+
+\todo{define rectification $\rectif\Deri$ of a derivation  $~\vlder{\FOMLS}{\Deri}{A}{\ttt}$}
+\todo{define substitution of a derivation $\substof{\Deri}$ and linking of a derivation $\linkingof{\Deri}$ }
+
+\begin{thm}
+  Let the derivation $\vlder{\FOMLS}{\Deri}{A}{\ttt}$ be given. Then
+  the graph $\graphof{\rectif A}$ forms a fonet whose linking is
+  $\linkingof{\rectif\Deri}$ and whose dualizer is
+  $\substof{\rectif\Deri}$.
+\end{thm}
+
+\begin{proof}
+  \todo{}
+\end{proof}
+
+\begin{thm}
+  Let $\gC$ be a fonet with linking $\linkingof\gC$ and dualizer
+  $\delta$, and let $A$ be a formula with $\graphof A=\gC$.  Then
+  there is a derivation $\vlder{\FOMLS}{\Deri}{A}{\ttt}$ such that
+  $\linkingof\gC=\linkingof{\Deri}$ and $\delta=\substof{\Deri}$.
+\end{thm}
+
+\begin{proof}
+  \todo{}
+\end{proof}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
