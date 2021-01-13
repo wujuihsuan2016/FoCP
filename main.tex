@@ -134,6 +134,7 @@
 \newcommand{\leaps}[1]{L_{#1}}
 
 \newcommand{\gA}{\graph{A}}
+\newcommand{\gB}{\graph{B}}
 \newcommand{\gC}{\graph{C}}
 \newcommand{\gG}{\graph{G}}
 \newcommand{\gH}{\graph{H}}
@@ -490,6 +491,7 @@
 \newcommand{\ssubst}[2]{\sublist{\subst{#1}{#2}}}
 \newcommand{\substof}[1]{\sigma(#1)}
 \newcommand{\linkingof}[1]{\sim_{#1}}
+\newcommand{\mapof}[1]{\left\lfloor{#1}\right\rfloor}
 
 \newcommand{\form}[1]{\mathrm{fm}(#1)}
 
@@ -1305,8 +1307,7 @@ permutation arguments.
 In this section we show the equivalence of $\FOMLL$ and $\FOMLS$.
 
 \begin{lemma}\label{lem:MLL1->MLS1}
-  If $\sqn\Gamma$ is rectified and provable in $\FOMLL$ then $\form\Gamma$ is provable in  $\FOMLS$. \todo{check: do we need rectified here?}
-\juihsuan{no}
+  If $\sqn\Gamma$ is provable in $\FOMLL$ then $\form\Gamma$ is provable in  $\FOMLS$.
 \end{lemma}
 
 \begin{proof}
@@ -1340,7 +1341,7 @@ $\mathsf{ai}\downarrow$ rule to have Lemma \ref{lem:MLL1->MLS1}}
 mention that $A \fequ B \Rightarrow \ \vdash_{\FOMLL} \dual{B}, A$). The inductive
 step for $\aiD$ in the proof of Lemma \ref{lem:MLS1->MLL1} can be solved by
 replacing $t$ with $a \vlor \dual{a}$ and the $\ttt$-rule with the $\ax$
- rule followed by the $\vlor$ rule}
+ rule followed by the $\vlor$ rule}\lutz{yes! and similar for $\forall$. Can you do that?}
 \begin{proof}
   This is a straightforward exercise that we leave to the reader.
 \end{proof}
@@ -1439,7 +1440,7 @@ other results.
       $.
   \end{itemize}
   \todo{}
-  \juihsuan{done. Maybe just keep one case.}
+  \juihsuan{done. Maybe just keep one case.}\lutz{yes, but we do that at the end. don't think about space right now.}
 \end{proof}
 
 \begin{lemma}
@@ -1475,7 +1476,7 @@ other results.
 	  \vlhy{(\forall x.A) \vlor (\forall x.B)}}}}}
   $$.
   \juihsuan{done. If needed, we can introduce the notion of open deduction to
-reduce the size of derivations...}
+reduce the size of derivations...}\lutz{I was thinking about that, but (i) it is probably not worth the effort, as we wont have many derivation, and (ii) it is hard to define rectified derivations this way.}
 \end{proof}
 
 \begin{lemma}
@@ -1610,6 +1611,8 @@ We can now complete the proof of Theorems~\ref{thm:decomposition} and~\ref{thm:d
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Translation between $\FOMLS$ and Fonets}
 
+A derivation $\Deri$ is \bfit{rectified} if every line in $\Deri$ is rectified.
+
 \todo{define rectification $\rectif\Deri$ of a derivation  $~\vlder{\FOMLS}{\Deri}{A}{\ttt}$}
 \todo{define substitution of a derivation $\substof{\Deri}$ and linking of a derivation $\linkingof{\Deri}$ }
 
@@ -1644,7 +1647,24 @@ We can now complete the proof of Theorems~\ref{thm:decomposition} and~\ref{thm:d
 
 \subsection{From Contraction and Weakening to Skew Bifibrations}
 
+\todo{define rules $\rectif\mfaD,\rectif\mexD$}
+
+\todo{define $\mapof\Deri$ (underlying map doing the flowgraph thing)}
+
+\begin{lemma}
+  Let $\vlderivation{
+    \vlde{\set{\wlD,\wrD,\acD,\me,\rectif\mfaD,\rectif\mexD,\fequ}}{\Deri}{B}{
+      \vlhy{A}}}$ be a rectified derivation. Then the map
+  $\mapof\Deri\colon\graphof{A}\to\graphof{B}$ is a skew bifibration.
+\end{lemma}
+
 \subsection{From Skew Bifibrations to Contraction and Weakening}
+
+\begin{lemma}
+  Let $\phi\colon\gA\to\gB$ be a skew bifibration, and let $A$ and $B$ be formulas with $\graphof A=\gA$ and $\graphof B=\gB$. Then there is a derivation $\vlderivation{
+    \vlde{\set{\wlD,\wrD,\acD,\me,\rectif\mfaD,\rectif\mexD,\fequ}}{\Deri}{B}{
+      \vlhy{A}}}$ with $\mapof\Deri=\phi$.
+\end{lemma}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
