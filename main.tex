@@ -1331,6 +1331,11 @@ In this section we show the equivalence of $\FOMLL$ and $\FOMLS$.
 (consider the $\aiD$ rule). But if we add it, we'll need the
 $\mathsf{ai}\downarrow$ rule to have Lemma \ref{lem:MLL1->MLS1}}
 \lutz{shit. so, we need another way to prove lemma~\ref{lem:MLS1->MLL1}, I'd like to avoid $\fff$-intro.}
+\juihsuan{This lemma holds for all the rules except $\aiD$ (we may need to
+mention that $A \fequ B \Rightarrow \ \vdash_{\FOMLL} \dual{B}, A$). The inductive
+step for $\aiD$ in the proof of Lemma \ref{lem:MLS1->MLL1} can be solved by
+replacing $t$ with $a \vlor \dual{a}$ and the $\ttt$-rule with the $\ax$
+ rule followed by the $\vlor$ rule}
 \begin{proof}
   This is a straightforward exercise that we leave to the reader.
 \end{proof}
@@ -1374,7 +1379,7 @@ The first observation here is that Lemmas~\ref{lem:MLL1->MLS1}--\ref{lem:MLS1->M
   $\FOLK$ if and only if $\form\Gamma$ is provable in $\FOKS$.
 \end{thm}
 
-Then Theorem~\ref{thm:KS} is an immediate consequence. Let us now
+Then Theorem~\ref{thm:KS1} is an immediate consequence. Let us now
 proceed with providing further lemmas that will be needed for the
 other results.
 
@@ -1384,7 +1389,52 @@ other results.
 \end{lemma}
 
 \begin{proof}
+  We show that there is always a derivation
+  $$
+  \vlderivation{
+    \vlde{\sysS}{}{A}{
+      \vlhy{A \vlor A}}}
+  $$, where $\sysS = \set{\acD,\me,\mfaD,\mexD,\fequ}$, by induction on $A$:
+  \begin{itemize}
+    \item If $A = a$, then we have
+      $
+      \vlderivation{
+        \vlin{\acD}{}{a}{
+          \vlhy{a \vlor a}}}
+      $.
+    \item If $A = B \vlan C$, then we have
+      $
+      \vlderivation{
+	\vlde{\sysS}{}{B \vlan C}{
+	  \vlde{\sysS}{}{B \vlan (C \vlor C)}{
+	    \vlin{\me}{}{(B \vlor B) \vlan (C \vlor C)}{
+	      \vlhy{(B \vlan C) \vlor (B \vlan C)}}}}}
+      $.\\[.5ex]
+    \item If $A = B \vlor C$, then we have
+      $
+      \vlderivation{
+	\vlde{\sysS}{}{B \vlor C}{
+	  \vlde{\sysS}{}{B \vlor (C \vlor C)}{
+	    \vlin{\fequ}{}{(B \vlor B) \vlor (C \vlor C)}{
+	      \vlhy{(B \vlor C) \vlor (B \vlor C)}}}}}
+      $.\\[.5ex]
+    \item If $A = \exists x.A'$, then we have
+      $
+      \vlderivation{
+	\vlde{\sysS}{}{\exists x.A'}{
+	  \vlin{\mexD}{}{\exists x.(A' \vlor A')}{
+	    \vlhy{(\exists x.A') \vlor (\exists x.A')}}}}
+      $.\\[.5ex]
+    \item If $A = \forall x.A'$, then we have
+      $
+      \vlderivation{
+	\vlde{\sysS}{}{\forall x.A'}{
+	  \vlin{\mexD}{}{\forall x.(A' \vlor A')}{
+	    \vlhy{(\forall x.A') \vlor (\forall x.A')}}}}
+      $.
+  \end{itemize}
   \todo{}
+  \juihsuan{done. Maybe just keep one case.}
 \end{proof}
 
 \begin{lemma}
@@ -1394,6 +1444,33 @@ other results.
 
 \begin{proof}
   \todo{}\lutz{also check for the need of$\fequ$}
+
+  We have the following derivations:
+  $$
+  \vlderivation{
+    \vlin{\cD}{}{(A \vlor B) \vlan (C \vlor D)}{
+      \vlin{\wlD}{}{((A \vlor B) \vlan (C \vlor D)) \vlor ((A \vlor B) \vlan (C \vlor D))}{
+	\vlin{\wlD}{}{((A \vlor B) \vlan (C \vlor D)) \vlor ((A \vlor B) \vlan D))}{
+	  \vlin{\wrD}{}{((A \vlor B) \vlan (C \vlor D)) \vlor (B \vlan D))}{
+	    \vlin{\wrD}{}{((A \vlor B) \vlan C) \vlor (B \vlan D)}{
+	      \vlhy{(A \vlan C) \vlor (B \vlan D)}}}}}}}
+  $$.
+  $$
+  \vlderivation{
+    \vlin{\cD}{}{\exists x.(A \vlor B)}{
+      \vlin{\wlD}{}{(\exists x.(A \vlor B)) \vlor (\exists x.(A \vlor B))}{
+	\vlin{\wrD}{}{(\exists x.(A \vlor B)) \vlor (\exists x.B)}{
+	  \vlhy{(\exists x.A) \vlor (\exists x.B)}}}}}
+  $$.
+  $$
+  \vlderivation{
+    \vlin{\cD}{}{\forall x.(A \vlor B)}{
+      \vlin{\wlD}{}{(\forall x.(A \vlor B)) \vlor (\forall x.(A \vlor B))}{
+	\vlin{\wrD}{}{(\forall x.(A \vlor B)) \vlor (\forall x.B)}{
+	  \vlhy{(\forall x.A) \vlor (\forall x.B)}}}}}
+  $$.
+  \juihsuan{done. If needed, we can introduce the notion of open deduction to
+reduce the size of derivations...}
 \end{proof}
 
 \begin{lemma}
