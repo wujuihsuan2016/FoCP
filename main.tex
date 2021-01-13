@@ -1330,7 +1330,7 @@ In this section we show the equivalence of $\FOMLL$ and $\FOMLS$.
 \juihsuan{For this, we need the introduction rule of $\fff$ in $\FOMLL$
 (consider the $\aiD$ rule). But if we add it, we'll need the
 $\mathsf{ai}\downarrow$ rule to have Lemma \ref{lem:MLL1->MLS1}}
-
+\lutz{shit. so, we need another way to prove lemma~\ref{lem:MLS1->MLL1}, I'd like to avoid $\fff$-intro.}
 \begin{proof}
   This is a straightforward exercise that we leave to the reader.
 \end{proof}
@@ -1363,9 +1363,48 @@ $\mathsf{ai}\downarrow$ rule to have Lemma \ref{lem:MLL1->MLS1}}
   and then apply Theorem~\ref{thm:cutelim}.
 \end{proof}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Contraction and Weakining}
 
+The first observation here is that Lemmas~\ref{lem:MLL1->MLS1}--\ref{lem:MLS1->MLL1} from above also hold for $\FOLK$ and $\FOKS$. We therefore immediately have:
 
+\begin{thm}\label{thm:LK1-KS1}
+  For every sequent $\Gamma$, we have that $\sqn\Gamma$ is provable in
+  $\FOLK$ if and only if $\form\Gamma$ is provable in $\FOKS$.
+\end{thm}
+
+Then Theorem~\ref{thm:KS} is an immediate consequence. Let us now
+proceed with providing further lemmas that will be needed for the
+other results.
+
+\begin{lemma}
+  \label{lem:ac}
+  The $\cD$-rule is derivable in $\set{\acD,\me,\mfaD,\mexD,\fequ}$. 
+\end{lemma}
+
+\begin{proof}
+  \todo{}
+\end{proof}
+
+\begin{lemma}
+  \label{lem:me}
+  The rules $\me,\mfaD,\mexD$ are derivable in $\set{\wlD,\wrD,\cD}$. 
+\end{lemma}
+
+\begin{proof}
+  \todo{}\lutz{also check for the need of$\fequ$}
+\end{proof}
+
+\begin{lemma}
+  Let $A$ and $B$ be formulas. Then
+  \begin{equation}
+    x
+  \end{equation}
+\end{lemma}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{A First Decomposition Theorem}
 
 $$
@@ -1382,10 +1421,16 @@ $$
 
 \section{Fonets and Linear Proofs}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Unification Nets}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Translation between Unification Nets and $\FOMLL$}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Translation between Unification Nets and Fonets}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
