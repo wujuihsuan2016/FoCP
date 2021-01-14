@@ -1638,7 +1638,7 @@ structure are acyclic.
 \subsection{Translation between Unification Nets and $\FOMLL$}
 
 \todo{}
-\begin{thm}
+\begin{thm}\label{thm:MLL1->Unet}
   If a sequent is provable in $\FOMLL$, then there exists a unification net
   on it.
 \end{thm}
@@ -1673,9 +1673,16 @@ structure are acyclic.
 	  $\Gamma$)}}{\sqn{\Gamma,\forall x.A}}{\sqn{\Gamma,A}}$ : By induction
           hypothesis, there is a correct linking on $\Gamma, A$, and it is easy
 	  to see that it is a correct linking on $\Gamma, \forall x.A$ as well.
-
   \end{itemize}
+  This allows us to define a translation from proofs in $\FOMLL$ to unification
+  nets.
 \end{proof}
+
+\begin{thm}
+  Any unification net can be obtained via the translation given in Theorem
+  \ref{thm:MLL1->Unet}.
+\end{thm}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Translation between Unification Nets and Fonets}
