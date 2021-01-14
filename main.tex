@@ -130,7 +130,7 @@
 \newcommand{\vertices}[1][]{\ifthenelse{\isempty{#1}}{V}{V_{\graph{#1}}}}
 \newcommand{\edges}[1][]{\ifthenelse{\isempty{#1}}{E}{E_{\graph{#1}}}}
 \newcommand{\bgraph}[1]{\mathcal{\vec{#1}}}
-\newcommand{\lgraph}[1]{\mathcal{L_{#1}}}
+\newcommand{\lgraph}[1]{\mathcal{#1}^{\mathsf{L}}}
 \newcommand{\leaps}[1]{L_{#1}}
 
 \newcommand{\gA}{\graph{A}}
@@ -159,8 +159,10 @@
 \newcommand{\Deri}{\Phi}
 
 \newcommand{\lgG}{\lgraph{\gG}}
+\newcommand{\lgC}{\lgraph{\gC}}
 
 \newcommand{\lpG}{\leaps{\gG}}
+\newcommand{\lpC}{\leaps{\gC}}
 
 % *** MISC UTILITY PACKAGES ***
 %
@@ -884,7 +886,7 @@ connected.
 A graph $\gG$ is \bfit{labelled} in a set $L$ if each vertex $v\in\vG$
 has an element $\ell(v)\in L$ associated with it, its \bfit{label}.  A
 graph $\gG$ is (partially) \bfit{coloured} if it carries a partial
-equivalence relation $\samecol$ on $\vG$; each equivalence class is a
+equivalence relation $\linkingof\gG$ on $\vG$; each equivalence class is a
 \bfit{colour}.  A \bfit{vertex renaming} of $\gG=\tuple{\vG,\eG}$
 along a bijection $(\hat\cdot)\colon\vG\to\hat\vG$ is the graph
 $\hat\gG=\tuple{\hat\vG,\set{\hat v\hat w\mid vw\in\eG}}$, with
@@ -1046,27 +1048,22 @@ $\FORM / \fequ$.
 
 Two atoms are \bfit{pre-dual} if their predicate symbols are dual
 (e.g. $p(x, y)$ and $\dual{p}(y, z)$) and two literals are \bfit{pre-dual} if their
-labels (atoms) are pre-dual. A \bfit{linked fograph} is a coloured fograph such
-that every colour, called a \bfit{link}, consists of two pre-dual literals, and
+labels (atoms) are pre-dual. A \bfit{linked fograph} is a coloured fograph $\gC$ such
+that every colour (i.e., equivalence class of~$\linkingof\gC$), called a \bfit{link}, consists of two pre-dual literals, and
 every literal is either $\ttt$-labelled or in a link.
 
-Let $\gG$ be a linked fograph. The set of links can be seen as a unification problem
-by identifying dual predicate symbols. A \bfit{dualizer} of $\gG$ is an assignment
-unifying all the links of $\gG$. Since a first-order unification problem is either
+Let $\gC$ be a linked fograph. The set of links can be seen as a unification problem
+by identifying dual predicate symbols. A \bfit{dualizer} of $\gC$ is a substitution
+unifying all the links of $\gC$. Since a first-order unification problem is either
 unsolvable or has a most general unifier, we can define the notion of \bfit{most
-general dualizer}. A \bfit{dependency} is a pair $(\single x, \single y)$ of an
+general dualizer}. A \bfit{dependency} is a pair $\set{\single x, \single y}$ of an
 existential binder $\single x$ and a universal binder $\single y$ such that the most
 general dualizer assigns to $x$ a term containing $y$. A \bfit{leap} is either a
-link or a dependency. The \bfit{leap graph} $\lgG$ of $\gG$ is the undirected
-graph $(\vG, \lpG)$ where $\lpG$ is the set of leaps of $\gG$. A set $W \subseteq \vG$ induces a \bfit{matching} in
-$\gG$ if for all $w \in W$, $N(w) \cap W$ is a singleton, and induces a
-\bfit{bimatching} in $\gG$ if it induces a matching in $\gG$ and in the leap graph
-$\lgG$ as well.
+link or a dependency. The \bfit{leap graph} $\lgC$ of $\gC$ is the undirected
+graph $\tuple{\vC, \lpC}$ where $\lpC$ is the set of leaps of $\gC$. A vetex set $W \subseteq \vC$ induces a \bfit{matching} in
+$\gC$ if for all $w \in W$, $N(w) \cap W$ is a singleton. We say that $W$ induces a
+\bfit{bimatching} in $\gC$ if it induces a matching in $\gC$ and a matching in $\lgC$.
 
-\todo{define matching} \juihsuan{done in the cograph part}\lutz{no, it should be here}
-\juihsuan{fixed}
-
-\todo{adjust notation}
 
 \begin{definition}
 A \bfit{first-order net} or \bfit{fonet} is a linked fograph which has
@@ -1074,29 +1071,38 @@ dualizer but no induced bimatching.
 \end{definition}
 
 \subsection{Skew Bifibrations}
-
-A graph homomorphism $f: (\vG, \eG) \rightarrow (\vH, \eH)$ is a \bfit{fibration} if
+\lutz{$\phi$ instead of $f$}
+A graph homomorphism $f: \tuple{\vG, \eG} \rightarrow \tuple{\vH, \eH}$ is a \bfit{fibration} if
 for all $v \in \vG$ and $wf(v) \in \eH$, there exists a unique $\tilde{w} \in
 \vG$ such that $\tilde{w}v \in \eG$ and $f(\tilde{w}) = w$, and is a \bfit{skew fibration}
 if for all $v \in \vG$ and $wf(v) \in \eH$ there exists $\tilde{w} \in \vG$ such that
-$\tilde{w}v \in \eG$ and $f(\tilde{w})w \notin \eH$. A \bfit{fograph homomorphism}
+$\tilde{w}v \in \eG$ and $f(\tilde{w})w \notin \eH$.
+A directed graph homomorphism is a \bfit{fibration} if \todo{}
+
+
+\lutz{do we really need that?
+A \bfit{fograph homomorphism}
 is a graph homomorphism between the underlying graphs of the fographs
 considered. A fograph homomorphism $f : \gG \rightarrow \gH$ is
 \bfit{label-preserving} if for all $v \in \vG, label(v) = label(f(v))$, and is
 \bfit{existential-preserving} if for all existential binder $b$ in $\gG$, the
 vertex $f(b)$ is an existential binder in $\gH$.
+}
+
+\lutz{I think we need \bfit{fograph homomorphism} maps binders to binders and literals to literals, preserving the predicates.}
 
 \begin{definition}
-A \bfit{skew bifibration} between fographs is a label-preserving and
-existential-preserving fograph homomorphism whose restriction to the
-binding graphs is a fibration.
+  Let $\gG$ and $\gH$ be forgraphs. A \bfit{skew bifibration} $\phi\colon\gG\to\gH$ is a fograph homomorphism that is a skew fibration on $\tuple{\vG, \eG} \to \tuple{\vH, \eH}$ and a fibration on the binding graphs $\bG\to\bH$.
+  %etween fographs is a label-preserving and
+%existential-preserving fograph homomorphism whose restriction to the
+%binding graphs is a fibration.
 \end{definition}
 
 %%\subsection{First-order combinatorial proofs}
 
 \begin{definition}
 A \bfit{first-order combinatorial proof} (\bfit{FOCP}) of a fograph $\gG$ is a skew
-bifibration $f: \gN \rightarrow \gG$ where $\gN$ is a fonet. A \bfit{first-order
+bifibration $\phi\colon \gC \rightarrow \gG$ where $\gC$ is a fonet. A \bfit{first-order
 combinatorial proof} of a formula $A$ is a combinatorial proof of its graph
 $\graphof{A}$.
 \end{definition}
@@ -1612,7 +1618,7 @@ disjoint links such that each leaf of $\Gamma$ is either labelled by $\ttt$ or
 in exactly one link. Similar to the set of links in linked fographs, a linking can be seen as a
 unification problem, and a dualizer of the linking $\lambda$ is an assignment
 unifying all the links in $\lambda$. There exists a \bfit{most general dualizer}
- of $\lambda$ if $\lambda$ has a dualizer. \juihsuan{Now I use the same terminology as for linked fographs}
+ of $\lambda$ if $\lambda$ has a dualizer. \juihsuan{Now I use the same terminology as for linked fographs}\lutz{use $\delta$ for the dualizer (or even better, make it a macro)}
 A \bfit{dependency} is a pair $(\single \exists x, \single \forall y)$ of nodes
 such that the most general dualizer assigns to $x$ a term containing $y$.
 
