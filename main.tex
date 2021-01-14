@@ -461,8 +461,6 @@
 % ** SPECIAL **
 
 \newcommand{\Gr}{\mathcal{G}}
-\newcommand{\FT}{\mathcal{F}}
-\newcommand{\US}{\mathcal{U}}
 \newcommand{\PE}[1]{#1^P}
 
 % ** FONT STYLE **
@@ -494,6 +492,9 @@
 \newcommand{\mapof}[1]{\left\lfloor{#1}\right\rfloor}
 
 \newcommand{\form}[1]{\mathrm{fm}(#1)}
+\newcommand{\formtree}[1]{\mathcal{F}(#1)}
+
+\newcommand{\unifstr}[1]{\mathcal{U}(#1)}
 
 % correct bad hyphenation here
 \hyphenation{op-tical net-works semi-conduc-tor}
@@ -790,7 +791,7 @@ A \bfit{renaming} is a substitution $\sigma$ with $\sigma(x)\in\VAR$ for all var
             \\ \\[-1ex]
             \vlinf{\vlor}{}{\sqn{\Gamma,A\vlor B}}{\sqn{\Gamma,A,B}}
             \qquad
-            \vliinf{\vlan}{}{\sqn{\Gamma,A\vlan B}}{\sqn{\Gamma,A}}{\sqn{B,\Delta}}
+            \vliinf{\vlan}{}{\sqn{\Gamma,A\vlan B, \Delta}}{\sqn{\Gamma,A}}{\sqn{B,\Delta}}
             \\ \\[-1ex]
             \vlinf{\exists}{}{\sqn{\Gamma,\exists x.A}}{\sqn{\Gamma,A\ssubst{x}{t}}}
             \qquad
@@ -1597,11 +1598,84 @@ We can now complete the proof of Theorems~\ref{thm:decomposition} and~\ref{thm:d
 \subsection{Unification Nets}
 
 \todo{}
+
+In this paragraph, we associate to each formula $A$ its \bfit{formula tree}
+$\formtree{A}$, a directed
+tree with leaves labelled by atoms, internal nodes labelled by connectives and
+quantifiers, and edges directed from leaves to the root.
+
+Let $\Gamma$ be a sequent in $\FOMLL$. Consider the formula tree
+$\formtree{\form{\Gamma}}$. A \bfit{link} on $\Gamma$ is a pair of
+leaves whose atoms are pre-dual. A \bfit{linking} $\lambda$ on $\Gamma$ is a set
+of
+disjoint links such that each leaf of $\Gamma$ is either labelled by $\ttt$ or
+in exactly one link. Similar to the set of links in linked fographs, a linking can be seen as a
+unification problem, and a dualizer of the linking $\lambda$ is an assignment
+unifying all the links in $\lambda$. There exists a \bfit{most general dualizer}
+ of $\lambda$ if $\lambda$ has a dualizer. \juihsuan{Now I use the same terminology as for linked fographs}
+A \bfit{dependency} is a pair $(\single \exists x, \single \forall y)$ of nodes
+such that the most general dualizer assigns to $x$ a term containing $y$.
+
+Let $\lambda$ is a linking on $\Gamma$ that has a dualizer.
+The \bfit{unification structure} $\unifstr{\lambda}$
+associated to $\lambda$ is the formula tree $\formtree{\form{\Gamma}}$ together with an undirected
+edge between leaves $l$ and $l'$ for every link $\{l, l'\}$ in $\lambda$ and a
+directed edge from $\single \exists x$ to $\single \forall y$ for every
+dependency $(\single \exists x, \single \forall y)$.
+
+A \bfit{switching graph} of a unification structure $\unifstr{\lambda}$ is any
+derivative of $\unifstr{\lambda}$ obtained by keeping only one edge into each $\cor$
+and $\forall$ and undirecting remaining edges. A linking is \bfit{correct} if it
+is unifiable and all of the switching graphs of its associated unification
+structure are acyclic.
+
+\begin{definition}
+  A \bfit{unification net} on a sequent $\Gamma$ is a correct linking on $\Gamma$.
+\end{definition}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Translation between Unification Nets and $\FOMLL$}
 
 \todo{}
+\begin{thm}
+  If a sequent is provable in $\FOMLL$, then there exists a unification net
+  on it.
+\end{thm}
+
+\begin{proof}
+  We proceed by induction on the proof of $\sqn \Gamma$ in $\FOMLL$, making a
+  case analysis on the bottommost rule instance:
+  \begin{itemize}
+    \setlength\itemsep{.5em}
+    \item $\vlinf{\axr}{}{\sqn{a,\cneg a}}{}$ : the linking $\{a, \dual{a}\}$ is correct.
+    \item $\vlinf{\ttt}{}{\sqn{\ttt}}{}$ : the empty linking is correct.
+    \item $\vliinf{\mixr}{}{\sqn{\Gamma,\Delta}}{\sqn\Gamma}{\sqn\Delta}$ :
+	  By induction hypothesis, there is a correct linking on
+	  $\Gamma$ and another one on $\Delta$, their union giving a
+	  correct linking on $\Gamma, \Delta$.
+    \item $\vlinf{\vlor}{}{\sqn{\Gamma,A\vlor B}}{\sqn{\Gamma,A,B}}$ : By
+	  induction hypothesis, there is a correct linking on $\Gamma, A, B$,
+	  and it is correct on $\Gamma, A \vlor B$ as well.
+    \item $\vliinf{\vlan}{}{\sqn{\Gamma,A\vlan B, \Delta}}{\sqn{\Gamma,A}}{\sqn{B,\Delta}}$ :
+          By induction hypothesis, there is a correct linking on $\Gamma, A$ and
+	  another one on $B, \Delta$, their union giving a correct linking on
+          $\Gamma,A \vlan B, \Delta$.
+    \item $\vlinf{\exists}{}{\sqn{\Gamma,\exists x.A}}
+	  {\sqn{\Gamma,A\ssubst{x}{t}}}$ : By induction hypothesis, there is a
+	  correct linking $\lambda$ on $\Gamma, A\ssubst{x}{t}$.
+	  For each atom in $\Gamma, A \ssubst{x}{t}$, there is a corresponding
+	  atom in $\Gamma, \exists x.A$. There is therefore a linking $\lambda'$
+          on $\Gamma, \exists x.A$ obtained from $\lambda$ via this
+	  correspondence, and it is not difficult to check that $\lambda'$ is
+	  correct as well.
+    \item $\vlinf{\forall}{\text{($x$ not free in
+	  $\Gamma$)}}{\sqn{\Gamma,\forall x.A}}{\sqn{\Gamma,A}}$ : By induction
+          hypothesis, there is a correct linking on $\Gamma, A$, and it is easy
+	  to see that it is a correct linking on $\Gamma, \forall x.A$ as well.
+
+  \end{itemize}
+\end{proof}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Translation between Unification Nets and Fonets}
@@ -1722,7 +1796,7 @@ $\vdash S\{B\}$ in system $\mathcal{P}$ for any context $S$.
 In $\FOMLL$, terms, atoms, formulas are defined as in first-order logic. For
 simplicity, we choose to use $\cor$ and $\cand$ instead of $\parr$ and
 $\otimes$ which are generally used in the presentation of linear logic.
-A formula $A$ is identified with its \bfit{formula tree} $\FT(A)$, a directed
+A formula $A$ is identified with its \bfit{formula tree} $\formtree{A}$, a directed
 tree with leaves labelled by atoms, internal nodes labelled by connectives and
 quantifiers, and edges directed from leaves to the root. A \bfit{sequent} $\Gamma$ is simply a disjoint union of formulas. We write
 comma for disjoint union.
@@ -1782,23 +1856,6 @@ to the set of links in the linked fograph, a linking can be seen as a
 unification problem, and a link is said \bfit{unifiable} if the corresponding
 unification problem is solvable. \bfit{Dependencies} are defined as previously.
 
-Let $\lambda$ is a unifiable linking on $\Gamma = A_1, \ldots, A_n$.
-Let $A = A_1 \cor \ldots \cor A_n$. The \bfit{unification structure}
-$\US(\lambda)$
-associated to $\lambda$ is the formula tree $\FT(A)$ together with an undirected
-edge between leaves $l$ and $l'$ for every link $\{l, l'\}$ in $\lambda$ and a
-directed edge from $\exists x$ to $\forall y$ for every dependency $\exists x
-\rightarrow \forall y$.
-
-A \bfit{switching graph} of a unification structure $\US(\lambda)$ is any
-derivative of $\US(\lambda)$ obtained by keeping only one edge into each $\cor$
-and $\forall$ and undirecting remaining edges. A linking is \bfit{correct} if it
-is unifiable and all of the switching graphs of its associated unification
-structure are acyclic.
-
-\begin{definition}
-  A \bfit{unification net} on a sequent $\Gamma$ is a correct linking on $\Gamma$.
-\end{definition}
 
 \section{From first-order logic to combinatorial proofs}
 
@@ -1948,8 +2005,8 @@ In the following, we usually confound a vertex with its label.
 \begin{definition} A \bfit{switching path} of a unification structure $U(\lambda)$ is a path in a switching graph of $U(\lambda)$.
 \end{definition}
 
-\begin{definition} A \bfit{switching path} of a  formula tree $\FT(A)$ is a
-	path in $\FT(A)$ that does not go through both incoming edges of a $\cor$.
+\begin{definition} A \bfit{switching path} of a formula tree $\formtree{A}$ is a
+	path in $\formtree{A}$ that does not go through both incoming edges of a $\cor$.
 \end{definition}
 
 \begin{proposition}
@@ -1966,7 +2023,7 @@ Let $u$ and $v$ be two distinct vertices of a fograph $\graphof(A)$, then we hav
 between:
 \begin{itemize}
   \item $u$ and $v$ are adjacent in $\graphof(A)$
-  \item $u$ and $v$ are connected by a switching path of $\FT(A)$, and if one of them is a universal quantifier, then the other is
+  \item $u$ and $v$ are connected by a switching path of $\formtree{A}$, and if one of them is a universal quantifier, then the other is
 	not a descendant of the former.
   \end{itemize}
 \begin{proof}
