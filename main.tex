@@ -157,12 +157,15 @@
 
 \newcommand{\sysS}{\mathsf{S}}
 \newcommand{\Deri}{\Phi}
+\newcommand{\Proof}{\Pi}
 
 \newcommand{\lgG}{\lgraph{\gG}}
 \newcommand{\lgC}{\lgraph{\gC}}
 
 \newcommand{\lpG}{\leaps{\gG}}
 \newcommand{\lpC}{\leaps{\gC}}
+
+\newcommand{\dualizer}{\delta}
 
 % *** MISC UTILITY PACKAGES ***
 %
@@ -1072,11 +1075,11 @@ dualizer but no induced bimatching.
 
 \subsection{Skew Bifibrations}
 \lutz{$\phi$ instead of $f$}
-A graph homomorphism $f: \tuple{\vG, \eG} \rightarrow \tuple{\vH, \eH}$ is a \bfit{fibration} if
-for all $v \in \vG$ and $wf(v) \in \eH$, there exists a unique $\tilde{w} \in
-\vG$ such that $\tilde{w}v \in \eG$ and $f(\tilde{w}) = w$, and is a \bfit{skew fibration}
-if for all $v \in \vG$ and $wf(v) \in \eH$ there exists $\tilde{w} \in \vG$ such that
-$\tilde{w}v \in \eG$ and $f(\tilde{w})w \notin \eH$.
+A graph homomorphism $\phi\colon \tuple{\vG, \eG} \rightarrow \tuple{\vH, \eH}$ is a \bfit{fibration} if
+for all $v \in \vG$ and $w\phi(v) \in \eH$, there exists a unique $\tilde{w} \in
+\vG$ such that $\tilde{w}v \in \eG$ and $\phi(\tilde{w}) = w$, and is a \bfit{skew fibration}
+if for all $v \in \vG$ and $w\phi(v) \in \eH$ there exists $\tilde{w} \in \vG$ such that
+$\tilde{w}v \in \eG$ and $\phi(\tilde{w})w \notin \eH$.
 A directed graph homomorphism is a \bfit{fibration} if \todo{}
 
 
@@ -1092,7 +1095,7 @@ vertex $f(b)$ is an existential binder in $\gH$.
 \lutz{I think we need \bfit{fograph homomorphism} maps binders to binders and literals to literals, preserving the predicates.}
 
 \begin{definition}
-  Let $\gG$ and $\gH$ be forgraphs. A \bfit{skew bifibration} $\phi\colon\gG\to\gH$ is a fograph homomorphism that is a skew fibration on $\tuple{\vG, \eG} \to \tuple{\vH, \eH}$ and a fibration on the binding graphs $\bG\to\bH$.
+  Let $\gG$ and $\gH$ be fographs. A \bfit{skew bifibration} $\phi\colon\gG\to\gH$ is a fograph homomorphism that is a skew fibration on $\tuple{\vG, \eG} \to \tuple{\vH, \eH}$ and a fibration on the binding graphs $\bG\to\bH$.
   %etween fographs is a label-preserving and
 %existential-preserving fograph homomorphism whose restriction to the
 %binding graphs is a fibration.
@@ -1338,7 +1341,7 @@ In this section we show the equivalence of $\FOMLL$ and $\FOMLS$.
 
 \begin{lemma}\label{lem:shallow}
   Let $\vlinf{\rr}{}{\Scons B}{\Scons A}$ be an inference rule in
-  $\FOMLS$. Then the sequent $\sqn{\cneg A,B}$ is provable in $\FOMLL$.
+  $\FOMLS$ other than $\aiD$ and $\forall$. Then the sequent $\sqn{\cneg A,B}$ is provable in $\FOMLL$.
 \end{lemma}
 \juihsuan{For this, we need the introduction rule of $\fff$ in $\FOMLL$
 (consider the $\aiD$ rule). But if we add it, we'll need the
@@ -1367,19 +1370,52 @@ replacing $t$ with $a \vlor \dual{a}$ and the $\ttt$-rule with the $\ax$
   If a formula $C$ is provable in $\FOMLS$ then $\sqn C$ is provable in  $\FOMLL$. \todo{check: do we need rectified here?}
 \end{lemma}
 
+$\vlinf{\faD}{}{\Scons{\forall x.\ttt}}{\Scons\ttt}$
+
+$\vlinf{\axr}{}{\sqn{a,\cneg a}}{}
+            \qquad
+            \vlinf{\ttt}{}{\sqn{\ttt}}{}
+$
+
 \begin{proof}
   We proceed by induction on the number of inference steps in the
   proof of $C$ in $\FOMLS$. Consider the bottommost rule instance
   $\vlinf{\rr}{}{\Scons B}{\Scons A}$. By induction hypothesis we have
-  a $\FOMLL$ proof of $\sqn{\Scons A}$, and by
-  Lemma~\ref{lem:context}, we have a $\FOMLL$ proof of
-  $\sqn{\cneg{\Scons A},\Scons B}$. We can compose them via $\cutr$:
-  \begin{equation*}
-    \vliinf{\cutr}{}{\sqn{\Scons B}}{\sqn{\Scons A}}{\sqn{\cneg{\Scons
+  a $\FOMLL$ proof $\Proof$ of $\sqn{\Scons A}$.
+  We now make a case analysis on $\rr$:
+  \begin{itemize}
+    \setlength\itemsep{.5em}
+    \item $\vlinf{\aiD}{}{\Scons{a\vlor\cneg a}}{\Scons\ttt}$ :
+      In this case, we replace simultaneously in $\Pi$ the corresponding
+      occurrences of $\ttt$ with $a \vlor \cneg a$ and the rule instance
+      $\vlinf{\ttt}{}{\sqn{\ttt}}{}$ with the derivation
+      $
+        \vlderivation{
+          \vlin{\vlor}{}{\sqn{a \vlor \cneg a}}{
+            \vlin{\axr}{}{\sqn{a, \cneg a}}{
+              \vlhy{}}}}
+      $, and we get a proof $\Pi'$ of $\sqn{\Scons{a \vlor \cneg a}}$.
+    \item $\vlinf{\faD}{}{\Scons{\forall x.\ttt}}{\Scons\ttt}$
+      In this case, we replace simultaneously in $\Pi$ the corresponding
+      occurrences of $\ttt$ with $\forall x.\ttt$ and the rule instance
+      $\vlinf{\ttt}{}{\sqn{\ttt}}{}$ with the derivation
+      $
+      \vlderivation{
+        \vlin{\forall}{}{\sqn{\forall x.\ttt}}{
+          \vlin{\axr}{}{\sqn{\ttt}}{
+            \vlhy{}}}}
+      $, and we get a proof $\Pi'$ of $\sqn{\Scons{\forall x.\ttt}}$.
+    \item $\rr \notin \set{\aiD, \faD}$ :
+      By Lemma~\ref{lem:context}, we have a $\FOMLL$ proof of
+      $\sqn{\cneg{\Scons A},\Scons B}$. We can compose them via $\cutr$:
+      \begin{equation*}
+        \vliinf{\cutr}{}{\sqn{\Scons B}}{\sqn{\Scons A}}{\sqn{\cneg{\Scons
           A},\Scons B}}
-  \end{equation*}
-  and then apply Theorem~\ref{thm:cutelim}.
-\end{proof}
+      \end{equation*}
+      and then apply Theorem~\ref{thm:cutelim}.
+  \end{itemize}
+  \tocheck{}
+  \end{proof}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1605,7 +1641,7 @@ We can now complete the proof of Theorems~\ref{thm:decomposition} and~\ref{thm:d
 
 \todo{}
 
-In this paragraph, we associate to each formula $A$ its \bfit{formula tree}
+In this paragraph, we associate each formula $A$ with its \bfit{formula tree}
 $\formtree{A}$, a directed
 tree with leaves labelled by atoms, internal nodes labelled by connectives and
 quantifiers, and edges directed from leaves to the root.
@@ -1616,7 +1652,7 @@ leaves whose atoms are pre-dual. A \bfit{linking} $\lambda$ on $\Gamma$ is a set
 of
 disjoint links such that each leaf of $\Gamma$ is either labelled by $\ttt$ or
 in exactly one link. Similar to the set of links in linked fographs, a linking can be seen as a
-unification problem, and a dualizer of the linking $\lambda$ is an assignment
+unification problem, and a \bfit{dualizer} $\dualizer$ of the linking $\lambda$ is an assignment
 unifying all the links in $\lambda$. There exists a \bfit{most general dualizer}
  of $\lambda$ if $\lambda$ has a dualizer. \juihsuan{Now I use the same terminology as for linked fographs}\lutz{use $\delta$ for the dualizer (or even better, make it a macro)}
 A \bfit{dependency} is a pair $(\single \exists x, \single \forall y)$ of nodes
@@ -1624,7 +1660,7 @@ such that the most general dualizer assigns to $x$ a term containing $y$.
 
 Let $\lambda$ is a linking on $\Gamma$ that has a dualizer.
 The \bfit{unification structure} $\unifstr{\lambda}$
-associated to $\lambda$ is the formula tree $\formtree{\form{\Gamma}}$ together with an undirected
+associated with $\lambda$ is the formula tree $\formtree{\form{\Gamma}}$ together with an undirected
 edge between leaves $l$ and $l'$ for every link $\{l, l'\}$ in $\lambda$ and a
 directed edge from $\single \exists x$ to $\single \forall y$ for every
 dependency $(\single \exists x, \single \forall y)$.
@@ -1746,10 +1782,10 @@ in~$\Deri$. We call $\linkingof\Deri$ the \bfit{linking} of~$\Deri$.
 \end{proof}
 
 \begin{thm}
-  Let $\gC$ be a fonet with linking $\linkingof\gC$, let $\delta$ be a dualizer
+  Let $\gC$ be a fonet with linking $\linkingof\gC$, let $\dualizer$ be a dualizer
   for $\gC$, and let $A$ be a formula with $\graphof A=\gC$.  Then
   there is a derivation $\vlder{\FOMLS}{\Deri}{A}{\ttt}$ such that
-  $\linkingof\gC=\linkingof{\Deri}$ and $\delta=\substof{\Deri}$.
+  $\linkingof\gC=\linkingof{\Deri}$ and $\dualizer=\substof{\Deri}$.
 \end{thm}
 
 \begin{proof}
