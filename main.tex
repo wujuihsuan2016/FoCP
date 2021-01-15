@@ -467,7 +467,7 @@
 % ** SPECIAL **
 
 \newcommand{\Gr}{\mathcal{G}}
-\newcommand{\PE}[1]{#1^P}
+\newcommand{\PE}[1]{#1^\circ}
 
 % ** FONT STYLE **
 
@@ -1632,7 +1632,23 @@ We can now complete the proof of Theorems~\ref{thm:decomposition} and~\ref{thm:d
 
 \section{Fonets and Linear Proofs}
 
-\todo{}
+\todo{this has to be moved to the right place at some point}
+
+The \bfit{propositional encoding} $\PE{A}$ of a formula $A$ is defined inductively by:
+\begin{equation*}
+  \begin{array}{r@{\;=\;}l}
+    \PE{a} & a\\
+    \PE{(A \cor B)} &  \PE{A} \cor \PE{B} \\
+    \PE{(A \cand B)} & \PE{A} \cand \PE{B}
+  \end{array}
+  \qquad
+  \begin{array}{r@{\;=\;}l}
+    \PE{(\forall x A)} & u_x \cor \PE{A}\\
+    \PE{(\exists x A)} & e_x \cand \PE{A}
+  \end{array}
+\end{equation*}
+where $u_x$ and $e_x$ are fresh nullary atoms. The purpose of the propositional encoding is to simplify some arguments that do not depend on the variable bindings. In particular, observe that $\graphof A$ and $\graphof{\PE A}$ only differ in the labelling of certain vertices.
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Unification Nets}
