@@ -501,6 +501,7 @@
 \newcommand{\formtree}[1]{\mathcal{F}(#1)}
 
 \newcommand{\unifstr}[1]{\mathcal{U}(#1)}
+\newcommand{\sqntl}[1]{\left\lceil{#1}\right\rceil}
 
 % correct bad hyphenation here
 \hyphenation{op-tical net-works semi-conduc-tor}
@@ -1658,13 +1659,17 @@ where $u_x$ and $e_x$ are fresh nullary atoms. The purpose of the propositional 
 In this paragraph, we associate each formula $A$ with its \bfit{formula tree}
 $\formtree{A}$, a directed
 tree with leaves labelled by atoms, internal nodes labelled by connectives and
-quantifiers, and edges directed from leaves to the root.
+quantifiers, and edges directed from leaves to the root. For a sequent
+$\Gamma = A_1, \ldots, A_n$, we denote with $\formtree{\Gamma}$, the forest
+formed by $\formtree{A_1}, \ldots, \formtree{A_n}$, i.e., the disjoint union of
+$\formtree{A_i}$'s. The \bfit{roots} of $\formtree{\Gamma}$ are the roots of
+${A_i}$'s
 
-Let $\Gamma$ be a sequent in $\FOMLL$. Consider the formula tree
-$\formtree{\form{\Gamma}}$. A \bfit{link} on $\Gamma$ is a pair of
+Let $\Gamma$ be a sequent in $\FOMLL$. Consider the forest
+$\formtree{\Gamma}$. A \bfit{link} on $\Gamma$ is a pair of
 leaves whose atoms are pre-dual. A \bfit{linking} $\lambda$ on $\Gamma$ is a set
 of
-disjoint links such that each leaf of $\Gamma$ is either labelled by $\ttt$ or
+disjoint links such that each leaf of $\formtree{\Gamma}$ is either labelled by $\ttt$ or
 in exactly one link. Similar to the set of links in linked fographs, a linking can be seen as a
 unification problem, and a \bfit{dualizer} $\dualizer$ of the linking $\lambda$ is an assignment
 unifying all the links in $\lambda$. There exists a \bfit{most general dualizer}
@@ -1674,7 +1679,7 @@ such that the most general dualizer assigns to $x$ a term containing $y$.
 
 Let $\lambda$ is a linking on $\Gamma$ that has a dualizer.
 The \bfit{unification structure} $\unifstr{\lambda}$
-associated with $\lambda$ is the formula tree $\formtree{\form{\Gamma}}$ together with an undirected
+associated with $\lambda$ is the forest $\formtree{\Gamma}$ together with an undirected
 edge between leaves $l$ and $l'$ for every link $\{l, l'\}$ in $\lambda$ and a
 directed edge from $\single \exists x$ to $\single \forall y$ for every
 dependency $(\single \exists x, \single \forall y)$.
@@ -1730,14 +1735,32 @@ structure are acyclic.
           hypothesis, there is a correct linking on $\Gamma, A$, and it is easy
 	  to see that it is a correct linking on $\Gamma, \forall x.A$ as well.
   \end{itemize}
-  This allows us to define a translation from proofs in $\FOMLL$ to unification
+  This allows to define a translation $\sqntl\cdot$ from proofs in $\FOMLL$ to unification
   nets.
 \end{proof}
 
 \begin{thm}
-  Any unification net can be obtained via the translation given in Theorem
+  Any unification net can be obtained via the translation $\sqntl\cdot$ given in Theorem
   \ref{thm:MLL1->Unet}.
 \end{thm}
+Let $\lambda$ be a unification net on $\Gamma$. We proceed by induction on the
+number of connectives in $\Gamma$. In the base case, $\Gamma$ is of the form
+\begin{align*}
+p_1(t_{11}, \ldots, t_{1n_1}), \dual{p_1}(t_{11}, \ldots, t_{1n_1}), \ldots, \\
+p_k(t_{k1}, \ldots, t_{kn_k}), \dual{p_k}(t_{k1}, \ldots, t_{kn_k}),
+\underbrace{\ttt, \ldots, \ttt}_\text{$m$ times}
+\end{align*} and
+$\lambda$ is the linking $\set{(a_1, \cneg{a_1}), \ldots, (a_k, \cneg{a_k})}$,
+where $a_i = p_i(t_{i1}, \ldots, t_{in_i})$, which equals to $\sqntl\Pi$, where
+$\Pi$ is the proof consisting of $m$ instances of the $\ttt$ rule, $n$ instances
+$\vlinf{\ax}{}{\sqn a_i, \cneg{a_i}}{}$ of the $\ax$ rule, and followed by
+$m+k-1$ instances of the $\mix$ rule.
+
+Now we consider the inductive cases:
+\begin{itemize}
+  \item $\Gamma = \Delta, A \vlor B$:
+  \item $\Gamma = \Delta \forall x.A$:
+\end{itemize}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
