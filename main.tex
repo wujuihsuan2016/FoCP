@@ -133,6 +133,7 @@
 \newcommand{\lgraph}[1]{\mathcal{#1}^{\mathsf{L}}}
 \newcommand{\leaps}[1]{L_{#1}}
 
+\newcommand{\vgraphof}[1]{V_{\graphof{#1}}}
 \newcommand{\gA}{\graph{A}}
 \newcommand{\gB}{\graph{B}}
 \newcommand{\gC}{\graph{C}}
@@ -455,7 +456,7 @@
 
 \newcommand{\cons}[1]{\{#1\}}
 \newcommand{\Scons}[1]{S\cons{#1}}
-\newcommand{\conhole}{\cons{~}}
+\newcommand{\conhole}{\cons{\cdot}}
 \newcommand{\Sconhole}{S\conhole}
 
 % ** SYMBOLS **
@@ -1806,21 +1807,42 @@ $\mexD$ we can no longer naively define the rectification
 $\rectif\Deri$ as in the previous section for $\FOMLS$, as these two
 rules cannot be applied if premise and conclusion are rectified. For
 this reason we define here rectified versions $\rectif\mfaD$ and
-$\rectif\mexD$.
-\begin{equation}
-  \vlinf{\rectif\mfaD}{}{\Scons{\forall x.(Cx\vlor Dx)}}{\Scons{(\forall y.Cy)\vlor(\forall z.Dz)}}
+$\rectif\mexD$, show below:
+\begin{equation*}
+  \vlinf{\rectif\mfaD}{}{\Scons{\forall x.(Ax\vlor Bx)}}{\Scons{(\forall y.Ay)\vlor(\forall z.Bz)}}
   \qquad
-  \vlinf{\rectif\mexD}{}{\Scons{\exists x.(Cx\vlor Dx)}}{\Scons{(\exists y.Cy)\vlor(\exists z.Dz)}}
-\end{equation}
+  \vlinf{\rectif\mexD}{}{\Scons{\exists x.(Ax\vlor Bx)}}{\Scons{(\exists y.Ay)\vlor(\exists z.Bz)}}
+\end{equation*}
+Here, we use the notation $A\cdot$ for a formula $A$ with occurrences
+of a placeholder $\cdot$ for a variable. Then $Ax$ stands for the
+results of replacing that placeholder with $x$, and also indicating
+that $x$ must not occur in $A\cdot$. Then $\forall x.Ax$ and $\forall
+y.Ay$ are the same formula modulo renaming of the bound variable bound
+by the outermost $\forall$-quantifier. In the rules $\rectif\mfaD$ and
+$\rectif\mexD$ we also demand that the variables $x$, $y$, and $z$ do
+not occur in the context $\Sconhole$.
 
-\todo{define rules $\rectif\mfaD,\rectif\mexD$}
+For each instance $\vlinf{\rr}{}{P}{Q}$ of an inference rule in
+$\set{\wlD,\wrD,\acD,\me,\rectif\mfaD,\rectif\mexD,\fequ}$ we can
+define the \bfit{induced map} $\mapof{\rr}\colon\vgraphof
+Q\to\vgraphof P$ which acts as the identity for
+$\rr\in\set{\me,\fequ}$ and as the canonical injection for
+$\rr\in\set{\wlD,\wrD}$. For $\rr=\acD$ it maps the vertices
+corresponding to the two atoms in the premise to vertex of the
+contracted atom in the conclusion, and for
+$\rr\in\set{\rectif\mfaD,\rectif\mexD}$ it maps the two vertices
+corresponding to the quantifiers in the premise to the one in the
+conclusion (as acts as the identity on all other vertices). For a
+derivation $\Deri$ in
+$\set{\wlD,\wrD,\acD,\me,\rectif\mfaD,\rectif\mexD,\fequ}$ we define
+the \bfit{induced map} $\mapof\Deri$ as the composition of the induced
+maps of the rule instances in $\Deri$.
 
-\todo{define $\mapof\Deri$ (underlying map doing the flowgraph thing)}
-
+\todo{example}
 \begin{lemma}
   Let $\vlderivation{
     \vlde{\set{\wlD,\wrD,\acD,\me,\rectif\mfaD,\rectif\mexD,\fequ}}{\Deri}{B}{
-      \vlhy{A}}}$ be a rectified derivation. Then the map
+      \vlhy{A}}}$ be a rectified derivation. Then the induced map
   $\mapof\Deri\colon\graphof{A}\to\graphof{B}$ is a skew bifibration.
 \end{lemma}
 
