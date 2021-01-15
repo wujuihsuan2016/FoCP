@@ -1859,14 +1859,46 @@ maps of the rule instances in $\Deri$.
   $\mapof\Deri\colon\graphof{A}\to\graphof{B}$ is a skew bifibration.
 \end{lemma}
 
+\begin{proof}
+  For $\Deri$, we construct its propositional encoding $\PE\Deri$ by
+  translating every line into its proposional encoding. The rules
+  $\rectif\mfaD$ and $\rectif\mexD$ are replaced by:
+  \begin{equation*}
+    \vlderivation{
+      \vlin{\rectif\acD}{}{\Scons{u_x\vlor\PE{(Ax)}\vlor\PE{(Ax)}}}{
+        \vlin{\fequ}{}{\Scons{(u_y\vlor u_z)\vlor(\PE{(Ax)}\vlor\PE{(Ax)})}}{
+          \vlhy{\Scons{(u_y\vlor\PE{(Ax)})\vlor (u_z\vlor\PE{(Ax)})}}}}}
+  \end{equation*}
+  and
+  \begin{equation*}
+    \vlderivation{
+      \vlin{\rectif\acD}{}{\Scons{e_x\vlan\PE{(Ax)}\vlor\PE{(Ax)}}}{
+        \vlin{\me}{}{\Scons{(e_y\vlor e_z)\vlan(\PE{(Ax)}\vlor\PE{(Ax)})}}{
+          \vlhy{\Scons{(e_y\vlan\PE{(Ax)})\vlor (e_z\vlan\PE{(Ax)})}}}}}
+  \end{equation*}
+  respectively. This gives us a derivation $\vlderivation{
+    \vlde{\set{\wlD,\wrD,\acD,\rectif\acD,\me,\fequ}}{\PE\Deri}{\PE
+      B}{ \vlhy{\PE A}}}$ with $\mapof{\PE\Deri}$ being equal to
+  $\mapof\Deri$, modulo relabeling of of the binders. It has been
+  shown in~\cite{str:07:RTA} that $\mapof{\PE\Deri}$ is a skew
+  fibration (see
+  also~\cite{hughes:invar,str:ral:tableaux19,str:RR-9048}). Hence,
+  $\mapof\Deri$ is a skew fibration. \todo{show the other properties,
+    once they are fixed}
+\end{proof}
 \subsection{From Skew Bifibrations to Contraction and Weakening}
 
 \begin{lemma}
-  Let $\phi\colon\gA\to\gB$ be a skew bifibration, and let $A$ and $B$ be formulas with $\graphof A=\gA$ and $\graphof B=\gB$. Then there is a derivation $\vlderivation{
+  Let $\phi\colon\gA\to\gB$ be a skew bifibration, and let $A$ and $B$
+  be formulas with $\graphof A=\gA$ and $\graphof B=\gB$. Then there
+  is a derivation $\vlderivation{
     \vlde{\set{\wlD,\wrD,\acD,\me,\rectif\mfaD,\rectif\mexD,\fequ}}{\Deri}{B}{
       \vlhy{A}}}$ with $\mapof\Deri=\phi$.
 \end{lemma}
 
+\begin{proof}
+  Let $\PE\gA=\graphof{\PE A}$ and $\PE\gB=\graphof{\PE B}$ which are equal to $\gA$ and $\gB$, respectively, modulo relabeling of the binders. Thus, we can define $\PE\phi\colon\PE\gA\to\PE\gB$, which is a skew fibration as well. 
+\end{proof}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
