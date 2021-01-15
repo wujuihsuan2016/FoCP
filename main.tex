@@ -1371,13 +1371,6 @@ replacing $t$ with $a \vlor \dual{a}$ and the $\ttt$-rule with the $\ax$
   If a formula $C$ is provable in $\FOMLS$ then $\sqn C$ is provable in  $\FOMLL$. \todo{check: do we need rectified here?}
 \end{lemma}
 
-$\vlinf{\faD}{}{\Scons{\forall x.\ttt}}{\Scons\ttt}$
-
-$\vlinf{\axr}{}{\sqn{a,\cneg a}}{}
-            \qquad
-            \vlinf{\ttt}{}{\sqn{\ttt}}{}
-$
-
 \begin{proof}
   We proceed by induction on the number of inference steps in the
   proof of $C$ in $\FOMLS$. Consider the bottommost rule instance
@@ -1567,6 +1560,10 @@ reduce the size of derivations...}\lutz{I was thinking about that, but (i) it is
           \vlhy{}}}}
   \end{equation*}
 \end{thm}
+\juihsuan{maybe we should take $\form{\Gamma}$ instead? (consider the proof
+$\vlderivation{\vlin{\wk}{}{\sqn{\ttt, A}}{
+                 \vlin{\ttt}{}{\sqn\ttt}{
+                   \vlhy{}}}}$)}
 
 \begin{proof}
   Note that the instances of $\wlD,\wrD,\cD$ in $\Deri_2$ are deep, but inside sequent contexts.
