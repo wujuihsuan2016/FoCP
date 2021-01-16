@@ -127,7 +127,7 @@
 \newcommand{\fequp}{\mathrel{\equiv'\mkern-2mu}}
 
 \newcommand{\graph}[1]{\mathcal{#1}}
-\newcommand{\vertices}[1][]{\ifthenelse{\isempty{#1}}{V}{V_{\graph{#1}}}}
+\newcommand{\vertices}[1][]{\ifthenelse{\isempty{#1}}{V}{V_{{\graph{#1}}}}}
 \newcommand{\edges}[1][]{\ifthenelse{\isempty{#1}}{E}{E_{\graph{#1}}}}
 \newcommand{\bgraph}[1]{\mathcal{\vec{#1}}}
 \newcommand{\lgraph}[1]{\mathcal{#1}^{\mathsf{L}}}
@@ -136,17 +136,21 @@
 \newcommand{\vgraphof}[1]{V_{\graphof{#1}}}
 \newcommand{\gA}{\graph{A}}
 \newcommand{\gB}{\graph{B}}
+\newcommand{\gBone}{\graph{B}_1}
 \newcommand{\gC}{\graph{C}}
 \newcommand{\gG}{\graph{G}}
 \newcommand{\gH}{\graph{H}}
 \newcommand{\gN}{\graph{N}}
 
 \newcommand{\bA}{\bgraph{A}}
+\newcommand{\bB}{\bgraph{B}}
 \newcommand{\bC}{\bgraph{C}}
 \newcommand{\bG}{\bgraph{G}}
 \newcommand{\bH}{\bgraph{H}}
 
 \newcommand{\vA}{\vertices[A]}
+\newcommand{\vB}{\vertices[B]}
+\newcommand{\vBone}{V_{\mathcal{B}_1}}
 \newcommand{\vC}{\vertices[C]}
 \newcommand{\vG}{\vertices[G]}
 \newcommand{\vH}{\vertices[H]}
@@ -451,6 +455,7 @@
 \newcommand\wrD {\mathsf{w_r}}
 \renewcommand\cD {\mathsf{c}}
 \renewcommand\acD {\mathsf{ac}}
+\newcommand\acDeq {\mathsf{ac}^\fequ}
 \newcommand\mfaD {\mathsf{m_\forall}}
 \newcommand\mexD {\mathsf{m_\exists}}
 
@@ -1633,22 +1638,8 @@ We can now complete the proof of Theorems~\ref{thm:decomposition} and~\ref{thm:d
 
 \section{Fonets and Linear Proofs}
 
-\todo{this has to be moved to the right place at some point}
+\todo{}
 
-The \bfit{propositional encoding} $\PE{A}$ of a formula $A$ is defined inductively by:
-\begin{equation*}
-  \begin{array}{r@{\;=\;}l}
-    \PE{a} & a\\
-    \PE{(A \cor B)} &  \PE{A} \cor \PE{B} \\
-    \PE{(A \cand B)} & \PE{A} \cand \PE{B}
-  \end{array}
-  \qquad
-  \begin{array}{r@{\;=\;}l}
-    \PE{(\forall x A)} & u_x \cor \PE{A}\\
-    \PE{(\exists x A)} & e_x \cand \PE{A}
-  \end{array}
-\end{equation*}
-where $u_x$ and $e_x$ are fresh nullary atoms. The purpose of the propositional encoding is to simplify some arguments that do not depend on the variable bindings. In particular, observe that $\graphof A$ and $\graphof{\PE A}$ only differ in the labelling of certain vertices.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1836,9 +1827,9 @@ in~$\Deri$. We call $\linkingof\Deri$ the \bfit{linking} of~$\Deri$.
 
 \section{Skew Bifibrations and Resource Management}
 
-\subsection{From Contraction and Weakening to Skew Bifibrations}
-
-If a derivation $\Deri$ contains instances of the rules $\mfaD$ and
+In this section we establish the relation between ske bifibrations and derivations  in
+$\set{\wlD,\wrD,\acD,\me,\mfaD,\mexD,\fequ}$. However, 
+if a derivation $\Deri$ contains instances of the rules $\mfaD$ and
 $\mexD$ we can no longer naively define the rectification
 $\rectif\Deri$ as in the previous section for $\FOMLS$, as these two
 rules cannot be applied if premise and conclusion are rectified. For
@@ -1870,39 +1861,78 @@ $\rr\in\set{\rectif\mfaD,\rectif\mexD}$ it maps the two vertices
 corresponding to the quantifiers in the premise to the one in the
 conclusion (as acts as the identity on all other vertices). For a
 derivation $\Deri$ in
-$\set{\wlD,\wrD,\acD,\me,\rectif\mfaD,\rectif\mexD,\fequ}$ we define
+$\set{\wlD,\wrD,\acD,\me,\rectif\mfaD,\rectif\mexD,\fequ}$ we can then define
 the \bfit{induced map} $\mapof\Deri$ as the composition of the induced
 maps of the rule instances in $\Deri$.
 
 \todo{example}
-\begin{lemma}
+
+\subsection{From Contraction and Weakening to Skew Bifibrations}
+
+
+
+\begin{lemma}\label{lem:cw->skew}
   Let $\vlderivation{
     \vlde{\set{\wlD,\wrD,\acD,\me,\rectif\mfaD,\rectif\mexD,\fequ}}{\Deri}{B}{
       \vlhy{A}}}$ be a rectified derivation. Then the induced map
   $\mapof\Deri\colon\graphof{A}\to\graphof{B}$ is a skew bifibration.
 \end{lemma}
 
+Before we show the proof of this lemma, we introduce another useful
+concept: the \bfit{propositional encoding} $\PE{A}$ of a formula $A$,
+which is a proposional formula with the property that $\graphof{\PE
+  A}=\graphof{A}$. For this, we introduce new propositional variables
+that have the same names as the (first-order) variables
+$x\in\VAR$. Then $\PE{A}$ is defined inductively by:
+\begin{equation*}
+  \begin{array}{r@{\;=\;}l}
+    \PE{a} & a\\
+    \PE{(A \cor B)} &  \PE{A} \cor \PE{B} \\
+    \PE{(A \cand B)} & \PE{A} \cand \PE{B}
+  \end{array}
+  \qquad
+  \begin{array}{r@{\;=\;}l}
+    \PE{(\forall x A)} & x \cor \PE{A}\\
+    \PE{(\exists x A)} & x \cand \PE{A}
+  \end{array}
+\end{equation*}
+
+\begin{lemma}
+  \label{lem:PE}
+  For every formula $A$, we have $\graphof{\PE A}=\graphof{A}$.
+\end{lemma}
+
 \begin{proof}
+  Straightforward induction on $A$. 
+\end{proof}
+
+We use $\PE\fequ$ to denote the restriction of $\fequ$ to
+propositional formulas, i.e., the first two lines in~\eqref{eq:fequ}.
+
+\begin{proof}[Proof of Lemma~\ref{lem:cw->skew}]
   For $\Deri$, we construct its propositional encoding $\PE\Deri$ by
-  translating every line into its proposional encoding. The rules
-  $\rectif\mfaD$ and $\rectif\mexD$ are replaced by:
+  translating every line into its proposional encoding. The instances of the rules
+  $\rectif\mfaD$ and $\rectif\mexD$ are replaced two steps by:
   \begin{equation*}
     \vlderivation{
-      \vlin{\rectif\acD}{}{\Scons{u_x\vlor\PE{(Ax)}\vlor\PE{(Ax)}}}{
-        \vlin{\fequ}{}{\Scons{(u_y\vlor u_z)\vlor(\PE{(Ax)}\vlor\PE{(Ax)})}}{
-          \vlhy{\Scons{(u_y\vlor\PE{(Ax)})\vlor (u_z\vlor\PE{(Ax)})}}}}}
+      \vlin{\rectif\acD}{}{\Scons{x\vlor(\PE{(Ax)}\vlor\PE{(Bx))}}}{
+        \vlin{\fequ}{}{\Scons{(y\vlor z)\vlor(\PE{(Ay)}\vlor\PE{(Bz)})}}{
+          \vlhy{\Scons{(y\vlor\PE{(Ay)})\vlor (z\vlor\PE{(Bz)})}}}}}
   \end{equation*}
   and
   \begin{equation*}
     \vlderivation{
-      \vlin{\rectif\acD}{}{\Scons{e_x\vlan\PE{(Ax)}\vlor\PE{(Ax)}}}{
-        \vlin{\me}{}{\Scons{(e_y\vlor e_z)\vlan(\PE{(Ax)}\vlor\PE{(Ax)})}}{
-          \vlhy{\Scons{(e_y\vlan\PE{(Ax)})\vlor (e_z\vlan\PE{(Ax)})}}}}}
+      \vlin{\rectif\acD}{}{\Scons{x\vlan\PE{(Ax)}\vlor\PE{(Bx)}}}{
+        \vlin{\me}{}{\Scons{(y\vlor z)\vlan(\PE{(Ay)}\vlor\PE{(Bz)})}}{
+          \vlhy{\Scons{(y\vlan\PE{(Ay)})\vlor (z\vlan\PE{(Bz)})}}}}}
   \end{equation*}
-  respectively. This gives us a derivation $\vlderivation{
-    \vlde{\set{\wlD,\wrD,\acD,\rectif\acD,\me,\fequ}}{\PE\Deri}{\PE
-      B}{ \vlhy{\PE A}}}$ with $\mapof{\PE\Deri}$ being equal to
-  $\mapof\Deri$, modulo relabeling of of the binders. It has been
+  respectively, where $\rectif\acD$ is a $\acD$ that renames the
+  variabes---the atom variable, as well as the first-order variable of
+  the same name---as everything is recified, there is no ambiguity
+  here.
+  This gives us a derivation $\vlderivation{
+    \vlde{\set{\wlD,\wrD,\acD,\rectif\acD,\me,\PE\fequ}}{\PE\Deri}{\PE
+      B}{ \vlhy{\PE A}}}$ such that  $\mapof{\PE\Deri}=\mapof\Deri$. It has been
   shown in~\cite{str:07:RTA} that $\mapof{\PE\Deri}$ is a skew
   fibration (see
   also~\cite{hughes:invar,str:ral:tableaux19,str:RR-9048}). Hence,
@@ -1911,7 +1941,7 @@ maps of the rule instances in $\Deri$.
 \end{proof}
 \subsection{From Skew Bifibrations to Contraction and Weakening}
 
-\begin{lemma}
+\begin{lemma}\label{skew->cw}
   Let $\phi\colon\gA\to\gB$ be a skew bifibration, and let $A$ and $B$
   be formulas with $\graphof A=\gA$ and $\graphof B=\gB$. Then there
   is a derivation $\vlderivation{
@@ -1920,7 +1950,48 @@ maps of the rule instances in $\Deri$.
 \end{lemma}
 
 \begin{proof}
-  Let $\PE\gA=\graphof{\PE A}$ and $\PE\gB=\graphof{\PE B}$ which are equal to $\gA$ and $\gB$, respectively, modulo relabeling of the binders. Thus, we can define $\PE\phi\colon\PE\gA\to\PE\gB$, which is a skew fibration as well. 
+  By Lemma~\ref{lem:PE} we have $\gA=\graphof{\PE A}$ and
+  $\gB=\graphof{\PE B}$.  Let $\vB'\subseteq\vB$ be the image of
+  $\phi$, and let $\gB_1$ be the subgraph of $\gB$ induced by
+  $\vB'$. Now let $\PE B_1$ be the propositional formula obtained from
+  $\PE B$ by removing all atoms that are not represented by vertices
+  in $\vB'$. Then $\graphof{\PE B_1}=\gB_1$. Furthermore, the map
+  $\phi'\colon \gB_1\to\gB$ is an injection that reflects
+  edges. Hence, by \cite[Proposition~7.6.1]{str:07:RTA}, we
+  have a derivation
+  $\vlder{\set{\wlD,\wrD}}{\PE\Deri_1}{\PE B}{\PE B_1}$. \todo{show that we have $B_1$ with $\graphof{B_1}=\gB_1$, so that we can can get
+  first order derivation $\vlder{\set{\wlD,\wrD}}{\Deri_1}{B}{B_1}$.}
+
+  Now, let $\sigma$ be the substitution induced by $\phi$, and let
+  $\gA_1=\gA\sigma$ be the graph obtained from $\gA$ by applying
+  $\sigma$ to all the labels. Note that $\gA_1$ is not neccesarily a
+  fograph, as binders might be illegal. But it still is a cograph, and
+  we have a surjective skew fibration $\phi''\colon\gA_1\to\gB_1$ that
+  preserves the labels. Therefore, by
+  \cite[Proposition~7.5]{str:ral:tableaux19}, there is a derivation
+  $\vlder{\set{\acD,\me,\PE\fequ}}{\PE\Deri_2}{\PE B_1}{\PE A_1}$,
+  where $\PE A_1 =\PE A\sigma$ is the result of applying $\sigma$
+  to~$\PE A$. To $\Deri_2$ we can apply a permutation argument,
+  permuting all instances of $\acD$ up until they either reach the top
+  of the derivation or an instance of $\me$ which separates the two
+  atoms in the premise. More precisely, we consider the following inferene rule
+  \begin{equation}
+    \vlinf{\acDeq}{}{\Scons{a}}{S_0\cons{S_1\cons{a}\vlor S_2\cons{a}}}
+  \end{equation}
+  where $S_1\conhole\fequ\conhole\vlor E$ and
+  $S_2\conhole\fequ\conhole\vlor F$ and $S\conhole\fequ
+  S_0\cons{\conhole\vlor E\vlor F}$ for some formulas $E$ and $F$. The
+  rule $\acDeq$ permutes over $\fequ$ and other instances of $\acDeq$,
+  and over instances of $\me$ if they occur inside $S_0$ or $S_1$ or
+  $S_2$. The only situation in which $\acDeq$ cannot be permuted up is
+  the following:
+  \begin{equation}
+    \vlderivation{
+      \vlin{\acDeq}{}{\Scons{R\cons{a}\vlan(C\vlor D)}}{
+        \vlin{\me}{}{\Scons{(R_1\cons{a}\vlor R_2\cons{a})\vlan(C\vlor D)}}{
+          \vlhy{\Scons{(R_1\cons{a}\vlan C)\vlor (R_2\cons{a}\vlor D)}}}}}
+  \end{equation}
+  Now we translate 
 \end{proof}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
