@@ -1028,7 +1028,8 @@ $x$-binder contains all the vertices, in particular, the two $x$-binders.}
 \todo{def $\fequ$}
 
 We define a congruence relation $\fequ$ on formulas by the following equations:
-\begin{equation*}
+\begin{equation}
+  \label{eq:fequ}
   \begin{array}{cc}
     A \vlan B \fequ B \vlan A & A \vlor B \fequ B \vlor A \\
     (A \vlan B) \vlan C \fequ A \vlan (B \vlan C) &
@@ -1038,7 +1039,7 @@ We define a congruence relation $\fequ$ on formulas by the following equations:
     \forall x . (A \vlor B) \fequ (\forall x . A) \vlor B &
     \exists x . (A \vlan B) \fequ (\exists x . A) \vlan B
   \end{array}
-\end{equation*}
+\end{equation}
 where $x \notin fv(B)$ in the last two equations.
 Two formulas $A$ and $B$ are \bfit{equivalent} if $A \fequ B$. The following
 theorem shows that the set of fographs can been seen as the quotient
@@ -1761,7 +1762,33 @@ $m+k-1$ instances of the $\mix$ rule.
 Now we consider the inductive cases:
 \begin{itemize}
   \item $\Gamma = \Delta, A \vlor B$:
-  \item $\Gamma = \Delta \forall x.A$:
+    Let $\Gamma' = \Delta, A, B$. Define $\lambda'$ on $\Gamma'$ using the same
+    links as $\lambda$ by identifying the leaves of $\formtree{\Gamma'}$ with those
+    of $\formtree{\Gamma}$. We now check that $\lambda'$ is a unification net:
+    \begin{itemize}
+      \item The most general dualizer of $\lambda$ is also the most general
+dualizer of $\lambda'$ as they correspond to the same unification problem.
+Hence, the unification structure $\unifstr{\lambda'}$ is equal to the
+restriction of $\unifstr{\lambda}$ to the nodes of $\formtree{\Gamma'}$.
+      \item Every switching graph of $\lambda'$ is acyclic: if there were some
+switching graph of $\unifstr{\lambda'}$ containing a cycle, it would induce a switching
+graph of $\unifstr{\lambda}$ containing also a cycle, by adding an edge from the root of
+$\formtree{A}$ to the $\vlor$ node in question.
+    \end{itemize}
+  \item $\Gamma = \Delta, \forall x.A$:
+    Let $\Gamma' = \Delta, A$. Define $\lambda'$ on $\Gamma'$ using the same
+links as $\lambda$. We now check that $\lambda'$ is a unification net:
+  \begin{itemize}
+    \item The most general dualizer of $\lambda$ is also the most general
+dualizer of $\lambda'$ as they correspond to the same unification problem.
+    \item Every switching graph of $\unifstr{\lambda'}$ is acyclic: if there
+were some switching graph of $\unifstr{\lambda'}$ containing a cycle, it would
+induce a switching graph of $\unifstr{\lambda}$ contaiting also a cycle, by
+adding an edge from the root of $\formtree{A}$ to the $\forall$ node in
+question.
+  \end{itemize}
+  \item $\formtree{\Gamma}$ has a root $\exists x$ with no outgoing dependency
+edge:
 \end{itemize}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
