@@ -451,8 +451,8 @@
 \newcommand\exD {\exists}
 \newcommand\tttD {\ttt}
 \renewcommand\wD {\mathsf{w}}
-\newcommand\wlD {\mathsf{w_l}}
-\newcommand\wrD {\mathsf{w_r}}
+\newcommand\wlD {\mathsf{w}}
+\newcommand\wrD {\mathsf{w}}
 \renewcommand\cD {\mathsf{c}}
 \renewcommand\acD {\mathsf{ac}}
 \newcommand\acDeq {\mathsf{ac}^\fequ}
@@ -498,15 +498,21 @@
 \newcommand{\sublist}[1]{[#1]}
 \newcommand{\subst}[2]{#1/#2}
 \newcommand{\ssubst}[2]{\sublist{\subst{#1}{#2}}}
-\newcommand{\substof}[1]{\sigma(#1)}
+\newcommand{\substof}[1]{\sigma_{\!#1}}
 \newcommand{\linkingof}[1]{\sim_{#1}}
-\newcommand{\mapof}[1]{\left\lfloor{#1}\right\rfloor}
+\newcommand{\mapof}[1]{\lfloor{#1}\rfloor}
 
 \newcommand{\form}[1]{\mathrm{fm}(#1)}
 \newcommand{\formtree}[1]{\mathcal{F}(#1)}
 
 \newcommand{\unifstr}[1]{\mathcal{U}(#1)}
 \newcommand{\sqntl}[1]{\left\lceil{#1}\right\rceil}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\quand}{\quad\mbox{and}\quad}
+
+\newcommand{\qquand}{\qquad\mbox{and}\qquad}
 
 % correct bad hyphenation here
 \hyphenation{op-tical net-works semi-conduc-tor}
@@ -1174,8 +1180,8 @@ $\graphof{A}$.
         \vlinf{\me}{}{\Scons{(A\vlor B)\vlan(C\vlor D)}}{\Scons{(A\vlan C)\vlor(B\vlan D)}}
         \\ \\[-1ex]
         \vlinf{\wrD}{}{\Scons{A\vlor B}}{\Scons{A}}
-        \qquad
-        \vlinf{\wlD}{}{\Scons{B\vlor A}}{\Scons{A}}
+        %%\qquad
+        %%\vlinf{\wlD}{}{\Scons{B\vlor A}}{\Scons{A}}
         \qquad
         \vlinf{\acD}{}{\Scons{a}}{\Scons{a\vlor a}}
       \end{array}
@@ -1250,7 +1256,7 @@ decomposition result for first order logic.
   For every derivation $\vlder{\FOKS}{\Deri}{A}{\ttt}$ there are formulas $A_1,\ldots,A_5$, such that there is a derivation:
   \begin{equation*}
     \vlderivation{
-      \vlde{\set{\wlD,\wrD}}{}{A}{
+      \vlde{\set{\wrD,\fequ}}{}{A}{
         \vlde{\set{\acD}}{}{A_1}{
           \vlde{\set{\me,\mfaD,\mexD,\fequ}}{}{A_2}{
             \vlde{\set{\exD}}{}{A_3}{
@@ -1273,7 +1279,7 @@ also be useful:
   For every derivation $\vlder{\FOKS}{\Deri}{A}{\ttt}$ there is a formula $A_1$, such that there is a derivation:
   \begin{equation*}
     \vlderivation{
-      \vlde{\set{\wlD,\wrD,\cD}}{}{A}{
+      \vlde{\set{\wrD,\cD,\fequ}}{}{A}{
         \vlde{\FOMLS}{}{A_1}{
           \vlhy{\ttt}}}}
   \end{equation*}
@@ -1287,7 +1293,7 @@ combinatorial proofs.
   \begin{equation}
     \label{eq:decom}
     \vlderivation{
-      \vlde{\set{\wlD,\wrD,\acD,\me,\mfaD,\mexD,\fequ}}{\Deri_2}{A}{
+      \vlde{\set{\wrD,\acD,\me,\mfaD,\mexD,\fequ}}{\Deri_2}{A}{
         \vlde{\FOMLS}{\Deri_1}{A'}{
           \vlhy{\ttt}}}}
   \end{equation}
@@ -1499,7 +1505,7 @@ other results.
 
 \begin{lemma}
   \label{lem:me}
-  The rules $\me,\mfaD,\mexD$ are derivable in $\set{\wlD,\wrD,\cD}$. 
+  The rules $\me,\mfaD,\mexD$ are derivable in $\set{\wrD,\cD,\fequ}$. 
 \end{lemma}
 
 \begin{proof}
@@ -1537,13 +1543,13 @@ reduce the size of derivations...}\lutz{I was thinking about that, but (i) it is
   Let $A$ and $B$ be formulas. Then
   \begin{equation*}
     \vlderivation{
-      \vlde{\set{\wlD,\wrD,\cD,\fequ}}{}{B}{
+      \vlde{\set{\wrD,\cD,\fequ}}{}{B}{
         \vlhy{A}}}
     \qquad
     \iff
     \qquad
     \vlderivation{
-      \vlde{\set{\wlD,\wrD,\acD,\me,\mfaD,\mexD,\fequ}}{}{B}{
+      \vlde{\set{\wrD,\acD,\me,\mfaD,\mexD,\fequ}}{}{B}{
         \vlhy{A}}}
   \end{equation*}
 \end{lemma}
@@ -1570,7 +1576,7 @@ reduce the size of derivations...}\lutz{I was thinking about that, but (i) it is
     \Longrightarrow
     \qquad
     \vlderivation{
-      \vlde{\set{\wlD,\wrD,\cD}}{\Deri_2}{\sqns\Gamma}{
+      \vlde{\set{\wrD,\cD,\fequ}}{\Deri_2}{\sqns{\form{\Gamma}}}{
         \vltrl{}{\FOMLL}{\Deri_1}{\sqns{\Gamma'}}{
           \vlhy{\quad}}{
           \vlhy{}}{
@@ -1583,7 +1589,7 @@ $\vlderivation{\vlin{\wk}{}{\sqn{\ttt, A}}{
                    \vlhy{}}}}$)}
 
 \begin{proof}
-  Note that the instances of $\wlD,\wrD,\cD$ in $\Deri_2$ are deep, but inside sequent contexts.
+  Note that the instances of $\wrD,\cD$ in $\Deri_2$ are deep, but inside sequent contexts.
   \todo{}
 \end{proof}
 
@@ -1610,12 +1616,12 @@ $\vlderivation{\vlin{\wk}{}{\sqn{\ttt, A}}{
 \begin{lemma}\label{lem:cw-decomposition}
   For every derivation
   $\vlderivation{
-      \vlde{\set{\wlD,\wrD,\acD,\me,\mfaD,\mexD,\fequ}}{}{B}{
+      \vlde{\set{\wrD,\acD,\me,\mfaD,\mexD,\fequ}}{}{B}{
         \vlhy{A}}}$
   there are formulas $A'$ and $B'$ such that 
   \begin{equation*}
     \vlderivation{
-      \vlde{\set{\wlD,\wrD}}{}{B}{
+      \vlde{\set{\wrD,\fequ}}{}{B}{
         \vlde{\set{\acD}}{}{B'}{
           \vlde{\set{\me,\mfaD,\mexD,\fequ}}{}{A'}{
             \vlhy{A}}}}}
@@ -1839,7 +1845,7 @@ in~$\Deri$. We call $\linkingof\Deri$ the \bfit{linking} of~$\Deri$.
 \section{Skew Bifibrations and Resource Management}
 
 In this section we establish the relation between ske bifibrations and derivations  in
-$\set{\wlD,\wrD,\acD,\me,\mfaD,\mexD,\fequ}$. However, 
+$\set{\wrD,\acD,\me,\mfaD,\mexD,\fequ}$. However, 
 if a derivation $\Deri$ contains instances of the rules $\mfaD$ and
 $\mexD$ we can no longer naively define the rectification
 $\rectif\Deri$ as in the previous section for $\FOMLS$, as these two
@@ -1860,8 +1866,18 @@ by the outermost $\forall$-quantifier. In the rules $\rectif\mfaD$ and
 $\rectif\mexD$ we also demand that the variables $x$, $y$, and $z$ do
 not occur in the context $\Sconhole$.
 
+Note that in an instance of $\rectif\mfaD$ or $\rectif\mexD$ (as shown
+above), we can have $x=y$ or $x=z$, but not both if the premise is
+rectified. If $x=y$ and $x=z$ we have $\mfaD$ and
+$\mexD$ as special cases of $\rectif\mfaD$ and $\rectif\mexD$, respectively.
+
+For a derivation $\Deri$ in
+$\set{\wlD,\wrD,\acD,\me,\mfaD,\mexD,\fequ}$, we can now construct the
+\bfit{recification} $\rectif\Deri$ by rectifying each line of $\Deri$, yielding a derivation in 
+$\set{\wrD,\acD,\me,\rectif\mfaD,\rectif\mexD,\fequ}$.
+
 For each instance $\vlinf{\rr}{}{P}{Q}$ of an inference rule in
-$\set{\wlD,\wrD,\acD,\me,\rectif\mfaD,\rectif\mexD,\fequ}$ we can
+$\set{\wrD,\acD,\me,\rectif\mfaD,\rectif\mexD,\fequ}$ we can
 define the \bfit{induced map} $\mapof{\rr}\colon\vgraphof
 Q\to\vgraphof P$ which acts as the identity for
 $\rr\in\set{\me,\fequ}$ and as the canonical injection for
@@ -1872,9 +1888,25 @@ $\rr\in\set{\rectif\mfaD,\rectif\mexD}$ it maps the two vertices
 corresponding to the quantifiers in the premise to the one in the
 conclusion (as acts as the identity on all other vertices). For a
 derivation $\Deri$ in
-$\set{\wlD,\wrD,\acD,\me,\rectif\mfaD,\rectif\mexD,\fequ}$ we can then define
+$\set{\wrD,\acD,\me,\rectif\mfaD,\rectif\mexD,\fequ}$ we can then define
 the \bfit{induced map} $\mapof\Deri$ as the composition of the induced
 maps of the rule instances in $\Deri$.
+
+\begin{lemma}
+  Let $\downsmash{\vlderivation{
+    \vlde{\set{\wrD,\acD,\me,\mfaD,\mexD,\fequ}}{\Deri}{B}{
+      \vlhy{A}}}}$ be a derivation. Then there is a recified derivation
+  $\vlderivation{
+    \vlde{\set{\wrD,\acD,\me,\rectif\mfaD,\rectif\mexD,\fequ}}{\rectif\Deri}{\rectif
+      B}{ \vlhy{\rectif A}}}$, such that the induced maps
+  $\mapof\Deri\colon\graphof{A}\to\graphof{B}$ and
+  $\mapof{\rectif\Deri}\colon\graphof{\rectif A}\to\graphof{\rectif
+    B}$ are equal up to the relabeling of the vertices.
+\end{lemma}
+
+\begin{proof}
+  Immediate from the definition.
+\end{proof}
 
 \todo{example}
 
@@ -1884,8 +1916,8 @@ maps of the rule instances in $\Deri$.
 
 \begin{lemma}\label{lem:cw->skew}
   Let $\vlderivation{
-    \vlde{\set{\wlD,\wrD,\acD,\me,\rectif\mfaD,\rectif\mexD,\fequ}}{\Deri}{B}{
-      \vlhy{A}}}$ be a rectified derivation. Then the induced map
+    \vlde{\set{\wrD,\acD,\me,\rectif\mfaD,\rectif\mexD,\fequ}}{\Deri}{B}{
+      \vlhy{A}}}$ be a recified derivation. Then the induced map
   $\mapof\Deri\colon\graphof{A}\to\graphof{B}$ is a skew bifibration.
 \end{lemma}
 
@@ -1921,9 +1953,17 @@ We use $\PE\fequ$ to denote the restriction of $\fequ$ to
 propositional formulas, i.e., the first two lines in~\eqref{eq:fequ}.
 
 \begin{proof}[Proof of Lemma~\ref{lem:cw->skew}]
-  For $\Deri$, we construct its propositional encoding $\PE\Deri$ by
-  translating every line into its proposional encoding. The instances of the rules
-  $\rectif\mfaD$ and $\rectif\mexD$ are replaced two steps by:
+  First, observe that for every inference rule
+  $\rr\in\set{\wrD,\acD,\me,\rectif\mfaD,\rectif\mexD,\fequ}$ we
+  the induced map $\mapof{\rr}\colon\vgraphof Q\to\vgraphof P$ defines
+  a fibration on the corresponding binding graphs. Therefore, their
+  composition $\mapof\Deri$ is a fibration.
+
+  Now we construct for
+  $\Deri$ its propositional encoding $\PE\Deri$ by
+  translating every line into its proposional encoding. The instances
+  of the rules $\rectif\mfaD$ and $\rectif\mexD$ are replaced two
+  steps by:
   \begin{equation*}
     \vlderivation{
       \vlin{\rectif\acD}{}{\Scons{x\vlor(\PE{(Ax)}\vlor\PE{(Bx))}}}{
@@ -1942,50 +1982,95 @@ propositional formulas, i.e., the first two lines in~\eqref{eq:fequ}.
   the same name---as everything is recified, there is no ambiguity
   here.
   This gives us a derivation $\vlderivation{
-    \vlde{\set{\wlD,\wrD,\acD,\rectif\acD,\me,\PE\fequ}}{\PE\Deri}{\PE
+    \vlde{\set{\wrD,\acD,\rectif\acD,\me,\PE\fequ}}{\PE\Deri}{\PE
       B}{ \vlhy{\PE A}}}$ such that  $\mapof{\PE\Deri}=\mapof\Deri$. It has been
   shown in~\cite{str:07:RTA} that $\mapof{\PE\Deri}$ is a skew
   fibration (see
   also~\cite{hughes:invar,str:ral:tableaux19,str:RR-9048}). Hence,
-  $\mapof\Deri$ is a skew fibration. \todo{show the other properties,
-    once they are fixed}
+  $\mapof\Deri$ is a skew fibration.
 \end{proof}
 \subsection{From Skew Bifibrations to Contraction and Weakening}
 
 \begin{lemma}\label{skew->cw}
-  Let $\phi\colon\gA\to\gB$ be a skew bifibration, and let $A$ and $B$
+  Let $\gA$ and $\gB$ be fographs, let $\phi\colon\gA\to\gB$ be a skew bifibration, and let $A$ and $B$
   be formulas with $\graphof A=\gA$ and $\graphof B=\gB$. Then there
-  is a derivation $\vlderivation{
-    \vlde{\set{\wlD,\wrD,\acD,\me,\rectif\mfaD,\rectif\mexD,\fequ}}{\Deri}{B}{
-      \vlhy{A}}}$ with $\mapof\Deri=\phi$.
+  are derivations
+  \begin{equation*}
+    \vlderivation{
+      \vlde{\set{\wrD,\acD,\me,\rectif\mfaD,\rectif\mexD,\fequ}}{\rectif\Deri}{B}{
+        \vlhy{A}}}
+    \quand
+    \vlderivation{
+      \vlde{\set{\wrD,\acD,\me,\mfaD,\mexD,\fequ}}{\Deri}{B}{
+        \vlhy{A\substof\phi}}}
+  \end{equation*}
+  such that $\mapof{\rectif\Deri}=\phi$ and $\rectif{\Deri}$ is a
+  rectification of $\Deri$, and $\substof\phi$ is the substitution
+  induced by $\phi$.
 \end{lemma}
 
 \begin{proof}
   By Lemma~\ref{lem:PE} we have $\gA=\graphof{\PE A}$ and
   $\gB=\graphof{\PE B}$.  Let $\vB'\subseteq\vB$ be the image of
   $\phi$, and let $\gB_1$ be the subgraph of $\gB$ induced by
-  $\vB'$. Now let $\PE B_1$ be the propositional formula obtained from
+  $\vB'$. Hence, we have two maps
+  $\phi''\colon\gA\to\gB_1$ being a surjection and $\phi'\colon
+  \gB_1\to\gB$ being an injection that reflects edges. Both, $\phi'$
+  and $\phi''$ remain skew bifibrations. Let us first look at $\phi'$.
+  Let $\PE B_1$ be the propositional formula obtained from
   $\PE B$ by removing all atoms that are not represented by vertices
-  in $\vB'$. Then $\graphof{\PE B_1}=\gB_1$. Furthermore, the map
-  $\phi'\colon \gB_1\to\gB$ is an injection that reflects
-  edges. Hence, by \cite[Proposition~7.6.1]{str:07:RTA}, we
-  have a derivation
-  $\vlder{\set{\wlD,\wrD}}{\PE\Deri_1}{\PE B}{\PE B_1}$. \todo{show that we have $B_1$ with $\graphof{B_1}=\gB_1$, so that we can can get
-  first order derivation $\vlder{\set{\wlD,\wrD}}{\Deri_1}{B}{B_1}$.}
-
-  Now, let $\sigma$ be the substitution induced by $\phi$, and let
-  $\gA_1=\gA\sigma$ be the graph obtained from $\gA$ by applying
-  $\sigma$ to all the labels. Note that $\gA_1$ is not neccesarily a
-  fograph, as binders might be illegal. But it still is a cograph, and
-  we have a surjective skew fibration $\phi''\colon\gA_1\to\gB_1$ that
-  preserves the labels. Therefore, by
+  in $\vB'$. Then $\graphof{\PE B_1}=\gB_1$. 
+  By \cite[Proposition~7.6.1]{str:07:RTA}, we have a derivation
+  $\vlder{\set{\wrD,\fequ}}{\PE\Deri_1}{\PE B}{\PE B_1}$.  A
+  subformula of $\PE B$ is called \emph{weak} if it has been
+  introduced by a weakening. All subformulas of a weak formula are
+  also weak. Two weak subformulas $B'$ and $B''$ of $\PE B$ form a
+  \emph{weak pair} if $B\fequ\Scons{B'\vlor B''}$ for some context
+  $\Sconhole$. We now can assume without loss of generality that
+  whenever weak subformulas $B'$ and $B''$ for a weak pair, they have
+  been introduced by the same instance of $\wlD$ or $\wrD$ in
+  $\PE\Deri_1$.\footnote{If $\PE\Deri_1$ is not of that shape, it can
+  brought into this form by simple rule permutations, and then
+  collapsing several weakenings into a single one.}  Now observe that
+  whenever a weakening in $\PE\Deri_1$ deletes an atom $x\in\VAR$, it
+  must also delete all atoms in the scope of the corresponding
+  quantifier, because $\phi$ is a fibration on the binding
+  graph. Hence, each line in $\PE\Deri_1$ is the propositional
+  encoding $\PE P$ of a first-order formula $P$. Thus we have a first
+  order derivation $\vlder{\set{\wrD,\fequ}}{\Deri_1}{B}{B_1}$. we now
+  have to show that each instance of $\wlD$ or $\wrD$ is indeed a
+  correct application in first-order logic. For this we have to
+  inspect the cases a weakening happens inside a subformula $x\vlor C$
+  or $x\vlan C$ in $\PE\Deri_1$. There are the following cases:
+  \begin{equation*}%\small
+    \vlinf{}{}{S\cons{x\vlor D\vlor C}}{S\cons{x\vlor C}}
+    \qquad
+    \vlinf{}{}{S\cons{x\vlan (D\vlor C)}}{S\cons{x\vlan C}}
+    \qquad
+    \vlinf{}{}{S\cons{(x\vlor D)\vlan C}}{S\cons{x\vlan C}}
+  \end{equation*}
+  In the first case the weakening happens inside the scope of a
+  $\forall$-quantifier, and in the second case inside the scope of a
+  $\exists$-quantifier. Both cases are unproblematic in first-order
+  logic. However, in the third case an $\exists$-quantifier would be
+  transformed into an $\forall$-quantifier. But as $\phi$ has to
+  preserve existentials, this third case cannot occur, and therefore
+  $\Deri_1$ is a valid first-order derivation in $\set{\wD,\fequ}$.
+  
+  Let us now look at $\phi''$. Let $\gA_1=\gA\substof\phi$ be the
+  graph obtained from $\gA$ by applying $\substof\phi$ to all the
+  labels. Note that $\gA_1$ is not neccesarily a fograph, as binders
+  might be illegal. But it still is a cograph, and we have a
+  surjective skew fibration $\phi''\colon\gA_1\to\gB_1$ that preserves
+  the labels. Therefore, by
   \cite[Proposition~7.5]{str:ral:tableaux19}, there is a derivation
   $\vlder{\set{\acD,\me,\PE\fequ}}{\PE\Deri_2}{\PE B_1}{\PE A_1}$,
-  where $\PE A_1 =\PE A\sigma$ is the result of applying $\sigma$
-  to~$\PE A$. To $\Deri_2$ we can apply a permutation argument,
+  where $\PE A_1 =\PE A\substof\phi$ is the result of applying $\substof\phi$
+  to~$\PE A$. Note that $\PE A_1 = \PE{(A\substof\phi)}$. To $\Deri_2$ we can apply a permutation argument,
   permuting all instances of $\acD$ up until they either reach the top
   of the derivation or an instance of $\me$ which separates the two
-  atoms in the premise. More precisely, we consider the following inferene rule
+  atoms in the premise. More precisely, we consider the following
+  inferene rule
   \begin{equation}
     \vlinf{\acDeq}{}{\Scons{a}}{S_0\cons{S_1\cons{a}\vlor S_2\cons{a}}}
   \end{equation}
@@ -1997,12 +2082,18 @@ propositional formulas, i.e., the first two lines in~\eqref{eq:fequ}.
   $S_2$. The only situation in which $\acDeq$ cannot be permuted up is
   the following:
   \begin{equation}
+    \label{eq:mac}
     \vlderivation{
       \vlin{\acDeq}{}{\Scons{R\cons{a}\vlan(C\vlor D)}}{
         \vlin{\me}{}{\Scons{(R_1\cons{a}\vlor R_2\cons{a})\vlan(C\vlor D)}}{
           \vlhy{\Scons{(R_1\cons{a}\vlan C)\vlor (R_2\cons{a}\vlor D)}}}}}
   \end{equation}
-  Now we translate 
+  Now we translate $\PE\Deri_2$ into a first-order derivation
+  $\vlder{\set{\acD,\me,\mfaD,\mexD,\fequ}}{\Deri_2}{B_1}{A\substof\phi}$
+  by ``decoding'' every line in $\PE\Deri_2$. I.e., for each line $Q$
+  in $\PE\Deri_2$ we construct a formula $P$ with $\PE P\fequ Q$.  We
+  proceed by induction on the height of $\PE\Deri_2$, beginning at the
+  bottom. We already constructed the formula~$B_1$. Now consider the bottommost rule in $\PE\Deri_2$. If it is a $\fequ$, then we trivially can go to the next step. If it is a $\acD$ duplicating an atom that is not a $x\in\VAR$, then this $\acD$ is also a valid inference step in the first-order system. Similarly, any instance of $\me$ that is not in a situation as in~\eqref{eq:mac} can be i
 \end{proof}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
