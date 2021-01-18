@@ -2070,7 +2070,7 @@ $\vlder{\sysS'}{\DDeri'}{D}{C}$.
   $\phi$, and let $\gB_1$ be the subgraph of $\gB$ induced by
   $\vB'$. Hence, we have two maps $\phi''\colon\gA\to\gB_1$ being a
   surjection and $\phi'\colon \gB_1\to\gB$ being an injection that
-  reflects edges. Both, $\phi'$ and $\phi''$ remain skew
+  reflects edges. \juihsuan{what do you mean by "reflect edges"?} Both, $\phi'$ and $\phi''$ remain skew
   bifibrations. Let us first look at $\phi'$.  Let $\PE B_1$ be the
   propositional formula obtained from $\PE B$ by removing all atoms
   that are not represented by vertices in $\vB'$. Then $\graphof{\PE
@@ -2082,14 +2082,14 @@ $\vlder{\sysS'}{\DDeri'}{D}{C}$.
   \emph{weak pair} if $B\fequ\Scons{B'\vlor B''}$ for some context
   $\Sconhole$. We now can assume without loss of generality that
   whenever weak subformulas $B'$ and $B''$ for a weak pair, they have
-  been introduced by the same instance of $\wlD$ or $\wrD$ in
+  been introduced by the same instance of $\wrD$ in
   $\PE\Deri_1$.\footnote{If $\PE\Deri_1$ is not of that shape, it can
   brought into this form by simple rule permutations, and then
   collapsing several weakenings into a single one.}  Now we show that
   $\PE\Deri_1$ can be lifted. For this, observe that whenever a
   weakening in $\PE\Deri_1$ deletes an atom $x\in\VAR$, it must also
   delete all atoms in the scope of the corresponding quantifier,
-  because $\phi$ is a fibration on the binding graph. Hence, each line
+  because $\phi$ \juihsuan{should be $\phi'$ here} is a fibration on the binding graph. Hence, each line
   in $\PE\Deri_1$ is the propositional encoding $\PE P$ of a
   first-order formula $P$.  We now have to show
   that each instance of $\wrD$ is indeed a correct
@@ -2111,7 +2111,9 @@ $\vlder{\sysS'}{\DDeri'}{D}{C}$.
   preserve existentials, this third case cannot occur.
   Thus we have a first order derivation
   $\vlder{\set{\wrD,\fequ}}{\Deri_1}{B}{B_1}$.
-  
+  \juihsuan{$B_1$ is not defined (The notation $\PE B_1$ suggests that it is the
+propositional encoding of some formula but we need to prove it). This can be
+proven using the fact that $\phi'$ is a skew bifibration here.}
   Let us now look at $\phi''$. Let $\gA_1=\gA\substof\phi$ be the
   graph obtained from $\gA$ by applying $\substof\phi$ to all the
   labels. Note that $\gA_1$ is not neccesarily a fograph, as binders
@@ -2125,7 +2127,7 @@ $\vlder{\sysS'}{\DDeri'}{D}{C}$.
   permuting all instances of $\acD$, that duplicate an atom $x\in\VAR$, up until they either reach the top
   of the derivation or an instance of $\me$ which separates the two
   atoms in the premise. More precisely, we consider the following
-  inferene rule
+  inference rule
   \begin{equation}
     \vlinf{\acDeq}{}{\Scons{x}}{S_0\cons{S_1\cons{x}\vlor S_2\cons{x}}}
   \end{equation}
