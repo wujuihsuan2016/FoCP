@@ -457,6 +457,7 @@
 \renewcommand\cD {\mathsf{c}}
 \renewcommand\acD {\mathsf{ac}}
 \newcommand\acDeq {\mathsf{ac}^\fequ}
+\newcommand\cfaD {\mathsf{c_\forall}}
 \newcommand\mfaD {\mathsf{m_\forall}}
 \newcommand\mexD {\mathsf{m_\exists}}
 
@@ -1186,6 +1187,8 @@ $\graphof{A}$.
         %%\vlinf{\wlD}{}{\Scons{B\vlor A}}{\Scons{A}}
         \qquad
         \vlinf{\acD}{}{\Scons{a}}{\Scons{a\vlor a}}
+        \qquad
+        \vlinf{\cfaD}{}{\Scons{\forall x. A}}{\Scons{\forall x.\forall x.A}}
       \end{array}
       $
     }
@@ -1872,6 +1875,8 @@ in~$\Deri$. We call $\linkingof\Deri$ the \bfit{linking} of~$\Deri$.
 
 \section{Skew Bifibrations and Resource Management}
 
+\todo{add $\cfaD$ everywhere}
+
 In this section we establish the relation between ske bifibrations and derivations  in
 $\set{\wrD,\acD,\me,\mfaD,\mexD,\fequ}$. However, 
 if a derivation $\Deri$ contains instances of the rules $\mfaD$ and
@@ -1885,6 +1890,7 @@ $\rectif\mexD$, show below:
   \qquad
   \vlinf{\rectif\mexD}{}{\Scons{\exists x.(Ax\vlor Bx)}}{\Scons{(\exists y.Ay)\vlor(\exists z.Bz)}}
 \end{equation*}
+\todo{same for $\cfaD$}
 Here, we use the notation $A\cdot$ for a formula $A$ with occurrences
 of a placeholder $\cdot$ for a variable. Then $Ax$ stands for the
 results of replacing that placeholder with $x$, and also indicating
