@@ -1877,14 +1877,14 @@ in~$\Deri$. We call $\linkingof\Deri$ the \bfit{linking} of~$\Deri$.
 
 \todo{add $\cfaD$ everywhere}
 
-In this section we establish the relation between ske bifibrations and derivations  in
+In this section we establish the relation between skew bifibrations and derivations  in
 $\set{\wrD,\acD,\me,\mfaD,\mexD,\fequ}$. However, 
 if a derivation $\Deri$ contains instances of the rules $\mfaD$ and
 $\mexD$ we can no longer naively define the rectification
 $\rectif\Deri$ as in the previous section for $\FOMLS$, as these two
 rules cannot be applied if premise and conclusion are rectified. For
 this reason we define here rectified versions $\rectif\mfaD$ and
-$\rectif\mexD$, show below:
+$\rectif\mexD$, shown below:
 \begin{equation*}
   \vlinf{\rectif\mfaD}{}{\Scons{\forall x.(Ax\vlor Bx)}}{\Scons{(\forall y.Ay)\vlor(\forall z.Bz)}}
   \qquad
@@ -1907,7 +1907,8 @@ $\mexD$ as special cases of $\rectif\mfaD$ and $\rectif\mexD$, respectively.
 
 For a derivation $\Deri$ in
 $\set{\wlD,\wrD,\acD,\me,\mfaD,\mexD,\fequ}$, we can now construct the
-\bfit{recification} $\rectif\Deri$ by rectifying each line of $\Deri$, yielding a derivation in 
+\bfit{rectification} $\rectif\Deri$ by rectifying each line of $\Deri$, yielding
+a derivation in
 $\set{\wrD,\acD,\me,\rectif\mfaD,\rectif\mexD,\fequ}$.
 
 For each instance $\vlinf{\rr}{}{P}{Q}$ of an inference rule in
@@ -1924,7 +1925,9 @@ conclusion (as acts as the identity on all other vertices). For a
 derivation $\Deri$ in
 $\set{\wrD,\acD,\me,\rectif\mfaD,\rectif\mexD,\fequ}$ we can then define
 the \bfit{induced map} $\mapof\Deri$ as the composition of the induced
-maps of the rule instances in $\Deri$.
+maps of the rule instances in $\Deri$. \juihsuan{maybe mention at least that the induced
+maps define graph homomorphisms. Do we need to talk about the contexts
+$\Sconhole$ here (induced maps act clearly as the identity on contexts but we need them for the composition)?}
 
 \begin{lemma}
   Let $\downsmash{\vlderivation{
@@ -1954,13 +1957,13 @@ maps of the rule instances in $\Deri$.
 \begin{lemma}\label{lem:cw->skew}
   Let $\vlderivation{
     \vlde{\set{\wrD,\acD,\me,\rectif\mfaD,\rectif\mexD,\fequ}}{\Deri}{B}{
-      \vlhy{A}}}$ be a recified derivation. Then the induced map
+      \vlhy{A}}}$ be a rectified derivation. Then the induced map
   $\mapof\Deri\colon\graphof{A}\to\graphof{B}$ is a skew bifibration.
 \end{lemma}
 
 Before we show the proof of this lemma, we introduce another useful
 concept: the \bfit{propositional encoding} $\PE{A}$ of a formula $A$,
-which is a proposional formula with the property that $\graphof{\PE
+which is a propositional formula with the property that $\graphof{\PE
   A}=\graphof{A}$. For this, we introduce new propositional variables
 that have the same names as the (first-order) variables
 $x\in\VAR$. Then $\PE{A}$ is defined inductively by:
@@ -1991,15 +1994,19 @@ propositional formulas, i.e., the first two lines in~\eqref{eq:fequ}.
 
 \begin{proof}[Proof of Lemma~\ref{lem:cw->skew}]
   First, observe that for every inference rule
-  $\rr\in\set{\wrD,\acD,\me,\rectif\mfaD,\rectif\mexD,\fequ}$ we
+  $\rr\in\set{\wrD,\acD,\me,\rectif\mfaD,\rectif\mexD,\fequ}$
   the induced map $\mapof{\rr}\colon\vgraphof Q\to\vgraphof P$ defines
-  a fibration on the corresponding binding graphs. Therefore, their
+  a fibration on the corresponding binding graphs. \juihsuan{we may need to have
+some explication here.} Therefore, their
   composition $\mapof\Deri$ is a fibration.
 
   Now we construct for
   $\Deri$ its propositional encoding $\PE\Deri$ by
-  translating every line into its proposional encoding. The instances
-  of the rules $\rectif\mfaD$ and $\rectif\mexD$ are replaced two
+  translating every line into its propositional encoding.
+  \juihsuan{maybe mention that an instance of one of the other rules can be translated
+into an instance of the same rule. It's trivial but may be worth mentioning.}
+  The instances
+  of the rules $\rectif\mfaD$ and $\rectif\mexD$ are replaced in two
   steps by:
   \begin{equation*}
     \vlderivation{
@@ -2015,8 +2022,9 @@ propositional formulas, i.e., the first two lines in~\eqref{eq:fequ}.
           \vlhy{\Scons{(y\vlan\PE{(Ay)})\vlor (z\vlan\PE{(Bz)})}}}}}
   \end{equation*}
   respectively, where $\rectif\acD$ is a $\acD$ that renames the
-  variabes---the atom variable, as well as the first-order variable of
-  the same name---as everything is recified, there is no ambiguity
+  variables---the atom variable
+  \juihsuan{or propositional variable? maybe use just a single name}, as well as the first-order variable of
+  the same name---as everything is rectified, there is no ambiguity
   here.
   This gives us a derivation $\vlderivation{
     \vlde{\set{\wrD,\acD,\rectif\acD,\me,\PE\fequ}}{\PE\Deri}{\PE
@@ -2142,7 +2150,7 @@ $\vlder{\sysS'}{\DDeri'}{D}{C}$.
   (duplicating an atom that is not a $x\in\VAR$), can trivially be
   lifted. Similarly, an instance of $\me$, that is above an instance
   of $\acDeq$ as indicated in~\eqref{eq:mac}, can be lifted as the
-  premise must also be a proposional encoding and the $\me$-inference
+  premise must also be a propositional encoding and the $\me$-inference
   remains correct in the first-order case.  It remains to consider a
   situation~\eqref{eq:mac}. Observe that we must have
   $R_1\cons{x}\fequ x\vlor E$ for some $E$ and $R_2\cons{x}\fequ
