@@ -162,6 +162,7 @@
 
 \newcommand{\sysS}{\mathsf{S}}
 \newcommand{\Deri}{\Phi}
+\newcommand{\DDeri}{\Psi}
 \newcommand{\Proof}{\Pi}
 
 \newcommand{\lgG}{\lgraph{\gG}}
@@ -1937,6 +1938,9 @@ maps of the rule instances in $\Deri$.
 
 \todo{example}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 \subsection{From Contraction and Weakening to Skew Bifibrations}
 
 
@@ -2016,12 +2020,15 @@ propositional formulas, i.e., the first two lines in~\eqref{eq:fequ}.
   also~\cite{hughes:invar,str:ral:tableaux19,str:RR-9048}). Hence,
   $\mapof\Deri$ is a skew fibration.
 \end{proof}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{From Skew Bifibrations to Contraction and Weakening}
 
 \begin{lemma}\label{skew->cw}
-  Let $\gA$ and $\gB$ be fographs, let $\phi\colon\gA\to\gB$ be a skew bifibration, and let $A$ and $B$
-  be formulas with $\graphof A=\gA$ and $\graphof B=\gB$. Then there
-  are derivations
+  Let $\gA$ and $\gB$ be fographs, let $\phi\colon\gA\to\gB$ be a skew
+  bifibration, and let $A$ and $B$ be formulas with $\graphof A=\gA$
+  and $\graphof B=\gB$. Then there are derivations
   \begin{equation*}
     \vlderivation{
       \vlde{\set{\wrD,\acD,\me,\rectif\mfaD,\rectif\mexD,\fequ}}{\rectif\Deri}{B}{
@@ -2036,20 +2043,26 @@ propositional formulas, i.e., the first two lines in~\eqref{eq:fequ}.
   induced by $\phi$.
 \end{lemma}
 
-\begin{proof}
+In the proof of this lemma, we make use of the following concept: Let
+$\vlder{\sysS}{\DDeri}{Q}{P}$ be a derivation where $Q=\PE D$ is the
+propostional encoding of some formula~$D$. We say that $\DDeri$ can be
+\bfit{lifted} to $\sysS'$ if there is a formula $C$ such that
+$P\fequ\PE C$ and there is a derivation
+$\vlder{\sysS'}{\DDeri'}{D}{C}$.
+
+\begin{proof}[Proof of Lemma~\ref{skew->cw}]
   By Lemma~\ref{lem:PE} we have $\gA=\graphof{\PE A}$ and
   $\gB=\graphof{\PE B}$.  Let $\vB'\subseteq\vB$ be the image of
   $\phi$, and let $\gB_1$ be the subgraph of $\gB$ induced by
-  $\vB'$. Hence, we have two maps
-  $\phi''\colon\gA\to\gB_1$ being a surjection and $\phi'\colon
-  \gB_1\to\gB$ being an injection that reflects edges. Both, $\phi'$
-  and $\phi''$ remain skew bifibrations. Let us first look at $\phi'$.
-  Let $\PE B_1$ be the propositional formula obtained from
-  $\PE B$ by removing all atoms that are not represented by vertices
-  in $\vB'$. Then $\graphof{\PE B_1}=\gB_1$. 
-  By \cite[Proposition~7.6.1]{str:07:RTA}, we have a derivation
-  $\vlder{\set{\wrD,\fequ}}{\PE\Deri_1}{\PE B}{\PE B_1}$.  A
-  subformula of $\PE B$ is called \emph{weak} if it has been
+  $\vB'$. Hence, we have two maps $\phi''\colon\gA\to\gB_1$ being a
+  surjection and $\phi'\colon \gB_1\to\gB$ being an injection that
+  reflects edges. Both, $\phi'$ and $\phi''$ remain skew
+  bifibrations. Let us first look at $\phi'$.  Let $\PE B_1$ be the
+  propositional formula obtained from $\PE B$ by removing all atoms
+  that are not represented by vertices in $\vB'$. Then $\graphof{\PE
+    B_1}=\gB_1$.  By \cite[Proposition~7.6.1]{str:07:RTA}, we have a
+  derivation $\vlder{\set{\wrD,\fequ}}{\PE\Deri_1}{\PE B}{\PE B_1}$.
+  A subformula of $\PE B$ is called \emph{weak} if it has been
   introduced by a weakening. All subformulas of a weak formula are
   also weak. Two weak subformulas $B'$ and $B''$ of $\PE B$ form a
   \emph{weak pair} if $B\fequ\Scons{B'\vlor B''}$ for some context
@@ -2058,17 +2071,17 @@ propositional formulas, i.e., the first two lines in~\eqref{eq:fequ}.
   been introduced by the same instance of $\wlD$ or $\wrD$ in
   $\PE\Deri_1$.\footnote{If $\PE\Deri_1$ is not of that shape, it can
   brought into this form by simple rule permutations, and then
-  collapsing several weakenings into a single one.}  Now observe that
-  whenever a weakening in $\PE\Deri_1$ deletes an atom $x\in\VAR$, it
-  must also delete all atoms in the scope of the corresponding
-  quantifier, because $\phi$ is a fibration on the binding
-  graph. Hence, each line in $\PE\Deri_1$ is the propositional
-  encoding $\PE P$ of a first-order formula $P$. Thus we have a first
-  order derivation $\vlder{\set{\wrD,\fequ}}{\Deri_1}{B}{B_1}$. we now
-  have to show that each instance of $\wlD$ or $\wrD$ is indeed a
-  correct application in first-order logic. For this we have to
-  inspect the cases a weakening happens inside a subformula $x\vlor C$
-  or $x\vlan C$ in $\PE\Deri_1$. There are the following cases:
+  collapsing several weakenings into a single one.}  Now we show that
+  $\PE\Deri_1$ can be lifted. For this, observe that whenever a
+  weakening in $\PE\Deri_1$ deletes an atom $x\in\VAR$, it must also
+  delete all atoms in the scope of the corresponding quantifier,
+  because $\phi$ is a fibration on the binding graph. Hence, each line
+  in $\PE\Deri_1$ is the propositional encoding $\PE P$ of a
+  first-order formula $P$.  We now have to show
+  that each instance of $\wrD$ is indeed a correct
+  application in first-order logic. For this we have to inspect the
+  cases a weakening happens inside a subformula $x\vlor C$ or $x\vlan
+  C$ in $\PE\Deri_1$. There are the following cases:
   \begin{equation*}%\small
     \vlinf{}{}{S\cons{x\vlor D\vlor C}}{S\cons{x\vlor C}}
     \qquad
@@ -2081,8 +2094,9 @@ propositional formulas, i.e., the first two lines in~\eqref{eq:fequ}.
   $\exists$-quantifier. Both cases are unproblematic in first-order
   logic. However, in the third case an $\exists$-quantifier would be
   transformed into an $\forall$-quantifier. But as $\phi$ has to
-  preserve existentials, this third case cannot occur, and therefore
-  $\Deri_1$ is a valid first-order derivation in $\set{\wD,\fequ}$.
+  preserve existentials, this third case cannot occur.
+  Thus we have a first order derivation
+  $\vlder{\set{\wrD,\fequ}}{\Deri_1}{B}{B_1}$.
   
   Let us now look at $\phi''$. Let $\gA_1=\gA\substof\phi$ be the
   graph obtained from $\gA$ by applying $\substof\phi$ to all the
@@ -2094,34 +2108,89 @@ propositional formulas, i.e., the first two lines in~\eqref{eq:fequ}.
   $\vlder{\set{\acD,\me,\PE\fequ}}{\PE\Deri_2}{\PE B_1}{\PE A_1}$,
   where $\PE A_1 =\PE A\substof\phi$ is the result of applying $\substof\phi$
   to~$\PE A$. Note that $\PE A_1 = \PE{(A\substof\phi)}$. To $\Deri_2$ we can apply a permutation argument,
-  permuting all instances of $\acD$ up until they either reach the top
+  permuting all instances of $\acD$, that duplicate an atom $x\in\VAR$, up until they either reach the top
   of the derivation or an instance of $\me$ which separates the two
   atoms in the premise. More precisely, we consider the following
   inferene rule
   \begin{equation}
-    \vlinf{\acDeq}{}{\Scons{a}}{S_0\cons{S_1\cons{a}\vlor S_2\cons{a}}}
+    \vlinf{\acDeq}{}{\Scons{x}}{S_0\cons{S_1\cons{x}\vlor S_2\cons{x}}}
   \end{equation}
   where $S_1\conhole\fequ\conhole\vlor E$ and
   $S_2\conhole\fequ\conhole\vlor F$ and $S\conhole\fequ
-  S_0\cons{\conhole\vlor E\vlor F}$ for some formulas $E$ and $F$. The
-  rule $\acDeq$ permutes over $\fequ$ and other instances of $\acDeq$,
+  S_0\cons{\conhole\vlor E\vlor F}$ for some formulas $E$ and $F$, where $E$ or $F$ or both might be empty. The
+  rule $\acDeq$ permutes over $\fequ$, $\acD$, and other instances of $\acDeq$,
   and over instances of $\me$ if they occur inside $S_0$ or $S_1$ or
   $S_2$. The only situation in which $\acDeq$ cannot be permuted up is
   the following:
   \begin{equation}
     \label{eq:mac}
     \vlderivation{
-      \vlin{\acDeq}{}{\Scons{R\cons{a}\vlan(C\vlor D)}}{
-        \vlin{\me}{}{\Scons{(R_1\cons{a}\vlor R_2\cons{a})\vlan(C\vlor D)}}{
-          \vlhy{\Scons{(R_1\cons{a}\vlan C)\vlor (R_2\cons{a}\vlor D)}}}}}
+      \vlin{\acDeq}{}{\Scons{R\cons{x}\vlan(C\vlor D)}}{
+        \vlin{\me}{}{\Scons{(R_1\cons{x}\vlor R_2\cons{x})\vlan(C\vlor D)}}{
+          \vlhy{\Scons{(R_1\cons{x}\vlan C)\vlor (R_2\cons{x}\vlor D)}}}}}
   \end{equation}
-  Now we translate $\PE\Deri_2$ into a first-order derivation
-  $\vlder{\set{\acD,\me,\mfaD,\mexD,\fequ}}{\Deri_2}{B_1}{A\substof\phi}$
-  by ``decoding'' every line in $\PE\Deri_2$. I.e., for each line $Q$
-  in $\PE\Deri_2$ we construct a formula $P$ with $\PE P\fequ Q$.  We
-  proceed by induction on the height of $\PE\Deri_2$, beginning at the
-  bottom. We already constructed the formula~$B_1$. Now consider the bottommost rule in $\PE\Deri_2$. If it is a $\fequ$, then we trivially can go to the next step. If it is a $\acD$ duplicating an atom that is not a $x\in\VAR$, then this $\acD$ is also a valid inference step in the first-order system. Similarly, any instance of $\me$ that is not in a situation as in~\eqref{eq:mac} can be i
+  Now we show that $\PE\Deri_2$ can be lifted to
+  $\set{\acD,\me,\mfaD,\mexD,\fequ}$.  We proceed by induction on the
+  height of $\PE\Deri_2$, beginning at the bottom, as we already
+  constructed the formula~$B_1$.  Every instance of $\fequ$ or $\acD$
+  (duplicating an atom that is not a $x\in\VAR$), can trivially be
+  lifted. Similarly, an instance of $\me$, that is above an instance
+  of $\acDeq$ as indicated in~\eqref{eq:mac}, can be lifted as the
+  premise must also be a proposional encoding and the $\me$-inference
+  remains correct in the first-order case.  It remains to consider a
+  situation~\eqref{eq:mac}. Observe that we must have
+  $R_1\cons{x}\fequ x\vlor E$ for some $E$ and $R_2\cons{x}\fequ
+  x\vlor F$ for some $F$ with $R\cons{x}\fequ x\vlor E\vlor
+  F$. Otherwise, the application of $\acDeq$ would not be correct.
+  We have the following four cases: 
+  \begin{itemize}
+  \item   $E$ and $F$ are both empty: Then~\eqref{eq:mac} is
+    \begin{equation*}
+    \vlderivation{
+      \vlin{\acDeq}{}{\Scons{x\vlan(C\vlor D)}}{
+        \vlin{\me}{}{\Scons{(x\vlor x)\vlan(C\vlor D)}}{
+          \vlhy{\Scons{(x\vlan C)\vlor (x\vlor D)}}}}}
+    \end{equation*}
+    which can be lifted immediately to
+    \begin{equation*}
+      \vlinf{\mexD}{}{\Scons{\exists x.(C\vlor D)}}{\Scons{(\exists x.C)\vlor(\exists x.D)}}
+    \end{equation*}
+  \item $E$ and $F$ are both non-empty: Then~\eqref{eq:mac} is (modulo
+    omitted applications of $\fequ$):
+    \begin{equation*}
+    \vlderivation{
+      \vlin{\acDeq}{}{\Scons{(x\vlor E\vlor F)\vlan(C\vlor D)}}{
+        \vlin{\me}{}{\Scons{((x\vlor E)\vlor (x\vlor F))\vlan(C\vlor D)}}{
+          \vlhy{\Scons{((x\vlor E)\vlan C)\vlor ((x\vlor F)\vlor D)}}}}}
+    \end{equation*}
+    which can be lifted to
+    \begin{equation*}
+    \vlderivation{
+      \vlin{\mfaD}{}{\Scons{(\forall x.(E\vlor F))\vlan(C\vlor D)}}{
+        \vlin{\me}{}{\Scons{((\forall x. E)\vlor (\forall x. F))\vlan(C\vlor D)}}{
+          \vlhy{\Scons{((\forall x. E)\vlan C)\vlor ((\forall x. F)\vlor D)}}}}}
+    \end{equation*}
+  \item $E$ is empty and $F$ is not: Then~\eqref{eq:mac} becomes
+    \begin{equation*}
+    \vlderivation{
+      \vlin{\acDeq}{}{\Scons{(x\vlor F)\vlan(C\vlor D)}}{
+        \vlin{\me}{}{\Scons{(x\vlor (x\vlor F))\vlan(C\vlor D)}}{
+          \vlhy{\Scons{(x\vlan C)\vlor ((x\vlor F)\vlor D)}}}}}
+    \end{equation*}
+    The conclusion is the propositional encoding of $\Scons{(\forall
+      x. F)\vlan(C\vlor D)}$ and the premise is the propositional
+    encoding of $\Scons{(\exists x.C)\vlor ((\forall x. F)\vlor
+      D)}$. Also note that no $\me$-instance can break up the
+    conjunction in $x\vlan C$ in the premise. Hence, $\phi$ maps an
+    existential to a universal, which is ruled out by the
+    definition. Hence, this case cannot occur.
+  \item $E$ is non-empty and $F$ is empty: This case is similar to the
+    previous one.
+  \end{itemize}
+  Finally, we need to consider the instances of $\acDeq$ that are at the top of the derivation.
 \end{proof}
+
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
