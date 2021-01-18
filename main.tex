@@ -1522,25 +1522,28 @@ other results.
   $$
   \vlderivation{
     \vlin{\cD}{}{(A \vlor B) \vlan (C \vlor D)}{
-      \vlin{\wlD}{}{((A \vlor B) \vlan (C \vlor D)) \vlor ((A \vlor B) \vlan (C \vlor D))}{
-	\vlin{\wlD}{}{((A \vlor B) \vlan (C \vlor D)) \vlor ((A \vlor B) \vlan D))}{
+      \vlin{\fequ}{}{((A \vlor B) \vlan (C \vlor D)) \vlor ((A \vlor B) \vlan (C \vlor D))}{
+      \vlin{\wrD}{}{((A \vlor B) \vlan (C \vlor D)) \vlor ((B \vlor A) \vlan (D \vlor C))}{
+	\vlin{\wrD}{}{((A \vlor B) \vlan (C \vlor D)) \vlor ((B \vlor A) \vlan D))}{
 	  \vlin{\wrD}{}{((A \vlor B) \vlan (C \vlor D)) \vlor (B \vlan D))}{
 	    \vlin{\wrD}{}{((A \vlor B) \vlan C) \vlor (B \vlan D)}{
-	      \vlhy{(A \vlan C) \vlor (B \vlan D)}}}}}}}
+	      \vlhy{(A \vlan C) \vlor (B \vlan D)}}}}}}}}
   $$.
   $$
   \vlderivation{
     \vlin{\cD}{}{\exists x.(A \vlor B)}{
-      \vlin{\wlD}{}{(\exists x.(A \vlor B)) \vlor (\exists x.(A \vlor B))}{
+      \vlin{\fequ}{}{\exists x.(A \vlor B)) \vlor (\exists x.(A \vlor B))}{
+      \vlin{\wrD}{}{(\exists x.(A \vlor B)) \vlor (\exists x.(B \vlor A))}{
 	\vlin{\wrD}{}{(\exists x.(A \vlor B)) \vlor (\exists x.B)}{
-	  \vlhy{(\exists x.A) \vlor (\exists x.B)}}}}}
+	  \vlhy{(\exists x.A) \vlor (\exists x.B)}}}}}}
   $$.
   $$
   \vlderivation{
     \vlin{\cD}{}{\forall x.(A \vlor B)}{
-      \vlin{\wlD}{}{(\forall x.(A \vlor B)) \vlor (\forall x.(A \vlor B))}{
+      \vlin{\fequ}{}{(\forall x.(A \vlor B)) \vlor (\forall x.(A \vlor B))}{
+      \vlin{\wrD}{}{(\forall x.(A \vlor B)) \vlor (\forall x.(B \vlor A))}{
 	\vlin{\wrD}{}{(\forall x.(A \vlor B)) \vlor (\forall x.B)}{
-	  \vlhy{(\forall x.A) \vlor (\forall x.B)}}}}}
+	  \vlhy{(\forall x.A) \vlor (\forall x.B)}}}}}}
   $$.
   \juihsuan{done. If needed, we can introduce the notion of open deduction to
 reduce the size of derivations...}\lutz{I was thinking about that, but (i) it is probably not worth the effort, as we wont have many derivation, and (ii) it is hard to define rectified derivations this way.}
@@ -1908,7 +1911,7 @@ rectified. If $x=y$ and $x=z$ we have $\mfaD$ and
 $\mexD$ as special cases of $\rectif\mfaD$ and $\rectif\mexD$, respectively.
 
 For a derivation $\Deri$ in
-$\set{\wlD,\wrD,\acD,\me,\mfaD,\mexD,\fequ}$, we can now construct the
+$\set{\wrD,\acD,\me,\mfaD,\mexD,\fequ}$, we can now construct the
 \bfit{rectification} $\rectif\Deri$ by rectifying each line of $\Deri$, yielding
 a derivation in
 $\set{\wrD,\acD,\me,\rectif\mfaD,\rectif\mexD,\fequ}$.
@@ -1918,7 +1921,7 @@ $\set{\wrD,\acD,\me,\rectif\mfaD,\rectif\mexD,\fequ}$ we can
 define the \bfit{induced map} $\mapof{\rr}\colon\vgraphof
 Q\to\vgraphof P$ which acts as the identity for
 $\rr\in\set{\me,\fequ}$ and as the canonical injection for
-$\rr\in\set{\wlD,\wrD}$. For $\rr=\acD$ it maps the vertices
+$\rr=\wrD$. For $\rr=\acD$ it maps the vertices
 corresponding to the two atoms in the premise to vertex of the
 contracted atom in the conclusion, and for
 $\rr\in\set{\rectif\mfaD,\rectif\mexD}$ it maps the two vertices
