@@ -456,7 +456,8 @@
 \newcommand\wrD {\mathsf{w}}
 \renewcommand\cD {\mathsf{c}}
 \renewcommand\acD {\mathsf{ac}}
-\newcommand\acDeq {\mathsf{ac}^\fequ}
+\newcommand\acDx {\mathsf{ac}_x}
+\newcommand\acDeq {\mathsf{ac}_x^\fequ}
 \newcommand\cfaD {\mathsf{c_\forall}}
 \newcommand\mfaD {\mathsf{m_\forall}}
 \newcommand\mexD {\mathsf{m_\exists}}
@@ -475,6 +476,7 @@
 
 \newcommand{\Gr}{\mathcal{G}}
 \newcommand{\PE}[1]{#1^\circ}
+\newcommand{\PEp}[1]{\tilde{#1}}
 
 % ** FONT STYLE **
 
@@ -1953,7 +1955,7 @@ maps of the rule instances in $\Deri$.
 
 \begin{lemma}\label{lem:cw->skew}
   Let $\vlderivation{
-    \vlde{\set{\wrD,\acD,\me,\rectif\mfaD,\rectif\mexD,\fequ}}{\Deri}{B}{
+    \vlde{\set{\wrD,\acD,\cfaD,\me,\rectif\mfaD,\rectif\mexD,\fequ}}{\Deri}{B}{
       \vlhy{A}}}$ be a recified derivation. Then the induced map
   $\mapof\Deri\colon\graphof{A}\to\graphof{B}$ is a skew bifibration.
 \end{lemma}
@@ -1991,7 +1993,7 @@ propositional formulas, i.e., the first two lines in~\eqref{eq:fequ}.
 
 \begin{proof}[Proof of Lemma~\ref{lem:cw->skew}]
   First, observe that for every inference rule
-  $\rr\in\set{\wrD,\acD,\me,\rectif\mfaD,\rectif\mexD,\fequ}$ we
+  $\rr\in\set{\wrD,\acD,\cfaD,\me,\rectif\mfaD,\rectif\mexD,\fequ}$ we
   the induced map $\mapof{\rr}\colon\vgraphof Q\to\vgraphof P$ defines
   a fibration on the corresponding binding graphs. Therefore, their
   composition $\mapof\Deri$ is a fibration.
@@ -2003,28 +2005,28 @@ propositional formulas, i.e., the first two lines in~\eqref{eq:fequ}.
   steps by:
   \begin{equation*}
     \vlderivation{
-      \vlin{\rectif\acD}{}{\Scons{x\vlor(\PE{(Ax)}\vlor\PE{(Bx))}}}{
+      \vlin{\rectif\acD}{}{\Scons{x\vlor(\PE{(Ax)}\vlor\PE{(Bx)})}}{
         \vlin{\fequ}{}{\Scons{(y\vlor z)\vlor(\PE{(Ay)}\vlor\PE{(Bz)})}}{
           \vlhy{\Scons{(y\vlor\PE{(Ay)})\vlor (z\vlor\PE{(Bz)})}}}}}
   \end{equation*}
   and
   \begin{equation*}
     \vlderivation{
-      \vlin{\rectif\acD}{}{\Scons{x\vlan\PE{(Ax)}\vlor\PE{(Bx)}}}{
+      \vlin{\rectif\acD}{}{\Scons{x\vlan(\PE{(Ax)}\vlor\PE{(Bx)})}}{
         \vlin{\me}{}{\Scons{(y\vlor z)\vlan(\PE{(Ay)}\vlor\PE{(Bz)})}}{
           \vlhy{\Scons{(y\vlan\PE{(Ay)})\vlor (z\vlan\PE{(Bz)})}}}}}
   \end{equation*}
   respectively, where $\rectif\acD$ is a $\acD$ that renames the
   variabes---the atom variable, as well as the first-order variable of
   the same name---as everything is recified, there is no ambiguity
-  here.
-  This gives us a derivation $\vlderivation{
-    \vlde{\set{\wrD,\acD,\rectif\acD,\me,\PE\fequ}}{\PE\Deri}{\PE
-      B}{ \vlhy{\PE A}}}$ such that  $\mapof{\PE\Deri}=\mapof\Deri$. It has been
-  shown in~\cite{str:07:RTA} that $\mapof{\PE\Deri}$ is a skew
+  here.  This gives us a derivation $\vlderivation{
+    \vlde{\set{\wrD,\acD,\rectif\acD,\me,\PE\fequ}}{\PE\Deri}{\PE B}{
+      \vlhy{\PE A}}}$ such that $\mapof{\PE\Deri}=\mapof\Deri$. It has
+  been shown in~\cite{str:07:RTA} that $\mapof{\PE\Deri}$ is a skew
   fibration (see
   also~\cite{hughes:invar,str:ral:tableaux19,str:RR-9048}). Hence,
-  $\mapof\Deri$ is a skew fibration.
+  $\mapof\Deri$ is a skew fibration. That $\mapof{\PE\Deri}$ preserves
+  exponentials follows immediately from its construction.
 \end{proof}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -2050,11 +2052,11 @@ propositional formulas, i.e., the first two lines in~\eqref{eq:fequ}.
 \end{lemma}
 
 In the proof of this lemma, we make use of the following concept: Let
-$\vlder{\sysS}{\DDeri}{Q}{P}$ be a derivation where $Q=\PE D$ is the
-propostional encoding of some formula~$D$. We say that $\DDeri$ can be
-\bfit{lifted} to $\sysS'$ if there is a formula $C$ such that
-$P\fequ\PE C$ and there is a derivation
-$\vlder{\sysS'}{\DDeri'}{D}{C}$.
+$\vlder{\sysS}{\DDeri}{Q}{P}$ be a derivation where $P$ and $Q$ are
+propositional formulas (possibly using variable $x\in\VAR$ at the
+places of atoms).  We say that $\DDeri$ can be \bfit{lifted} to
+$\sysS'$ if there are (first-order) formulas $C$ and $D$ such that $P=\PE C$ and
+$Q=\PE D$ and there is a derivation $\vlder{\sysS'}{\DDeri'}{D}{C}$.
 
 \begin{proof}[Proof of Lemma~\ref{skew->cw}]
   By Lemma~\ref{lem:PE} we have $\gA=\graphof{\PE A}$ and
@@ -2063,11 +2065,11 @@ $\vlder{\sysS'}{\DDeri'}{D}{C}$.
   $\vB'$. Hence, we have two maps $\phi''\colon\gA\to\gB_1$ being a
   surjection and $\phi'\colon \gB_1\to\gB$ being an injection that
   reflects edges. Both, $\phi'$ and $\phi''$ remain skew
-  bifibrations. Let us first look at $\phi'$.  Let $\PE B_1$ be the
+  bifibrations. Let us first look at $\phi'$.  Let $\PEp B_1$ be the
   propositional formula obtained from $\PE B$ by removing all atoms
-  that are not represented by vertices in $\vB'$. Then $\graphof{\PE
+  that are not represented by vertices in $\vB'$. Then $\graphof{\PEp
     B_1}=\gB_1$.  By \cite[Proposition~7.6.1]{str:07:RTA}, we have a
-  derivation $\vlder{\set{\wrD,\fequ}}{\PE\Deri_1}{\PE B}{\PE B_1}$.
+  derivation $\vlder{\set{\wrD,\fequ}}{\PE\Deri_1}{\PE B}{\PEp B_1}$.
   A subformula of $\PE B$ is called \emph{weak} if it has been
   introduced by a weakening. All subformulas of a weak formula are
   also weak. Two weak subformulas $B'$ and $B''$ of $\PE B$ form a
@@ -2102,7 +2104,7 @@ $\vlder{\sysS'}{\DDeri'}{D}{C}$.
   transformed into an $\forall$-quantifier. But as $\phi$ has to
   preserve existentials, this third case cannot occur.
   Thus we have a first order derivation
-  $\vlder{\set{\wrD,\fequ}}{\Deri_1}{B}{B_1}$.
+  $\vlder{\set{\wrD,\fequ}}{\Deri_1}{B}{B_1}$ with $\PE B_1=\PEp B_1$.
   
   Let us now look at $\phi''$. Let $\gA_1=\gA\substof\phi$ be the
   graph obtained from $\gA$ by applying $\substof\phi$ to all the
@@ -2112,13 +2114,24 @@ $\vlder{\sysS'}{\DDeri'}{D}{C}$.
   the labels. Therefore, by
   \cite[Proposition~7.5]{str:ral:tableaux19}, there is a derivation
   $\vlder{\set{\acD,\me,\PE\fequ}}{\PE\Deri_2}{\PE B_1}{\PE A_1}$,
-  where $\PE A_1 =\PE A\substof\phi$ is the result of applying $\substof\phi$
-  to~$\PE A$. Note that $\PE A_1 = \PE{(A\substof\phi)}$. To $\Deri_2$ we can apply a permutation argument,
-  permuting all instances of $\acD$, that duplicate an atom $x\in\VAR$, up until they either reach the top
-  of the derivation or an instance of $\me$ which separates the two
-  atoms in the premise. More precisely, we consider the following
-  inferene rule
+  where $\PE A_1 =\PE A\substof\phi$ is the result of applying
+  $\substof\phi$ to~$\PE A$. Note that $\PE A_1 =
+  \PE{(A\substof\phi)}$ and $\PE B_1$ are both proposional
+  encodings. We plan to show that $\Deri_2$ can be lifted to
+  $\set{\acD,\cfaD,\me,\mfaD,\mexD,\fequ}$. However, observe that not
+  every formula occurring in $\Deri_2$ is a propositional
+  encoding. There are two reasons for this: (i) we might have $P\PE\fequ
+  Q$ where $P$ is a propositional encoding but $Q$ is not, and (ii)
+  the rule $\acD$ can duplicate an atom with name $x\in\VAR$. Let us write $\acDx$ for such instances. To
+  address (i), we consider here formulas equivalent modulo $\fequ$,
+  always knowing that we can add instances of $\fequ$ as needed. To
+  address (ii), we apply a permutation argument, permuting all
+  instances of $\acDx$ up until
+  they either reach the top of the derivation or an instance of $\me$
+  which separates the two atoms in the premise. More precisely, we
+  consider the following inferene rule
   \begin{equation}
+    \label{eq:acDeq}
     \vlinf{\acDeq}{}{\Scons{x}}{S_0\cons{S_1\cons{x}\vlor S_2\cons{x}}}
   \end{equation}
   where $S_1\conhole\fequ\conhole\vlor E$ and
@@ -2135,65 +2148,100 @@ $\vlder{\sysS'}{\DDeri'}{D}{C}$.
         \vlin{\me}{}{\Scons{(R_1\cons{x}\vlor R_2\cons{x})\vlan(C\vlor D)}}{
           \vlhy{\Scons{(R_1\cons{x}\vlan C)\vlor (R_2\cons{x}\vlor D)}}}}}
   \end{equation}
-  Now we show that $\PE\Deri_2$ can be lifted to
-  $\set{\acD,\me,\mfaD,\mexD,\fequ}$.  We proceed by induction on the
-  height of $\PE\Deri_2$, beginning at the bottom, as we already
-  constructed the formula~$B_1$.  Every instance of $\fequ$ or $\acD$
-  (duplicating an atom that is not a $x\in\VAR$), can trivially be
-  lifted. Similarly, an instance of $\me$, that is above an instance
-  of $\acDeq$ as indicated in~\eqref{eq:mac}, can be lifted as the
-  premise must also be a proposional encoding and the $\me$-inference
-  remains correct in the first-order case.  It remains to consider a
-  situation~\eqref{eq:mac}. Observe that we must have
-  $R_1\cons{x}\fequ x\vlor E$ for some $E$ and $R_2\cons{x}\fequ
-  x\vlor F$ for some $F$ with $R\cons{x}\fequ x\vlor E\vlor
-  F$. Otherwise, the application of $\acDeq$ would not be correct.
-  We have the following four cases: 
+  We can therefore assume that all instances of $\acDx$, that contract
+  an atom $x\in\VAR$ are either at the top of $\PE\Deri_2$ or below a
+  $\me$-instance as in~\eqref{eq:mac}. We now lift $\PE\Deri_2$ to
+  $\set{\acD,\cfaD,\me,\mfaD,\mexD,\fequ}$, proceed by induction on
+  the height of $\PE\Deri_2$, beginning at the top, making a case
+  analysis on the topmost rule that is not a $\fequ$.
   \begin{itemize}
-  \item   $E$ and $F$ are both empty: Then~\eqref{eq:mac} is
-    \begin{equation*}
-    \vlderivation{
-      \vlin{\acDeq}{}{\Scons{x\vlan(C\vlor D)}}{
-        \vlin{\me}{}{\Scons{(x\vlor x)\vlan(C\vlor D)}}{
-          \vlhy{\Scons{(x\vlan C)\vlor (x\vlor D)}}}}}
-    \end{equation*}
-    which can be lifted immediately to
-    \begin{equation*}
-      \vlinf{\mexD}{}{\Scons{\exists x.(C\vlor D)}}{\Scons{(\exists x.C)\vlor(\exists x.D)}}
-    \end{equation*}
-  \item $E$ and $F$ are both non-empty: Then~\eqref{eq:mac} is (modulo
-    omitted applications of $\fequ$):
-    \begin{equation*}
-    \vlderivation{
-      \vlin{\acDeq}{}{\Scons{(x\vlor E\vlor F)\vlan(C\vlor D)}}{
-        \vlin{\me}{}{\Scons{((x\vlor E)\vlor (x\vlor F))\vlan(C\vlor D)}}{
-          \vlhy{\Scons{((x\vlor E)\vlan C)\vlor ((x\vlor F)\vlor D)}}}}}
-    \end{equation*}
-    which can be lifted to
-    \begin{equation*}
-    \vlderivation{
-      \vlin{\mfaD}{}{\Scons{(\forall x.(E\vlor F))\vlan(C\vlor D)}}{
-        \vlin{\me}{}{\Scons{((\forall x. E)\vlor (\forall x. F))\vlan(C\vlor D)}}{
-          \vlhy{\Scons{((\forall x. E)\vlan C)\vlor ((\forall x. F)\vlor D)}}}}}
-    \end{equation*}
-  \item $E$ is empty and $F$ is not: Then~\eqref{eq:mac} becomes
-    \begin{equation*}
-    \vlderivation{
-      \vlin{\acDeq}{}{\Scons{(x\vlor F)\vlan(C\vlor D)}}{
-        \vlin{\me}{}{\Scons{(x\vlor (x\vlor F))\vlan(C\vlor D)}}{
+  \item $\acDx$: We know that the premisse of~\eqref{eq:acDeq} is a
+    propositional encoding. Hence, $S_1\conhole=\conhole\vlor E$ and
+    $S_2\conhole=\conhole\vlor F$ and both $x$ are universals, and
+    $E\vlor F$ contains all occurrences of $x$ bound by that
+    universal. We have the following subcases:
+    \begin{itemize}
+    \item $E$ and $F$ are both non-empty: We have
+      \begin{equation*}
+        \vlinf{\acDeq}{}{\Scons{x\vlor (E\vlor F)}}{S\cons{(x\vlor E)\vlor (x\vlor F)}}
+      \end{equation*}
+      which can be lifted to
+      \begin{equation*}
+        \vlinf{\mfaD}{}{\Scons{\forall x.(E\vlor F)}}{S\cons{(\forall x.E)\vlor (\forall x.F)}}
+      \end{equation*}
+    \item $E$ is empty and $F$ is non-empty: We have
+      \begin{equation*}
+        \vlinf{\acDeq}{}{\Scons{x\vlor F)}}{S\cons{x\vlor (x\vlor F)}}
+      \end{equation*}
+      which can be lifted to
+      \begin{equation*}
+        \vlinf{\mfaD}{}{\Scons{\forall x.F}}{S\cons{\forall x.\forall x.F}}
+      \end{equation*}
+    \item $E$ is non-empty and $F$ is empty: This is similar to the previous case.
+    \item $E$ and $F$ are both empty: This is impossible as the
+      premise would not be a propositional encoding.
+    \end{itemize}
+  \item $\acD$ (contracting an ordinary atom): This can trivially be lifted.
+  \item $\me$ that is not in the situation of~\eqref{eq:mac}: Then now
+    encoding of a quantifier is affected and the instance of $\me$ can
+    be lifted.
+  \item $\me/\acDx$ as in situation~\eqref{eq:mac}: We must have
+    $R_1\cons{x}\fequ x\vlor E$ for some $E$ and $R_2\cons{x}\fequ
+    x\vlor F$ for some $F$ with $R\cons{x}\fequ x\vlor E\vlor
+    F$. Otherwise, the application of $\acDeq$ would not be correct.
+    We have the following four cases: 
+    \begin{itemize}
+    \item $E$ and $F$ are both non-empty: Then~\eqref{eq:mac} is (modulo
+      omitted applications of $\fequ$):
+      \begin{equation*}
+        \vlderivation{
+          \vlin{\acDeq}{}{\Scons{(x\vlor E\vlor F)\vlan(C\vlor D)}}{
+            \vlin{\me}{}{\Scons{((x\vlor E)\vlor (x\vlor F))\vlan(C\vlor D)}}{
+              \vlhy{\Scons{((x\vlor E)\vlan C)\vlor ((x\vlor F)\vlor D)}}}}}
+      \end{equation*}
+      which can be lifted to
+      \begin{equation*}
+        \vlderivation{
+          \vlin{\mfaD}{}{\Scons{(\forall x.(E\vlor F))\vlan(C\vlor D)}}{
+            \vlin{\me}{}{\Scons{((\forall x. E)\vlor (\forall x. F))\vlan(C\vlor D)}}{
+              \vlhy{\Scons{((\forall x. E)\vlan C)\vlor ((\forall x. F)\vlor D)}}}}}
+      \end{equation*}
+    \item $E$ is empty and $F$ is not: Then~\eqref{eq:mac} becomes
+      \begin{equation*}
+        \vlderivation{
+          \vlin{\acDeq}{}{\Scons{(x\vlor F)\vlan(C\vlor D)}}{
+            \vlin{\me}{}{\Scons{(x\vlor (x\vlor F))\vlan(C\vlor D)}}{
           \vlhy{\Scons{(x\vlan C)\vlor ((x\vlor F)\vlor D)}}}}}
-    \end{equation*}
-    The conclusion is the propositional encoding of $\Scons{(\forall
-      x. F)\vlan(C\vlor D)}$ and the premise is the propositional
-    encoding of $\Scons{(\exists x.C)\vlor ((\forall x. F)\vlor
-      D)}$. Also note that no $\me$-instance can break up the
-    conjunction in $x\vlan C$ in the premise. Hence, $\phi$ maps an
-    existential to a universal, which is ruled out by the
-    definition. Hence, this case cannot occur.
-  \item $E$ is non-empty and $F$ is empty: This case is similar to the
-    previous one.
+      \end{equation*}
+      The conclusion is the propositional encoding of $\Scons{(\forall
+        x. F)\vlan(C\vlor D)}$ and the premise is the propositional
+      encoding of $\Scons{(\exists x.C)\vlor ((\forall x. F)\vlor
+        D)}$. Also note that no $\me$-instance can break up the
+      conjunction in $x\vlan C$ in the premise. Hence, $\phi$ maps an
+      existential to a universal, which is ruled out by the
+      definition. Hence, this case cannot occur.
+    \item $E$ is non-empty and $F$ is empty: This case is similar to the
+      previous subcase.
+    \item   $E$ and $F$ are both empty: Then~\eqref{eq:mac} is
+      \begin{equation*}
+        \vlderivation{
+          \vlin{\acDeq}{}{\Scons{x\vlan(C\vlor D)}}{
+            \vlin{\me}{}{\Scons{(x\vlor x)\vlan(C\vlor D)}}{
+              \vlhy{\Scons{(x\vlan C)\vlor (x\vlor D)}}}}}
+      \end{equation*}
+      which can be lifted immediately to
+      \begin{equation*}
+        \vlinf{\mexD}{}{\Scons{\exists x.(C\vlor D)}}{\Scons{(\exists x.C)\vlor(\exists x.D)}}
+      \end{equation*}
+    \end{itemize}
   \end{itemize}
-  Finally, we need to consider the instances of $\acDeq$ that are at the top of the derivation.
+  Thus $\PE\Deri_2$ can be lifted to
+  $\vlder{\set{\acD,\cfaD,\me,\mfaD,\mexD,\fequ}}{\Deri_2}{B_1}{A\substof\phi}$. We
+  construct $\Deri$ by composing $\Deri_2$ and $\Deri_1$. Then
+  $\rectif\Deri$ can be constructed by rectifying $\Deri$, where the
+  variables to be used in $A$ are already given. That
+  $\phi=\mapof{\rectif\Deri}$ follows immediately from the
+  construction.
 \end{proof}
 
 
