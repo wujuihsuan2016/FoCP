@@ -1594,14 +1594,40 @@ reduce the size of derivations...}\lutz{I was thinking about that, but (i) it is
           \vlhy{}}}}
   \end{equation*}
 \end{thm}
-\juihsuan{maybe we should take $\form{\Gamma}$ instead? (consider the proof
-$\vlderivation{\vlin{\wk}{}{\sqn{\ttt, A}}{
-                 \vlin{\ttt}{}{\sqn\ttt}{
-                   \vlhy{}}}}$)}
+\juihsuan{maybe there is still some problem... (consider the proof
 
+$\vlderivation{
+   \vliin{\vlan}{}{\sqn{\ttt, a \vlan b, \cneg b}}{
+   \vlin{\ax}{}{\sqn{b, \cneg b}}{
+     \vlhy{}}}{
+   \vlin{\wk}{}{\sqn{\ttt, a}}{
+     \vlin{\ttt}{}{\sqn\ttt}{
+       \vlhy{}}}}}
+$, it doesn't seem possible to get rid of the $\wk$ rule using deep weakening)}
 \begin{proof}
   Note that the instances of $\wrD,\cD$ in $\Deri_2$ are deep, but inside sequent contexts.
-  \todo{}
+  Suppose that $\Gamma$ is provable in $\FOLK$, then so is $\form{\Gamma}$.
+Consider a proof
+$ \vlderivation{
+        \vltrl{}{\FOLK}{\Deri}{\sqns{\form{\Gamma}}}{
+          \vlhy{\quad}}{
+          \vlhy{}}{
+          \vlhy{}}} $
+Note that the instances of $\ctr$ and $\wk$ in $\Deri$ can be transformed into
+derivations using $\cD$, $\wrD$ and the rules from $\FOMLL$.
+
+\begin{equation*}
+\vlderivation{
+  \vlin{\ctr}{}{\sqns{\Gamma, A}}{
+    \vlhy{\sqns{\Gamma, A, A}}}}
+\leadsto
+\vlderivation{
+  \vlin{\cD}{}{\sqns{\Gamma, A}}{
+    \vlin{\vlor}{}{\sqns{\Gamma, A \vlor A}}{
+      \vlhy{\sqns{\Gamma, A, A}}}}}
+\end{equation*}
+
+\todo{}
 \end{proof}
 
 
