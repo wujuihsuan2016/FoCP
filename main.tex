@@ -1809,6 +1809,7 @@ obtained from $\Gamma$ by replacing this $\vlor$ by a $\vlan$.
 \end{lemma}
 
 \begin{proof}
+Suppose that such $\vlor$ node does not exist.
 \todo{}
 \end{proof}
 
@@ -1824,7 +1825,6 @@ obtained from $\Gamma$ by replacing this $\vlor$ by a $\vlan$.
 graph of $\unifstr{\lambda}$ is equal to that of $\unifstr{\lambda_m}$. Apply
 Lemma \ref{lem:concomp_switching} and it is clear that such $\vlor$ cannot be one
 of the fresh $\vlor$'s added during the frame construction.
-\todo{}
 \end{proof}
 
 \begin{proof}\label{lem:concomp_switching_fo}
@@ -1833,49 +1833,62 @@ number of connected components of the unification structure $\unifstr{\lambda}$:
 \begin{itemize}
   \item If there is only one connected component, we proceed by induction on the
 number $k$ of connected components of any switching graph of
-$\unifstr{\lambda}$. If $k = 1$, we obtain a proof $\Pi$ in $\FOMLL$ such that
-$\sqntl{\Pi} = \lambda$ by applying \cite[Theorem~3]{hughes:unifn}. If $k > 1$,
+$\unifstr{\lambda}$. If $k = 1$, we obtain a proof $\Deri$ in $\FOMLL$ such that
+$\sqntl{\Deri} = \lambda$ by applying \cite[Theorem~3]{hughes:unifn}. If $k > 1$,
 using the Lemma \ref{lem:concomp_switching_fo}, we obtain a sequent $\Gamma'$ on
 which $\lambda$ is correct by transforming a $\vlor$ node into a $\vlan$. By
-induction hypothesis, there is a proof $\Pi'$ in $\FOMLL$ whose translation is
+induction hypothesis, there is a proof $\Deri'$ in $\FOMLL$ whose translation is
 $\lambda$. By considering the $\vlan$ rule instance corresponding to the $\vlan$
-node in $\Pi'$, we have:
+node in $\Deri'$, we have:
 $
-\Pi' =
+\Deri' =
 \vlderivation{
   \vlin{}{}{\sqns{\Gamma'}}{
   \vlin{}{}{\vlvdots}{
     \vliin{\vlan}{}{\sqns{\Delta_1, A \vlan B, \Delta_2}}{
-      \vltrl{\Pi_1}{}{}{\sqns{\Delta_1, A}}{
+      \vltrl{\Deri_1}{}{}{\sqns{\Delta_1, A}}{
         \vlhy{\quad}}{
         \vlhy{}}{
         \vlhy{}}}{
-      \vltrl{\Pi_2}{}{}{\sqns{B, \Delta_2}}{
+      \vltrl{\Deri_2}{}{}{\sqns{B, \Delta_2}}{
         \vlhy{\quad}}{
         \vlhy{}}{
         \vlhy{}}}
 }}}
 $.
-We can thus obtain a proof $\Pi$ of $\Gamma$:
+We can thus obtain a proof $\Deri$ of $\Gamma$:
 $
-\Pi =
+\Deri =
 \vlderivation{
   \vlin{}{}{\sqns{\Gamma}}{
   \vlin{}{}{\vlvdots}{
     \vlin{\vlor}{}{\sqns{\Delta_1, A \vlor B, \Delta_2}}{
     \vliin{\mix}{}{\sqns{\Delta_1, A, B, \Delta_2}}{
-      \vltrl{\Pi_1}{}{}{\sqns{\Delta_1, A}}{
+      \vltrl{\Deri_1}{}{}{\sqns{\Delta_1, A}}{
         \vlhy{\quad}}{
         \vlhy{}}{
         \vlhy{}}}{
-      \vltrl{\Pi_2}{}{}{\sqns{B, \Delta_2}}{
+      \vltrl{\Deri_2}{}{}{\sqns{B, \Delta_2}}{
         \vlhy{\quad}}{
         \vlhy{}}{
         \vlhy{}}}
 }}}}
-$.
+$ such that $\sqntl{\Deri} = \lambda$.
 
-\todo{}
+  \item If there are $n > 1$ connected components, add a fresh $\vlor$ node
+connecting two formulas belonging to different connected components of $\Gamma$
+to get a new sequent $\Gamma'$. Define a unification net $\lambda'$ on $\Gamma'$
+using the same linking as $\lambda$. By induction hypothesis, since
+$\unifstr{\lambda'}$
+has $n-1$ connected components, there is a $\FOMLL$ proof $\Deri'$ such that
+$\sqntl{\Deri'} = \lambda'$. Consider the $\vlor$ rule instance corresponding
+to the $\vlor$ node in question. Since $\vlor$ is invertible, we can permute
+downwards this rule instance until it becomes the last rule of the proof (note
+that this transformation does not change the image of the proof by the
+translation $\sqntl\cdot$) to get a new proof $\Deri''$ of $\Gamma'$. By deleting the last rule
+instance from $\Deri''$, we obtain a proof $\Deri$ of $\Gamma$ such that
+$\sqntl{\Deri} = \lambda$.
+\tocheck{}
 \end{itemize}
 
 \iffalse
