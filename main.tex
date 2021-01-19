@@ -422,6 +422,7 @@
 \newcommand*{\FOLKcut}{\FOLK\mathord+\cut}
 \newcommand*{\LKm}{\mathsf{LK + mix}}
 \newcommand*{\MLL}{\mathsf{MLL}}
+\newcommand*{\MLLm}{\mathsf{MLL+mix}}
 \newcommand*{\FOMLL}{\mathsf{MLL1^X}} 
 \newcommand*{\FOMLLcut}{\FOMLL\mathord+\cut}
 \newcommand*{\FOMLLm}{\mathsf{MLL1+mix}}
@@ -1761,7 +1762,124 @@ structure are acyclic.
   Any unification net can be obtained via the translation $\sqntl\cdot$ given in Theorem
   \ref{thm:MLL1->Unet}.
 \end{thm}
+
+\begin{lemma}\label{lem:concomp}
+  The number of connected components of an acylic graph $\gG = \tuple{\vG, \eG}$ is
+equal to $|\eG| - |\vG|$.
+\end{lemma}
+
+\begin{proof}
+  By a straightforward induction on $|\vG|$.
+\end{proof}
+
+\begin{lemma}
+  The number of connected components is the same for any switching graph of a
+unification net.
+\end{lemma}
+
+\begin{proof}
+  An immediate consequence of Lemma \ref{lem:concomp}.
+\end{proof}
+
+In the proof, we also use the notion of \bfit{frame} introduced by Hughes in
+\cite{hughes:unifn}.
+
+\begin{definition}
+Let $\lambda$ be a unification net on an $\FOMLL$ sequent $\Gamma$.
+We define the \bfit{frame} of $\lambda$ by exhaustively applying the following
+subformula rewriting steps, to obtain a linking $\lambda_m$ on an $\MLLm$ sequent $\Gamma_m$:
+
+\begin{enumerate}
+  \item {\bf Encode dependencies as fresh links.} For each dependency $\exists x
+	  \rightarrow \forall y$, with corresponding subformulas $\exists x A$
+		and $\forall y B$, we add a fresh link as follows. Let $P$ be a
+		fresh (nullary) predicate symbol. Replace $\exists x A$ with $P
+		\cand \exists x A$ and $\forall y B$ with $\overline{P} \cor \forall y B$, and add an axiom link between $P$ and $\overline{P}$.
+  \item {\bf Erase quantifiers.} After step 1, erase all the quantifiers. (We no longer need their leaps since they are encoded as links in step 1.
+  \item {\bf Simplify atoms.} After step 2, replace every predicate $Pt_1 \cdots t_n$ with a nullary predicate symbol $P$.
+\end{enumerate}
+\end{definition}
+Note that the linking $\lambda_m$ is a valid $\MLLm$ proof net.
+
+\begin{lemma}\label{lem:concomp_switching}
+Suppose that $\lambda$ is a $\MLLm$ proof net which is connected and such that any of its
+switching graphs is not connected. Then there exists a $\vlor$ node in
+$\unifstr{\lambda}$ such that $\lambda$ is correct on the sequent $\Gamma'$
+obtained from $\Gamma$ by replacing this $\vlor$ by a $\vlan$.
+\end{lemma}
+
+\begin{proof}
+\todo{}
+\end{proof}
+
+\begin{lemma}
+Suppose that $\lambda$ is a $\FOMLL$ proof net which is connected and such that any of its
+switching graphs is not connected. Then there exists a $\vlor$ node in
+$\unifstr{\lambda}$ such that $\lambda$ is correct on the sequent $\Gamma'$
+obtained from $\Gamma$ by replacing this $\vlor$ by a $\vlan$.
+\end{lemma}
+
+\begin{proof}
+  Consider the frame $\lambda_m$ of $\lambda$. The number of any switching
+graph of $\unifstr{\lambda}$ is equal to that of $\unifstr{\lambda_m}$. Apply
+Lemma \ref{lem:concomp_switching} and it is clear that such $\vlor$ cannot be one
+of the fresh $\vlor$'s added during the frame construction.
+\todo{}
+\end{proof}
+
+\begin{proof}\label{lem:concomp_switching_fo}
 Let $\lambda$ be a unification net on $\Gamma$. We proceed by induction on the
+number of connected components of the unification structure $\unifstr{\lambda}$:
+\begin{itemize}
+  \item If there is only one connected component, we proceed by induction on the
+number $k$ of connected components of any switching graph of
+$\unifstr{\lambda}$. If $k = 1$, we obtain a proof $\Pi$ in $\FOMLL$ such that
+$\sqntl{\Pi} = \lambda$ by applying \cite[Theorem~3]{hughes:unifn}. If $k > 1$,
+using the Lemma \ref{lem:concomp_switching_fo}, we obtain a sequent $\Gamma'$ on
+which $\lambda$ is correct by transforming a $\vlor$ node into a $\vlan$. By
+induction hypothesis, there is a proof $\Pi'$ in $\FOMLL$ whose translation is
+$\lambda$. By considering the $\vlan$ rule instance corresponding to the $\vlan$
+node in $\Pi'$, we have:
+$
+\Pi' =
+\vlderivation{
+  \vlin{}{}{\sqns{\Gamma'}}{
+  \vlin{}{}{\vlvdots}{
+    \vliin{\vlan}{}{\sqns{\Delta_1, A \vlan B, \Delta_2}}{
+      \vltrl{\Pi_1}{}{}{\sqns{\Delta_1, A}}{
+        \vlhy{\quad}}{
+        \vlhy{}}{
+        \vlhy{}}}{
+      \vltrl{\Pi_2}{}{}{\sqns{B, \Delta_2}}{
+        \vlhy{\quad}}{
+        \vlhy{}}{
+        \vlhy{}}}
+}}}
+$.
+We can thus obtain a proof $\Pi$ of $\Gamma$:
+$
+\Pi =
+\vlderivation{
+  \vlin{}{}{\sqns{\Gamma}}{
+  \vlin{}{}{\vlvdots}{
+    \vlin{\vlor}{}{\sqns{\Delta_1, A \vlor B, \Delta_2}}{
+    \vliin{\mix}{}{\sqns{\Delta_1, A, B, \Delta_2}}{
+      \vltrl{\Pi_1}{}{}{\sqns{\Delta_1, A}}{
+        \vlhy{\quad}}{
+        \vlhy{}}{
+        \vlhy{}}}{
+      \vltrl{\Pi_2}{}{}{\sqns{B, \Delta_2}}{
+        \vlhy{\quad}}{
+        \vlhy{}}{
+        \vlhy{}}}
+}}}}
+$.
+
+\todo{}
+\end{itemize}
+
+\iffalse
+We proceed by induction on the
 number of connectives in $\Gamma$. In the base case, $\Gamma$ is of the form
 \begin{align*}
 p_1(t_{11}, \ldots, t_{1n_1}), \dual{p_1}(t_{11}, \ldots, t_{1n_1}), \ldots, \\
@@ -1805,6 +1923,8 @@ question.
   \item $\formtree{\Gamma}$ has a root $\exists x$ with no outgoing dependency
 edge:
 \end{itemize}
+\fi
+\end{proof}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -2133,7 +2253,9 @@ $Q=\PE D$ and there is a derivation $\vlder{\sysS'}{\DDeri'}{D}{C}$.
   Q$ where $P$ is a propositional encoding but $Q$ is not, and (ii)
   the rule $\acD$ can duplicate an atom with name $x\in\VAR$. Let us write $\acDx$ for such instances. To
   address (i), we consider here formulas equivalent modulo $\fequ$,
-  always knowing that we can add instances of $\fequ$ as needed. To
+  always knowing that we can add instances of $\fequ$ as needed. \juihsuan{this
+does not seem clear to me. What if from $\PE A_1$ to $\PE B_1$ there are just a
+bunch of $\PE\fequ$? What do we do in this case?} To
   address (ii), we apply a permutation argument, permuting all
   instances of $\acDx$ up until
   they either reach the top of the derivation or an instance of $\me$
@@ -2178,13 +2300,15 @@ $Q=\PE D$ and there is a derivation $\vlder{\sysS'}{\DDeri'}{D}{C}$.
       \begin{equation*}
         \vlinf{\mfaD}{}{\Scons{\forall x.(E\vlor F)}}{S\cons{(\forall x.E)\vlor (\forall x.F)}}
       \end{equation*}
+    \juihsuan{We should say that $\Sconhole, E, $ and $F$ are also propositional
+encodings. Here I think you kind of identify a formula with its prop. encoding.}
     \item $E$ is empty and $F$ is non-empty: We have
       \begin{equation*}
         \vlinf{\acDeq}{}{\Scons{x\vlor F)}}{S\cons{x\vlor (x\vlor F)}}
       \end{equation*}
       which can be lifted to
       \begin{equation*}
-        \vlinf{\mfaD}{}{\Scons{\forall x.F}}{S\cons{\forall x.\forall x.F}}
+        \vlinf{\cfaD}{}{\Scons{\forall x.F}}{S\cons{\forall x.\forall x.F}}
       \end{equation*}
     \item $E$ is non-empty and $F$ is empty: This is similar to the previous case.
     \item $E$ and $F$ are both empty: This is impossible as the
@@ -2215,6 +2339,8 @@ $Q=\PE D$ and there is a derivation $\vlder{\sysS'}{\DDeri'}{D}{C}$.
             \vlin{\me}{}{\Scons{((\forall x. E)\vlor (\forall x. F))\vlan(C\vlor D)}}{
               \vlhy{\Scons{((\forall x. E)\vlan C)\vlor ((\forall x. F)\vlor D)}}}}}
       \end{equation*}
+    \juihsuan{maybe need some words to exclude the case in which $C$ (or $D$)
+is a propositional variable.}
     \item $E$ is empty and $F$ is not: Then~\eqref{eq:mac} becomes
       \begin{equation*}
         \vlderivation{
