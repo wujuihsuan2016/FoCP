@@ -998,20 +998,16 @@ graphs, inductively as follows:
 For a formula $A$, we can define its
 associated fograph $\graphof{A}$ inductively by:
 \begin{equation*}
-  \begin{array}{cc}
-    \graphof{\alpha} = \single \alpha & 
-    \graphof{\forall x . A} = \single x + \graphof{A} \\[.5ex]
-    \graphof{A \cor B} = \graphof{A} + \graphof{B} &
-    \graphof{\exists x . A} = \single x \times \graphof{A} \\[.5ex]
-    \graphof{A \cand B} = \graphof{A} \times \graphof{B} &
-    
+  \begin{array}{r@{\;}l@{\hskip4em}r@{\;}l}
+    \graphof{a} &= \single a \rlap{\hskip1em(for any atom $a$)}  \\[.9ex]
+    \graphof{A \cor B} &= \graphof{A} + \graphof{B} &
+    \graphof{\exists x . A} &= \single x \times \graphof{A} \\[.9ex]
+    \graphof{A \cand B} &= \graphof{A} \times \graphof{B} &
+    \graphof{\forall x . A} &= \single x + \graphof{A}    
   \end{array}
 \end{equation*}
-where $\single \alpha$ (resp. $\single x$) is a single-vertex graph whose vertex is 
-    labelled by $\alpha$ (resp. $x$).
-\todo{make look nice, use array} \juihsuan{done}\lutz{use the single macro (see
-above), so that we can change the notation later if we need to (and make the
-array with two columns)} \juihsuan{fixed}
+where $\single a$ (resp. $\single x$) is a single-vertex graph whose vertex is 
+    labelled by $a$ (resp. $x$).
 
 
 \begin{lemma}
@@ -1036,25 +1032,32 @@ rectified. If $A = (\forall x. p(x)) \vlor (\forall x. q(x))$, then $\graphof A
 = \single x \ \single p(x) \ \single x \ \single q(x)$, the scope of each
 $x$-binder contains all the vertices, in particular, the two $x$-binders.}
 
-\todo{def $\fequ$}
 
 We define a congruence relation $\fequ$ on formulas by the following equations:
 \begin{equation}
   \label{eq:fequ}
-  \begin{array}{cc}
-    A \vlan B \fequ B \vlan A & A \vlor B \fequ B \vlor A \\
-    (A \vlan B) \vlan C \fequ A \vlan (B \vlan C) &
-    (A \vlor B) \vlor C \fequ A \vlor (B \vlor C) \\
-    \forall x . \forall y . A \fequ \forall y . \forall x . A &
-    \exists x . \exists y . A \fequ \exists y . \exists x . A \\
-    \forall x . (A \vlor B) \fequ (\forall x . A) \vlor B &
+  \begin{array}{c@{\hskip1.5em}c}
+    A \vlan B \fequ B \vlan A
+    &
+    (A \vlan B) \vlan C \fequ A \vlan (B \vlan C) 
+    \\
+    A \vlor B \fequ B \vlor A
+    &
+    (A \vlor B) \vlor C \fequ A \vlor (B \vlor C)
+    \\
+    \forall x . \forall y . A \fequ \forall y . \forall x . A
+    &
+    \forall x . (A \vlor B) \fequ (\forall x . A) \vlor B
+    \\
+    \exists x . \exists y . A \fequ \exists y . \exists x . A
+    &
     \exists x . (A \vlan B) \fequ (\exists x . A) \vlan B
   \end{array}
 \end{equation}
 where $x \notin fv(B)$ in the last two equations.
 Two formulas $A$ and $B$ are \bfit{equivalent} if $A \fequ B$. The following
 theorem shows that the set of fographs can been seen as the quotient
-$\FORM / \fequ$.
+$\FORM/\mathord\fequ$.
 \begin{thm}
   Let $A,B$ be rectified formulas. Then
   $$
@@ -1063,7 +1066,6 @@ $\FORM / \fequ$.
 \end{thm}
 
 \begin{proof}
-  \todo{}
   By a straightforward induction on $A$.
 \end{proof}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -2326,7 +2328,7 @@ bunch of $\PE\fequ$? What do we do in this case?} To
     \vlderivation{
       \vlin{\acDeq}{}{\Scons{R\cons{x}\vlan(C\vlor D)}}{
         \vlin{\me}{}{\Scons{(R_1\cons{x}\vlor R_2\cons{x})\vlan(C\vlor D)}}{
-          \vlhy{\Scons{(R_1\cons{x}\vlan C)\vlor (R_2\cons{x}\vlor D)}}}}}
+          \vlhy{\Scons{(R_1\cons{x}\vlan C)\vlor (R_2\cons{x}\vlan D)}}}}}
   \end{equation}
   We can therefore assume that all instances of $\acDx$, that contract
   an atom $x\in\VAR$ are either at the top of $\PE\Deri_2$ or below a
@@ -2379,23 +2381,23 @@ encodings. Here I think you kind of identify a formula with its prop. encoding.}
         \vlderivation{
           \vlin{\acDeq}{}{\Scons{(x\vlor E\vlor F)\vlan(C\vlor D)}}{
             \vlin{\me}{}{\Scons{((x\vlor E)\vlor (x\vlor F))\vlan(C\vlor D)}}{
-              \vlhy{\Scons{((x\vlor E)\vlan C)\vlor ((x\vlor F)\vlor D)}}}}}
+              \vlhy{\Scons{((x\vlor E)\vlan C)\vlor ((x\vlor F)\vlan D)}}}}}
       \end{equation*}
       which can be lifted to
       \begin{equation*}
         \vlderivation{
           \vlin{\mfaD}{}{\Scons{(\forall x.(E\vlor F))\vlan(C\vlor D)}}{
             \vlin{\me}{}{\Scons{((\forall x. E)\vlor (\forall x. F))\vlan(C\vlor D)}}{
-              \vlhy{\Scons{((\forall x. E)\vlan C)\vlor ((\forall x. F)\vlor D)}}}}}
+              \vlhy{\Scons{((\forall x. E)\vlan C)\vlor ((\forall x. F)\vlan D)}}}}}
       \end{equation*}
     \juihsuan{maybe need some words to exclude the case in which $C$ (or $D$)
-is a propositional variable.}
+is a propositional variable.}\lutz{shit. (you mean a ``first order variable'') this actually can happen. then we have another $\mexD$}
     \item $E$ is empty and $F$ is not: Then~\eqref{eq:mac} becomes
       \begin{equation*}
         \vlderivation{
           \vlin{\acDeq}{}{\Scons{(x\vlor F)\vlan(C\vlor D)}}{
             \vlin{\me}{}{\Scons{(x\vlor (x\vlor F))\vlan(C\vlor D)}}{
-          \vlhy{\Scons{(x\vlan C)\vlor ((x\vlor F)\vlor D)}}}}}
+          \vlhy{\Scons{(x\vlan C)\vlor ((x\vlor F)\vlan D)}}}}}
       \end{equation*}
       The conclusion is the propositional encoding of $\Scons{(\forall
         x. F)\vlan(C\vlor D)}$ and the premise is the propositional
@@ -2411,7 +2413,7 @@ is a propositional variable.}
         \vlderivation{
           \vlin{\acDeq}{}{\Scons{x\vlan(C\vlor D)}}{
             \vlin{\me}{}{\Scons{(x\vlor x)\vlan(C\vlor D)}}{
-              \vlhy{\Scons{(x\vlan C)\vlor (x\vlor D)}}}}}
+              \vlhy{\Scons{(x\vlan C)\vlor (x\vlan D)}}}}}
       \end{equation*}
       which can be lifted immediately to
       \begin{equation*}
