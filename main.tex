@@ -1784,10 +1784,13 @@ structure are acyclic.
   nets.
 \end{proof}
 
-\begin{thm}
+\begin{thm}\label{thm:sqntl}
   Any unification net can be obtained via the translation $\sqntl\cdot$ given in Theorem
   \ref{thm:MLL1->Unet}.
 \end{thm}
+
+To prove this theorem, we need some basic lemmas about connected components in
+switching graphs of unification nets.
 
 \begin{lemma}\label{lem:concomp}
   The number of connected components of an acylic graph $\gG = \tuple{\vG, \eG}$ is
@@ -1835,11 +1838,16 @@ obtained from $\Gamma$ by replacing this $\vlor$ by a $\vlan$.
 \end{lemma}
 
 \begin{proof}
-Suppose that such $\vlor$ node does not exist.
-\todo{}
+Suppose that such a $\vlor$ node does not exist. Then it is clear that for any
+two nodes, there exists a switching graph containing a path between them and
+this path corresponds to an $AE$-path in \cite{retore:03}. By
+\cite[Propostion~3]{retore:03}, $\lambda$ corresponds to a sequent proof that
+does not use $\mix$, which implies the connectedness of the switching graphs of
+$\lambda$. Contradiction.
+\tocheck{}
 \end{proof}
 
-\begin{lemma}
+\begin{lemma}\label{lem:concomp_switching_fo}
 Suppose that $\lambda$ is a $\FOMLL$ proof net which is connected and such that any of its
 switching graphs is not connected. Then there exists a $\vlor$ node in
 $\unifstr{\lambda}$ such that $\lambda$ is correct on the sequent $\Gamma'$
@@ -1853,7 +1861,9 @@ Lemma \ref{lem:concomp_switching} and it is clear that such $\vlor$ cannot be on
 of the fresh $\vlor$'s added during the frame construction.
 \end{proof}
 
-\begin{proof}\label{lem:concomp_switching_fo}
+We can now give the proof of Theorem \ref{thm:sqntl}.
+
+\begin{proof}[Proof of Theorem~\ref{thm:sqntl}]
 Let $\lambda$ be a unification net on $\Gamma$. We proceed by induction on the
 number of connected components of the unification structure $\unifstr{\lambda}$:
 \begin{itemize}
