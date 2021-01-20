@@ -506,7 +506,7 @@
 \newcommand{\substof}[1]{\sigma_{\!#1}}
 \newcommand{\linkingof}[1]{\sim_{#1}}
 \newcommand{\mapof}[1]{\lfloor{#1}\rfloor}
-
+\newcommand{\labelof}[1]{\ell(#1)}
 \newcommand{\form}[1]{\mathrm{fm}(#1)}
 \newcommand{\formtree}[1]{\mathcal{F}(#1)}
 
@@ -764,26 +764,26 @@ consider the truth constants $\ttt$ (\emph{true}) and $\fff$
 normal form. The \bfit{negation} $(\dual\cdot)$ is defined for all
 atoms and formulas via the De Morgan laws as follows:
 \begin{equation*}
-  \begin{array}{cc}
+  \begin{array}{ccc}
+    \dual{\dual a} = a
+    &
   \dual\ttt =\fff &
   \dual{p(t_1,\ldots,t_n)} = \dual{p}(t_1,\ldots,t_n) \\[.5ex]
+  &
   \dual\fff = \ttt &
   \dual{\dual p(t_1,\ldots,t_n)} = p(t_1,\ldots,t_n) \\[.5ex]
-  \dual{\dual a} = a & \dual{\exists x.A} = \forall x.\dual{A} \\[.5ex]
-  \dual{A \vlan B} = \dual{A} \ \vlor \ \dual{B} & \dual{\forall x.A} = \exists x.\dual{A} 
+  &
+  \dual{\exists x.A} = \forall x.\dual{A}
+  &
+  \dual{A \vlan B} = \dual{A} \ \vlor \ \dual{B} 
   \\[.5ex]
-  \dual{A \vlor B} = \dual{A} \ \vlan \ \dual{B} &  
+  &
+  \dual{\forall x.A} = \exists x.\dual{A}
+  &
+%  \\[.5ex]
+  \dual{A \vlor B} = \dual{A} \ \vlan \ \dual{B}
   \end{array}
 \end{equation*}
-\todo{add missing equations and make it look nice}
-\lutz{don't we need   $\dual{\dual a} = a$? (then it should follow that $\dual{\dual A} = A$)}
-
-\juihsuan{isn't it given by the first four equations? I think that we use the
-notation of negation for atoms and formulas. We may also need to precise that each
-predicate symbol $p$ has a dual $\dual{p}$.}\lutz{we either have to say $\dual{\dual a} = a$ or $\dual{\dual p} = p$. I prefer the first.}
-\juihsuan{okay I see. I didn't realize that the negation is regarded as a
-connective for predicate symbols. The notation got me confused since $\dual{p}$
-is also a predicate symbol.}  
 
 A formula is \bfit{rectified} if all bound variables are distinct from
 one another and from all free variables. Every formula can be
@@ -802,7 +802,7 @@ $x\notin\set{x_1,\ldots,x_n}$.
 We write $A\sigma$ for the formula
 obtained from $A$ by applying $\sigma$, i.e., by simultaneously
 replacing all occurrences of $x_i$ by $t_i$.
-A \bfit{renaming} is a substitution $\sigma$ with $\sigma(x)\in\VAR$ for all variable $x$.
+A \bfit{variable renaming} is a substitution $\sigma$ with $\sigma(x)\in\VAR$ for all variables $x$.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -916,7 +916,7 @@ it is \bfit{connected}. It is \emph{coconnected} if its complement is
 connected.
 
 A graph $\gG$ is \bfit{labelled} in a set $L$ if each vertex $v\in\vG$
-has an element $\ell(v)\in L$ associated with it, its \bfit{label}.  A
+has an element $\labelof v\in L$ associated with it, its \bfit{label}.  A
 graph $\gG$ is (partially) \bfit{coloured} if it carries a partial
 equivalence relation $\linkingof\gG$ on $\vG$; each equivalence class is a
 \bfit{colour}.  A \bfit{vertex renaming} of $\gG=\tuple{\vG,\eG}$
@@ -1078,6 +1078,8 @@ $\FORM/\mathord\fequ$.
 
 \section{First-order Combinatorial Proofs}\label{sec:focp}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \subsection{Fonets}
 
@@ -1105,29 +1107,38 @@ A \bfit{first-order net} or \bfit{fonet} is a linked fograph which has
 dualizer but no induced bimatching.  
 \end{definition}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 \subsection{Skew Bifibrations}
-\lutz{$\phi$ instead of $f$}
-A graph homomorphism $\phi\colon \tuple{\vG, \eG} \rightarrow \tuple{\vH, \eH}$ is a \bfit{fibration} if
-for all $v \in \vG$ and $w\phi(v) \in \eH$, there exists a unique $\tilde{w} \in
-\vG$ such that $\tilde{w}v \in \eG$ and $\phi(\tilde{w}) = w$, and is a \bfit{skew fibration}
-if for all $v \in \vG$ and $w\phi(v) \in \eH$ there exists $\tilde{w} \in \vG$ such that
-$\tilde{w}v \in \eG$ and $\phi(\tilde{w})w \notin \eH$.
-A directed graph homomorphism is a \bfit{fibration} if \todo{}
 
+A graph homomorphism $\phi\colon \tuple{\vG, \eG} \rightarrow
+\tuple{\vH, \eH}$ is a \bfit{fibration} if for all $v \in \vG$ and
+$w\phi(v) \in \eH$, there exists a unique $\tilde{w} \in \vG$ such
+that $\tilde{w}v \in \eG$ and $\phi(\tilde{w}) = w$, and is a
+\bfit{skew fibration} if for all $v \in \vG$ and $w\phi(v) \in \eH$
+there exists $\tilde{w} \in \vG$ such that $\tilde{w}v \in \eG$ and
+$\phi(\tilde{w})w \notin \eH$.  A directed graph homomorphism is a
+\bfit{fibration} if for all $v \in \vG$ and $\pair{w,\phi(v)} \in
+\eH$, there exists a unique $\tilde{w} \in \vG$ such that $\pair{\tilde{w},v}
+\in \eG$ and $\phi(\tilde{w}) = w$.
 
-\lutz{do we really need that?
-A \bfit{fograph homomorphism}
-is a graph homomorphism between the underlying graphs of the fographs
-considered. A fograph homomorphism $f : \gG \rightarrow \gH$ is
-\bfit{label-preserving} if for all $v \in \vG, label(v) = label(f(v))$, and is
-\bfit{existential-preserving} if for all existential binder $b$ in $\gG$, the
-vertex $f(b)$ is an existential binder in $\gH$.
-}
-
-\lutz{I think we need \bfit{fograph homomorphism} maps binders to binders and literals to literals, preserving the predicates.}
+A \bfit{fograph homomorphism} $\phi=\tuple{\phi,\substof\phi}$ is a
+pair where $\phi\colon\gG\to\gH$ is a graph homomorphism between the
+underlying graphs, and $\substof\phi$ is a variable renaming such that
+for all $v\in\vG$ we have
+$\labelof{\phi(v)}=\substof\phi(\labelof v)$. Note that this entails that
+$\phi$ maps binders to binders and literals to literals. We say that a
+fograph homomorphism $\phi\colon\gG \rightarrow \gH$ is
+%%\bfit{label-preserving} if for all $v \in \vG, label(v) = label(f(v))$, and is
+\bfit{existential-preserving} if for all existential binders $b$ in
+$\gG$, the vertex $\phi(b)$ is an existential binder in $\gH$.
 
 \begin{definition}
-  Let $\gG$ and $\gH$ be fographs. A \bfit{skew bifibration} $\phi\colon\gG\to\gH$ is a fograph homomorphism that is a skew fibration on $\tuple{\vG, \eG} \to \tuple{\vH, \eH}$ and a fibration on the binding graphs $\bG\to\bH$.
+  Let $\gG$ and $\gH$ be fographs. A \bfit{skew bifibration}
+  $\phi\colon\gG\to\gH$ is an existential-preserving fograph
+  homomorphism that is a skew fibration on $\tuple{\vG, \eG} \to
+  \tuple{\vH, \eH}$ and a fibration on the binding graphs $\bG\to\bH$.
   %etween fographs is a label-preserving and
 %existential-preserving fograph homomorphism whose restriction to the
 %binding graphs is a fibration.
@@ -1147,6 +1158,13 @@ $\graphof{A}$.
   FOCPs are sound and complete for first-order logic.
 \end{thm}
 
+\begin{remark}
+  In or definition of FOCP, we are slightly laxer than the original
+  definition of~\cite{hughes:fopws}, as we allow for a variable
+  renaming $\substof\phi$ which was forced to be the identity
+  in~\cite{hughes:fopws}.
+  %The reason for this relaxation in our case is that we want to cover a richer class of proofs, also allowing 
+\end{remark}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
