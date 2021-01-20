@@ -1596,18 +1596,11 @@ reduce the size of derivations...}\lutz{I was thinking about that, but (i) it is
           \vlhy{}}}}
   \end{equation*}
 \end{thm}
-\juihsuan{maybe there is still some problem... (consider the proof
 
-$\vlderivation{
-   \vliin{\vlan}{}{\sqn{\ttt, a \vlan b, \cneg b}}{
-   \vlin{\ax}{}{\sqn{b, \cneg b}}{
-     \vlhy{}}}{
-   \vlin{\wk}{}{\sqn{\ttt, a}}{
-     \vlin{\ttt}{}{\sqn\ttt}{
-       \vlhy{}}}}}
-$, it doesn't seem possible to get rid of the $\wk$ rule using deep weakening)}
 \begin{proof}
+
   Note that the instances of $\wrD,\cD$ in $\Deri_2$ are deep, but inside sequent contexts.
+
   Suppose that $\Gamma$ is provable in $\FOLK$, then so is $\form{\Gamma}$.
 Consider a proof
 $ \vlderivation{
@@ -1615,12 +1608,73 @@ $ \vlderivation{
           \vlhy{\quad}}{
           \vlhy{}}{
           \vlhy{}}} $
-Note that the instances of $\ctr$ and $\wk$ in $\Deri$ can be transformed into
-derivations using $\cD$, $\wrD$ and the rules from $\FOMLL$.
+
+
+First, if an instance $\vlinf{\weakr}{}{\sqn{\Gamma,A}}{\sqn{\Gamma}}$
+ of $\weakr$ is followed by a rule in which $A$ is not in the principal
+formula, it can be permuted downwards.
+Otherwise, the proof can be transformed using the following rewriting rules.
 
 \begin{equation*}
 \vlderivation{
-  \vlin{\ctr}{}{\sqns{\Gamma, A}}{
+  \vliin{\vlan}{}{\sqns{\Gamma, A \vlan B, \Delta}}{
+    \vlin{\weakr}{}{\sqns{\Gamma, A}}{
+      \vlhy{\sqns{\Gamma}}}}{
+    \vlhy{\sqns{B, \Delta}}}}
+\leadsto
+\vlderivation{
+  \vlin{\weakr}{}{\sqns{\Gamma, A \vlan B, \Delta}}{
+    \vlin{\weakr}{}{\vlvdots}{
+      \vlhy{\sqns{\Gamma}}}}}
+\end{equation*}
+\begin{equation*}
+\vlderivation{
+  \vlin{\vlor}{}{\sqns{\Gamma, A \vlor B}}{
+    \vlin{\weakr}{}{\sqns{\Gamma, A, B}}{
+      \vlhy{\sqns{\Gamma, A}}}}}
+\leadsto
+\vlderivation{
+  \vlin{\wrD}{}{\sqns{\Gamma, A \vlor B}}{
+    \vlhy{\sqns{\Gamma, A}}}}
+\end{equation*}
+\begin{equation*}
+\vlderivation{
+  \vlin{\exists}{}{\sqns{\Gamma, \exists x.A}}{
+    \vlin{\weakr}{}{\sqns{\Gamma, A\ssubst{x}{t}}}{
+      \vlhy{\sqns{\Gamma}}}}}
+\leadsto
+\vlderivation{
+  \vlin{\weakr}{}{\sqns{\Gamma, A\ssubst{x}{t}}}{
+    \vlhy{\sqns{\Gamma}}}}
+\end{equation*}
+\begin{equation*}
+\vlderivation{
+  \vlin{\forall}{}{\sqns{\Gamma, \forall x.A}}{
+    \vlin{\weakr}{}{\sqns{\Gamma, A}}{
+      \vlhy{\sqns{\Gamma}}}}}
+\leadsto
+\vlderivation{
+  \vlin{\weakr}{}{\sqns{\Gamma, \forall x.A}}{
+    \vlhy{\sqns{\Gamma}}}}
+\end{equation*}
+\begin{equation*}
+\vlderivation{
+  \vlin{\conr}{}{\sqns{\Gamma, A}}{
+    \vlin{\weakr}{}{\sqns{\Gamma, A, A}}{
+      \vlhy{\sqns{\Gamma, A}}}}}
+\leadsto
+\vlderivation{
+  \vlhy{\sqns{\Gamma, A}}}
+\end{equation*}
+Note that in the case of $\vlor$, we use the deep rule $\wrD$ which can be
+permuted down over all the rules. By using these rewriting rules, we can eventually get
+a derivation with all the instances of $\weakr$ and $\wrD$ at the bottom. Now observe
+that the instances of $\conr$ in $\Deri$ can be transformed using the following
+rule:
+
+\begin{equation*}
+\vlderivation{
+  \vlin{\conr}{}{\sqns{\Gamma, A}}{
     \vlhy{\sqns{\Gamma, A, A}}}}
 \leadsto
 \vlderivation{
@@ -1629,7 +1683,43 @@ derivations using $\cD$, $\wrD$ and the rules from $\FOMLL$.
       \vlhy{\sqns{\Gamma, A, A}}}}}
 \end{equation*}
 
-\todo{}
+Knowing that $\cD$ can be permuted down over all the rules of $\FOMLL$, we
+eventually obtain a derivation:
+\begin{equation*}
+\vlderivation{
+  \vlde{\set{\weakr, \wrD,\cD,\fequ}}{\Deri'_2}{\sqns{\Gamma}}{
+    \vltrl{}{\FOMLL}{\Deri'_1}{\sqns{\Gamma_0}}{
+      \vlhy{\quad}}{
+      \vlhy{}}{
+      \vlhy{}}}}
+\end{equation*}
+Note that $\fequ$ is required here since the permutaion of formulas is implicit
+in $\FOMLL$.
+
+By transforming each sequent of $\Deri'_2$ into its corresponding formula, and by
+considering the following rewriting rule:
+\begin{equation*}
+\vlderivation{
+  \vlin{\weakr}{}{\sqns{\Gamma, A}}{
+    \vlhy{\sqns{\Gamma}}}}
+\leadsto
+\vlderivation{
+  \vlin{\wrD}{}{\sqns{\form{\Gamma} \vlor A}}{
+    \vlhy{\sqns{\form{\Gamma}}}}}
+\end{equation*},
+we obtain a derivation
+\begin{equation*}
+\vlderivation{
+  \vlde{\set{\wrD,\cD,\fequ}}{\Deri_2}{\sqns{\form{\Gamma}}}{
+    \vltrl{}{\FOMLL}{\Deri_1}{\sqns{\Gamma'}}{
+      \vlhy{\quad}}{
+      \vlhy{}}{
+      \vlhy{}}}}
+\end{equation*}
+where $\Gamma' = \form{\Gamma_0}$ and $\Deri_1$ can be obtained from $\Deri'_1$
+by applying the $\vlor$ rule.
+\tocheck{}
+\juihsuan{This might be a bit long...}
 \end{proof}
 
 
