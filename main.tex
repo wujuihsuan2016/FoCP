@@ -496,7 +496,11 @@
 \newcommand{\single}[1]{\bullet#1}
 
 \newcommand{\rectif}[1]{\widehat{#1}}
+
+\newcommand{\fographof}[1]{\llbracket#1\rrbracket}
 \newcommand{\graphof}[1]{\llbracket#1\rrbracket}
+%\newcommand{\graphof}[1]{\mathbb{G}(#1)}
+
 \newcommand{\compl}[1]{#1^\complement}
 %\newcommand{\sublist}[1]{\set{#1}}
 %\newcommand{\subst}[2]{#1\mathord{\scriptstyle\mapsto} #2}
@@ -504,8 +508,8 @@
 \newcommand{\subst}[2]{#1/#2}
 \newcommand{\ssubst}[2]{\sublist{\subst{#1}{#2}}}
 \newcommand{\substof}[1]{\sigma_{\!#1}}
-\newcommand{\rsubstof}[1]{\rho_{\!#1}}
-\newcommand{\dsubstof}[1]{\delta_{\!#1}}
+\newcommand{\rsubstof}[1]{\rho_{#1}}
+\newcommand{\dsubstof}[1]{\delta_{#1}}
 \newcommand{\linkingof}[1]{\sim_{#1}}
 \newcommand{\mapof}[1]{\lfloor{#1}\rfloor}
 \newcommand{\labelof}[1]{\ell(#1)}
@@ -1038,7 +1042,7 @@ $\graphof A = \single x \ \single p(x) \ \single x \ \single q(x)$,
 the scope of each $x$-binder contains all the vertices, in particular,
 the two $x$-binders. On the other hand, there are non-rectified
 formulas which are translated to fographs by $\graphof\cdot$. For
-example, in $\graphof{(\exists x. p(x)) \vlor (\exists x. q(x))}$,
+example, in the graph of $(\exists x. p(x)) \vlor (\exists x. q(x))$,
 both $x$-binders are legal, as they are not in each others
 scope.\todo{draw the picture}.  For this reason, we call a formula
 \bfit{clean} if it does not contain subformulas of the form $(\forall
@@ -1053,6 +1057,11 @@ formula. Then we have:
 \begin{proof}
   Induction on $A$, using  Theorem~\ref{thm:cograph}.
 \end{proof}
+
+Note that even though for every formula $A$ we can obtain an
+equivalent clean formula by simply renaming some bound variables, this
+is not unique up to $\alpha$-conversion, as it is the case for
+rectified formulas.
 
 We define a congruence relation $\fequ$ on formulas by the following equations:
 \begin{equation}
@@ -1106,13 +1115,13 @@ $\FORM/\mathord\fequ$.
 
 Two atoms are \bfit{pre-dual} if their predicate symbols are dual
 (e.g. $p(x, y)$ and $\dual{p}(y, z)$) and two literals are \bfit{pre-dual} if their
-labels (atoms) are pre-dual. A \bfit{linked fograph} is a coloured fograph $\gC$ such
+labels (atoms) are pre-dual. A \bfit{linked fograph} $\tuple{\gC,\linkingof\gC}$ is a coloured fograph $\gC$ such
 that every colour (i.e., equivalence class of~$\linkingof\gC$), called a \bfit{link}, consists of two pre-dual literals, and
 every literal is either $\ttt$-labelled or in a link.
 
 Let $\gC$ be a linked fograph. The set of links can be seen as a unification problem
-by identifying dual predicate symbols. A \bfit{dualizer} of $\gC$ is a substitution
-unifying all the links of $\gC$. Since a first-order unification problem is either
+by identifying dual predicate symbols. A \bfit{dualizer} of $\gC$ is a substitution $\delta$
+unifying all the links of~$\gC$. Since a first-order unification problem is either
 unsolvable or has a most general unifier, we can define the notion of \bfit{most
 general dualizer}. A \bfit{dependency} is a pair $\set{\single x, \single y}$ of an
 existential binder $\single x$ and a universal binder $\single y$ such that the most
@@ -1261,8 +1270,8 @@ and (iii) an explicit rule for the equivalence.
 
 We consider here only the cut-free fragment, as cut-elimination for
 deep inference systems has already been discussed
-elsewhere~\cite{brunnler:06:herbrand,alertubella:guglielmi:18}.
-\juihsuan{references added. Please check if they are the right ones.}
+elsewhere (e.g.~\cite{brunnler:06:herbrand,alertubella:guglielmi:18}).%
+%\juihsuan{references added. Please check if they are the right ones.}
 \footnote{In the deep
 inference literature, the cut-free fragment is also called the
 \emph{down-fragment}. But as we do not discuss the \emph{up-fragment}
@@ -1793,7 +1802,7 @@ by applying the $\vlor$ rule.
   \begin{equation*}
     \vlderivation{
       \vlde{\set{\wrD,\fequ}}{}{B}{
-        \vlde{\set{\acD}}{}{B'}{
+        \vlde{\set{\acD,\cfaD}}{}{B'}{
           \vlde{\set{\me,\mfaD,\mexD,\fequ}}{}{A'}{
             \vlhy{A}}}}}
   \end{equation*}
@@ -1826,7 +1835,190 @@ We can now complete the proof of Theorems~\ref{thm:decomposition} and~\ref{thm:d
 
 \section{Fonets and Linear Proofs}
 
-\todo{}
+%%\todo{}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{From $\FOMLL$ Proofs to Fonets}
+
+Let $\Pi$ be a $\FOMLL$ proof of a rectified sequent $\sqn\Gamma$. We now show
+how $\Pi$ is translated into a linked fograph
+$\fographof\Pi=\tuple{\graphof\Gamma,\linkingof\Pi}$. We proceed
+inductively, making a case analysis on the last rule in $\Pi$. At the
+same time we are constructing a dualizer $\dsubstof\Pi$, so that in the
+end we can conclude that $\fographof\Pi$ is in fact a fonet.
+\begin{enumerate}
+  %\setlength\itemsep{.5ex}
+\item $\Pi$ is $\vlinf{\axr}{}{\sqn{a,\cneg a}}{}$ : Then the only
+  link is $\set{a, \dual{a}}$, and $\dsubstof\Pi$ is empty.
+\item $\Pi$ is $\vlinf{\ttt}{}{\sqn{\ttt}}{}$ : Then
+  $\linkingof\Pi$ and $\dsubstof\Pi$ are both empty.
+\item The last rule in $\Pi$ is $\vliinf{\mixr}{}{\sqn{\Gamma',\Gamma''}}{\sqn\Gamma'}{\sqn\Gamma''}$ :
+  By induction hypothesis, we have proofs $\Pi'$ and $\Pi''$ of $\Gamma'$ and $\Gamma''$, respectively. We have
+  $\graphof{\Gamma}=\graphof{\Gamma'}+\graphof{\Gamma''}$ and let
+  $$\linkingof\Pi\;=\;\linkingof{\Pi'}\cup\linkingof{\Pi''}
+  \qquand
+  \dsubstof\Pi=\dsubstof{\Pi'}\cup\dsubstof{\Pi''}$$
+\item The last rule in $\Pi$ is $\vlinf{\vlor}{}{\sqn{\Gamma_1,A\vlor
+    B}}{\sqn{\Gamma_1,A,B}}$ : By induction hypothesis, there is
+  proofs $\Pi'$ of $\Gamma'={\Gamma_1,A,B}$. We have
+  $\graphof{\Gamma}=\graphof{\Gamma'}$ and let
+  $\linkingof\Pi\;=\;\linkingof{\Pi'}$ and
+  $\dsubstof\Pi=\dsubstof{\Pi'}$.
+\item The last rule in $\Pi$ is $\vliinf{\vlan}{}{\sqn{\Gamma_1,A\vlan
+    B, \Gamma_2}}{\sqn{\Gamma_1,A}}{\sqn{B,\Gamma_2}}$ : By induction
+  hypothesis, we have proofs $\Pi'$ and $\Pi''$ of
+  $\Gamma'=\Gamma_1,A$ and $\Gamma''=B,\Gamma_2$, respectively. We
+  have $\graphof{\Gamma}=\graphof{\Gamma_1}+\mbox{$(\graphof A\times\graphof
+  B)$}+\graphof{\Gamma_2}$ and we let
+  $$\linkingof\Pi\;=\;\linkingof{\Pi'}\cup\linkingof{\Pi''} \qquand
+  \dsubstof\Pi=\dsubstof{\Pi'}\cup\dsubstof{\Pi''}$$
+\item The last rule in $\Pi$ is
+  $\vlinf{\exists}{}{\sqn{\Gamma_1,\exists x.A}}
+  {\sqn{\Gamma_1,A\ssubst{x}{t}}}$ : By induction hypothesis, there is
+  a $\Pi'$ of $\Gamma'={\Gamma_1,A\ssubst{x}{t}}$.  For each atom in
+  $\Gamma'=\Gamma_1, A \ssubst{x}{t}$, there is a corresponding atom
+  in $\Gamma=\Gamma_1, \exists x.A$. We can therefore define the
+  linking $\linkingof{\Pi}$ from the linking $\linkingof{\Pi'}$ via
+  this correspondence. Then, we let $\dsubstof\Pi$ be
+  $\dsubstof{\Pi'}+\ssubst{x}{t}$. Since $\Gamma$ is rectified $x$
+  does not yet occur in $\dsubstof{\Pi'}$. Hence $\dsubstof\Pi$ is a
+  dualizer of $\fographof\Pi$.
+\item The last rule in $\Pi$ is $\vlinf{\forall}{\text{($x$ not free
+    in $\Gamma_1$)}}{\sqn{\Gamma_1,\forall x.A}}{\sqn{\Gamma_1,A}}$ :
+  By induction hypothesis, there is a proof $\Pi'$ of
+  $\Gamma'={\Gamma_1,A}$, which has the same atoms as in
+  $\Gamma=\Gamma_1, \forall x.A$.  Hence, we can let
+  $\linkingof\Pi\;=\;\linkingof{\Pi'}$ and
+  $\dsubstof\Pi=\dsubstof{\Pi'}$. 
+\end{enumerate}
+%\end{itemize}
+
+\begin{thm}
+  \label{thm:MLL1->fonet}
+  If $\Pi$ is a $\FOMLL$ proof of a rectified sequent $\sqn\Gamma$,
+  then $\fographof\Pi$ is a fonet and $\dsubstof\Pi$ is a dualizer for it.
+\end{thm}
+
+\begin{proof}
+  We have to show that none of the operations above can introduce a
+  bimatching. For cases 1--6, this is immediate. For case 7, observe
+  that there is a potential dependency from each existential binder in
+  $\graphof{\Gamma'}$ to the new $x$-binder $\single x$ in
+  $\graphof{\Gamma}$. However, observe that this $\single x$ vertex is
+  not connected to any vertex in $\graphof{\Gamma'}$, and hence no
+  such new dependency can be extended to a bimatching. That
+  $\dsubstof\Pi$ is a dualizer for $\fographof\Pi$ follows immediately
+  from the construction. Hence,  $\fographof\Pi$ is a fonet.
+\end{proof}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{From $\FOMLS$ Proofs to Fonets}
+
+There is a more direct path from a $\FOMLL$ proof $\Pi$ of a rectified
+sequent $\Gamma$ to the linked fograph $\fographof\Pi$: simply take
+the fograph $\graphof\Gamma$, and let the equivalence classes of
+$\linkingof\Pi$ be all the atom pairs that meet in an instance of
+$\ax$, and $\dsubstof\Pi$ is simply the collection of all subtitutions
+of all the instances of the $\exists$-rule in $\Pi$.
+%
+We have chosen the more cumbersome path above because it gives us a
+direct proof of Theorem~\ref{thm:MLL1->fonet}.
+%
+However, for translating $\FOMLS$ derivation into fonets, we employ
+exactly that direct path.
+
+A derivation $\Deri$ in $\FOMLS$ is \bfit{rectified} if every line in $\Deri$ is
+rectified.
+
+\begin{lemma}
+  Let  $\Deri$ be a $\FOMLS$ proof of a formula $A$. Then $\Deri$ is rectified iff $A$ is rectified.
+\end{lemma}
+
+\begin{proof}
+   The only rules involving bound
+   variables are $\forall$ and $\exists$ which both remove a binder (and
+   all occurrences of the variable it binds).
+\end{proof}
+
+Hence, for a non-rectified  $\FOMLS$ derivation $\Deri$ in $\FOMLS$ we can
+define its \bfit{rectification} $\rectif\Deri$ inductively, by recifying each
+line, proceeding step-wise
+from conclusion to premise.\footnote{As for formulas,
+the rectification of a derivation is unique up to renaming of bound
+variables.}
+
+A rectified derivation $\vlder{\FOMLS}{\Deri}{A}{\ttt}$ determines a
+substitution which maps the existential bound variables occurring in
+$A$ to the terms substituted for them in the instances of the
+$\exists$-rule in $\Phi$. We denote this substitution with
+$\dsubstof\Phi$ and call it the \bfit{dualizer} of $\Deri$. Furthermore, every atom occuring in the conclusion $A$
+must be consumed by a unique instance of the rule $\aiD$ in
+$\Deri$. This allows us to define a (partial) equivalence relation
+$\linkingof\Deri$ on the atom occurrences in $A$ by $a\linkingof\Deri
+b$ if $a$ and $b$ are consumed by the same instance of $\aiD$
+in~$\Deri$. We call $\linkingof\Deri$ the \bfit{linking} of~$\Deri$.
+
+
+
+\todo{example here}
+
+\begin{thm}\label{thm:MLS1->fonet}
+  Let $\vlder{\FOMLS}{\Deri}{A}{\ttt}$ be a recified derivation. Then
+  $\tuple{\graphof{A},\linkingof{\Deri}}$ is fonet and $\dsubstof{\Deri}$ is a dualizer for it.
+\end{thm}
+
+\begin{proof}
+  We have to show that no inference rule in $\FOMLS$ can introduce a
+  bimatching. For the rules $\forall$, $\aiD$, $\tttD$, $\fequ$, and
+  $\mix$, this is immediate, as they do not introduce new edges in the
+  cograph connecting two vertices that are each incident to a leap
+  edge. The only rules that can do that are $\sw$ and $\exists$. For the $\sw$-rule, we refer reader to~\cite{retore:???} or \cite{gug:SIS} or \cite{dissvonlutz} where this property has been shown in detail. For the rule $\exists$, a potential bimatching can only be created by a dependency between the \todo{need frame?} 
+\end{proof}
+
+\begin{remark}
+  There is an alternative path of proving Theorem~\ref{thm:MLS1->fonet}
+  by translating $\Deri$ to an $\FOMLL$-proof $\Pi$, observing that
+  this process preserves the linking and the dualizer. However, for
+  this, we have to extent the construction above to the $\cut$-rule,
+  and then show that linking and dualizer of a sequent proof $\Pi$ are
+  invariant under cut elimation. This can be done similarly to
+  unification nets in~\cite{hughes:unifn}.
+\end{remark}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{From Fonets to $\FOMLL$ Proofs}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{From Fonets to $\FOMLS$ Proofs}
+
+%% \begin{thm}
+%%   Let $\vlder{\FOMLS}{\Deri}{A}{\ttt}$ be given. Then
+%%   the graph $\graphof{\rectif A}$ forms a fonet whose linking is
+%%   $\linkingof{\rectif\Deri}$ and whose dualizer is
+%%   $\substof{\rectif\Deri}$.
+%% \end{thm}
+
+%% \begin{proof}
+%%   Apply Lemma~\ref{lem:MLS1->fonet} to the rectification $\rectif\Deri$ of $\Deri$.
+%% \end{proof}
+
+\begin{thm}
+  Let $\gC$ be a fonet with linking $\linkingof\gC$, let $\dualizer$ be a dualizer
+  for $\gC$, and let $A$ be a formula with $\graphof A=\gC$.  Then
+  there is a derivation $\vlder{\FOMLS}{\Deri}{A}{\ttt}$ such that
+  $\linkingof\gC=\linkingof{\Deri}$ and $\dualizer=\substof{\Deri}$.
+\end{thm}
+
+\begin{proof}
+  \todo{}
+\end{proof}
+
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -2114,68 +2306,6 @@ edge:
 \subsection{Translation between Unification Nets and Fonets}
 
 \todo{}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Translation between $\FOMLS$ and Fonets}
-
-A derivation $\Deri$ is \bfit{rectified} if every line in $\Deri$ is
-rectified.  For a non-rectified derivation $\Deri$ in $\FOMLS$ we can
-define its \bfit{rectification} $\rectif\Deri$ by recifying each
-line. In $\FOMLS$ this can be done inductively, proceeding step-wise
-from conclusion to premise, as the only rules involving bound
-variables are $\forall$ and $\exists$ which both remove a binder (and
-all occurrences of the variable it binds).\footnote{As for formulas,
-the rectification of a derivation is unique up to renaming of bound
-variables.}\todo{check if we need that $\Deri$ has premise $\ttt$}.
-
-A derivation $\vlder{\FOMLS}{\Deri}{A}{\ttt}$ determines a
-substitution which maps the existential bound variables occurring in
-$A$ to the terms substituted for them in the instances of the
-$\exists$-rule in $\Phi$. We denote this substitution with
-$\substof\Phi$. Furthermore, every atom occuring in the conclusion $A$
-must be consumed by a unique instance of the rule $\aiD$ in
-$\Deri$. This allows us to define a (partial) equivalence relation
-$\linkingof\Deri$ on the atom occurrences in $A$ by $a\linkingof\Deri
-b$ if $a$ and $b$ are consumed by the same instance of $\aiD$
-in~$\Deri$. We call $\linkingof\Deri$ the \bfit{linking} of~$\Deri$.
-
-
-
-\todo{example here}
-
-\begin{lemma}\label{lem:MLS1->fonet}
-  Let $\vlder{\FOMLS}{\Deri}{A}{\ttt}$ be a recified derivation. Then
-  the graph $\graphof{A}$ forms a fonet whose linking is
-  $\linkingof{\Deri}$ and whose dualizer is
-  $\substof{\Deri}$.
-\end{lemma}
-
-\begin{proof}
-  \todo{}  
-\end{proof}
-
-\begin{thm}
-  Let $\vlder{\FOMLS}{\Deri}{A}{\ttt}$ be given. Then
-  the graph $\graphof{\rectif A}$ forms a fonet whose linking is
-  $\linkingof{\rectif\Deri}$ and whose dualizer is
-  $\substof{\rectif\Deri}$.
-\end{thm}
-
-\begin{proof}
-  Apply Lemma~\ref{lem:MLS1->fonet} to the rectification $\rectif\Deri$ of $\Deri$.
-\end{proof}
-
-\begin{thm}
-  Let $\gC$ be a fonet with linking $\linkingof\gC$, let $\dualizer$ be a dualizer
-  for $\gC$, and let $A$ be a formula with $\graphof A=\gC$.  Then
-  there is a derivation $\vlder{\FOMLS}{\Deri}{A}{\ttt}$ such that
-  $\linkingof\gC=\linkingof{\Deri}$ and $\dualizer=\substof{\Deri}$.
-\end{thm}
-
-\begin{proof}
-  \todo{}
-\end{proof}
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
