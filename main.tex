@@ -504,11 +504,15 @@
 \newcommand{\subst}[2]{#1/#2}
 \newcommand{\ssubst}[2]{\sublist{\subst{#1}{#2}}}
 \newcommand{\substof}[1]{\sigma_{\!#1}}
+\newcommand{\rsubstof}[1]{\rho_{\!#1}}
+\newcommand{\dsubstof}[1]{\delta_{\!#1}}
 \newcommand{\linkingof}[1]{\sim_{#1}}
 \newcommand{\mapof}[1]{\lfloor{#1}\rfloor}
 \newcommand{\labelof}[1]{\ell(#1)}
 \newcommand{\form}[1]{\mathrm{fm}(#1)}
 \newcommand{\formtree}[1]{\mathcal{F}(#1)}
+
+\renewcommand{\phi}{\varphi}
 
 \newcommand{\unifstr}[1]{\mathcal{U}(#1)}
 \newcommand{\sqntl}[1]{\left\lceil{#1}\right\rceil}
@@ -802,7 +806,7 @@ $x\notin\set{x_1,\ldots,x_n}$.
 We write $A\sigma$ for the formula
 obtained from $A$ by applying $\sigma$, i.e., by simultaneously
 replacing all occurrences of $x_i$ by $t_i$.
-A \bfit{variable renaming} is a substitution $\sigma$ with $\sigma(x)\in\VAR$ for all variables $x$.
+A \bfit{variable renaming} is a substitution $\rho$ with $\rho(x)\in\VAR$ for all variables $x$.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1017,21 +1021,38 @@ where $\single a$ (resp. $\single x$) is a single-vertex graph whose vertex is
 \begin{proof}
   That $\graphof A$ is a logical cograph follows immediately from the definition and Theorem~\ref{thm:cograph}.
   The fact that every binder of $\graphof A$ is legal can be proved by
-structural induction on $A$:
-  \begin{itemize}
-    \item Trivial if $A$ is an atom.
-    \item The induction step uses the following fact:
-	  if $M$ is a module of $\gG$ and $M' \subseteq M$, then $M'$ is a
-          module of $\gG$ if and only if it is a module of $\gG[X]$.
-  \end{itemize}
-  \todo{}\lutz{maybe mention also fn 2-5 in Dominic's arxiv-paper}
+  structural induction on $A$.
+  %% :
+  %% \begin{itemize}
+  %%   \item Trivial if $A$ is an atom.
+  %%   \item The induction step uses the following fact:
+  %%         if $M$ is a module of $\gG$ and $M' \subseteq M$, then $M'$ is a
+  %%         module of $\gG$ if and only if it is a module of $\gG[X]$.
+  %% \end{itemize}
+  %% \todo{}\lutz{maybe mention also fn 2-5 in Dominic's arxiv-paper}
 \end{proof}
-\juihsuan{I'm still looking for a simple proof}
-\footnote{Note that $\graphof A$ is not necessarily a fograph if $A$ is not
-rectified. If $A = (\forall x. p(x)) \vlor (\forall x. q(x))$, then $\graphof A
-= \single x \ \single p(x) \ \single x \ \single q(x)$, the scope of each
-$x$-binder contains all the vertices, in particular, the two $x$-binders.}
+%%\juihsuan{I'm still looking for a simple proof}
+Note that $\graphof A$ is not necessarily a fograph if $A$ is not
+rectified. If $A = (\forall x. p(x)) \vlor (\forall x. q(x))$, then
+$\graphof A = \single x \ \single p(x) \ \single x \ \single q(x)$,
+the scope of each $x$-binder contains all the vertices, in particular,
+the two $x$-binders. On the other hand, there are non-rectified
+formulas which are translated to fographs by $\graphof\cdot$. For
+example, in $\graphof{(\exists x. p(x)) \vlor (\exists x. q(x))}$,
+both $x$-binders are legal, as they are not in each others
+scope.\todo{draw the picture}.  For this reason, we call a formula
+\bfit{clean} if it does not contain subformulas of the form $(\forall
+x.A)\vlor(\forall x.B)$ or $(\exists x.A)\vlan(\exists x.B)$, and no
+$x$-quantified formula occurs as subformula of another $x$-quantified
+formula. Then we have:
 
+\begin{lemma}
+  If $A$ is clean iff\/ $\graphof A$ is a fograph.
+\end{lemma}
+
+\begin{proof}
+  Induction on $A$, using  Theorem~\ref{thm:cograph}.
+\end{proof}
 
 We define a congruence relation $\fequ$ on formulas by the following equations:
 \begin{equation}
@@ -1123,11 +1144,11 @@ $\phi(\tilde{w})w \notin \eH$.  A directed graph homomorphism is a
 \eH$, there exists a unique $\tilde{w} \in \vG$ such that $\pair{\tilde{w},v}
 \in \eG$ and $\phi(\tilde{w}) = w$.
 
-A \bfit{fograph homomorphism} $\phi=\tuple{\phi,\substof\phi}$ is a
+A \bfit{fograph homomorphism} $\phi=\tuple{\phi,\rsubstof\phi}$ is a
 pair where $\phi\colon\gG\to\gH$ is a graph homomorphism between the
-underlying graphs, and $\substof\phi$, also called the \bfit{substitution induced by $\phi$} is a variable renaming such that
+underlying graphs, and $\rsubstof\phi$, also called the \bfit{substitution induced by $\phi$} is a variable renaming such that
 for all $v\in\vG$ we have
-$\labelof{\phi(v)}=\substof\phi(\labelof v)$. Note that this entails that
+$\labelof{\phi(v)}=\rsubstof\phi(\labelof v)$. Note that this entails that
 $\phi$ maps binders to binders and literals to literals.
 We say that a
 fograph homomorphism $\phi\colon\gG \rightarrow \gH$ is
@@ -1286,7 +1307,7 @@ decomposition result for first order logic.
   \begin{equation*}
     \vlderivation{
       \vlde{\set{\wrD,\fequ}}{}{A}{
-        \vlde{\set{\acD}}{}{A_1}{
+        \vlde{\set{\acD,\cfaD}}{}{A_1}{
           \vlde{\set{\me,\mfaD,\mexD,\fequ}}{}{A_2}{
             \vlde{\set{\exD}}{}{A_3}{
               \vlde{\set{\sw,\mix,\fequ}}{}{A_4}{
@@ -2492,7 +2513,7 @@ $Q=\PE D$ and there is a derivation $\vlder{\sysS'}{\DDeri'}{D}{C}$.
   \item $\acD$ (contracting an ordinary atom): This can trivially be lifted.
   \item $\me$ that is not in the situation of~\eqref{eq:mac}: Then now
     encoding of a quantifier is affected and the instance of $\me$ can
-    be lifted.
+    be lifted.\todo{medial permutation!!!}
   \item $\me/\acDx$ as in situation~\eqref{eq:mac}: We must have
     $R_1\cons{x}\fequ x\vlor E$ for some $E$ and $R_2\cons{x}\fequ
     x\vlor F$ for some $F$ with $R\cons{x}\fequ x\vlor E\vlor
