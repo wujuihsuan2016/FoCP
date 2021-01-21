@@ -1424,21 +1424,11 @@ In this section we show the equivalence of $\FOMLL$ and $\FOMLS$.
 
 \begin{lemma}\label{lem:shallow}
   Let $\vlinf{\rr}{}{\Scons B}{\Scons A}$ be an inference rule in
-  $\FOMLS$ other than $\aiD$ and $\forall$. Then the sequent $\sqn{\cneg A,B}$ is provable in $\FOMLL$.
+  $\FOMLS$ other than $\aiD$. Then the sequent $\sqn{\cneg A,B}$ is provable in $\FOMLL$.
 \end{lemma}
-\juihsuan{For this, we need the introduction rule of $\fff$ in $\FOMLL$
-(consider the $\aiD$ rule). But if we add it, we'll need the
-$\mathsf{ai}\downarrow$ rule to have Lemma \ref{lem:MLL1->MLS1}}
-\lutz{shit. so, we need another way to prove lemma~\ref{lem:MLS1->MLL1}, I'd like to avoid $\fff$-intro.}
-\juihsuan{This lemma holds for all the rules except $\aiD$ (we may need to
-mention that $A \fequ B \Rightarrow \ \vdash_{\FOMLL} \dual{B}, A$). The inductive
-step for $\aiD$ in the proof of Lemma \ref{lem:MLS1->MLL1} can be solved by
-replacing $t$ with $a \vlor \dual{a}$ and the $\ttt$-rule with the $\ax$
-rule followed by the $\vlor$ rule}\lutz{yes! and similar for $\forall$. Can you do that?}
-
-\lutz{actually NO! we can prove $\sqn{\fff,\ttt}$ using $\ax$ without a special rule for $\fff$. So can you please undo the changes and delete the comments?}
 \begin{proof}
-  This is a straightforward exercise that we leave to the reader. (Note that the $\ax$-rule can be applied to $\sqn{\fff,\ttt}$ in the cases of $\rr \in \set{\aiD, \faD}$.)
+  This is a straightforward exercise that we leave to the reader. (Note that the
+$\ax$-rule can be applied to $\sqn{\fff,\ttt}$ in the cases of $\rr = \faD$.)
 \end{proof}
 
 \begin{lemma}\label{lem:context}
@@ -1473,18 +1463,18 @@ rule followed by the $\vlor$ rule}\lutz{yes! and similar for $\forall$. Can you 
             \vlin{\axr}{}{\sqn{a, \cneg a}}{
               \vlhy{}}}}
       $, and we get a proof $\Pi'$ of $\sqn{\Scons{a \vlor \cneg a}}$.
-    \item $\vlinf{\faD}{}{\Scons{\forall x.\ttt}}{\Scons\ttt}$
-      In this case, we replace simultaneously in $\Pi$ the corresponding
-      occurrences of $\ttt$ with $\forall x.\ttt$ and the rule instance
-      $\vlinf{\ttt}{}{\sqn{\ttt}}{}$ with the derivation
-      $
-      \vlderivation{
-        \vlin{\forall}{}{\sqn{\forall x.\ttt}}{
-          \vlin{\axr}{}{\sqn{\ttt}}{
-            \vlhy{}}}}
-      $, and we get a proof $\Pi'$ of $\sqn{\Scons{\forall x.\ttt}}$.
-    \item $\rr \notin \set{\aiD, \faD}$ :
-      By Lemma~\ref{lem:context}, we have a $\FOMLL$ proof of
+    %\item $\vlinf{\faD}{}{\Scons{\forall x.\ttt}}{\Scons\ttt}$
+     % In this case, we replace simultaneously in $\Pi$ the corresponding
+     % occurrences of $\ttt$ with $\forall x.\ttt$ and the rule instance
+     % $\vlinf{\ttt}{}{\sqn{\ttt}}{}$ with the derivation
+     % $
+     % \vlderivation{
+     %   \vlin{\forall}{}{\sqn{\forall x.\ttt}}{
+     %     \vlin{\axr}{}{\sqn{\ttt}}{
+     %       \vlhy{}}}}
+     % $, and we get a proof $\Pi'$ of $\sqn{\Scons{\forall x.\ttt}}$.
+    \item In the other cases,
+      by Lemma~\ref{lem:context}, we have a $\FOMLL$ proof of
       $\sqn{\cneg{\Scons A},\Scons B}$. We can compose them via $\cutr$:
       \begin{equation*}
         \vliinf{\cutr}{}{\sqn{\Scons B}}{\sqn{\Scons A}}{\sqn{\cneg{\Scons
@@ -1661,8 +1651,8 @@ $ \vlderivation{
           \vlhy{}}} $
 
 
-First, if an instance $\vlinf{\weakr}{}{\sqn{\Gamma,A}}{\sqn{\Gamma}}$
- of $\weakr$ is followed by a rule in which $A$ is not in the principal
+First, if an instance of $\vlinf{\weakr}{}{\sqn{\Gamma,A}}{\sqn{\Gamma}}$
+ is followed by a rule in which $A$ is not in the principal
 formula, it can be permuted downwards.
 Otherwise, the proof can be transformed using the following rewriting rules.
 
@@ -1790,13 +1780,43 @@ by applying the $\vlor$ rule.
 \end{lemma}
 
 \begin{proof}
-  \todo{}
+  First, observe that the $\exists$ rule can be permuted downwards over all the
+other rules since $A\ssubst{x}{t}$ has the same structure as $A$ and none of the
+other rules has a premise of the form $\Scons{\exists x.A}$. It suffices now to
+prove that for all $r_1 \in \set{\forall, \aiD, \tttD}$, for all $r_2 \in
+\set{\sw, \mix, \fequ}$, we can permute $r_1$ upwards over $r_2$.
+  We show some cases here, and leave the other to the reader.
+  \begin{equation*}
+  \vlderivation{
+    \vlin{\aiD}{}{\Scons{(A \vlan (a \vlor \cneg a)) \vlor C}}{
+      \vlin{\sw}{}{\Scons{(A \vlan \ttt) \vlor C}}{
+        \vlhy{\Scons{A \vlan (\ttt \vlor C)}}}}}
+  \leadsto
+  \vlderivation{
+    \vlin{\sw}{}{\Scons{(A \vlan (a \vlor \cneg a)) \vlor C}}{
+      \vlin{\aiD}{}{\Scons{A \vlan ((a \vlor \cneg a) \vlor C)}}{
+        \vlhy{\Scons{A \vlan (\ttt \vlor C)}}}}}
+  \end{equation*}
+  \begin{equation*}
+    \vlderivation{
+      \vlin{\tttD}{}{\Scons{(A \vlor (B \vlan \ttt))}}{
+        \vlin{\mix}{}{\Scons{A \vlor B}}{
+          \vlhy{\Scons{A \vlan B}}}}}
+  \leadsto
+  \vlderivation{
+    \vlin{\mix}{}{\Scons{(A \vlor (B \vlan \ttt)}}{
+      \vlin{\tttD}{}{\Scons{A \vlan (B \vlan \ttt)}}{
+        \vlhy{\Scons{A \vlan B}}}}}
+  \end{equation*}
+
+
+  \tocheck{}
 \end{proof}
 
 \begin{lemma}\label{lem:cw-decomposition}
   For every derivation
   $\vlderivation{
-      \vlde{\set{\wrD,\acD,\me,\mfaD,\mexD,\fequ}}{}{B}{
+      \vlde{\set{\wrD,\acD,\cfaD,\me,\mfaD,\mexD,\fequ}}{}{B}{
         \vlhy{A}}}$
   there are formulas $A'$ and $B'$ such that 
   \begin{equation*}
