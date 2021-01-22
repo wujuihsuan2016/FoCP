@@ -1569,6 +1569,13 @@ other results.
   We have the following derivations:
   $$
   \vlderivation{
+    \vlin{\cD}{}{\forall x.A}{
+      \vlin{\equiv}{(x \notin fv(\forall x.A))}{(\forall x.A) \vlor (\forall x.A)}{
+        \vlin{\wrD}{}{\forall x.((\forall x.A) \vlor A)}{
+          \vlhy{\forall x.\forall x.A}}}}}
+  $$.
+  $$
+  \vlderivation{
     \vlin{\cD}{}{(A \vlor B) \vlan (C \vlor D)}{
       \vlin{\fequ}{}{((A \vlor B) \vlan (C \vlor D)) \vlor ((A \vlor B) \vlan (C \vlor D))}{
       \vlin{\wrD}{}{((A \vlor B) \vlan (C \vlor D)) \vlor ((B \vlor A) \vlan (D \vlor C))}{
@@ -1646,15 +1653,6 @@ reduce the size of derivations...}\lutz{I was thinking about that, but (i) it is
 
   Note that the instances of $\wrD,\cD$ in $\Deri_2$ are deep, but inside sequent contexts.
 
-  Suppose that $\Gamma$ is provable in $\FOLK$, then so is $\form{\Gamma}$.
-Consider a proof
-$ \vlderivation{
-        \vltrl{}{\FOLK}{\Deri}{\sqns{\form{\Gamma}}}{
-          \vlhy{\quad}}{
-          \vlhy{}}{
-          \vlhy{}}} $
-
-
 First, if an instance of $\vlinf{\weakr}{}{\sqn{\Gamma,A}}{\sqn{\Gamma}}$
  is followed by a rule in which $A$ is not in the principal
 formula, it can be permuted downwards.
@@ -1689,7 +1687,7 @@ Otherwise, the proof can be transformed using the following rewriting rules.
       \vlhy{\sqns{\Gamma}}}}}
 \leadsto
 \vlderivation{
-  \vlin{\weakr}{}{\sqns{\Gamma, A\ssubst{x}{t}}}{
+  \vlin{\weakr}{}{\sqns{\Gamma, \exists x.A}}{
     \vlhy{\sqns{\Gamma}}}}
 \end{equation*}
 \begin{equation*}
@@ -1789,7 +1787,7 @@ other rules since $A\ssubst{x}{t}$ has the same structure as $A$ and none of the
 other rules has a premise of the form $\Scons{\exists x.A}$. It suffices now to
 prove that for all $r_1 \in \set{\forall, \aiD, \tttD}$, for all $r_2 \in
 \set{\sw, \mix, \fequ}$, we can permute $r_1$ upwards over $r_2$.
-  We show some cases here, and leave the other to the reader.
+  We show some cases here, and leave the others to the reader.
   \begin{equation*}
   \vlderivation{
     \vlin{\aiD}{}{\Scons{(A \vlan (a \vlor \cneg a)) \vlor C}}{
@@ -1833,7 +1831,56 @@ prove that for all $r_1 \in \set{\forall, \aiD, \tttD}$, for all $r_2 \in
 \end{lemma}
 
 \begin{proof}
-  \todo{}
+  First, a derivation consisting of an instance of $\wrD$ followed by $\rr \in \set{\acD, \cfaD,
+\me, \mfaD, \mexD}$ can be either replaced by a derivation consisting of $\wrD$
+only or the instance of $\wrD$ can be permuted downwards. We show some cases
+here, and leave the others to the reader.
+  \begin{equation*}
+  \vlderivation{
+    \vlin{\mfaD}{}{\Scons{\forall x.(A \vlor B)}}{
+      \vlin{\wrD}{}{\Scons{(\forall x.A) \vlor (\forall x.B)}}{
+        \vlhy{\Scons{\forall x.A}}}}}
+  \leadsto
+  \vlderivation{
+    \vlin{\wrD}{}{\Scons{\forall x.(A \vlor B)}}{
+      \vlhy{\Scons{\forall x.A}}}}
+  \end{equation*}
+  \begin{equation*}
+  \vlderivation{
+    \vlin{\me}{}{\Scons{(A \vlor B) \vlan (C \vlor D)}}{
+      \vlin{\wrD}{}{\Scons{(A \vlan C) \vlor (B \vlan D)}}{
+        \vlhy{\Scons{A \vlan C}}}}}
+  \leadsto
+  \vlderivation{
+    \vlin{\wrD}{}{\Scons{(A \vlor B) \vlan (C \vlor D)}}{
+      \vlin{\wrD}{}{\Scons{(A \vlor B) \vlan C}}{
+        \vlhy{\Scons{A \vlan C}}}}}
+  \end{equation*}
+  \begin{equation*}
+  \vlderivation{
+    \vlin{\acD}{}{\Scons{a}}{
+      \vlin{\wrD}{}{\Scons{a \vlor a}}{
+        \vlhy{\Scons{a}}}}}
+  \leadsto
+  \vlderivation{
+    \vlhy{\Scons{a}}}
+  \end{equation*}
+
+  For $\rr_1 \in \set{\me, \mfaD, \mexD}$, $\rr_2 \in \set{\acD, \cfaD}$,
+$\rr_1$ can be permuted upwards over $\rr_2$ (with some $\fequ$ inserted). The only non-trivial case is shown below:
+  \begin{equation*}
+  \vlderivation{
+    \vlin{\mfaD}{}{\Scons{\forall x.(A \vlor B)}}{
+      \vlin{\cfaD}{}{\Scons{(\forall x.A) \vlor (\forall x.B)}}{
+        \vlhy{\Scons{(\forall x.\forall x.A) \vlor (\forall x.B)}}}}}
+  \leadsto
+  \vlderivation{
+    \vlin{\mfaD}{}{\Scons{\forall x.(A \vlor B)}}{
+      \vlin{\fequ}{}{\Scons{(\forall x.A) \vlor (\forall x.B)}}{
+        \vlin{\mfaD}{}{\Scons{\forall x.(\forall x.A \vlor B)}}{
+          \vlhy{\Scons{(\forall x.\forall x.A) \vlor (\forall x.B)}}}}}}
+  \end{equation*}
+  \todo{permutation with $\fequ$}
 \end{proof}
 
 We can now complete the proof of Theorems~\ref{thm:decomposition} and~\ref{thm:decompositionA}.
