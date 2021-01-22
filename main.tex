@@ -515,6 +515,7 @@
 \newcommand{\rsubstof}[1]{\rho_{#1}}
 \newcommand{\dsubstof}[1]{\delta_{#1}}
 \newcommand{\linkingof}[1]{\sim_{#1}}
+\newcommand{\linking}{\sim}
 \newcommand{\mapof}[1]{\lfloor{#1}\rfloor}
 \newcommand{\labelof}[1]{\ell(#1)}
 \newcommand{\form}[1]{\mathrm{fm}(#1)}
@@ -2011,6 +2012,17 @@ in~$\Deri$. We call $\linkingof\Deri$ the \bfit{linking} of~$\Deri$.
   unification nets in~\cite{hughes:unifn}.
 \end{remark}
 
+%% \begin{thm}
+%%   Let $\vlder{\FOMLS}{\Deri}{A}{\ttt}$ be given. Then
+%%   the graph $\graphof{\rectif A}$ forms a fonet whose linking is
+%%   $\linkingof{\rectif\Deri}$ and whose dualizer is
+%%   $\substof{\rectif\Deri}$.
+%% \end{thm}
+
+%% \begin{proof}
+%%   Apply Lemma~\ref{lem:MLS1->fonet} to the rectification $\rectif\Deri$ of $\Deri$.
+%% \end{proof}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{From Fonets to $\FOMLL$ Proofs}
@@ -2044,35 +2056,86 @@ subformula rewriting steps, to obtain a sequent $\frameof\Gamma$:
 \end{enumerate}
 The $\linkingof{\frameof\Gamma}$ consists of the pairs induced by
 $\linkingof\gC$ and the new pairs $\set{q,\dual q}$ introduced in
-step~1 above.  Now we define the \bfit{frame} of $\gC$, denoted
+step~1 above. We call $\frameof\Gamma$ the \bfit{frame} of $\Gamma$ and we define the \bfit{frame} of $\gC$, denoted
 $\frameof\gC$, as
-$\tuple{\graphof{\frameof\Gamma},\linkingof{\frameof\Gamma}}$.
+$\tuple{\graphof{\frameof\Gamma},\linkingof{\frameof\Gamma}}$, and we immediately have the following:
 
 \begin{lemma}\label{lem:frame}
   A linked fograph $\gC$ induces a bimatching iff its frame $\frameof\gC$ induces a bimatching.
 \end{lemma}
 
-Note that the linking $\lambda_m$ is a valid $\MLLm$ proof net.
+Let $\Gamma$ be a propositional sequent and $\linkingof\Gamma$ be a
+linking for $\graphof\Gamma$. A conjunction formula $A\vlan B$ is
+\bfit{splitting} or a \bfit{splitting tensor} if
+$\Gamma=\Gamma',A\vlan B,\Gamma''$ and
+$\mathord{\linkingof\Gamma}=\mathord{\linking_1}\cup\linking_2$, such
+that $\linking_1$ is a linking for $\graphof{\Gamma',A}$ and
+$\linking_2$ is a linking for $\graphof{B,\Gamma''}$, i.e., removing
+the $\vlan$ from $A\vlan B$ splits the linked fograph $\tuple{
+  \graphof\Gamma,\linkingof\Gamma}$ into two fographs.
+We say that $\tuple{
+  \graphof\Gamma,\linkingof\Gamma}$ is \bfit{mixed} iff 
+$\Gamma=\Gamma',\Gamma''$ and
+$\mathord{\linkingof\Gamma}=\mathord{\linking_1}\cup\linking_2$, such
+that $\linking_1$ is a linking for $\graphof{\Gamma'}$ and
+$\linking_2$ is a linking for $\graphof{\Gamma''}$.
+Finally, $\tuple{
+  \graphof\Gamma,\linkingof\Gamma}$ is \bfit{splittable} if it is mixed or has a splitting tensor.
 
+The purpose of introducing the frame is the following theorem.
 
-We define the \bfit{frame} of a linked fograph to be the linked cograph defined as follows:
+\begin{thm}
+  \label{thm:splitting}
+  Let $\Gamma$ be a propositional sequent containing only atoms
+  and $\vlan$-formulas, and $\linkingof\Gamma$ be a
+  linking for $\graphof\Gamma$. If $\tuple{
+    \graphof\Gamma,\linkingof\Gamma}$ does not induce a bimatching then it is splittable.
+\end{thm}
 
+This is the well-know splitting-tensor-theorem
+\cite{girard:87,danos:regnier:89}, adapted for the presence of
+$\mix$. In the setting of linked cographs, it has first been proved by
+Retor\'e~\cite{retore:03,retore:??}\lutz{that ``handsome'' report he mentioned in
+  the talk}. We use it now for our sequentialization:
 
+\begin{thm}
+  \label{thm:fonet->MLL}
+  Let $\tuple{\gC,\linkingof\gC}$ be a fonet, and let $\Gamma$ be a sequent with $\graphof\Gamma=\gC$. Then there is an
+  $\FOMLL$-proof $\Pi$ of $\Gamma$, such that
+  $\fographof\Pi=\tuple{\gC,\linkingof\gC}$.
+\end{thm}
+
+\begin{proof}
+  Let $\dsubstof\gC$ be the dualizer of $\tuple{\gC,\linkingof\gC}$.  We
+  proceed by induction on the size of $\Gamma$ (i.e., the number of
+  symbols in it, without counting the commas). If $\Gamma$ contains a
+  formula with $\vlor$-root, or a formula $\forall x.A$, we can
+  immediately apply the $\vlor$-rule or the $\forall$-rule of $\FOMLL$
+  and proceed by induction hypothesis. If $\Gamma$ contains a formula
+  $\exists x.A$ such that the correponding binder $\single x$ in $\gC$
+  has no dependency, then we can apply the $\exists$-rule, chosing the
+  term $t$ as determined by $\dsubstof\gC$, and proceed by induction
+  hypothesis.  Hence, we can now assume that $\Gamma$ contains only
+  atoms, $\vlan$-formulas, or formulas of shape $\exists x.A$, where
+  the vertex $\single x$ has dependencies. Then the frame
+  $\tuple{\graphof{\frameof\Gamma},\linkingof{\frameof\Gamma}}$ does
+  not induce a bimatching and contains only atoms and
+  $\vlan$-formulas, and is therefore splittable. If it is mixed, then
+  we can apply the $\mix$-rule to $\Gamma$ and apply the induction
+  hypothesis to the two components. If it is not mixed then there must
+  be a splitting tensor. If the splitting $\vlan$ is already in
+  $\Gamma$, then we can apply the $\vlan$-rule and proceed by
+  induction hypothesis on the two branches. However, if
+  $\frameof\Gamma$ is not mixed and all splitting tensors are
+  $\vlan$-formulas introduced in step~1 of the frame construction,
+  then we get a contradiction as in that case there must be a $\vlor$- or $\forall$-formula in $\Gamma$.
+  \lutz{can anyone give a good argument here?}
+\end{proof}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{From Fonets to $\FOMLS$ Proofs}
 
-%% \begin{thm}
-%%   Let $\vlder{\FOMLS}{\Deri}{A}{\ttt}$ be given. Then
-%%   the graph $\graphof{\rectif A}$ forms a fonet whose linking is
-%%   $\linkingof{\rectif\Deri}$ and whose dualizer is
-%%   $\substof{\rectif\Deri}$.
-%% \end{thm}
-
-%% \begin{proof}
-%%   Apply Lemma~\ref{lem:MLS1->fonet} to the rectification $\rectif\Deri$ of $\Deri$.
-%% \end{proof}
 
 \begin{thm}
   Let $\gC$ be a fonet with linking $\linkingof\gC$, let $\dualizer$ be a dualizer
