@@ -77,6 +77,7 @@
 
 
 % *** PACKAGES *** %
+%\usepackage{fdsymbol}
 
 \usepackage{xifthen}
 \usepackage[utf8]{inputenc}
@@ -84,6 +85,7 @@
 \usepackage{ebproof}
 \usepackage{amsmath}
 \usepackage{ebproof}
+%\usepackage{stmaryrd}
 \usepackage{virginialake}
 \vlstemheight=12pt
 
@@ -500,6 +502,8 @@
 \newcommand{\fographof}[1]{\llbracket#1\rrbracket}
 \newcommand{\graphof}[1]{\llbracket#1\rrbracket}
 %\newcommand{\graphof}[1]{\mathbb{G}(#1)}
+
+\newcommand{\frameof}[1]{#1^\star}
 
 \newcommand{\compl}[1]{#1^\complement}
 %\newcommand{\sublist}[1]{\set{#1}}
@@ -1990,6 +1994,48 @@ in~$\Deri$. We call $\linkingof\Deri$ the \bfit{linking} of~$\Deri$.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{From Fonets to $\FOMLL$ Proofs}
+
+Now we are going to show how from a given fonet
+$\tuple{\gC,\linkingof\gC}$ we can construct a sequent proof $\Pi$ in
+$\FOMLL$ such that $\fographof\Pi=\tuple{\gC,\linkingof\gC}$. In the
+proof net literature, this operation is also called
+\emph{sequentialization}. The basic idea behind our sequentialization
+is to construct a proposional linked cograph, called the \bfit{frame}~\cite{hughes:unifn}
+of $\gC$, in which the dependencies between the binders in $\gC$ are
+encoded as links. Then we can apply the \emph{splitting tensor
+theorem} to the frame, and then reconstruct the sequent proof $\Pi$.
+
+More formally, let $\Gamma$ be a sequent with $\graphof\Gamma=\gC$, to which we
+exhaustively apply the following
+subformula rewriting steps, to obtain a sequent $\frameof\Gamma$:
+\begin{enumerate}
+\item {\bf Encode dependencies as fresh links.} For each dependency
+  $\pair{\single x,\single y}$ in $\gC$, with corresponding
+  subformulas $\exists x A$ and $\forall y B$ in $\Gamma$, we pick a
+  fresh (nullary) predicate symbol $q$, and then replace $\exists
+  x. A$ by $q \cand \exists x. A$, and replace $\forall y. B$ by
+  $\dual q \cor \forall y. B$.
+\item {\bf Erase quantifiers.} After step 1, remove all the
+  quantifiers, i.e., replace $\exists x.A$ by $A$ and replace $\forall
+  y.B$ by $B$ everywhere.
+\item {\bf Simplify atoms.} After step 2, replace every predicate
+  $p(t_1 \cdots t_n)$ (resp. $\dual p(t_1 \cdots t_n)$) with a nullary
+  predicate symbol $p$ (resp.~$\dual p$)
+\end{enumerate}
+The $\linkingof{\frameof\Gamma}$ consists of the pairs induced by
+$\linkingof\gC$ and the new pairs $\set{q,\dual q}$ introduced in
+step~1 above.  Now we define the \bfit{frame} of $\gC$, denoted
+$\frameof\gC$, as
+$\tuple{\graphof{\frameof\Gamma},\linkingof{\frameof\Gamma}}$.
+
+\begin{lemma}\label{lem:frame}
+  A linked fograph $\gC$ induces a bimatching iff its frame $\frameof\gC$ induces a bimatching.
+\end{lemma}
+
+Note that the linking $\lambda_m$ is a valid $\MLLm$ proof net.
+
+
+We define the \bfit{frame} of a linked fograph to be the linked cograph defined as follows:
 
 
 
