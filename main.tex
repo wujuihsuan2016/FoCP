@@ -2025,12 +2025,14 @@ A rectified derivation $\vlder{\FOMLS}{\Deri}{A}{\ttt}$ determines a
 substitution which maps the existential bound variables occurring in
 $A$ to the terms substituted for them in the instances of the
 $\exists$-rule in $\Phi$. We denote this substitution with
-$\dsubstof\Phi$ and call it the \bfit{dualizer} of $\Deri$. Furthermore, every atom occuring in the conclusion $A$
-must be consumed by a unique instance of the rule $\aiD$ in
-$\Deri$. This allows us to define a (partial) equivalence relation
-$\linkingof\Deri$ on the atom occurrences in $A$ by $a\linkingof\Deri
-b$ if $a$ and $b$ are consumed by the same instance of $\aiD$
-in~$\Deri$. We call $\linkingof\Deri$ the \bfit{linking} of~$\Deri$.
+$\dsubstof\Phi$ and call it the \bfit{dualizer} of
+$\Deri$. Furthermore, every atom occuring in the conclusion $A$ must
+be consumed by a unique instance of the rule $\aiD$ in $\Deri$. This
+allows us to define a (partial) equivalence relation $\linkingof\Deri$
+on the atom occurrences in $A$ by $a\linkingof\Deri b$ if $a$ and $b$
+are consumed by the same instance of $\aiD$ in~$\Deri$. We call
+$\linkingof\Deri$ the \bfit{linking} of~$\Deri$, and define
+$\fographof\Deri=\tuple{\graphof{A},\linkingof{\Deri}}$.
 
 
 
@@ -2038,7 +2040,7 @@ in~$\Deri$. We call $\linkingof\Deri$ the \bfit{linking} of~$\Deri$.
 
 \begin{thm}\label{thm:MLS1->fonet}
   Let $\vlder{\FOMLS}{\Deri}{A}{\ttt}$ be a recified derivation. Then
-  $\tuple{\graphof{A},\linkingof{\Deri}}$ is fonet and $\dsubstof{\Deri}$ is a dualizer for it.
+  $\fographof\Deri$ is a fonet and $\dsubstof{\Deri}$ a dualizer for it.
 \end{thm}
 
 \begin{proof}
@@ -2146,7 +2148,7 @@ Retor\'e~\cite{retore:03,retore:??}\lutz{that ``handsome'' report he mentioned i
   the talk}. We use it now for our sequentialization:
 
 \begin{thm}
-  \label{thm:fonet->MLL}
+  \label{thm:fonet->MLL1}
   Let $\tuple{\gC,\linkingof\gC}$ be a fonet, and let $\Gamma$ be a sequent with $\graphof\Gamma=\gC$. Then there is an
   $\FOMLL$-proof $\Pi$ of $\Gamma$, such that
   $\fographof\Pi=\tuple{\gC,\linkingof\gC}$.
@@ -2183,17 +2185,34 @@ Retor\'e~\cite{retore:03,retore:??}\lutz{that ``handsome'' report he mentioned i
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{From Fonets to $\FOMLS$ Proofs}
 
+We can now straightforwardly obtain the same result for $\FOMLS$:
 
 \begin{thm}
-  Let $\gC$ be a fonet with linking $\linkingof\gC$, let $\dualizer$ be a dualizer
-  for $\gC$, and let $A$ be a formula with $\graphof A=\gC$.  Then
-  there is a derivation $\vlder{\FOMLS}{\Deri}{A}{\ttt}$ such that
-  $\linkingof\gC=\linkingof{\Deri}$ and $\dualizer=\substof{\Deri}$.
+  \label{thm:fonet->MLS1}
+  Let $\tuple{\gC,\linkingof\gC}$ be a fonet, and let $C$ be a formula with $\graphof C=\gC$. Then there is
+  a derivation $\vlder{\FOMLS}{\Deri}{C}{\ttt}$ such that $\fographof\Deri=\tuple{\gC,\linkingof\gC}$.
+  %% an
+  %% $\FOMLL$-proof $\Pi$ of $\Gamma$, such that
+  %% $\fographof\Pi=\tuple{\gC,\linkingof\gC}$.
+  %% Let $\gC$ be a fonet with linking $\linkingof\gC$, let $\dualizer$ be a dualizer
+  %% for $\gC$, and let $A$ be a formula with $\graphof A=\gC$.  Then
+  %% there is a derivation $\vlder{\FOMLS}{\Deri}{A}{\ttt}$ such that
+  %% $\linkingof\gC=\linkingof{\Deri}$ and $\dualizer=\substof{\Deri}$.
 \end{thm}
 
 \begin{proof}
-  \todo{}
+  We apply Theorem~\ref{thm:fonet->MLL1} to obtain a sequent
+  proof~$\Pi$ of $\sqn C$ with
+  $\fographof\Pi=\tuple{\gC,\linkingof\gC}$. Then we apply
+  Lemma~\ref{lem:MLL1->MLS1}, observing that the translation from
+  $\FOMLL$ to $\FOMLS$ preserves linking and dualizer.
 \end{proof}
+
+\begin{remark}
+  Note that it is also possible to do a direct ``sequentialization''
+  into the deep inference system $\FOMLS$, using the techniques
+  presented in \cite{dissvonlutz} and \cite{str:MLL2}.
+\end{remark}
 
 
 
