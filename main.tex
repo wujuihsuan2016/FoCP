@@ -1304,6 +1304,7 @@ general (non-atomic) version of the contraction rule:
 
 
 \section{Main Results}
+\label{sec:main}
 
 We are now ready to see the main results of this paper. We only state
 them here and give the proofs in the later sections of the paper. The
@@ -1353,17 +1354,19 @@ Let us now establish the connection between derivations in $\FOKS$ and
 combinatorial proofs.
 
 \begin{thm}\label{thm:CP-DI}
-  Let $A$ be a rectified formula, and assume we have a combinatorial proof $\phi\colon\gC\to\graphof A$. Then there is a derivation
+  Let  $\phi\colon\gC\to\gA$ be a combinatorial proof and let $A$ be a formula with $\gA=\graphof A$. Then there is a derivation
   \begin{equation}
     \label{eq:decom}
     \vlderivation{
-      \vlde{\set{\wrD,\acD,\me,\mfaD,\mexD,\fequ}}{\Deri_2}{A}{
+      \vlde{\set{\wrD,\acD,\cfaD,\me,\mfaD,\mexD,\fequ}}{\Deri_2}{A}{
         \vlde{\FOMLS}{\Deri_1}{A'}{
           \vlhy{\ttt}}}}
   \end{equation}
-  for some $A'$ such that $\graphof{\rectif{A'}}=\gC$. Conversely,
+  for some $A'\fequ C\substof\phi$ where $C$ is a formula with $\graphof
+  C=\gC$ and $\substof\phi$ is the variable renaming substitution induced by~$\phi$.  Conversely,
   whenever we have a derivation as in~\eqref{eq:decom} above, then
-  there is a combinatorial proof $\phi\colon\gC\to\graphof A$ such that $\gC=\graphof{\rectif{A'}}$.
+  there is a combinatorial proof $\phi\colon\gC\to\graphof A$ such
+  that $\gC=\graphof{\rectif{A'}}$.
 \end{thm}
 
 Furthermore, in the proof of Theorem~\ref{thm:CP-DI}, we will see that
@@ -1394,6 +1397,7 @@ in~\cite{hughes:fopws}.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section{Translating between $\FOLK$ and $\FOKS$}
+\label{sec:LK1-KS1}
 
 In this section we prove Theorems~\ref{thm:KS1},
 \ref{thm:decomposition}, and~\ref{thm:decompositionA}, mainly by
@@ -1897,6 +1901,7 @@ We can now complete the proof of Theorems~\ref{thm:decomposition} and~\ref{thm:d
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section{Fonets and Linear Proofs}
+\label{sec:linear}
 
 %%\todo{}
 
@@ -2189,6 +2194,7 @@ is to construct a propositional linked cograph, called the \bfit{frame}~\cite{hu
 of $\gC$, in which the dependencies between the binders in $\gC$ are
 encoded as links. Then we can apply the \emph{splitting tensor
 theorem} to the frame, and then reconstruct the sequent proof $\Pi$.
+\lutz{if the proof of thm \ref{thm:MLS1->fonet} is verified, we can delete the frame-def here}
 
 More formally, let $\Gamma$ be a sequent with $\graphof\Gamma=\gC$, to which we
 exhaustively apply the following
@@ -2328,7 +2334,7 @@ We can now straightforwardly obtain the same result for $\FOMLS$:
 
 
 \section{Skew Bifibrations and Resource Management}
-
+\label{sec:skew}
 
 In this section we establish the relation between skew bifibrations and derivations  in
 $\set{\wrD,\acD,\cfaD,\me,\mfaD,\mexD,\fequ}$. However, 
@@ -2388,12 +2394,12 @@ maps define graph homomorphisms. Do we need to talk about the contexts
 $\Sconhole$ here (induced maps act clearly as the identity on contexts but we need them for the composition)?}
 \lutz{For the context, I aleady say it is the identity. For the homom, it comes later}
 
-\begin{lemma}
+\begin{lemma}\label{lem:cw->rectif}
   Let $\downsmash{\vlderivation{
-    \vlde{\set{\wrD,\acD,\me,\mfaD,\mexD,\fequ}}{\Deri}{B}{
+    \vlde{\set{\wrD,\acD,\cfaD,\me,\mfaD,\mexD,\fequ}}{\Deri}{B}{
       \vlhy{A}}}}$ be a derivation. Then there is a recified derivation
   $\vlderivation{
-    \vlde{\set{\wrD,\rectif\acD,\me,\rectif\mfaD,\rectif\mexD,\fequ}}{\rectif\Deri}{\rectif
+    \vlde{\set{\wrD,\rectif\acD,\rectif\cfaD,\me,\rectif\mfaD,\rectif\mexD,\fequ}}{\rectif\Deri}{\rectif
       B}{ \vlhy{\rectif A}}}$, such that the induced maps
   $\mapof\Deri\colon\graphof{A}\to\graphof{B}$ and
   $\mapof{\rectif\Deri}\colon\graphof{\rectif A}\to\graphof{\rectif
@@ -2505,7 +2511,7 @@ into an instance of the same rule. It's trivial but may be worth mentioning.}\lu
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{From Skew Bifibrations to Contraction and Weakening}
 
-\begin{lemma}\label{skew->cw}
+\begin{lemma}\label{lem:skew->cw}
   Let $\gA$ and $\gB$ be fographs, let $\phi\colon\gA\to\gB$ be a skew
   bifibration, and let $A$ and $B$ be formulas with $\graphof A=\gA$
   and $\graphof B=\gB$. Then there are derivations
@@ -2530,7 +2536,7 @@ places of atoms).  We say that $\DDeri$ can be \bfit{lifted} to
 $\sysS'$ if there are (first-order) formulas $C$ and $D$ such that $P=\PE C$ and
 $Q=\PE D$ and there is a derivation $\vlder{\sysS'}{\DDeri'}{D}{C}$.
 
-\begin{proof}[Proof of Lemma~\ref{skew->cw}]
+\begin{proof}[Proof of Lemma~\ref{lem:skew->cw}]
   By Lemma~\ref{lem:PE} we have $\gA=\graphof{\PE A}$ and
   $\gB=\graphof{\PE B}$.  Let $\vB'\subseteq\vB$ be the image of
   $\phi$, and let $\gB_1$ be the subgraph of $\gB$ induced by
@@ -2727,7 +2733,75 @@ is a propositional variable.}\lutz{shit. (you mean a ``first order variable'') t
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\section{Summary and Proofs of Main Results}
+\section{Summary and Proof of Main Result}
+\label{sec:summary}
+
+The only theorem of Section~\ref{sec:main} that has not yet been
+proved is Theorem~\ref{thm:CP-DI} establishing the full correspondence
+between decomposed proofs in $\FOKS$ and combinatorial proofs. We show
+the proof here, by summarizing the results of the previous two
+Sections~\ref{sec:linear} and~\ref{sec:skew}.
+
+\begin{proof}[Proof of Theorem~\ref{thm:CP-DI}]
+  First, asssume we have a combinatorial proof $\phi\colon\gC\to\gA$
+  be a combinatorial proof and a formula $A$ with $\gA=\graphof A$.
+  Let $C$ be a formula with $\graphof C=\gC$, and let $\substof\phi$
+  be the substitution induced by $\phi$.
+  By Lemma~\ref{lem:skew->cw} there is a derivation
+  \begin{equation*}
+    \vlder{\set{\wrD,\acD,\cfaD,\me,\mfaD,\mexD,\fequ}}{\Deri_2}{A}{C\substof\phi}
+  \end{equation*}
+  Since $\gC$ is a fonet, we have by Theorem~\ref{thm:fonet->MLS1} a derivation
+  \begin{equation*}
+    \vlder{\FOMLS}{\Deri'_1}{C}{\ttt}
+  \end{equation*}
+  This derivation remains valid if we apply the substitution
+  $\substof\phi$ to every line in $\Deri'_1$, yielding the derivation
+  $\Deri_1$ of $C\substof\phi$ as desired.
+
+  Conversely, assume we have a decomposed derivation
+  \begin{equation}
+    \label{eq:decom}
+    \vlderivation{
+      \vlde{\set{\wrD,\acD,\me,\mfaD,\mexD,\fequ}}{\Deri_2}{A}{
+        \vlde{\FOMLS}{\Deri_1}{A'}{
+          \vlhy{\ttt}}}}
+  \end{equation}
+  Then we can transform $\Deri_1$ into a recified form
+  $\rectif\Deri_1$, proving $\rectif A'$. By
+  Theorem~\ref{thm:MLS1->fonet}, the linked fograph
+  $\fographof{\rectif\Deri_1}=\tuple{\fographof{\rectif
+      A'},\linkingof{\rectif\Deri_1}}$ is a fonet.  Then, by
+  Lemma~\ref{lem:cw->rectif}, there is a rectified derivation
+  $\vlderivation{
+    \vlde{\set{\wrD,\rectif\acD,\rectif\cfaD,\me,\rectif\mfaD,\rectif\mexD,\fequ}}{\rectif{\Deri_2}}{\rectif
+      A}{ \vlhy{\rectif{A'}}}}$ whose induced map
+  $\mapof{\rectif{\Deri_2}}\colon\graphof{\rectif{A'}}\to\graphof{\rectif
+    A}$ is the same a the induced map
+  $\mapof{\Deri_2}\colon\graphof{A'}\to\graphof{A}$ of $\Deri_2$. By
+  Lemma~\ref{lem:cw->skew}, this map is a skew bifibration. Hence, we have a combinatorial proof \lutz{shit, something's wrong...}
+    
+
+  
+  %% Let $\downsmash{\vlderivation{
+  %%   \vlde{\set{\wrD,\acD,\cfaD,\me,\mfaD,\mexD,\fequ}}{\Deri}{B}{
+  %%     \vlhy{A}}}}$ be a derivation. Then there is a recified derivation
+  %% $\vlderivation{
+  %%   \vlde{\set{\wrD,\rectif\acD,\rectif\cfaD,\me,\rectif\mfaD,\rectif\mexD,\fequ}}{\rectif\Deri}{\rectif
+  %%     B}{ \vlhy{\rectif A}}}$, such that the induced maps
+  %% $\mapof\Deri\colon\graphof{A}\to\graphof{B}$ and
+  %% $\mapof{\rectif\Deri}\colon\graphof{\rectif A}\to\graphof{\rectif
+  %%   B}$ are equal up to a variable renaming of the vertex labels.
+
+  
+  
+  %% for some $A'\fequ C\sigma$ where $C$ is a formula with $\graphof
+  %% C=\gC$ and $\sigma$ is a variable renaming substitution.  Conversely,
+  %% whenever we have a derivation as in~\eqref{eq:decom} above, then
+  %% there is a combinatorial proof $\phi\colon\gC\to\graphof A$ such
+  %% that $\gC=\graphof{\rectif{A'}}$.
+    
+\end{proof}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
