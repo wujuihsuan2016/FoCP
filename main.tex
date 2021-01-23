@@ -1454,20 +1454,14 @@ $\ax$-rule can be applied to $\sqn{\fff,\ttt}$ in the cases of $\rr = \faD$.)
   We proceed by induction on the number of inference steps in the
   proof of $C$ in $\FOMLS$. Consider the bottommost rule instance
   $\vlinf{\rr}{}{\Scons B}{\Scons A}$. By induction hypothesis we have
-  a $\FOMLL$ proof $\Proof$ of $\sqn{\Scons A}$.
-  We now make a case analysis on $\rr$:
-  \begin{itemize}
-    \setlength\itemsep{.5em}
-    \item $\vlinf{\aiD}{}{\Scons{a\vlor\cneg a}}{\Scons\ttt}$ :
-      In this case, we replace simultaneously in $\Pi$ the corresponding
-      occurrences of $\ttt$ with $a \vlor \cneg a$ and the rule instance
-      $\vlinf{\ttt}{}{\sqn{\ttt}}{}$ with the derivation
-      $
-        \vlderivation{
-          \vlin{\vlor}{}{\sqn{a \vlor \cneg a}}{
-            \vlin{\axr}{}{\sqn{a, \cneg a}}{
-              \vlhy{}}}}
-      $, and we get a proof $\Pi'$ of $\sqn{\Scons{a \vlor \cneg a}}$.
+  a $\FOMLL$ proof $\Proof$ of $\sqn{\Scons A}$. If $\rr$ is
+  $\upsmash{\vlinf{\aiD}{}{\Scons{a\vlor\cneg a}}{\Scons\ttt}}$, we replace
+  in $\Pi$ all corresponding occurrences of $\ttt$ with
+  $a \vlor \cneg a$ and the rule instance
+  $\vlinf{\ttt}{}{\sqn{\ttt}}{}$ with the derivation $ \vlderivation{
+    \vlin{\vlor}{}{\sqn{a \vlor \cneg a}}{ \vlin{\axr}{}{\sqn{a, \cneg
+          a}}{ \vlhy{}}}} $. This gives us a proof of
+  $\sqn{\Scons{a \vlor \cneg a}}$. In all other cases, 
     %\item $\vlinf{\faD}{}{\Scons{\forall x.\ttt}}{\Scons\ttt}$
      % In this case, we replace simultaneously in $\Pi$ the corresponding
      % occurrences of $\ttt$ with $\forall x.\ttt$ and the rule instance
@@ -1478,16 +1472,13 @@ $\ax$-rule can be applied to $\sqn{\fff,\ttt}$ in the cases of $\rr = \faD$.)
      %     \vlin{\axr}{}{\sqn{\ttt}}{
      %       \vlhy{}}}}
      % $, and we get a proof $\Pi'$ of $\sqn{\Scons{\forall x.\ttt}}$.
-    \item In the other cases,
-      by Lemma~\ref{lem:context}, we have a $\FOMLL$ proof of
+      by Lemmas~\ref{lem:shallow} and~\ref{lem:context}, we have a $\FOMLL$ proof of
       $\sqn{\cneg{\Scons A},\Scons B}$. We can compose them via $\cutr$:
       \begin{equation*}
         \vliinf{\cutr}{}{\sqn{\Scons B}}{\sqn{\Scons A}}{\sqn{\cneg{\Scons
           A},\Scons B}}
       \end{equation*}
       and then apply Theorem~\ref{thm:cutelim}.
-  \end{itemize}
-  \tocheck{}
   \end{proof}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
