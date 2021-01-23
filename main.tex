@@ -2110,8 +2110,7 @@ $\frameof\gC$, as
 $\tuple{\graphof{\frameof\Gamma},\linkingof{\frameof\Gamma}}$, and we immediately have the following:
 
 \begin{lemma}\label{lem:frame}
-  A linked fograph $\gC$ induces a bimatching iff its frame $\frameof\gC$ induces a bimatching.
-\juihsuan{induces a bimatching $\rightarrow$ has an induced bimatching}
+  A linked fograph $\gC$ induces a bimatching iff its frame $\frameof\gC$ has an induced bimatching.
 \end{lemma}
 
 Let $\Gamma$ be a propositional sequent and $\linkingof\Gamma$ be a
@@ -2145,8 +2144,7 @@ The purpose of introducing the frame is the following theorem.
 This is the well-know splitting-tensor-theorem
 \cite{girard:87,danos:regnier:89}, adapted for the presence of
 $\mix$. In the setting of linked cographs, it has first been proved by
-Retor\'e~\cite{retore:03,retore:99}\lutz{that ``handsome'' report he mentioned in
-  the talk}\juihsuan{added. Check if it's the good one.}. We use it now for our sequentialization:
+Retor\'e~\cite{retore:03,retore:99}. We use it now for our sequentialization:
 
 \begin{thm}
   \label{thm:fonet->MLL1}
@@ -2213,301 +2211,17 @@ We can now straightforwardly obtain the same result for $\FOMLS$:
   Note that it is also possible to do a direct ``sequentialization''
   into the deep inference system $\FOMLS$, using the techniques
   presented in \cite{dissvonlutz} and \cite{str:MLL2}.
-\juihsuan{missing reference added, check if it's the right one.}
 \end{remark}
 
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\iffalse
-
-\subsection{Unification Nets}
-
-\todo{}
-
-In this paragraph, we associate each formula $A$ with its \bfit{formula tree}
-$\formtree{A}$, a directed
-tree with leaves labelled by atoms, internal nodes labelled by connectives and
-quantifiers, and edges directed from leaves to the root. For a sequent
-$\Gamma = A_1, \ldots, A_n$, we denote with $\formtree{\Gamma}$, the forest
-formed by $\formtree{A_1}, \ldots, \formtree{A_n}$, i.e., the disjoint union of
-$\formtree{A_i}$'s. The \bfit{roots} of $\formtree{\Gamma}$ are the roots of
-${A_i}$'s
-
-Let $\Gamma$ be a sequent in $\FOMLL$. Consider the forest
-$\formtree{\Gamma}$. A \bfit{link} on $\Gamma$ is a pair of
-leaves whose atoms are pre-dual. A \bfit{linking} $\lambda$ on $\Gamma$ is a set
-of
-disjoint links such that each leaf of $\formtree{\Gamma}$ is either labelled by $\ttt$ or
-in exactly one link. Similar to the set of links in linked fographs, a linking can be seen as a
-unification problem, and a \bfit{dualizer} $\dualizer$ of the linking $\lambda$ is an assignment
-unifying all the links in $\lambda$. There exists a \bfit{most general dualizer}
- of $\lambda$ if $\lambda$ has a dualizer. \juihsuan{Now I use the same terminology as for linked fographs}\lutz{use $\delta$ for the dualizer (or even better, make it a macro)}
-A \bfit{dependency} is a pair $(\single \exists x, \single \forall y)$ of nodes
-such that the most general dualizer assigns to $x$ a term containing $y$.
-
-Let $\lambda$ is a linking on $\Gamma$ that has a dualizer.
-The \bfit{unification structure} $\unifstr{\lambda}$
-associated with $\lambda$ is the forest $\formtree{\Gamma}$ together with an undirected
-edge between leaves $l$ and $l'$ for every link $\{l, l'\}$ in $\lambda$ and a
-directed edge from $\single \exists x$ to $\single \forall y$ for every
-dependency $(\single \exists x, \single \forall y)$.
-
-A \bfit{switching graph} of a unification structure $\unifstr{\lambda}$ is any
-derivative of $\unifstr{\lambda}$ obtained by keeping only one edge into each $\cor$
-and $\forall$ and undirecting remaining edges. A linking is \bfit{correct} if it
-is unifiable and all of the switching graphs of its associated unification
-structure are acyclic.
-
-\begin{definition}
-  A \bfit{unification net} on a sequent $\Gamma$ is a correct linking on $\Gamma$.
-\end{definition}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Translation between Unification Nets and $\FOMLL$}
-
-\todo{}
-\begin{thm}\label{thm:MLL1->Unet}
-  If a sequent is provable in $\FOMLL$, then there exists a unification net
-  on it.
-\end{thm}
-
-\begin{proof}
-  We proceed by induction on the proof of $\sqn \Gamma$ in $\FOMLL$, making a
-  case analysis on the bottommost rule instance:
-  \begin{itemize}
-    \setlength\itemsep{.5em}
-    \item $\vlinf{\axr}{}{\sqn{a,\cneg a}}{}$ : the linking $\{a, \dual{a}\}$ is correct.
-    \item $\vlinf{\ttt}{}{\sqn{\ttt}}{}$ : the empty linking is correct.
-    \item $\vliinf{\mixr}{}{\sqn{\Gamma,\Delta}}{\sqn\Gamma}{\sqn\Delta}$ :
-	  By induction hypothesis, there is a correct linking on
-	  $\Gamma$ and another one on $\Delta$, their union giving a
-	  correct linking on $\Gamma, \Delta$.
-    \item $\vlinf{\vlor}{}{\sqn{\Gamma,A\vlor B}}{\sqn{\Gamma,A,B}}$ : By
-	  induction hypothesis, there is a correct linking on $\Gamma, A, B$,
-	  and it is correct on $\Gamma, A \vlor B$ as well.
-    \item $\vliinf{\vlan}{}{\sqn{\Gamma,A\vlan B, \Delta}}{\sqn{\Gamma,A}}{\sqn{B,\Delta}}$ :
-          By induction hypothesis, there is a correct linking on $\Gamma, A$ and
-	  another one on $B, \Delta$, their union giving a correct linking on
-          $\Gamma,A \vlan B, \Delta$.
-    \item $\vlinf{\exists}{}{\sqn{\Gamma,\exists x.A}}
-	  {\sqn{\Gamma,A\ssubst{x}{t}}}$ : By induction hypothesis, there is a
-	  correct linking $\lambda$ on $\Gamma, A\ssubst{x}{t}$.
-	  For each atom in $\Gamma, A \ssubst{x}{t}$, there is a corresponding
-	  atom in $\Gamma, \exists x.A$. There is therefore a linking $\lambda'$
-          on $\Gamma, \exists x.A$ obtained from $\lambda$ via this
-	  correspondence, and it is not difficult to check that $\lambda'$ is
-	  correct as well.
-    \item $\vlinf{\forall}{\text{($x$ not free in
-	  $\Gamma$)}}{\sqn{\Gamma,\forall x.A}}{\sqn{\Gamma,A}}$ : By induction
-          hypothesis, there is a correct linking on $\Gamma, A$, and it is easy
-	  to see that it is a correct linking on $\Gamma, \forall x.A$ as well.
-  \end{itemize}
-  This allows to define a translation $\sqntl\cdot$ from proofs in $\FOMLL$ to unification
-  nets.
-\end{proof}
-
-\begin{thm}\label{thm:sqntl}
-  Any unification net can be obtained via the translation $\sqntl\cdot$ given in Theorem
-  \ref{thm:MLL1->Unet}.
-\end{thm}
-
-To prove this theorem, we need some basic lemmas about connected components in
-switching graphs of unification nets.
-
-\begin{lemma}\label{lem:concomp}
-  The number of connected components of an acylic graph $\gG = \tuple{\vG, \eG}$ is
-equal to $|\eG| - |\vG|$.
-\end{lemma}
-
-\begin{proof}
-  By a straightforward induction on $|\vG|$.
-\end{proof}
-
-\begin{lemma}
-  The number of connected components is the same for any switching graph of a
-unification net.
-\end{lemma}
-
-\begin{proof}
-  An immediate consequence of Lemma \ref{lem:concomp}.
-\end{proof}
-
-In the proof, we also use the notion of \bfit{frame} introduced by Hughes in
-\cite{hughes:unifn}.
-
-\begin{definition}
-Let $\lambda$ be a unification net on an $\FOMLL$ sequent $\Gamma$.
-We define the \bfit{frame} of $\lambda$ by exhaustively applying the following
-subformula rewriting steps, to obtain a linking $\lambda_m$ on an $\MLLm$ sequent $\Gamma_m$:
-
-\begin{enumerate}
-  \item {\bf Encode dependencies as fresh links.} For each dependency $\exists x
-	  \rightarrow \forall y$, with corresponding subformulas $\exists x A$
-		and $\forall y B$, we add a fresh link as follows. Let $P$ be a
-		fresh (nullary) predicate symbol. Replace $\exists x A$ with $P
-		\cand \exists x A$ and $\forall y B$ with $\overline{P} \cor \forall y B$, and add an axiom link between $P$ and $\overline{P}$.
-  \item {\bf Erase quantifiers.} After step 1, erase all the quantifiers. (We no longer need their leaps since they are encoded as links in step 1.
-  \item {\bf Simplify atoms.} After step 2, replace every predicate $Pt_1 \cdots t_n$ with a nullary predicate symbol $P$.
-\end{enumerate}
-\end{definition}
-Note that the linking $\lambda_m$ is a valid $\MLLm$ proof net.
-
-\begin{lemma}\label{lem:concomp_switching}
-Suppose that $\lambda$ is a $\MLLm$ proof net which is connected and such that any of its
-switching graphs is not connected. Then there exists a $\vlor$ node in
-$\unifstr{\lambda}$ such that $\lambda$ is correct on the sequent $\Gamma'$
-obtained from $\Gamma$ by replacing this $\vlor$ by a $\vlan$.
-\end{lemma}
-
-\begin{proof}
-Suppose that such a $\vlor$ node does not exist. Then it is clear that for any
-two nodes, there exists a switching graph containing a path between them and
-this path corresponds to an $AE$-path in \cite{retore:03}. By
-\cite[Propostion~3]{retore:03}, $\lambda$ corresponds to a sequent proof that
-does not use $\mix$, which implies the connectedness of the switching graphs of
-$\lambda$. Contradiction.
-\tocheck{}
-\end{proof}
-
-\begin{lemma}\label{lem:concomp_switching_fo}
-Suppose that $\lambda$ is a $\FOMLL$ proof net which is connected and such that any of its
-switching graphs is not connected. Then there exists a $\vlor$ node in
-$\unifstr{\lambda}$ such that $\lambda$ is correct on the sequent $\Gamma'$
-obtained from $\Gamma$ by replacing this $\vlor$ by a $\vlan$.
-\end{lemma}
-
-\begin{proof}
-  Consider the frame $\lambda_m$ of $\lambda$. The number of any switching
-graph of $\unifstr{\lambda}$ is equal to that of $\unifstr{\lambda_m}$. Apply
-Lemma \ref{lem:concomp_switching} and it is clear that such $\vlor$ cannot be one
-of the fresh $\vlor$'s added during the frame construction.
-\end{proof}
-
-We can now give the proof of Theorem \ref{thm:sqntl}.
-
-\begin{proof}[Proof of Theorem~\ref{thm:sqntl}]
-Let $\lambda$ be a unification net on $\Gamma$. We proceed by induction on the
-number of connected components of the unification structure $\unifstr{\lambda}$:
-\begin{itemize}
-  \item If there is only one connected component, we proceed by induction on the
-number $k$ of connected components of any switching graph of
-$\unifstr{\lambda}$. If $k = 1$, we obtain a proof $\Deri$ in $\FOMLL$ such that
-$\sqntl{\Deri} = \lambda$ by applying \cite[Theorem~3]{hughes:unifn}. If $k > 1$,
-using the Lemma \ref{lem:concomp_switching_fo}, we obtain a sequent $\Gamma'$ on
-which $\lambda$ is correct by transforming a $\vlor$ node into a $\vlan$. By
-induction hypothesis, there is a proof $\Deri'$ in $\FOMLL$ whose translation is
-$\lambda$. By considering the $\vlan$ rule instance corresponding to the $\vlan$
-node in $\Deri'$, we have:
-$
-\Deri' =
-\vlderivation{
-  \vlin{}{}{\sqns{\Gamma'}}{
-  \vlin{}{}{\vlvdots}{
-    \vliin{\vlan}{}{\sqns{\Delta_1, A \vlan B, \Delta_2}}{
-      \vltrl{\Deri_1}{}{}{\sqns{\Delta_1, A}}{
-        \vlhy{\quad}}{
-        \vlhy{}}{
-        \vlhy{}}}{
-      \vltrl{\Deri_2}{}{}{\sqns{B, \Delta_2}}{
-        \vlhy{\quad}}{
-        \vlhy{}}{
-        \vlhy{}}}
-}}}
-$.
-We can thus obtain a proof $\Deri$ of $\Gamma$:
-$
-\Deri =
-\vlderivation{
-  \vlin{}{}{\sqns{\Gamma}}{
-  \vlin{}{}{\vlvdots}{
-    \vlin{\vlor}{}{\sqns{\Delta_1, A \vlor B, \Delta_2}}{
-    \vliin{\mix}{}{\sqns{\Delta_1, A, B, \Delta_2}}{
-      \vltrl{\Deri_1}{}{}{\sqns{\Delta_1, A}}{
-        \vlhy{\quad}}{
-        \vlhy{}}{
-        \vlhy{}}}{
-      \vltrl{\Deri_2}{}{}{\sqns{B, \Delta_2}}{
-        \vlhy{\quad}}{
-        \vlhy{}}{
-        \vlhy{}}}
-}}}}
-$ such that $\sqntl{\Deri} = \lambda$.
-
-  \item If there are $n > 1$ connected components, add a fresh $\vlor$ node
-connecting two formulas belonging to different connected components of $\Gamma$
-to get a new sequent $\Gamma'$. Define a unification net $\lambda'$ on $\Gamma'$
-using the same linking as $\lambda$. By induction hypothesis, since
-$\unifstr{\lambda'}$
-has $n-1$ connected components, there is a $\FOMLL$ proof $\Deri'$ such that
-$\sqntl{\Deri'} = \lambda'$. Consider the $\vlor$ rule instance corresponding
-to the $\vlor$ node in question. Since $\vlor$ is invertible, we can permute
-downwards this rule instance until it becomes the last rule of the proof (note
-that this transformation does not change the image of the proof by the
-translation $\sqntl\cdot$) to get a new proof $\Deri''$ of $\Gamma'$. By deleting the last rule
-instance from $\Deri''$, we obtain a proof $\Deri$ of $\Gamma$ such that
-$\sqntl{\Deri} = \lambda$.
-\tocheck{}
-\end{itemize}
-
-We proceed by induction on the
-number of connectives in $\Gamma$. In the base case, $\Gamma$ is of the form
-\begin{align*}
-p_1(t_{11}, \ldots, t_{1n_1}), \dual{p_1}(t_{11}, \ldots, t_{1n_1}), \ldots, \\
-p_k(t_{k1}, \ldots, t_{kn_k}), \dual{p_k}(t_{k1}, \ldots, t_{kn_k}),
-\underbrace{\ttt, \ldots, \ttt}_\text{$m$ times}
-\end{align*} and
-$\lambda$ is the linking $\set{(a_1, \cneg{a_1}), \ldots, (a_k, \cneg{a_k})}$,
-where $a_i = p_i(t_{i1}, \ldots, t_{in_i})$, which equals to $\sqntl\Pi$, where
-$\Pi$ is the proof consisting of $m$ instances of the $\ttt$ rule, $n$ instances
-$\vlinf{\ax}{}{\sqn a_i, \cneg{a_i}}{}$ of the $\ax$ rule, and followed by
-$m+k-1$ instances of the $\mix$ rule.
-
-Now we consider the inductive cases:
-\begin{itemize}
-  \item $\Gamma = \Delta, A \vlor B$:
-    Let $\Gamma' = \Delta, A, B$. Define $\lambda'$ on $\Gamma'$ using the same
-    links as $\lambda$ by identifying the leaves of $\formtree{\Gamma'}$ with those
-    of $\formtree{\Gamma}$. We now check that $\lambda'$ is a unification net:
-    \begin{itemize}
-      \item The most general dualizer of $\lambda$ is also the most general
-dualizer of $\lambda'$ as they correspond to the same unification problem.
-Hence, the unification structure $\unifstr{\lambda'}$ is equal to the
-restriction of $\unifstr{\lambda}$ to the nodes of $\formtree{\Gamma'}$.
-      \item Every switching graph of $\lambda'$ is acyclic: if there were some
-switching graph of $\unifstr{\lambda'}$ containing a cycle, it would induce a switching
-graph of $\unifstr{\lambda}$ containing also a cycle, by adding an edge from the root of
-$\formtree{A}$ to the $\vlor$ node in question.
-    \end{itemize}
-  \item $\Gamma = \Delta, \forall x.A$:
-    Let $\Gamma' = \Delta, A$. Define $\lambda'$ on $\Gamma'$ using the same
-links as $\lambda$. We now check that $\lambda'$ is a unification net:
-  \begin{itemize}
-    \item The most general dualizer of $\lambda$ is also the most general
-dualizer of $\lambda'$ as they correspond to the same unification problem.
-    \item Every switching graph of $\unifstr{\lambda'}$ is acyclic: if there
-were some switching graph of $\unifstr{\lambda'}$ containing a cycle, it would
-induce a switching graph of $\unifstr{\lambda}$ contaiting also a cycle, by
-adding an edge from the root of $\formtree{A}$ to the $\forall$ node in
-question.
-  \end{itemize}
-  \item $\formtree{\Gamma}$ has a root $\exists x$ with no outgoing dependency
-edge:
-\end{itemize}
-\end{proof}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Translation between Unification Nets and Fonets}
-
-\todo{}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\fi
+
 
 \section{Skew Bifibrations and Resource Management}
 
@@ -2917,6 +2631,372 @@ is a propositional variable.}\lutz{shit. (you mean a ``first order variable'') t
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section{Conclusion}
+
+
+
+
+
+
+
+
+
+% conference papers do not normally have an appendix
+
+
+% use section* for acknowledgment
+%\section*{Acknowledgment}
+
+
+%The authors would like to thank...
+
+
+
+
+
+% trigger a \newpage just before the given reference
+% number - used to balance the columns on the last page
+% adjust value as needed - may need to be readjusted if
+% the document is modified later
+%\IEEEtriggeratref{8}
+% The "triggered" command can be changed if desired:
+%\IEEEtriggercmd{\enlargethispage{-5in}}
+
+% references section
+
+% can use a bibliography generated by BibTeX as a .bbl file
+% BibTeX documentation can be easily obtained at:
+% http://mirror.ctan.org/biblio/bibtex/contrib/doc/
+% The IEEEtran BibTeX style support page is at:
+% http://www.michaelshell.org/tex/ieeetran/bibtex/
+%\bibliographystyle{IEEEtran}
+% argument is your BibTeX string definitions and bibliography database(s)
+%\bibliography{IEEEabrv,../bib/paper}
+%
+% <OR> manually copy in the resultant .bbl file
+% set second argument of \begin to the number of references
+% (used to reserve space for the reference number labels box)
+
+\bibliographystyle{IEEEtran}
+\bibliography{refs}
+
+%\begin{thebibliography}{1}
+
+%\bibitem{IEEEhowto:kopka}
+%H.~Kopka and P.~W. Daly, \emph{A Guide to \LaTeX}, 3rd~ed.\hskip 1em plus
+%  0.5em minus 0.4em\relax Harlow, England: Addison-Wesley, 1999.
+
+%\end{thebibliography}
+
+
+
+
+
+% that's all folks
+%\end{document}
+
+\clearpage
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\lutz{OLD STUFF, TO BE REMOVED EVENTUALLY}
+
+\subsection{Unification Nets}
+
+\todo{}
+
+In this paragraph, we associate each formula $A$ with its \bfit{formula tree}
+$\formtree{A}$, a directed
+tree with leaves labelled by atoms, internal nodes labelled by connectives and
+quantifiers, and edges directed from leaves to the root. For a sequent
+$\Gamma = A_1, \ldots, A_n$, we denote with $\formtree{\Gamma}$, the forest
+formed by $\formtree{A_1}, \ldots, \formtree{A_n}$, i.e., the disjoint union of
+$\formtree{A_i}$'s. The \bfit{roots} of $\formtree{\Gamma}$ are the roots of
+${A_i}$'s
+
+Let $\Gamma$ be a sequent in $\FOMLL$. Consider the forest
+$\formtree{\Gamma}$. A \bfit{link} on $\Gamma$ is a pair of
+leaves whose atoms are pre-dual. A \bfit{linking} $\lambda$ on $\Gamma$ is a set
+of
+disjoint links such that each leaf of $\formtree{\Gamma}$ is either labelled by $\ttt$ or
+in exactly one link. Similar to the set of links in linked fographs, a linking can be seen as a
+unification problem, and a \bfit{dualizer} $\dualizer$ of the linking $\lambda$ is an assignment
+unifying all the links in $\lambda$. There exists a \bfit{most general dualizer}
+ of $\lambda$ if $\lambda$ has a dualizer. \juihsuan{Now I use the same terminology as for linked fographs}\lutz{use $\delta$ for the dualizer (or even better, make it a macro)}
+A \bfit{dependency} is a pair $(\single \exists x, \single \forall y)$ of nodes
+such that the most general dualizer assigns to $x$ a term containing $y$.
+
+Let $\lambda$ is a linking on $\Gamma$ that has a dualizer.
+The \bfit{unification structure} $\unifstr{\lambda}$
+associated with $\lambda$ is the forest $\formtree{\Gamma}$ together with an undirected
+edge between leaves $l$ and $l'$ for every link $\{l, l'\}$ in $\lambda$ and a
+directed edge from $\single \exists x$ to $\single \forall y$ for every
+dependency $(\single \exists x, \single \forall y)$.
+
+A \bfit{switching graph} of a unification structure $\unifstr{\lambda}$ is any
+derivative of $\unifstr{\lambda}$ obtained by keeping only one edge into each $\cor$
+and $\forall$ and undirecting remaining edges. A linking is \bfit{correct} if it
+is unifiable and all of the switching graphs of its associated unification
+structure are acyclic.
+
+\begin{definition}
+  A \bfit{unification net} on a sequent $\Gamma$ is a correct linking on $\Gamma$.
+\end{definition}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Translation between Unification Nets and $\FOMLL$}
+
+\todo{}
+\begin{thm}\label{thm:MLL1->Unet}
+  If a sequent is provable in $\FOMLL$, then there exists a unification net
+  on it.
+\end{thm}
+
+\begin{proof}
+  We proceed by induction on the proof of $\sqn \Gamma$ in $\FOMLL$, making a
+  case analysis on the bottommost rule instance:
+  \begin{itemize}
+    \setlength\itemsep{.5em}
+    \item $\vlinf{\axr}{}{\sqn{a,\cneg a}}{}$ : the linking $\{a, \dual{a}\}$ is correct.
+    \item $\vlinf{\ttt}{}{\sqn{\ttt}}{}$ : the empty linking is correct.
+    \item $\vliinf{\mixr}{}{\sqn{\Gamma,\Delta}}{\sqn\Gamma}{\sqn\Delta}$ :
+	  By induction hypothesis, there is a correct linking on
+	  $\Gamma$ and another one on $\Delta$, their union giving a
+	  correct linking on $\Gamma, \Delta$.
+    \item $\vlinf{\vlor}{}{\sqn{\Gamma,A\vlor B}}{\sqn{\Gamma,A,B}}$ : By
+	  induction hypothesis, there is a correct linking on $\Gamma, A, B$,
+	  and it is correct on $\Gamma, A \vlor B$ as well.
+    \item $\vliinf{\vlan}{}{\sqn{\Gamma,A\vlan B, \Delta}}{\sqn{\Gamma,A}}{\sqn{B,\Delta}}$ :
+          By induction hypothesis, there is a correct linking on $\Gamma, A$ and
+	  another one on $B, \Delta$, their union giving a correct linking on
+          $\Gamma,A \vlan B, \Delta$.
+    \item $\vlinf{\exists}{}{\sqn{\Gamma,\exists x.A}}
+	  {\sqn{\Gamma,A\ssubst{x}{t}}}$ : By induction hypothesis, there is a
+	  correct linking $\lambda$ on $\Gamma, A\ssubst{x}{t}$.
+	  For each atom in $\Gamma, A \ssubst{x}{t}$, there is a corresponding
+	  atom in $\Gamma, \exists x.A$. There is therefore a linking $\lambda'$
+          on $\Gamma, \exists x.A$ obtained from $\lambda$ via this
+	  correspondence, and it is not difficult to check that $\lambda'$ is
+	  correct as well.
+    \item $\vlinf{\forall}{\text{($x$ not free in
+	  $\Gamma$)}}{\sqn{\Gamma,\forall x.A}}{\sqn{\Gamma,A}}$ : By induction
+          hypothesis, there is a correct linking on $\Gamma, A$, and it is easy
+	  to see that it is a correct linking on $\Gamma, \forall x.A$ as well.
+  \end{itemize}
+  This allows to define a translation $\sqntl\cdot$ from proofs in $\FOMLL$ to unification
+  nets.
+\end{proof}
+
+\begin{thm}\label{thm:sqntl}
+  Any unification net can be obtained via the translation $\sqntl\cdot$ given in Theorem
+  \ref{thm:MLL1->Unet}.
+\end{thm}
+
+To prove this theorem, we need some basic lemmas about connected components in
+switching graphs of unification nets.
+
+\begin{lemma}\label{lem:concomp}
+  The number of connected components of an acylic graph $\gG = \tuple{\vG, \eG}$ is
+equal to $|\eG| - |\vG|$.
+\end{lemma}
+
+\begin{proof}
+  By a straightforward induction on $|\vG|$.
+\end{proof}
+
+\begin{lemma}
+  The number of connected components is the same for any switching graph of a
+unification net.
+\end{lemma}
+
+\begin{proof}
+  An immediate consequence of Lemma \ref{lem:concomp}.
+\end{proof}
+
+In the proof, we also use the notion of \bfit{frame} introduced by Hughes in
+\cite{hughes:unifn}.
+
+\begin{definition}
+Let $\lambda$ be a unification net on an $\FOMLL$ sequent $\Gamma$.
+We define the \bfit{frame} of $\lambda$ by exhaustively applying the following
+subformula rewriting steps, to obtain a linking $\lambda_m$ on an $\MLLm$ sequent $\Gamma_m$:
+
+\begin{enumerate}
+  \item {\bf Encode dependencies as fresh links.} For each dependency $\exists x
+	  \rightarrow \forall y$, with corresponding subformulas $\exists x A$
+		and $\forall y B$, we add a fresh link as follows. Let $P$ be a
+		fresh (nullary) predicate symbol. Replace $\exists x A$ with $P
+		\cand \exists x A$ and $\forall y B$ with $\overline{P} \cor \forall y B$, and add an axiom link between $P$ and $\overline{P}$.
+  \item {\bf Erase quantifiers.} After step 1, erase all the quantifiers. (We no longer need their leaps since they are encoded as links in step 1.
+  \item {\bf Simplify atoms.} After step 2, replace every predicate $Pt_1 \cdots t_n$ with a nullary predicate symbol $P$.
+\end{enumerate}
+\end{definition}
+Note that the linking $\lambda_m$ is a valid $\MLLm$ proof net.
+
+\begin{lemma}\label{lem:concomp_switching}
+Suppose that $\lambda$ is a $\MLLm$ proof net which is connected and such that any of its
+switching graphs is not connected. Then there exists a $\vlor$ node in
+$\unifstr{\lambda}$ such that $\lambda$ is correct on the sequent $\Gamma'$
+obtained from $\Gamma$ by replacing this $\vlor$ by a $\vlan$.
+\end{lemma}
+
+\begin{proof}
+Suppose that such a $\vlor$ node does not exist. Then it is clear that for any
+two nodes, there exists a switching graph containing a path between them and
+this path corresponds to an $AE$-path in \cite{retore:03}. By
+\cite[Propostion~3]{retore:03}, $\lambda$ corresponds to a sequent proof that
+does not use $\mix$, which implies the connectedness of the switching graphs of
+$\lambda$. Contradiction.
+\tocheck{}
+\end{proof}
+
+\begin{lemma}\label{lem:concomp_switching_fo}
+Suppose that $\lambda$ is a $\FOMLL$ proof net which is connected and such that any of its
+switching graphs is not connected. Then there exists a $\vlor$ node in
+$\unifstr{\lambda}$ such that $\lambda$ is correct on the sequent $\Gamma'$
+obtained from $\Gamma$ by replacing this $\vlor$ by a $\vlan$.
+\end{lemma}
+
+\begin{proof}
+  Consider the frame $\lambda_m$ of $\lambda$. The number of any switching
+graph of $\unifstr{\lambda}$ is equal to that of $\unifstr{\lambda_m}$. Apply
+Lemma \ref{lem:concomp_switching} and it is clear that such $\vlor$ cannot be one
+of the fresh $\vlor$'s added during the frame construction.
+\end{proof}
+
+We can now give the proof of Theorem \ref{thm:sqntl}.
+
+\begin{proof}[Proof of Theorem~\ref{thm:sqntl}]
+Let $\lambda$ be a unification net on $\Gamma$. We proceed by induction on the
+number of connected components of the unification structure $\unifstr{\lambda}$:
+\begin{itemize}
+  \item If there is only one connected component, we proceed by induction on the
+number $k$ of connected components of any switching graph of
+$\unifstr{\lambda}$. If $k = 1$, we obtain a proof $\Deri$ in $\FOMLL$ such that
+$\sqntl{\Deri} = \lambda$ by applying \cite[Theorem~3]{hughes:unifn}. If $k > 1$,
+using the Lemma \ref{lem:concomp_switching_fo}, we obtain a sequent $\Gamma'$ on
+which $\lambda$ is correct by transforming a $\vlor$ node into a $\vlan$. By
+induction hypothesis, there is a proof $\Deri'$ in $\FOMLL$ whose translation is
+$\lambda$. By considering the $\vlan$ rule instance corresponding to the $\vlan$
+node in $\Deri'$, we have:
+$
+\Deri' =
+\vlderivation{
+  \vlin{}{}{\sqns{\Gamma'}}{
+  \vlin{}{}{\vlvdots}{
+    \vliin{\vlan}{}{\sqns{\Delta_1, A \vlan B, \Delta_2}}{
+      \vltrl{\Deri_1}{}{}{\sqns{\Delta_1, A}}{
+        \vlhy{\quad}}{
+        \vlhy{}}{
+        \vlhy{}}}{
+      \vltrl{\Deri_2}{}{}{\sqns{B, \Delta_2}}{
+        \vlhy{\quad}}{
+        \vlhy{}}{
+        \vlhy{}}}
+}}}
+$.
+We can thus obtain a proof $\Deri$ of $\Gamma$:
+$
+\Deri =
+\vlderivation{
+  \vlin{}{}{\sqns{\Gamma}}{
+  \vlin{}{}{\vlvdots}{
+    \vlin{\vlor}{}{\sqns{\Delta_1, A \vlor B, \Delta_2}}{
+    \vliin{\mix}{}{\sqns{\Delta_1, A, B, \Delta_2}}{
+      \vltrl{\Deri_1}{}{}{\sqns{\Delta_1, A}}{
+        \vlhy{\quad}}{
+        \vlhy{}}{
+        \vlhy{}}}{
+      \vltrl{\Deri_2}{}{}{\sqns{B, \Delta_2}}{
+        \vlhy{\quad}}{
+        \vlhy{}}{
+        \vlhy{}}}
+}}}}
+$ such that $\sqntl{\Deri} = \lambda$.
+
+  \item If there are $n > 1$ connected components, add a fresh $\vlor$ node
+connecting two formulas belonging to different connected components of $\Gamma$
+to get a new sequent $\Gamma'$. Define a unification net $\lambda'$ on $\Gamma'$
+using the same linking as $\lambda$. By induction hypothesis, since
+$\unifstr{\lambda'}$
+has $n-1$ connected components, there is a $\FOMLL$ proof $\Deri'$ such that
+$\sqntl{\Deri'} = \lambda'$. Consider the $\vlor$ rule instance corresponding
+to the $\vlor$ node in question. Since $\vlor$ is invertible, we can permute
+downwards this rule instance until it becomes the last rule of the proof (note
+that this transformation does not change the image of the proof by the
+translation $\sqntl\cdot$) to get a new proof $\Deri''$ of $\Gamma'$. By deleting the last rule
+instance from $\Deri''$, we obtain a proof $\Deri$ of $\Gamma$ such that
+$\sqntl{\Deri} = \lambda$.
+\tocheck{}
+\end{itemize}
+
+We proceed by induction on the
+number of connectives in $\Gamma$. In the base case, $\Gamma$ is of the form
+\begin{align*}
+p_1(t_{11}, \ldots, t_{1n_1}), \dual{p_1}(t_{11}, \ldots, t_{1n_1}), \ldots, \\
+p_k(t_{k1}, \ldots, t_{kn_k}), \dual{p_k}(t_{k1}, \ldots, t_{kn_k}),
+\underbrace{\ttt, \ldots, \ttt}_\text{$m$ times}
+\end{align*} and
+$\lambda$ is the linking $\set{(a_1, \cneg{a_1}), \ldots, (a_k, \cneg{a_k})}$,
+where $a_i = p_i(t_{i1}, \ldots, t_{in_i})$, which equals to $\sqntl\Pi$, where
+$\Pi$ is the proof consisting of $m$ instances of the $\ttt$ rule, $n$ instances
+$\vlinf{\ax}{}{\sqn a_i, \cneg{a_i}}{}$ of the $\ax$ rule, and followed by
+$m+k-1$ instances of the $\mix$ rule.
+
+Now we consider the inductive cases:
+\begin{itemize}
+  \item $\Gamma = \Delta, A \vlor B$:
+    Let $\Gamma' = \Delta, A, B$. Define $\lambda'$ on $\Gamma'$ using the same
+    links as $\lambda$ by identifying the leaves of $\formtree{\Gamma'}$ with those
+    of $\formtree{\Gamma}$. We now check that $\lambda'$ is a unification net:
+    \begin{itemize}
+      \item The most general dualizer of $\lambda$ is also the most general
+dualizer of $\lambda'$ as they correspond to the same unification problem.
+Hence, the unification structure $\unifstr{\lambda'}$ is equal to the
+restriction of $\unifstr{\lambda}$ to the nodes of $\formtree{\Gamma'}$.
+      \item Every switching graph of $\lambda'$ is acyclic: if there were some
+switching graph of $\unifstr{\lambda'}$ containing a cycle, it would induce a switching
+graph of $\unifstr{\lambda}$ containing also a cycle, by adding an edge from the root of
+$\formtree{A}$ to the $\vlor$ node in question.
+    \end{itemize}
+  \item $\Gamma = \Delta, \forall x.A$:
+    Let $\Gamma' = \Delta, A$. Define $\lambda'$ on $\Gamma'$ using the same
+links as $\lambda$. We now check that $\lambda'$ is a unification net:
+  \begin{itemize}
+    \item The most general dualizer of $\lambda$ is also the most general
+dualizer of $\lambda'$ as they correspond to the same unification problem.
+    \item Every switching graph of $\unifstr{\lambda'}$ is acyclic: if there
+were some switching graph of $\unifstr{\lambda'}$ containing a cycle, it would
+induce a switching graph of $\unifstr{\lambda}$ contaiting also a cycle, by
+adding an edge from the root of $\formtree{A}$ to the $\forall$ node in
+question.
+  \end{itemize}
+  \item $\formtree{\Gamma}$ has a root $\exists x$ with no outgoing dependency
+edge:
+\end{itemize}
+\end{proof}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Translation between Unification Nets and Fonets}
+
+\todo{}
+
 
 \bigskip
 \hrule
@@ -3947,63 +4027,4 @@ have a subformula of this form, which leads to a contradiction.
 
 
 
-
-\section{Conclusion}
-
-
-
-
-
-% conference papers do not normally have an appendix
-
-
-% use section* for acknowledgment
-%\section*{Acknowledgment}
-
-
-%The authors would like to thank...
-
-
-
-
-
-% trigger a \newpage just before the given reference
-% number - used to balance the columns on the last page
-% adjust value as needed - may need to be readjusted if
-% the document is modified later
-%\IEEEtriggeratref{8}
-% The "triggered" command can be changed if desired:
-%\IEEEtriggercmd{\enlargethispage{-5in}}
-
-% references section
-
-% can use a bibliography generated by BibTeX as a .bbl file
-% BibTeX documentation can be easily obtained at:
-% http://mirror.ctan.org/biblio/bibtex/contrib/doc/
-% The IEEEtran BibTeX style support page is at:
-% http://www.michaelshell.org/tex/ieeetran/bibtex/
-%\bibliographystyle{IEEEtran}
-% argument is your BibTeX string definitions and bibliography database(s)
-%\bibliography{IEEEabrv,../bib/paper}
-%
-% <OR> manually copy in the resultant .bbl file
-% set second argument of \begin to the number of references
-% (used to reserve space for the reference number labels box)
-
-\bibliographystyle{IEEEtran}
-\bibliography{refs}
-
-%\begin{thebibliography}{1}
-
-%\bibitem{IEEEhowto:kopka}
-%H.~Kopka and P.~W. Daly, \emph{A Guide to \LaTeX}, 3rd~ed.\hskip 1em plus
-%  0.5em minus 0.4em\relax Harlow, England: Addison-Wesley, 1999.
-
-%\end{thebibliography}
-
-
-
-
-% that's all folks
 \end{document}
-
