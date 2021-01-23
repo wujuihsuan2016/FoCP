@@ -2056,10 +2056,14 @@ subformula rewriting steps, to obtain a sequent $\frameof C$:
 \item {\bf Simplify atoms.} After step 2, replace every predicate
   $p(t_1 \cdots t_n)$ (resp. $\dual p(t_1 \cdots t_n)$) with a nullary
   predicate symbol $p$ (resp.~$\dual p$)
+%% \item {\bf Remove units.} All occurrences of $\ttt$ are replaced by
+%%   $q_0\vlor\dual q_0$ and all $\fff$ are replaced by $q_0\vlan\dual
+%%   q_0$ for some fresh nullary predicate $q_0$.
 \end{enumerate}
 The $\linkingof{\frameof C}$ consists of the pairs induced by
 $\linkingof\gC$ and the new pairs $\set{q_{i,j},\dual q_{i,j}}$ introduced in
-step~1 above. We call $\frameof C$ the \bfit{frame} of $C$ and we define the \bfit{frame} of $\gC$, denoted
+step~1 above.
+We call $\frameof C$ the \bfit{frame} of $C$ and we define the \bfit{frame} of $\gC$, denoted
 $\frameof\gC$, as
 $\tuple{\graphof{\frameof C},\linkingof{\frameof C}}$.
 
@@ -2107,18 +2111,48 @@ $\tuple{\graphof{\frameof C},\linkingof{\frameof C}}$.
   below that $\forall$-instance. Now, observe that all instances of
   the $\exists$-rule introducing $x_i$ dependend on $y_j$ must occur
   below in the derivation (otherwise $\Deri$ would not be recified).
-  \lutz{to be cont.}
+  Now consider such an instance $\vlinf{\exists}{}{\Scons{\exists
+      x_i.B}}{\Scons{B\ssubst {x_i} t}}$.  Its context $\Sconhole$
+  must contain all the $\forall y_j$ the $\exists x_i$ depends on,
+  such that $B$ is in their scope. Following the translation of the
+  $\forall$ rules above, we can therefore translate the $\exists$-rule
+  instance by the following derivation
+  \begin{equation*}
+    \vlder{\set{\sw,\fequ}}{\DDeri_3}{ S_0\cons{S_1\cons{\cdots
+          S_{k_i-1}\cons{S_{k_i}\cons{\dual q_{i,k_1}\vlan\dual
+              q_{i,k_2}\vlan\cdots q_{i,k_i}\vlan B'}}\cdots}}}{
+      S_0\cons{\dual q_{i,k_1}\vlan S_1\cons{\dual
+          q_{i,k_2}\vlan\cdots S_{k_i-1}\cons{\dual q_{i,k_i}\vlan
+            S_{k_i}\cons{B'}}\cdots}}}
+  \end{equation*}
+  where $k_1,\ldots,k_i$ are the indices of of the universal binders
+  on which that $x_i$ depends, and $B'$ is $B$ in which all predicates
+  are replaced by nullary one (step~3 in the frame construction). The
+  derivation $\DDeri_3$ can be constructed in the same way as
+  $\DDeri_2$ above.
 
-  We have
-  to show that no inference rule in $\FOMLS$ can introduce a
-  bimatching. For the rules $\forall$, $\aiD$, $\tttD$, $\fequ$, and
-  $\mix$, this is immediate, as they do not introduce new edges in the
-  cograph connecting two vertices that are each incident to a leap
-  edge. The only rules that can do that are $\sw$ and $\exists$. For
-  the $\sw$-rule, we refer reader to~\cite{retore:???} or
-  \cite{gug:SIS} or \cite{dissvonlutz} where this property has been
-  shown in detail. For the rule $\exists$, a potential bimatching can
-  only be created by a dependency between the \todo{need frame?}
+  Doing this to all instances of the rules $\forall$ and $\exists$ in
+  $\Deri$ yields indeed a propositional derivation $\frameof\Deri$
+  with
+  \hbox{$\fographof{\frameof\Deri}=\frameof{\fographof\Deri}$}. It has
+  been shown by Retor\'e~\cite{some tech-report to be found} and
+  rediscovered by Stra{\ss}burger~\cite{dissvonlutz} that
+  $\fographof{\frameof\Deri}=\tuple{\graphof{\frameof
+      C},\linkingof{\frameof\Deri}}$ can not contain an induced
+  bimatching. By Lemma~\ref{lem:frame}, $\fographof{\Deri}$ does not
+  have an induced bimatching either. Furthemore, it followed from the
+  definition of $\dsubstof\Deri$ that it is a dualizer for
+  $\fographof{\Deri}$. Hence $\fographof{\Deri}$ is a fonet.
+  %% We have
+  %% to show that no inference rule in $\FOMLS$ can introduce a
+  %% bimatching. For the rules $\forall$, $\aiD$, $\tttD$, $\fequ$, and
+  %% $\mix$, this is immediate, as they do not introduce new edges in the
+  %% cograph connecting two vertices that are each incident to a leap
+  %% edge. The only rules that can do that are $\sw$ and $\exists$. For
+  %% the $\sw$-rule, we refer reader to~\cite{retore:???} or
+  %% \cite{gug:SIS} or \cite{dissvonlutz} where this property has been
+  %% shown in detail. For the rule $\exists$, a potential bimatching can
+  %% only be created by a dependency between the \todo{need frame?}
 \end{proof}
 
 \begin{remark}
