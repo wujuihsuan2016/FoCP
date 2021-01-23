@@ -1132,7 +1132,7 @@ general dualizer}. A \bfit{dependency} is a pair $\set{\single x, \single y}$ of
 existential binder $\single x$ and a universal binder $\single y$ such that the most
 general dualizer assigns to $x$ a term containing $y$. A \bfit{leap} is either a
 link or a dependency. The \bfit{leap graph} $\lgC$ of $\gC$ is the undirected
-graph $\tuple{\vC, \lpC}$ where $\lpC$ is the set of leaps of $\gC$. A vetex set $W \subseteq \vC$ induces a \bfit{matching} in
+graph $\tuple{\vC, \lpC}$ where $\lpC$ is the set of leaps of $\gC$. A vertex set $W \subseteq \vC$ induces a \bfit{matching} in
 $\gC$ if for all $w \in W$, $N(w) \cap W$ is a singleton. We say that $W$ induces a
 \bfit{bimatching} in $\gC$ if it induces a matching in $\gC$ and a matching in $\lgC$.
 
@@ -1492,7 +1492,7 @@ $\ax$-rule can be applied to $\sqn{\fff,\ttt}$ in the cases of $\rr = \faD$.)
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Contraction and Weakining}
+\subsection{Contraction and Weakening}
 
 The first observation here is that Lemmas~\ref{lem:MLL1->MLS1}--\ref{lem:MLS1->MLL1} from above also hold for $\FOLK$ and $\FOKS$. We therefore immediately have:
 
@@ -1737,7 +1737,7 @@ eventually obtain a derivation:
       \vlhy{}}{
       \vlhy{}}}}
 \end{equation*}
-Note that $\fequ$ is required here since the permutaion of formulas is implicit
+Note that $\fequ$ is required here since the permutation of formulas is implicit
 in $\FOMLL$.
 
 By transforming each sequent of $\Deri'_2$ into its corresponding formula, and by
@@ -1992,7 +1992,7 @@ There is a more direct path from a $\FOMLL$ proof $\Pi$ of a rectified
 sequent $\Gamma$ to the linked fograph $\fographof\Pi$: simply take
 the fograph $\graphof\Gamma$, and let the equivalence classes of
 $\linkingof\Pi$ be all the atom pairs that meet in an instance of
-$\ax$, and $\dsubstof\Pi$ is simply the collection of all subtitutions
+$\ax$, and $\dsubstof\Pi$ is simply the collection of all substitutions
 of all the instances of the $\exists$-rule in $\Pi$.
 %
 We have chosen the more cumbersome path above because it gives us a
@@ -2015,7 +2015,7 @@ rectified.
 \end{proof}
 
 Hence, for a non-rectified  $\FOMLS$ derivation $\Deri$ in $\FOMLS$ we can
-define its \bfit{rectification} $\rectif\Deri$ inductively, by recifying each
+define its \bfit{rectification} $\rectif\Deri$ inductively, by rectifying each
 line, proceeding step-wise
 from conclusion to premise.\footnote{As for formulas,
 the rectification of a derivation is unique up to renaming of bound
@@ -2026,7 +2026,7 @@ substitution which maps the existential bound variables occurring in
 $A$ to the terms substituted for them in the instances of the
 $\exists$-rule in $\Phi$. We denote this substitution with
 $\dsubstof\Phi$ and call it the \bfit{dualizer} of
-$\Deri$. Furthermore, every atom occuring in the conclusion $A$ must
+$\Deri$. Furthermore, every atom occurring in the conclusion $A$ must
 be consumed by a unique instance of the rule $\aiD$ in $\Deri$. This
 allows us to define a (partial) equivalence relation $\linkingof\Deri$
 on the atom occurrences in $A$ by $a\linkingof\Deri b$ if $a$ and $b$
@@ -2039,7 +2039,7 @@ $\fographof\Deri=\tuple{\graphof{A},\linkingof{\Deri}}$.
 \todo{example here}
 
 \begin{thm}\label{thm:MLS1->fonet}
-  Let $\vlder{\FOMLS}{\Deri}{A}{\ttt}$ be a recified derivation. Then
+  Let $\vlder{\FOMLS}{\Deri}{A}{\ttt}$ be a rectified derivation. Then
   $\fographof\Deri$ is a fonet and $\dsubstof{\Deri}$ a dualizer for it.
 \end{thm}
 
@@ -2057,7 +2057,7 @@ $\fographof\Deri=\tuple{\graphof{A},\linkingof{\Deri}}$.
   this process preserves the linking and the dualizer. However, for
   this, we have to extent the construction above to the $\cut$-rule,
   and then show that linking and dualizer of a sequent proof $\Pi$ are
-  invariant under cut elimation. This can be done similarly to
+  invariant under cut elimination. This can be done similarly to
   unification nets in~\cite{hughes:unifn}.
 \end{remark}
 
@@ -2081,7 +2081,7 @@ $\tuple{\gC,\linkingof\gC}$ we can construct a sequent proof $\Pi$ in
 $\FOMLL$ such that $\fographof\Pi=\tuple{\gC,\linkingof\gC}$. In the
 proof net literature, this operation is also called
 \emph{sequentialization}. The basic idea behind our sequentialization
-is to construct a proposional linked cograph, called the \bfit{frame}~\cite{hughes:unifn}
+is to construct a propositional linked cograph, called the \bfit{frame}~\cite{hughes:unifn}
 of $\gC$, in which the dependencies between the binders in $\gC$ are
 encoded as links. Then we can apply the \emph{splitting tensor
 theorem} to the frame, and then reconstruct the sequent proof $\Pi$.
@@ -2111,6 +2111,7 @@ $\tuple{\graphof{\frameof\Gamma},\linkingof{\frameof\Gamma}}$, and we immediatel
 
 \begin{lemma}\label{lem:frame}
   A linked fograph $\gC$ induces a bimatching iff its frame $\frameof\gC$ induces a bimatching.
+\juihsuan{induces a bimatching $\rightarrow$ has an induced bimatching}
 \end{lemma}
 
 Let $\Gamma$ be a propositional sequent and $\linkingof\Gamma$ be a
@@ -2144,8 +2145,8 @@ The purpose of introducing the frame is the following theorem.
 This is the well-know splitting-tensor-theorem
 \cite{girard:87,danos:regnier:89}, adapted for the presence of
 $\mix$. In the setting of linked cographs, it has first been proved by
-Retor\'e~\cite{retore:03,retore:??}\lutz{that ``handsome'' report he mentioned in
-  the talk}. We use it now for our sequentialization:
+Retor\'e~\cite{retore:03,retore:99}\lutz{that ``handsome'' report he mentioned in
+  the talk}\juihsuan{added. Check if it's the good one.}. We use it now for our sequentialization:
 
 \begin{thm}
   \label{thm:fonet->MLL1}
@@ -2161,8 +2162,8 @@ Retor\'e~\cite{retore:03,retore:??}\lutz{that ``handsome'' report he mentioned i
   formula with $\vlor$-root, or a formula $\forall x.A$, we can
   immediately apply the $\vlor$-rule or the $\forall$-rule of $\FOMLL$
   and proceed by induction hypothesis. If $\Gamma$ contains a formula
-  $\exists x.A$ such that the correponding binder $\single x$ in $\gC$
-  has no dependency, then we can apply the $\exists$-rule, chosing the
+  $\exists x.A$ such that the corresponding binder $\single x$ in $\gC$
+  has no dependency, then we can apply the $\exists$-rule, choosing the
   term $t$ as determined by $\dsubstof\gC$, and proceed by induction
   hypothesis.  Hence, we can now assume that $\Gamma$ contains only
   atoms, $\vlan$-formulas, or formulas of shape $\exists x.A$, where
@@ -2212,12 +2213,15 @@ We can now straightforwardly obtain the same result for $\FOMLS$:
   Note that it is also possible to do a direct ``sequentialization''
   into the deep inference system $\FOMLS$, using the techniques
   presented in \cite{dissvonlutz} and \cite{str:MLL2}.
+\juihsuan{missing reference added, check if it's the right one.}
 \end{remark}
 
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\iffalse
+
 \subsection{Unification Nets}
 
 \todo{}
@@ -2448,7 +2452,6 @@ $\sqntl{\Deri} = \lambda$.
 \tocheck{}
 \end{itemize}
 
-\iffalse
 We proceed by induction on the
 number of connectives in $\Gamma$. In the base case, $\Gamma$ is of the form
 \begin{align*}
@@ -2493,7 +2496,6 @@ question.
   \item $\formtree{\Gamma}$ has a root $\exists x$ with no outgoing dependency
 edge:
 \end{itemize}
-\fi
 \end{proof}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -2505,6 +2507,7 @@ edge:
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\fi
 
 \section{Skew Bifibrations and Resource Management}
 
@@ -2663,7 +2666,7 @@ into an instance of the same rule. It's trivial but may be worth mentioning.}\lu
           \vlhy{\Scons{(y\vlan\PE{(Ay)})\vlor (z\vlan\PE{(Bz)})}}}}}
   \end{equation*}
   respectively, where $\rectif\acD$ is a $\acD$ that renames the
-  variabes---the propositional variable, as well as the first-order
+  variables---the propositional variable, as well as the first-order
   variable of the same name---as everything is recified, there is no
   ambiguity here. Any instance of a rule $\wD$, $\acD$, $\me$, or
   $\fequ$ is translated to an instance of the same rule, and
@@ -2759,7 +2762,7 @@ $Q=\PE D$ and there is a derivation $\vlder{\sysS'}{\DDeri'}{D}{C}$.
 
   Let us now look at $\phi''$. Let $\gA_1=\gA\substof\phi$ be the
   graph obtained from $\gA$ by applying $\substof\phi$ to all the
-  labels. Note that $\gA_1$ is not neccesarily a fograph, as binders
+  labels. Note that $\gA_1$ is not necessarily a fograph, as binders
   might be illegal. But it still is a cograph, and we have a
   surjective skew fibration $\phi''\colon\gA_1\to\gB_1$ that preserves
   the labels. Therefore, by
@@ -2782,7 +2785,7 @@ $Q=\PE D$ and there is a derivation $\vlder{\sysS'}{\DDeri'}{D}{C}$.
   address (ii), we apply a permutation argument, permuting all
   instances of $\acDx$ up until they either reach the top of the
   derivation or an instance of $\me$ which separates the two atoms in
-  the premise. More precisely, we consider the following inferene rule
+  the premise. More precisely, we consider the following inference rule
   \begin{equation}
     \label{eq:acDeq}
     \vlinf{\acDeq}{}{\Scons{x}}{S_0\cons{S_1\cons{x}\vlor S_2\cons{x}}}
