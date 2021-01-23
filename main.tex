@@ -2034,12 +2034,91 @@ $\fographof\Deri=\tuple{\graphof{A},\linkingof{\Deri}}$.
   $\fographof\Deri$ is a fonet and $\dsubstof{\Deri}$ a dualizer for it.
 \end{thm}
 
+For proving this theorem, we have to show that no inference rule in
+$\FOMLS$ can introduce a bimatching. To simplify the argument, we
+introduce the \bfit{frame}~\cite{hughes:unifn} of the fograph $\gC$,
+which is a linked (proposional) cograph in which the dependencies
+between the binders in $\gC$ are encoded as links. 
+
+More formally, let $C$ be a formula with $\graphof C=\gC$, to which we
+exhaustively apply the following
+subformula rewriting steps, to obtain a sequent $\frameof C$:
+\begin{enumerate}
+\item {\bf Encode dependencies as fresh links.} For each dependency
+  $\set{\single {x_i},\single {y_j}}$ in $\gC$, with corresponding
+  subformulas $\exists x_i. A$ and $\forall y_j. B$ in $C$, we pick a
+  fresh (nullary) predicate symbol $q_{i,j}$, and then replace $\exists
+  x_i. A$ by $\dual q_{i,j} \cand \exists x_i. A$, and replace $\forall y_j. B$ by
+  $q_{i,j} \cor \forall y_j. B$.
+\item {\bf Erase quantifiers.} After step 1, remove all the
+  quantifiers, i.e., replace $\exists x_i.A$ by $A$ and replace $\forall
+  y_j.B$ by $B$ everywhere.
+\item {\bf Simplify atoms.} After step 2, replace every predicate
+  $p(t_1 \cdots t_n)$ (resp. $\dual p(t_1 \cdots t_n)$) with a nullary
+  predicate symbol $p$ (resp.~$\dual p$)
+\end{enumerate}
+The $\linkingof{\frameof C}$ consists of the pairs induced by
+$\linkingof\gC$ and the new pairs $\set{q_{i,j},\dual q_{i,j}}$ introduced in
+step~1 above. We call $\frameof C$ the \bfit{frame} of $C$ and we define the \bfit{frame} of $\gC$, denoted
+$\frameof\gC$, as
+$\tuple{\graphof{\frameof C},\linkingof{\frameof C}}$.
+
+\begin{lemma}\label{lem:frame}
+  A linked fograph $\gC$ has an induced bimatching iff its frame $\frameof\gC$ has an induced bimatching.
+\end{lemma}
+
 \begin{proof}
-  We have to show that no inference rule in $\FOMLS$ can introduce a
+  This immediately follows from the construction of the frame.\lutz{is it really an ``iff''? It is easy to construct from a bimatching in $\gC$ a bimatching in the frame. (and I think we only need that direction). But what about the other direction?}
+\end{proof}
+
+\begin{proof}[Proof of Theorem~\ref{thm:MLS1->fonet}]
+  From $\Deri$ we construct a derivation $\frameof\Deri$ of $\frameof
+  A$ in the propositional fragment of $\FOMLS$, such that
+  \hbox{$\fographof{\frameof\Deri}=\frameof{\fographof\Deri}$}.  The
+  rules $\aiD,\tttD,\mix$ and $\sw$ are translated trivially, and for
+  $\fequ$, it suffices to observe that the frame construction is
+  invariant under $\fequ$. Finally, for the rules $\forall$ and
+  $\exists$, proceed as follows. Every instance of $\forall$ is
+  replaced by the derivation on the right below:\footnote{For better
+  readability we omit superfluous parentheses, knowing that we always
+  have $\fequ$ incorporating associativity and commutativity of
+  $\vlan$ and $\vlor$.}
+  \begin{equation*}\small
+    \vlinf{\forall}{}{\Scons{\forall y_j.\ttt}}{\Scons{\ttt}}
+    %\qquad
+    \;\leadsto
+    %\qquad
+    \vlderivation{
+      \vlde{\set{\sw,\fequ}}{\DDeri_2}{\Scons{q_{h_1,j}\vlor\cdots\vlor
+          q_{h_j,j}\vlor(\dual q_{h_1,j}\vlan\cdots\vlan\dual
+          q_{h_j,j}\vlan\ttt)}}{
+        \vlde{\set{\aiD,\tttD}}{\DDeri_1}{
+          \Scons{(q_{h_1,j}\vlor \dual q_{h_1,j})\vlan\cdots\vlan(q_{h_j,j}\vlor \dual q_{h_j,j})\vlan\ttt}}{
+          \vlhy{\ttt}}}}
+  \end{equation*}
+  where $h_1,\ldots,h_j$ range over the indices of the existential
+  binders dependend on that $y_j$. It is easy to see how $\DDeri_1$ is
+  constructed, and for $\DDeri_2$ see,
+  e.g. \cite{ESSLI19-notes,gug:str:01,brunnler:tiu:01}\lutz{check if
+    it is really there. otherwise \cite{dissvonlutz}} Then, every
+  occurrence of $\forall y_j.F$ is replaced by
+  $q_{h_1,j}\vlor\cdots\vlor q_{h_j,j}\vlor (\dual
+  q_{h_1,j}\vlan\cdots\vlan\dual q_{h_j,j}\vlan F)$ in the derivation
+  below that $\forall$-instance. Now, observe that all instances of
+  the $\exists$-rule introducing $x_i$ dependend on $y_j$ must occur
+  below in the derivation (otherwise $\Deri$ would not be recified).
+  \lutz{to be cont.}
+
+  We have
+  to show that no inference rule in $\FOMLS$ can introduce a
   bimatching. For the rules $\forall$, $\aiD$, $\tttD$, $\fequ$, and
   $\mix$, this is immediate, as they do not introduce new edges in the
   cograph connecting two vertices that are each incident to a leap
-  edge. The only rules that can do that are $\sw$ and $\exists$. For the $\sw$-rule, we refer reader to~\cite{retore:???} or \cite{gug:SIS} or \cite{dissvonlutz} where this property has been shown in detail. For the rule $\exists$, a potential bimatching can only be created by a dependency between the \todo{need frame?} 
+  edge. The only rules that can do that are $\sw$ and $\exists$. For
+  the $\sw$-rule, we refer reader to~\cite{retore:???} or
+  \cite{gug:SIS} or \cite{dissvonlutz} where this property has been
+  shown in detail. For the rule $\exists$, a potential bimatching can
+  only be created by a dependency between the \todo{need frame?}
 \end{proof}
 
 \begin{remark}
