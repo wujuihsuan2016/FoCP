@@ -568,6 +568,7 @@
 \prflinepadafter=0ex%  default 0.3ex  below proof lines
 \prflineextra=0pt% default 0.3em  proof line overhang each side
 
+\input{pics.tex}
 
 
 
@@ -639,16 +640,16 @@ France}}
 % As a general rule, do not put math, special symbols or citations
 % in the abstract
 \begin{abstract}
-  In this paper we uncover a close relation between combinatorial and
+  We uncover a close relationship between combinatorial and
   syntactic proofs for first-order logic. Whereas syntactic proofs are
   formalized in some deductive proof system based on inference rules,
   a combinatorial proof is a ``syntax-free'' presentation of a proof
   that is independent from any set of inference rules. We show that
   the two proof representations are related via a deep inference
   decomposition theorem that establishes a new kind of normal form
-  of syntactic proofs. As a consequence, we obtain (i) a simple proof
+  of syntactic proofs. This yields (a) a simple proof
   of the soundness and completeness of first-order combinatorial
-  proofs, and (ii) a full completeness theorem: every combinatorial
+  proofs, and (b) a full completeness theorem: every combinatorial
   proof is the image of a syntactic proof.
 \end{abstract}
 
@@ -677,9 +678,9 @@ France}}
 \todo{Examples,examples,examples}
 \section{Introduction}
 
-First-order predicate logic is one of the cornerstones of modern
+First-order predicate logic is a cornerstone of modern
 logic. Since its formalisation by Frege~\cite{frege:79} it has seen a
-growing usage in many fields of mathematics and computer science. Since
+growing usage in many fields of mathematics and computer science. Upon
 the development of proof theory by Hilbert~\cite{hilbert:22},
 \emph{proofs} became first-class citizens as mathematical objects that
 could be studied on their own. Since Gentzen's \emph{sequent
@@ -687,17 +688,16 @@ calculus}~\cite{gentzen:35:I,gentzen:35:II}, many other proof systems
 have been developed that allow the implementation of efficient proof
 search, for example \emph{analytic tableaux}~\cite{smullyan:68} or
 \emph{resolution}~\cite{robinson:65}. Despite the immense progress
-that has been made in proof theory in general and in the area of
+made in proof theory in general and in the area of
 automated and interactive theorem provers in
-particular\cite{DSAV:15lean,paulson:isabelle}\todo{find
-references}\juihsuan{done}, we still have
+particular, we still have
 no satisfactory notion of proof identity for first-order logic. In
 this respect, proof theory is quite different from any other
 mathematical field. For example in group theory, two groups are
 \emph{the same} iff they are isomorphic; in topology, two spaces are
 \emph{the same} iff they are homeomorphic; etc. In proof theory, we
 have no such notion telling us when two proofs are \emph{the same},
-even though Hilbert was considering this problem as possible 24th
+even though Hilbert was considering this problem as a possible 24th
 problem for his famous lecture~\cite{hilbert:00} in
 1900~\cite{thiele:03}, before proof theory existed as a mathematical
 field.
@@ -711,46 +711,50 @@ different syntactic proof systems, based on different sets of inference rules.
 
 This is where \emph{combinatorial proofs} come in. They have been
 introduced by Hughes~\cite{hughes:pws} for classical propositional
-logic as ``syntax-free'' notion of proof, and as a possible solution
+logic as a ``syntax-free'' notion of proof, and as a potential solution
 to Hilbert's 24th problem~\cite{hughes:invar} (see
 also~\cite{str:hilbert:24}). The basic idea is to abstract away from
 the syntax of the inference rules used in the proof and consider the
 proof as a combinatorial object, more precisely as a special kind of
-homomorphism between two graphs obeying certain properties.
-\lutz{an example here?}
-
-It has been shown by several authors how syntactic proofs in various
+graph homomorphism. For example, a propositional combinatorial
+proof of Peirce's law $\peirceimpliesformula$ is depicted below-left.
+%
+\begin{center}\vspace{.5ex}\begin{tikzpicture}\newcommand\radius{2.3}
+  \begin{scope}[shift={(-\radius,0)}]{\peircecp}\end{scope}
+  \begin{scope}[shift={(\radius,0)}]{\drinkerfibcoloured}\end{scope}
+\end{tikzpicture}\vspace{0ex}\end{center}
+%
+Several authors have illustrated how syntactic proofs in various
 proof systems can be translated to propositional combinatorial proofs:
 for sequent proofs in~\cite{hughes:invar}, for deep inference proofs
 in~\cite{str:fscd17}, for Frege systems in~\cite{str:RR-9048}, and for
-tableaux systems and resolution in~\cite{acc:str:18}. This allows to
-define a natural notion of proof identity for propositional logic: two
+tableaux systems and resolution in~\cite{acc:str:18}. This enables a
+natural definition of proof identity for propositional logic: two
 proofs are \emph{the same}, if they are mapped to the same
 combinatorial proof.
 
 Recently, Acclavio and Stra\ss burger extended this notion to relevant
 logics~\cite{acc:str:relevant} and to modal
-logics~\cite{acc:str:modal}; and Heijlties, Hughes and Stra\ss burger
+logics~\cite{acc:str:modal}, and Heijlties, Hughes and Stra\ss burger
 have provided combinatorial proofs for intuitionistic propositional
 logic~\cite{HHS:lics19}.
 
-In this paper we would like to push forward the idea that
-combinatorial proofs can also for first order logic be used as a
-notion of proof identity. \emph{First-order combinatorial proofs} have
-been introduced by Hughes in~\cite{hughes:fopws}. But even though
-Hughes shows that the conclusion of every first-order combinatorial
-proof is a valid formula, his proof is not really satisfactory, as (i)
-it is long and cumbersome, and (ii) it does not allow to read back a
-syntactic proof based inference rules. In fact, there is the
+In this paper we advance the idea that combinatorial proofs can provide
+a notion of proof identity for first order logic. \emph{First-order
+combinatorial proofs} were introduced by Hughes in~\cite{hughes:fopws}.
+However, even though Hughes proves soundness and completeness, the 
+proof is unsatisfactory: (1) the soundness argument is long and
+cumbersome, and (2) the completeness proof does not allow a syntactic
+proof to be read back from a combinatorial proof. In fact, there is the
 fundamental problem that not all combinatorial proofs can be obtained
 as translations of sequent calculus proofs.
 
 In this paper we solve this issue by moving to a deep inference
 system. More precisely, we introduce a new proof system, called
-$\FOKS$, for first-order logic, that (i) reflects every combinatorial
+$\FOKS$, for first-order logic, that (a) reflects every combinatorial
 proof, i.e., there is a surjective mapping from proofs in $\FOKS$ to
-combinatorial proofs, that (ii) allows to provide simpler proofs of
-soundness and completeness of combinatorial proofs, and (iii) admits
+combinatorial proofs, and (b) yields far simpler proofs of
+soundness and completeness of combinatorial proofs, and (c) admits
 new decomposition theorems establishing a precise correspondence
 between certain syntactic inference rules and certain combinatorial
 notions.
@@ -784,18 +788,12 @@ paper.
 
 \subsection{Pictures}
 
-\input{pics.tex}
 The fograph of drinker formula $\drinkerformula=\veedrinkerformula$:
 %
 \begin{center}\vspace{2ex}\begin{tikzpicture}
 \drinkerbase
 \end{tikzpicture}\vspace{1ex}\end{center}
 %
-A combinatorial proof of drinker formula $\drinkerformula=\veedrinkerformula$:
-%
-\begin{center}\vspace{2ex}\begin{tikzpicture}
-\drinkerfibcoloured
-\end{tikzpicture}\vspace{1ex}\end{center}
 %
 Condensed combinatorial proof of drinker formula(s):
 %

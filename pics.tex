@@ -375,7 +375,7 @@ node[leaf, label={[label distance=1pt]{-90}:${#1}$}]{} edge from parent[{_[sep=#
 \tikzstyle{inlinegraph} = [graph,baseline]
 
 
-\newcommand\fibheight{2}
+\newcommand\fibheight{1.6}
 
 
 
@@ -1302,3 +1302,53 @@ node[leaf, label={[label distance=1pt]{-90}:${#1}$}]{} edge from parent[{_[sep=#
 &
 \vctr{\color{green!50!black}\checkmark}
 \end{array}\end{math}\end{center}}
+
+
+
+
+%%%%%%  PICTURE:  Peirce's law cp
+
+\newcommand\peirceformula{\left(\rule{0ex}{1.7ex}\mkern-1mu(\pp\mkern-1mu\tightvee\mkern-3mu q)\mkern-2mu\tightwedge\mkern-2mu\pp\right)\mkern-1mu\tightvee\mkern-0mu p}
+\newcommand\peirceimpliesformula{\left(\rule{0ex}{1.7ex}\mkern-1mu(p\mkern-1mu\tightimplies\mkern-2mu q)\mkern-1mu\tightimplies p\right)\mkern-2mu\tightimplies\mkern-.3mu p}
+
+\newcommand\peircexone{-.9}
+\newcommand\peircextwo{-.3}
+\newcommand\peircexthree{.35}
+\newcommand\peircexfour{1.05}
+\newcommand\peircefibheight{1.8}
+\newcommand\peircecoverradius{.22}%{.3}
+\newcommand\peircey{-.14}
+\newcommand\peircecp{
+  \begin{scope}[shift={(0,\peircefibheight)}]
+    \begin{scope}
+      % cover vertices (coloured)
+      \begin{scope}
+        \redvx{\peircexone,0}{cppl}
+        \bluevx{\peircexthree,0}{cppr}
+      \end{scope}
+      \begin{scope}[shift={(0,-\peircecoverradius)}]
+        \bluevx{\peircexfour,0}{cpd}
+      \end{scope}
+      \begin{scope}[shift={(0,\peircecoverradius)}]
+        \redvx{\peircexfour,0}{cpu}
+      \end{scope}
+    \end{scope}
+  \end{scope}
+  % base vertices
+  \lvxd{\peircexone,0} {ppl} {\pp}
+  \lvxd{\peircextwo,\peircey}{q}{q}
+  \lvxd{\peircexthree,0}{ppr}{\pp}
+  \lvxd{\peircexfour,0}{p}{p}
+  % cover edges
+  \e {cppl} {cppr}
+  % base edges
+  \e {ppl} {ppr}
+  \e {q} {ppr}
+  % fibration edges
+  \begin{scope}[fibres]
+    \fe {cppl}{ppl}
+    \fe {cppr}{ppr}
+    \fe {cpu}{cpd}
+    \fe {cpd}{p}
+  \end{scope}
+}
