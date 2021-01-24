@@ -860,9 +860,9 @@ Condensed combinatorial proof of drinker formula(s):
 \veedrinkerInline
 \end{tikzpicture}\end{math}\end{center}
 
-\figcps Fig.\,\ref{fig:cps} is a floating figure with four combinatorial proofs.
+%%\figcps Fig.\,\ref{fig:cps} is a floating figure with four combinatorial proofs.
 
-\figcpscondensed Fig.\,\ref{fig:cps-condensed} is a floating figure with the condensed forms of the four combinatorial proofs in Fig.\,\ref{fig:cps}.
+%%\figcpscondensed Fig.\,\ref{fig:cps-condensed} is a floating figure with the condensed forms of the four combinatorial proofs in Fig.\,\ref{fig:cps}.
 
 
 
@@ -1345,6 +1345,53 @@ Figure~\ref{fig:leap} shows a fonet with a unique dualizer, and its leap graph.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+\begin{figure*}
+  $$
+  \begin{tikzpicture}\cponeonformula
+  \end{tikzpicture}
+  \qquad
+  \begin{tikzpicture}\cptwoonformula
+  \end{tikzpicture}
+  \qquad
+  \begin{tikzpicture}\cpthreeonformula
+  \end{tikzpicture}
+  \qquad
+  \begin{tikzpicture}\cpfouronformula
+  \end{tikzpicture}
+  $$
+  \vskip-2ex
+  \caption{Four combinatorial proofs, each shown
+    above the formula proved.  Here $x$ and $y$ are variables, $f$ is
+    a unary function symbol, $a$ and $b$ are constants (nullary
+    function symbols), $p$ is a unary predicate symbol, and $q$ is a
+    binary predicate symbol.}
+  \label{fig:cps}
+\end{figure*}
+
+\begin{figure*}
+  $$
+  \begin{tikzpicture}
+    \cponeinline
+  \end{tikzpicture}
+  \qquad\;
+  \begin{tikzpicture}
+    \cptwoinline
+  \end{tikzpicture}
+  \qquad\;
+  \begin{tikzpicture}
+    \cpthreeinline
+  \end{tikzpicture}
+  \qquad\;
+  \begin{tikzpicture}
+    \cpfourinline
+  \end{tikzpicture}
+  $$
+  \vskip-2ex
+  \caption{Condensed forms of the four combinatorial proofs in Fig.\,\ref{fig:cps}.}
+  \label{fig:cps-condensed}
+  %\vspace{-4ex}
+\end{figure*}
+
 \subsection{Skew Bifibrations}
 
 A graph homomorphism $\phi\colon \tuple{\vG, \eG} \rightarrow
@@ -1410,6 +1457,10 @@ combinatorial proof} of a formula $A$ is a combinatorial proof of its graph
 $\graphof{A}$.
 \end{definition}
 
+To give some examples, we show in Figure~\ref{fig:cps} for examples of
+FOCPs, each above the formula it proves.  The same FOCPs are shown in
+Figure~\ref{fig:cps-condensed} in a more condensed notation.
+
 \begin{thm}[\cite{hughes:fopws}]
   \label{thm:FOCP}
   FOCPs are sound and complete for first-order logic.
@@ -1422,6 +1473,7 @@ $\graphof{A}$.
   in~\cite{hughes:fopws}.
   %The reason for this relaxation in our case is that we want to cover a richer class of proofs, also allowing 
 \end{remark}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
