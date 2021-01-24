@@ -747,7 +747,7 @@ propositional variables.
 
 \begin{equation*}
 \vlderivation{
-  \vlin{\cD}{}{((\cneg{p} \vlor q) \vlan \cneg{p}) \vlor p}{
+  \vlin{\acD}{}{((\cneg{p} \vlor q) \vlan \cneg{p}) \vlor p}{
     \vlin{\fequ}{}{((\cneg{p} \vlor q) \vlan \cneg{p}) \vlor (p \vlor p)}{
       \vlin{\sw}{}{(\cneg{p} \vlan (\cneg{p} \vlor q)) \vlor p) \vlor p}{
         \vlin{\fequ}{}{(\cneg{p} \vlan ((\cneg{p} \vlor q) \vlor p)) \vlor p)}{
@@ -777,8 +777,35 @@ x.(\cneg{p}x \vlor (\forall y.py))}}{
                 \vlin{\axr}{}{\sqn{pz, \cneg{p}z}}{
                   \vlhy{}}}}}}}}}}}
 \end{equation*}
+
+\begin{equation*}
+\vlderivation{
+  \vlin{\acD}{}{\exists x.(\cneg{p}x \vlor (\forall y.py))}{
+    \vlin{\mfaD}{}{\exists x.(\cneg{p}x \vlor (\forall y.(py \vlor py)))}{
+      \vlin{\acD}{}{\exists x.(\cneg{p}x \vlor ((\forall y.py) \vlor (\forall
+y.py)))}{
+        \vlin{\fequ}{}{\exists x.((\cneg{p}x \vlor \cneg{p}x) \vlor ((\forall
+y.py) \vlor (\forall y.py)))}{
+          \vlin{\mexD}{}{\exists x.((\cneg{p}x \vlor (\forall y.py)) \vlor
+(\cneg{p}x \vlor (\forall y.py)))}{
+            \vlin{\exists}{}{(\exists x.(\cneg{p}x \vlor (\forall y.py))) \vlor
+(\exists x.(\cneg{p}x \vlor (\forall y.py)))}{
+              \vlin{\fequ}{}{(\cneg{p}w \vlor (\forall y.py)) \vlor (\exists
+x.(\cneg{p}x \vlor (\forall y.py)))}{
+                \vlin{\exists}{}{\forall y.((\cneg{p}w \vlor py) \vlor (\exists
+x.(\cneg{p}x \vlor (\forall y.py))))}{
+                  \vlin{\fequ}{}{\forall y.((\cneg{p}w \vlor py) \vlor
+(\cneg{p}y \vlor (\forall y.py)))}{
+                    \vlin{\wD}{}{\forall y.((py \vlor \cneg{p}y) \vlor
+(\cneg{p}w \vlor (\forall y.py)))}{
+                      \vlin{\aiD}{}{\forall y.(py \vlor \cneg{p}y)}{
+                        \vlin{\forall}{}{\forall y.\ttt}{
+                          \vlhy{\ttt}}}}}}}}}}}}}}
+\end{equation*}
+
 \juihsuan{LK1 and KS1 proofs of Peirce's law and LK1 proof of drinker formula}
 \lutz{can you also do the KS1 for the drinker?}
+\juihsuan{done}
 
 Several authors have illustrated how syntactic proofs in various
 proof systems can be translated to propositional combinatorial proofs:
