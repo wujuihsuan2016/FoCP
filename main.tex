@@ -717,7 +717,9 @@ also~\cite{str:hilbert:24}). The basic idea is to abstract away from
 the syntax of the inference rules used in the proof and consider the
 proof as a combinatorial object, more precisely as a special kind of
 graph homomorphism. For example, a propositional combinatorial
-proof of Peirce's law $\peirceimpliesformula$ is depicted below-left.
+proof of Peirce's law $\peirceimpliesformula$ is depicted below-left,
+a homomorphism from a coloured graph to a graph labelled with
+propositional variables.
 %
 \begin{center}\vspace{.5ex}\begin{tikzpicture}\newcommand\radius{2.3}
   \begin{scope}[shift={(-\radius,0)}]{\peircecp}\end{scope}
@@ -743,14 +745,15 @@ In this paper we advance the idea that combinatorial proofs can provide
 a notion of proof identity for first-order logic. \emph{First-order
 combinatorial proofs} were introduced by Hughes in~\cite{hughes:fopws}.
 For example, a first-order combinatorial proof of Smullyan's 
-``drinker paradox'' $\drinkerformula$ is shown above-right.
+``drinker paradox'' $\drinkerformula$ is shown above-right,
+a homomorphism from a partially coloured graph to a labelled graph.
 However, even though Hughes proves soundness and completeness, the 
-proof is unsatisfactory: (1) the soundness argument is extremely long,
-intricate and cumbersome, and (2) the completeness proof does not allow
-a syntactic
-proof to be read back from a combinatorial proof. In fact, there is the
-fundamental problem that not all combinatorial proofs can be obtained
-as translations of sequent calculus proofs.
+proof is highly unsatisfactory: (1) the soundness argument is extremely
+long, intricate and cumbersome, and (2) the completeness proof does not 
+allow a syntactic proof to be read back from a combinatorial proof, i.e.,
+completeness is not \emph{full}.
+A fundamental problem is that not all combinatorial
+proofs can be obtained as translations of sequent calculus proofs.
 
 In this paper we solve this issue by moving to a deep inference
 system. More precisely, we introduce a new proof system, called
