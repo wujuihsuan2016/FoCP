@@ -1,0 +1,35 @@
+\documentclass[letterpaper,10pt]{article}% letterpaper => 8.5" x 11"
+
+\usepackage{amsmath}
+
+\usepackage{tikz}
+\usetikzlibrary{decorations}\usetikzlibrary{shapes.geometric}% better dot/dash in cp fibres
+\usetikzlibrary{chains}% for inline skew fibrations on formulas
+\usetikzlibrary{arrows}% e.g. >=latex' or >=stealth'
+\usetikzlibrary{calc}
+\usetikzlibrary{matrix}
+\usetikzlibrary{positioning}
+
+
+\newcommand{\dual}[1]{\overline{#1}}
+
+
+
+\input{pics.tex}
+
+\begin{document}
+
+The fograph of $\drinkerformula=\veedrinkerformula$:
+%
+\begin{center}\vspace{2ex}\begin{tikzpicture}
+\drinkerbase
+\end{tikzpicture}\vspace{1ex}\end{center}
+%
+A combinatorial proof of $\drinkerformula$ and $\veedrinkerformula$:
+%
+\begin{center}\vspace{2ex}\begin{tikzpicture}
+\drinkerfibcoloured
+\end{tikzpicture}\vspace{1ex}\end{center}
+
+
+\end{document}

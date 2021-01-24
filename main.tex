@@ -83,6 +83,7 @@
 \usepackage[utf8]{inputenc}
 \usepackage{dashbox}
 \usepackage{ebproof}
+%\usepackage{mathtools}% mathtools = bug-fixed amsmath; includes variable length \mapsto as \xmapsto
 \usepackage{amsmath}
 \usepackage{ebproof}
 %\usepackage{stmaryrd}
@@ -91,7 +92,16 @@
 
 \usepackage{cmll}
 
+%%%%%%%%% PACKAGES DOMINIC USES FOR CP FIGURES
 \usepackage{tikz}
+\usetikzlibrary{arrows}% e.g. >=latex' or >=stealth'
+\usetikzlibrary{decorations}\usetikzlibrary{shapes.geometric}% better dot/dash in cp fibres
+\usetikzlibrary{chains}% for inline skew fibrations on formulas
+\usepackage{calculator}% e.g. \MULTIPLY{1.3}{4.2}{\resultmacroname} https://tug.org/TUGboat/tb33-3/tb105fuster.pdf  https://mirror.hmc.edu/ctan/macros/latex/contrib/calculator/calculator.pdf
+
+
+
+
 \usepackage{amsthm}\theoremstyle{plain}
 \newtheorem{thm}{Theorem}%[section]
 \newtheorem{lemma}[thm]{Lemma}
@@ -743,6 +753,61 @@ rule. Nonetheless, there is a close relationship between the two,
 realized through a decomposition theorem, as we establish it in this
 paper.
 
+
+
+\subsection{Pictures}
+
+\input{pics.tex}
+The fograph of drinker formula $\drinkerformula=\veedrinkerformula$:
+%
+\begin{center}\vspace{2ex}\begin{tikzpicture}
+\drinkerbase
+\end{tikzpicture}\vspace{1ex}\end{center}
+%
+A combinatorial proof of drinker formula $\drinkerformula=\veedrinkerformula$:
+%
+\begin{center}\vspace{2ex}\begin{tikzpicture}
+\drinkerfibcoloured
+\end{tikzpicture}\vspace{1ex}\end{center}
+%
+Condensed combinatorial proof of drinker formula(s):
+%
+\begin{center}\vspace{3ex}\begin{math}
+\begin{tikzpicture}
+\drinkerInline
+\end{tikzpicture}
+\hspace{10ex}
+\begin{tikzpicture}
+\veedrinkerInline
+\end{tikzpicture}\end{math}\end{center}
+
+\figcps Fig.\,\ref{fig:cps} is a floating figure with four combinatorial proofs.
+
+\figcpscondensed Fig.\,\ref{fig:cps-condensed} is a floating figure with the condensed forms of the four combinatorial proofs in Fig.\,\ref{fig:cps}.
+
+
+Both $\veedrinkerformula$ and $\variantveedrinkerformula$ have the same
+rectified fograph $\drinkergraph$, shown below-left.
+%
+\begin{center}\begin{math}
+%
+\drinkergraphpic
+%
+\hspace{8ex}
+%
+\drinkercotreepic
+%
+\hspace{8ex}
+%
+\drinkerbindinggraphpic
+%
+\end{math}\end{center}
+
+Lifting diagrams:
+%
+\liftingdiagrams
+
+\figdrinkerbifib Fig.\,\ref{fig:drinkerbifib} shows the drinker bifibration, binding fibration, and skeleton.
 
 
 

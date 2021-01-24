@@ -1,0 +1,1055 @@
+% Vertical centring in math mode
+\makeatletter% allows \m@th for example
+\newcommand\vctr[1]{\vcenter{\hbox{$\m@th{#1}$}}}
+\makeatother
+
+\newcommand\skewlifting[1]{\widetilde{#1}}
+
+% Vertex metavariables
+\newcommand\vertex{v}
+\newcommand\vertexp{{\vertex\mkern-1.3mu'}}
+\newcommand\vertexa{w}
+\newcommand\vertexaa{u}
+\newcommand\vertexap{w\primed}
+
+% Fibration symbol
+\newcommand\fib{f}
+
+
+
+
+%%%% Connectives
+
+% Logical connectives
+
+\renewcommand{\implies}{\Rightarrow}% overrides ams package
+\newcommand\tightwedgeveeshrink{\mkern-2mu}
+\newcommand\tightvee{\mathbin{\tightwedgeveeshrink\vee\tightwedgeveeshrink}}
+\newcommand\tightwedge{\mathbin{\tightwedgeveeshrink\wedge\tightwedgeveeshrink}}
+\newcommand\shortimplies{\mathop{\mkern-0mu\implies\mkern-1mu}}
+\newcommand\tightimplies{\shortimplies}
+\newcommand\tighteq{\mathop{\mkern-.5mu=\mkern-.5mu}}
+\newcommand\tightneq{\mathop{\mkern-.5mu\neq\mkern-.5mu}}
+\newcommand\tightin{\mathbin{\mkern-5mu{}\in{}\mkern-5mu}}
+\newcommand\tightnotin{\mathbin{\mkern-5mu{}\notin{}\mkern-3mu}}
+\newcommand\tightsubseteq{\mathbin{\mkern-.5mu\subseteq\mkern-.5mu}}
+\newcommand\tightsupseteq{\mathbin{\mkern-.5mu\supseteq\mkern-.5mu}}
+\newcommand\tightsetminus{\mathbin{\mkern-2mu\setminus\mkern-1mu}}
+
+% Graph/cotree connectives
+
+\newcommand\tightplus{\mathbin+}
+\newcommand\tighttimes{\mathbin\times}
+\newcommand\graphunion{\tightplus}
+\newcommand\graphjoin{\tighttimes}
+
+
+
+% FORMULAS
+
+% to be able to control the spacing of 'px', 'py' etc:
+\newcommand\p{p}\newcommand\pp{\dual p}\newcommand\ppp{\dual\pp}
+\newcommand\q{q}\newcommand\qq{\dual q}
+\newcommand\px{\p x}
+\newcommand\py{\p y}
+\newcommand\pxy{\p x y}
+\newcommand\ppx{\pp x}
+\newcommand\ppy{\pp y}
+\newcommand\pa{\p a}
+\newcommand\pb{\p b}
+\newcommand\ppa{\pp a}
+\newcommand\ppb{\pp b}
+\newcommand\pz{\p z}
+\newcommand\ppz{\pp z}
+\newcommand\axpx{\forall x\mkern2.2mu\px}
+\newcommand\aypy{\forall y \mkern3mu \py}
+\newcommand\qab{\q a b}
+\newcommand\qba{\q b a}
+\newcommand\qqab{\qq a b}
+\newcommand\qqba{\qq b a}
+\newcommand\qx{\q x}
+\newcommand\qy{\q y}
+\newcommand\qqx{\qq x}
+\newcommand\qqy{\qq y}
+\newcommand\qxy{\q x y}
+\newcommand\fx{f\mkern-1.5mu x}
+\newcommand\fy{f\mkern-1.5mu y}
+\newcommand\fz{f\mkern-1.5mu z}
+\newcommand\pfx{\p\mkern-1mu \fx}
+\newcommand\qfz{\q \fz}
+\newcommand\qqfz{\qq \fz}
+\newcommand\pfy{\p\mkern-2mu \fy}
+\newcommand\ffy{f\mkern-4mu \fy}
+\newcommand\pffy{\p\mkern-2mu \ffy}
+\newcommand\ppffy{\pp\mkern-2mu \ffy}
+\newcommand\allx{\forall x}
+\newcommand\ally{\forall y}
+\newcommand\existsx{\exists x}
+\newcommand\existsy{\exists y}
+\newcommand\rx{rx}
+\newcommand\rz{rz}
+
+
+
+
+% Hacks to control height/depth of atom/var labels on vertices
+
+\newcommand{\nohang}[1]{\raisebox{0ex}[\height][0ex]{$#1$}}
+\newcommand\likex[1]{\raisebox{0ex}[1ex][0ex]{$#1$}}
+\newlength\fheight\settoheight\fheight{$f$}
+\newlength\pbarheight\settoheight\pbarheight{$\pp$}
+\newcommand\likef[1]{\raisebox{0ex}[\the\fheight][0ex]{$#1$}}
+\newcommand\likepbar[1]{\raisebox{0ex}[\the\pbarheight][0ex]{$#1$}}
+
+
+
+%%%%%% VERTICES %%%%%%
+
+
+%%%  Vertex styles
+
+% Vertex colours 
+
+\colorlet{dblue}{black!15!blue}% outline of blue vx
+\colorlet{lblue}{blue!8}% fill of blue vx
+\colorlet{dred}{black!55!red}% outline of red vx
+\colorlet{lred}{red!40}% fill of red vx
+\colorlet{dgreen}{black!65!green}% outline of green vx
+\colorlet{lgreen}{green!30}% fill of green vx
+
+\newcommand\roundvxwidth{3.6pt}
+
+\tikzstyle{all vertices} = [inner sep=0pt, outer sep=0pt, draw]
+\tikzstyle{round vx}     = [all vertices, circle, minimum width=\roundvxwidth, semithick]
+\newcommand\squarewidth{4.8pt}
+\tikzstyle{square vx}    = [all vertices, regular polygon, regular polygon sides = 4, minimum width=\squarewidth, minimum height=\squarewidth, semithick]
+\tikzstyle{diamond vx}   = [square vx, shape border rotate = 45]
+
+\tikzstyle{black vx}     = [round vx, draw=black, fill=black]
+\tikzstyle{blue vx}      = [round vx, draw=dblue, fill=lblue]
+\tikzstyle{red vx}       = [square vx, draw=dred, fill=lred]
+\tikzstyle{green vx}     = [diamond vx, draw=dgreen, fill=lgreen]
+
+
+\newcommand\vx[2]{% #1 placement e.g. "3,4"  #2 name
+\node[black vx] ({#2}) at ({#1}) {};}
+
+\newcommand\bluevx[2]{% #1 placement eg "3,4"  #2 name
+\node[blue vx] ({#2}) at ({#1}) {};}
+
+\newcommand\redvx[2]{% #1 placement eg "3,4"  #2 name
+\node[red vx] ({#2}) at ({#1}) {};}
+
+\newcommand\greenvx[2]{% #1 placement eg "3,4"  #2 name
+\node[green vx] ({#2}) at ({#1}) {};}
+
+\newcommand\collvxsep[6]{% #1 placement e.g. "3,4"  #2 name  #3 contents  #4 angle  #5 extra label sep  #6 vertex style 
+\node[#6, label={[outer sep=0pt,inner sep=0,label distance={#5}]{#4}:${#3}$}] ({#2}) at ({#1}) {};}
+
+\newcommand\lvxsep[5]{% #1 placement e.g. "3,4"  #2 name  #3 contents  #4 angle  #5 extra label sep
+\collvxsep{#1}{#2}{#3}{#4}{#5}{black vx}}
+%\node[black vx, label={[label distance={#5}]{#4}:${#3}$}] ({#2}) at ({#1}) {};}
+\newcommand\redlvxsep[5]{% #1 placement e.g. "3,4"  #2 name  #3 contents  #4 angle  #5 extra label sep
+\collvxsep{#1}{#2}{#3}{#4}{#5}{red vx}}
+\newcommand\bluelvxsep[5]{% #1 placement e.g. "3,4"  #2 name  #3 contents  #4 angle  #5 extra label sep
+\collvxsep{#1}{#2}{#3}{#4}{#5}{blue vx}}
+
+\newcommand\lvxgap{3pt}
+\newcommand\lvx[4]{% #1 placement e.g. "3,4"  #2 name  #3 contents  #4 angle
+\lvxsep{#1}{#2}{#3}{#4}{\lvxgap}}
+\newcommand\redlvx[4]{% #1 placement e.g. "3,4"  #2 name  #3 contents  #4 angle
+\redlvxsep{#1}{#2}{#3}{#4}{\lvxgap}}
+\newcommand\bluelvx[4]{% #1 placement e.g. "3,4"  #2 name  #3 contents  #4 angle
+\bluelvxsep{#1}{#2}{#3}{#4}{\lvxgap}}
+
+
+\newcommand\lvxugap{\lvxgap}% specialized to y with its underhang
+\newcommand\lvxl[3]{%  left-labelled vertex: #1 coords eg "3,4"  #2 name  #3 contents
+\lvxsep{#1}{#2}{\likex{#3}}{180}{\lvxgap}}
+\newcommand\lvxr[3]{% right-labelled vertex: #1 coords eg "3,4"  #2 name  #3 contents
+\lvxsep{#1}{#2}{\likex{#3}}{0}{\lvxgap}}
+\newcommand\lvxusep[4]{% #1 placement e.g. "3,4"  #2 name  #3 contents  #4 sep
+\lvxsep{#1}{#2}{#3}{90}{#4}}
+\newcommand\lvxu[3]{% #1 placement e.g. "3,4"  #2 name  #3 contents
+\lvxusep{#1}{#2}{#3}{\lvxugap}}
+\newcommand\lvxd[3]{% #1 placement e.g. "3,4"  #2 name  #3 contents
+\lvxsep{#1}{#2}{#3}{-90}{\lvxgap}}
+
+
+%%%%%%%%% EDGES
+
+%%% Edge styles
+
+\newcommand\defaultarrowstyle{stealth'}% all directed edges, e.g. binding edges
+\tikzset{>=\defaultarrowstyle}
+
+\newcommand\linewd{.5pt}
+\newcommand\linewidthforbindinggraphsymbol{.4pt}
+\newcommand\fibrewidth{1pt}
+\newcommand\leapwidth{.7pt}
+\newcommand\dualitywidth{.5pt}
+
+%%% Edges of various types
+
+% hack to stretch the dash pattern by a factor:
+\makeatletter
+\tikzset{%
+  stretch dash/.code args={on #1 off #2}{%
+    \tikz@addoption{%
+      \pgfgetpath\currentpath%
+      \pgfprocessround{\currentpath}{\currentpath}%
+      \pgf@decorate@parsesoftpath{\currentpath}{\currentpath}%
+      \pgfmathparse{max(round((\pgf@decorate@totalpathlength-#1)/(#1+#2)),0)}%
+      \let\npattern=\pgfmathresult%
+      \pgfmathparse{\pgf@decorate@totalpathlength/(\npattern*(#1+#2)+#1)}%
+      \let\spattern=\pgfmathresult%
+      \pgfsetdash{{\spattern*#1}{\spattern*#2}}{0pt}%
+    }%
+  }%
+}
+\makeatother
+
+
+% Undirected edge (no separation from source and target --- touches them)
+\newcommand\e[2]{\draw ({#1})--({#2});}
+
+% Undirected edge with extra endpoint separations
+\newcommand\eseps[4]{\draw[{_[sep=#3]}-{_[sep=#4]}] (#1) -- (#2);}
+
+% Fibration edge (NB assumes ambient style for dotting; this only sets end-point gaps)
+\newcommand\fe[2]{\draw ([yshift=-2.7pt]#1.south)--([yshift=2.7pt]#2.north);} 
+
+% Directed edge with extra endpoint separations
+\newcommand\deseps[5][\defaultarrowstyle]{\draw[{_[sep=#4]}-{>[sep=#5]},>=#1] (#2) -- (#3);}% #1 optional arrow style. For arrowhead adjustment using arrows.meta: https://tex.stackexchange.com/questions/150721/adjusting-the-size-of-an-arrow/150739#150739
+
+% Directed edge (default slightly separated from source and target)
+\newcommand\de[2]{\deseps{#1}{#2}{2.4pt}{2.3pt}}
+
+% For much better dashed/dotted liens, pstricks-style
+\makeatletter
+
+
+
+
+
+%%%%%% GRAPHS AND TREES
+
+% standard edge lengths sizes
+\def\edgelen{.8}% basic edge of graph
+\SQUAREROOT{.75}{\equitriangleheightmultiplier}
+\MULTIPLY{\edgelen}{\equitriangleheightmultiplier}{\height}% height of
+                                % equilateral of base \edgelen
+\DIVIDE{\edgelen}{2}{\halfedgelen}
+\DIVIDE{\halfedgelen}{2}{\quarteredgelen}
+\DIVIDE{\quarteredgelen}{2}{\eighthedgelen}
+\DIVIDE{\height}{2}{\halfheight}
+\MULTIPLY{\edgelen}{2}{\twoedgelen}
+\MULTIPLY{\edgelen}{3}{\threeedgelen}
+
+
+\tikzstyle{tree} = [graph, level distance=4ex, outer sep=0pt, inner sep=0, 
+  level 1/.style={sibling distance=7ex},
+  level 2/.style={sibling distance=4ex},
+  level 3/.style={sibling distance=4ex}
+]
+\tikzstyle{leaf} = [black vx, outer sep=2pt]
+
+\newcommand\gr[1]{\vctr{\begin{tikzpicture}[graph]#1\end{tikzpicture}}}
+\newcommand\tr[1]{\vctr{\begin{tikzpicture}[tree,
+  level 1/.style={sibling distance=5ex},
+  level 2/.style={sibling distance=5ex},
+  level 3/.style={sibling distance=5ex}
+]#1\end{tikzpicture}}}
+
+\newcommand\namedleaf[1]{ node[leaf] (#1) {} }%
+\newcommand\leafsep[1]{ node[leaf]{} edge from parent[{_[sep=#1]}-] }% leaf whose edge from parent takes extra sep at parent
+\newcommand\leaf{ node[leaf]{} } % edge from parent[{_[sep=#1]}]}
+\newcommand\namedleaflab[2] {  node[leaf, label={[label distance=1pt]{-90}:${#1}$}] (#2) {} } 
+\newcommand\leaflab[1] {\namedleaflab{#1}{leaf}}
+\newcommand\leaflabsep[2] {% #1 label, #2 extra separation from parent
+node[leaf, label={[label distance=1pt]{-90}:${#1}$}]{} edge from parent[{_[sep=#2]}-]
+}
+\newcommand\unionroot{\node[circle] {$\graphunion$}}% for some reason "\node" only works at the root
+\newcommand\joinroot{\node[circle] {$\graphjoin$}}
+\newcommand\unionnode{node[circle] {$\graphunion$}}
+\newcommand\joinnode{node[circle] {$\graphjoin$}}
+\newcommand\namedunionnode[1]{node[circle] (#1) {$\graphunion$}}
+\newcommand\namedjoinnode[1]{node[circle] (#1) {$\graphjoin$}}
+\newcommand\dummyleaf{ edge from parent[draw=none] }
+
+
+
+%%%%%% FIBRATIONS
+
+
+\tikzstyle{graph}        = [line width=\linewd]
+\tikzstyle{fibres}       = 
+ [every path/.style={graph, line cap=round, line width=\fibrewidth, stretch dash=on .001pt off 4.2pt}]
+\tikzstyle{leap}         = [every path/.style={graph, line width=\leapwidth, stretch dash=on 5pt off 3pt}]
+\tikzstyle{duality}      = 
+ [every path/.style=
+  {graph, line width=\dualitywidth, color=dualitycolour, stretch dash=on 3pt off 1.5pt}]
+\tikzstyle{binding}      = [every path/.style={graph, line width=\dualitywidth, color=bindingcolour}]
+\tikzstyle{semifibres}   = [graph]
+\tikzstyle{inlinegraph} = [graph,baseline]
+
+
+\newcommand\fibheight{2}
+
+
+
+%%% Condensed "inline" skew fibrations / cps
+
+% standard inline vertex heights
+\def\lo{.13}%
+\def\mi{.23}%
+\def\hi{.33}%
+\def\vi{.53}% "very hi"
+
+\tikzset{inlinecp/.style={graph,auto,inner sep=0pt,outer sep=0pt,node distance = 0pt}}
+\tikzset{% for inline skew fibrations
+  token/.style={
+	text height=1.9ex,
+	text depth =.5ex,
+	inner sep=0pt,
+	outer sep=0pt
+  }
+}
+\newcommand\fibration[1]{% the fibres to lay draw in succession
+\begin{math}\begin{scope}[inlinecp,start chain=going right]#1\end{scope}\end{math}}
+\newcommand\fibrationpic[1]{\begin{tikzpicture}[graph]\fibration{#1}\end{tikzpicture}}
+\newcommand\fibbase[2]{% name, contents
+\node[on chain,token] (#1) {${}#2{}$};}
+\renewcommand\over[3]{\node[#1,above = #2 of \currentnode, anchor=center] (#3) {};}% style, height, name
+\newcommand\overlabdirgap[6]{% style, height, name, label, label-direction, label-gap
+\node[#1,above = #2 of \currentnode, anchor=center, label={[outer sep=0pt,inner sep=0pt,label distance={#6}]{#5}:${#4}$}] ({#3}) {};}
+\newcommand\overlabdir[5]{% style, height, name, label, label-direction (default label distance)
+\overlabdirgap{#1}{#2}{#3}{#4}{#5}{\lvxugap}}
+\newcommand\overlabu[4]{% label up: style, height, name, label
+\overlabdir{#1}{#2}{#3}{#4}{90}}
+\newcommand\overlabd[4]{% label down: style, height, name, label
+\overlabdir{#1}{#2}{#3}{#4}{-90}}
+\newcommand\overlabdd[4]{% label far down: style, height, name, label
+\overlabdirgap{#1}{#2}{#3}{#4}{-90}{\lvxddgap}}
+\newcommand\fibre[3]{% name, base, fibres
+\fibbase{#1}{#2}\def\currentnode{#1}#3}
+\newcommand\symb[1]{\fibbase{symb}{#1}}
+\newcommand\open{\symb{(}}
+\newcommand\close{\symb{)}}
+
+
+
+%%%%%%%%%%% DRINKER EXAMPLES
+
+
+\newcommand\drinkerformula{\exists x\mkern1mu(\mkern1mu px\mkern-1mu\implies\mkern-1mu \aypy)}
+\newcommand\veedrinkerformula{\exists x\mkern1mu(\mkern1mu\ppx\mkern-1mu\vee\mkern-1mu \aypy)}
+\newcommand\variantveedrinkerformula{\exists x\mkern2mu\forall y\mkern2mu(\py\mkern-1mu\vee\mkern-1mu\ppx)}
+
+\newcommand\drinkergraph{D}
+
+% Parameters for drinker fibration
+
+\newcommand\drinkerx{-1.1}
+\newcommand\drinkerxx{-.4}% -.4
+\newcommand\drinkerxxx{.4}% .4
+\newcommand\drinkerxxxx{1.15}
+%\MULTIPLY{\drinkerx}{2}{\drinkerxx}
+%\MULTIPLY{\drinkerx}{3}{\drinkerxxx}
+\newcommand\drinkerup{.27}
+\newcommand\drinkerdown{.235}
+\newcommand\drinkerdowndown{.37}
+\newcommand\drinkercovergap{.445}
+\newcommand\drinkercoverfirstdown{.3}
+\newcommand\drinkercoverseconddown{.21}
+% \newcommand\drinkercovergap{.45}
+\newcommand\drinkercoverup{.24}
+\newcommand\drinkercoverdown{.27}
+
+
+%%%% Graph of drinker
+
+\newcommand\drinkerbasevertices{
+\lvxd{\drinkerx,0}{x}{x}
+\lvxd{\drinkerxx,-\drinkerdowndown}{ppx}{\ppx}%{\ppxlabelangle}
+\lvxd{\drinkerxxx,-\drinkerdown}{y}{y}%{\ylabelangle}
+\lvxd{\drinkerxxxx,0}{py}{\py}
+}
+
+\newcommand\drinkerbaseedges{
+\begin{scope}[graph]
+\e x y
+\e x {py}
+\e x {ppx}
+\end{scope}
+}
+
+\newcommand\drinkerbase{
+\drinkerbasevertices
+\drinkerbaseedges
+}
+
+
+%%%% CP of drinker
+
+\newcommand\drinkercoververticescoloured{
+\begin{scope}[shift={(0,\drinkercovergap)}]
+    \vx{\drinkerx,0}{xa}
+    \vx{\drinkerxxx,-\drinkercoverseconddown}{ya}
+    \bluevx{\drinkerxxxx,0}{pya}
+  \end{scope}
+  \vx{\drinkerx,0}{xb}
+  \bluevx{\drinkerxx,-\drinkercoverfirstdown}{ppxb}
+}
+
+\newcommand\drinkercoveredges{
+\begin{scope}[graph]
+  \e{xb}{ppxb}
+  \e{xa}{pya}
+  \e{xa}{ya}
+\end{scope}}
+
+
+\newcommand\drinkercovercoloured{
+  \drinkercoververticescoloured
+  \drinkercoveredges
+}
+
+\newcommand\drinkerfibres{
+\begin{scope}[fibres]
+  \fe{xa}{xb}
+  \fe{xb}{x}
+  \fe{ppxb}{ppx}
+  \fe{pya}{py}
+  \fe{ya}{y}
+\end{scope}
+}
+
+\newcommand\drinkerfibcoloured{
+\begin{scope}[shift={(0,\fibheight)}]
+  \drinkercovercoloured
+\end{scope}
+\drinkerbase
+\drinkerfibres
+}
+
+% Inline versions of drinker CP
+
+\newcommand\drinkerInlineAbstract[4]{\fibration{
+  \fibre{e} {#1}{
+    \over{black vx}{\lo}{el}
+    \over{black vx}{\hi}{eh}
+  }
+  \symb{\mkern2mu(\mkern2mu}
+  \fibre{px} {#2}{
+    \over{blue vx}{\lo}{pxl}
+  }
+  \symb{\mkern-2mu\implies\mkern-2mu}
+  \fibre{a} {#3}{
+    \over{black vx}{\lo}{al}
+  }
+  \symb{\mkern3mu}
+  \fibre{py} {#4}{
+    \over{blue vx}{\lo}{pyl}
+  }
+  \symb{\mkern2mu)}
+  \draw (pxl) -- (el);
+  \draw (eh) to[out=-2,in=162,looseness=.9] (al);
+  \draw (eh) to[out=6,in=155,looseness=.9] (pyl);
+}}
+
+\newcommand\veedrinkerinlinevee{\mkern-1mu\vee\mkern-0mu}
+\newcommand\veedrinkerinlineveesymb{\symb{\veedrinkerinlinevee}}
+\newcommand\veedrinkerInlineAbstract[4]{\fibration{
+  \fibre{e} {#1}{
+    \over{black vx}{\lo}{el}
+    \over{black vx}{\hi}{eh}
+  }
+  \symb{\mkern2mu(\mkern2mu}
+  \fibre{px} {#2}{
+    \over{blue vx}{\lo}{pxl}
+  }
+  \veedrinkerinlineveesymb
+  \fibre{a} {#3}{
+    \over{black vx}{\lo}{al}
+  }
+  \symb{\mkern3mu}
+  \fibre{py} {#4}{
+    \over{blue vx}{\lo}{pyl}
+  }
+  \symb{\mkern2mu)}
+  \draw (pxl) -- (el);
+  \draw (eh) to[out=-2,in=162,looseness=.9] (al);
+  \draw (eh) to[out=6,in=155,looseness=.9] (pyl);
+}}
+
+\newcommand\drinkerInline{\drinkerInlineAbstract{\exists x}{\px}{\forall y}{\py}}
+
+\newcommand\veedrinkerInline{\veedrinkerInlineAbstract{\exists x}{\ppx}{\forall y}{\py}}
+
+
+%%%%%%%%%%%%%%%%%%%%%%% FIGURES
+
+% rule underneath caption
+\newcommand\figrule{\vspace{1.3ex}\hrule}%\vspace{2ex}}
+
+%%%%%%%% FIGURE: Four combinatorial proofs
+
+\newcommand\pfyxone{-1.2}
+\newcommand\pfyxtwo{-.6}
+\newcommand\pfyxthree{0}
+\newcommand\pfyxfour{.6}
+\newcommand\pfyxfive{1.2}
+\newcommand\pfycoverradius{.23}
+\newcommand\pfycp{
+  \begin{scope}[shift={(0,\fibheight)}]
+    % cover vertices (coloured)
+    \begin{scope}[shift={(0,-\pfycoverradius)}]
+      \vx{\pfyxone,0}{xa}
+      \bluevx{\pfyxtwo,0}{ppxa}
+    \end{scope}
+    \begin{scope}[shift={(0,\pfycoverradius)}]
+      \vx{\pfyxone,0}{xb}
+      \redvx{\pfyxtwo,0}{ppxb}
+    \end{scope}
+    \vx{\pfyxthree,0}{yc}
+    \bluevx{\pfyxfour,0}{pyc}
+    \redvx{\pfyxfive,0}{pfyc}
+  \end{scope}
+  % % base vertices
+  \lvxd{\pfyxone,0} x {\likepbar x}
+  \lvxd{\pfyxtwo,0}{ppx}{\likepbar\ppx}
+  \lvxd{\pfyxthree,0}{y}{\likepbar y}
+  \lvxd{\pfyxfour,0}{py}{\likepbar\py}
+  \lvxd{\pfyxfive,0}{pfy}{\mkern14mu\likepbar\pfy}
+  % cover edges
+  \e {xa} {ppxa}
+  \e {xb} {ppxb}
+  \e {pyc} {pfyc}
+  % base edges
+  \e {x} {ppx}
+  \e {py} {pfy}
+  % fibration edges
+  \begin{scope}[fibres]
+    \fe{xb}{xa}
+    \fe{xa}{x}
+    \fe{ppxb}{ppxa}
+    \fe{ppxa}{ppx}
+    \fe{yc}{y}
+    \fe{pfyc}{pfy}
+    \fe{pyc}{py}
+  \end{scope}
+}
+
+
+\newcommand\pabxone{-1.2}
+\newcommand\pabxtwo{-.5}
+\newcommand\pabxthree{.2}
+\newcommand\pabxfour{.7}
+\newcommand\pabxfive{1.2}
+\newcommand\pabcoverradius{.3}% .23 gives two dots instead of three
+\newcommand\pabnudge{-.22}% for triangles
+\newcommand\pabcp{
+  \begin{scope}[shift={(0,\fibheight)}]
+    % cover vertices (coloured)
+    \bluevx{\pabxone,0}{pabm}
+    \redvx{\pabxtwo,0}{pcdm}
+    \begin{scope}[shift={(0,\pabcoverradius)}]
+      \vx{\pabxthree,0}{xu}
+      \vx{\pabxfour,\pabnudge}{yu}
+      \bluevx{\pabxfive,0}{pxyu}
+    \end{scope}
+    \begin{scope}[shift={(0,-\pabcoverradius)}]     
+      \vx{\pabxthree,0}{xl}
+      \vx{\pabxfour,\pabnudge}{yl}
+      \redvx{\pabxfive,0}{pxyl}
+    \end{scope}
+  \end{scope}
+  % base vertices
+  \lvxd{\pabxone,0}{pab}{\hspace{-1ex}\likepbar\qqab}
+  \lvxd{\pabxtwo,0}{pcd}{\likepbar\qqba\hspace{-.5ex}}
+  \lvxd{\pabxthree,0}{x}{\likepbar x} 
+  \lvxd{\pabxfour,\pabnudge}{y}{y}
+  \lvxd{\pabxfive,0}{pxy}{\likepbar\qxy\hspace{-1ex}}
+  % cover edges
+  \e {pabm} {pcdm}
+  \e {xu} {yu}
+  \e {xu} {pxyu}
+  \e {yu} {pxyu}
+  \e {xl} {yl}
+  \e {xl} {pxyl}
+  \e {yl} {pxyl}
+  % base edges
+  \e {pab} {pcd}
+  \e {x} {y}
+  \e {x} {pxy}
+  \e {y} {pxy}
+  % fibration edges
+  \begin{scope}[fibres]
+    \fe{pabm}{pab}
+    \fe{pcdm}{pcd}
+    \fe{xu}{xl}
+    \fe{xl}{x}
+    \fe{yu}{yl}
+    \fe{yl}{y}
+    \fe{pxyu}{pxyl}
+    \fe{pxyl}{pxy}
+  \end{scope}
+}
+\newcommand\pabcpinline{\fibration{
+  \def\hi{0.43}
+  \fibre{qabbase}{\qab}{
+    \over{blue vx}{\lo}{pab}
+  }
+  \symb{\vee}
+  \fibre{qbabase}{\qba}{
+    \over{red vx}{\lo}{pcd}
+  }
+  \symb{\mkern5mu\implies\mkern4mu}
+  \fibre{exbase}{\exists x}{
+    \over{black vx}{\lo}{xl}
+    \over{black vx}{\hi}{xu}
+  }
+  \symb{\mkern4mu}
+  \fibre{eybase}{\exists y}{
+    \over{black vx}{\lo}{yl}
+    \over{black vx}{\hi}{yu}
+  }
+  \symb{\mkern3mu}
+  \fibre{qxybase}{\qxy}{
+    \over{red vx}{\lo}{pxyl}
+    \over{blue vx}{\hi}{pxyu}
+  }
+  \e {pab} {pcd}
+  \e {xl} {yl}
+  \e {yl} {pxyl}
+  \e {xu} {yu}
+  \e {yu} {pxyu}
+  \draw (xl) to[out=25,in=160,looseness=.9](pxyl);
+  \draw (xu) to[out=25,in=160,looseness=.9](pxyu);
+}}
+
+\newcommand\onionxone{.3}
+\newcommand\onionxtwo{.85}
+\newcommand\onionxthree{1.4}
+\newcommand\onionxfour{2.1}
+\newcommand\onionxfive{2.8}
+\newcommand\onionxsix{3.5}
+\newcommand\onioncoverradius{.3}
+\newcommand\onionnudge{-.22}% for triangles
+\newcommand\onioncp{
+  \begin{scope}[shift={(0,\fibheight)}]
+    % cover vertices (coloured)
+    \begin{scope}[shift={(0,-\onioncoverradius)}]
+      \vx{\onionxone,0}{xa}
+      \redvx{\onionxtwo,\onionnudge}{pfxa}
+      \greenvx{\onionxthree,0}{ppxa}
+    \end{scope}
+    \begin{scope}[shift={(0,\onioncoverradius)}]
+      \vx{\onionxone,0}{xb}
+      \greenvx{\onionxtwo,\onionnudge}{pfxb}
+      \bluevx{\onionxthree,0}{ppxb}
+    \end{scope}
+    \vx{\onionxfour,0}{yc}
+    \redvx{\onionxfive,0}{ppffyc}
+    \bluevx{\onionxsix,0}{pyc}
+  \end{scope}
+  % base vertices
+  \lvxd{\onionxone,0} x {\likepbar x\hspace{1ex}}
+  \lvxd{\onionxtwo,\onionnudge}{pfx}{\pfx}
+  \lvxd{\onionxthree,0}{ppx}{\hspace{1.5ex}\ppx}
+  \lvxd{\onionxfour,0} y {\likepbar y}
+  \lvxd{\onionxfive,0}{ppffy}{\likepbar\ppffy\hspace{.2ex}}
+  \lvxd{\onionxsix,0}{py}{\hspace{.5ex}\likepbar\py}
+  % cover edges
+  \e {xa} {pfxa}
+  \e {xa} {ppxa}
+  \e {pfxa} {ppxa}
+  \e {xb} {pfxb}
+  \e {xb} {ppxb}
+  \e {pfxb} {ppxb}
+  % base edges
+  \e {x} {pfx}
+  \e {x} {ppx}
+  \e {pfx} {ppx}
+  % fibration edges
+  \begin{scope}[fibres]
+    \fe{xb}{xa}
+    \fe {xa}{x}
+    \fe {pfxb}{pfxa}
+    \fe {pfxa}{pfx}
+    \fe {ppxb}{ppxa}
+    \fe {ppxa}{ppx}
+    \fe {yc}{y}
+    \fe {ppffyc}{ppffy}
+    \fe {pyc}{py}
+  \end{scope}
+}
+\newcommand\onioncpinline{\fibration{
+  \def\hi{.43}
+  \symb{\left(\strut\mkern-5mu\right.}
+  \fibre{axbase}{\allx}{
+    \over{black vx}{\lo}{xl}
+    \over{black vx}{\hi}{xu}
+  }
+  \symb{(}
+  \fibre{pfxbase}{\pfx}{
+    \over{red vx}{\lo}{pfxl}
+    \over{green vx}{\hi}{pfxu}
+  }
+  \symb{\mkern-2mu\implies\mkern-2mu}
+  \fibre{pxbase}{\px}{
+    \over{green vx}{\lo}{pxl}
+    \over{blue vx}{\hi}{pxu}
+  }
+  \symb{)\left.\mkern-5mu\strut\right)\mkern3mu\implies\mkern3mu}
+  \fibre{aybase}{\ally}{
+    \over{black vx}{\lo}{y}
+  }
+  \symb{\mkern2mu(\mkern1mu}
+  \fibre{pffybase}{\pffy}{
+    \over{red vx}{\lo}{pffy}
+  }
+  \symb{\mkern-1mu\implies\mkern-1mu}
+  \fibre{pybase}{\py}{
+    \over{blue vx}{\lo}{py}
+  }
+  \symb{\mkern1mu)}
+%
+  \e {xl} {pfxl}
+  \e {pfxl} {pxl}
+  \e {xu} {pfxu}
+  \e {pfxu} {pxu}
+  \draw (xu) to[out=23,in=170,looseness=.9](pxu);
+  \draw (xl) to[out=23,in=170,looseness=.9](pxl);
+}}
+
+\newcommand\eabxone{-.8}
+\newcommand\eabxtwo{-.3}
+\newcommand\eabxthree{.3}
+\newcommand\eabxfour{.825}
+%\newcommand\eabcoverradius{.44}%{.3}
+\newcommand\eabcoverradius{.22}%{.3}
+\newcommand\eaby{-.2}
+\newcommand\eabyy{-.35}
+\newcommand\eabfibheightboost{.12}
+\newcommand\eabcp{
+  \begin{scope}[shift={(0,\fibheight)}]
+    \begin{scope}[shift={(0,\eabfibheightboost)}]
+      % cover vertices (coloured)
+      \begin{scope}[shift={(0,-\eabcoverradius)}]
+        % cover bottom triangle
+        \vx{\eabxone,0}{xl}
+        \bluevx{\eabxtwo,\eabyy}{ppal}
+        \redvx{\eabxthree,\eaby}{ppbl}
+        \redvx{\eabxfour,0}{pxm}
+      \end{scope}
+      % cover mid horizontal
+%      \vx{\eabxone,0}{xm}
+%      \redvx{\eabxfour,0}{pxm}
+      \begin{scope}[shift={(0,\eabcoverradius)}]
+        % cover upper horizontal
+        \vx{\eabxone,0}{xu}
+        \bluevx{\eabxfour,0}{pxu}
+      \end{scope}
+    \end{scope}
+  \end{scope}
+  % base vertices
+  \lvxd{\eabxone,0} x {x\hspace{1.3ex}}
+  \lvxd{\eabxtwo,\eabyy}{ppa}{\likepbar\ppa\hspace{.2ex}}
+  \lvxd{\eabxthree,\eaby}{ppb}{\hspace{.9ex}\likepbar\ppb}
+  \lvxd{\eabxfour,0}{px}{\px\hspace{-1.5ex}}
+  % cover edges
+  \e {xl} {ppal}
+  \e {xl} {ppbl}
+  \e {ppal} {ppbl}
+  \e {xl} {pxm}
+%  \e {xm} {pxm}
+  \e {xu} {pxu}
+  % base edges
+  \e {x} {ppa}
+  \e {x} {ppb}
+  \e {ppa} {ppb}
+  \e {x} {px}
+  % fibration edges
+  \begin{scope}[fibres]
+    \fe {xu}{xl}
+%    \fe {xu}{xm}
+%    \fe {xm}{xl}
+    \fe {xl}{x}
+    \fe {ppal}{ppa}
+    \fe {ppbl}{ppb}
+    \fe {pxu}{pxm}
+    \fe {pxm}{px}
+  \end{scope}
+}
+
+
+
+
+\newcommand\pfyformula{(\axpx) \mkern1mu \implies \mkern1mu \forall y\mkern3mu (\mkern1mu\py\tightwedge \pfy\mkern1mu)}
+\newcommand\eabformula{\exists x\mkern2mu (\mkern1mu\pa\tightvee\mkern1.2mu\pb\mkern-1mu\implies\mkern-1mu px\mkern1mu)}
+\newcommand\onionformula{\left(\strut\forall x\mkern1mu  (\mkern1mu \pfx\tightimplies \px)\right)\mkern2mu \implies\mkern2mu  \forall y\mkern2mu  (\mkern1mu \pffy\tightimplies \py\mkern1mu )}
+\newcommand\pabformula{\qab\vee \qba\mkern4mu \implies \mkern4mu \exists x\mkern4mu \exists y\mkern3mu \qxy}
+
+\newcommand\cponeformula{\eabformula}
+\newcommand\cptwoformula{\pfyformula}
+\newcommand\cpthreeformula{\pabformula}
+\newcommand\cpfourformula{\onionformula}
+
+\newcommand\cpone{\eabcp}
+\newcommand\cptwo{\pfycp}
+\newcommand\cpthree{\pabcp}
+\newcommand\cpfour{\onioncp}
+
+\newcommand\cponformula[3]{% #1 cp, #2 xadjustment, #3 formula
+  \begin{scope}[graph,shift={(#2,1.7)}]{#1}\end{scope}
+  \node[anchor=base] (formula) at (0,0){$#3$};
+}
+
+\newcommand\eabcponformula{\cponformula{\eabcp}{-.1}{\eabformula}}
+\newcommand\pfycponformula{\cponformula{\pfycp}{-.15}{\pfyformula}}
+\newcommand\pabcponformula{\cponformula{\pabcp}{0}{\pabformula}}
+\newcommand\onioncponformula{\cponformula{\onioncp}{-2}{\onionformula}}
+
+\newcommand\cponeonformula{\eabcponformula}
+\newcommand\cptwoonformula{\pfycponformula}
+\newcommand\cpthreeonformula{\pabcponformula}
+\newcommand\cpfouronformula{\onioncponformula}
+
+
+\newcommand\figcps{\begin{figure*}\begin{center}\vspace{1ex}\begin{tikzpicture}\newcommand\radius{3.6}%
+\begin{scope}[shift={(-\radius,5.7)}]{\cponeonformula}\end{scope}
+\begin{scope}[shift={(\radius,5.7)}]{\cptwoonformula}\end{scope}
+\begin{scope}[shift={(-\radius,0)}]{\cpthreeonformula}\end{scope}
+\begin{scope}[shift={(\radius,0)}]{\cpfouronformula}\end{scope}
+\end{tikzpicture}\end{center}%
+\caption{\label{fig:cps}%
+  Four combinatorial proofs, each shown above the formula proved.
+  Here $x$ and $y$ are variables, $f$ is a unary function symbol, $a$ and $b$ are constants (nullary function symbols), $p$ is a unary predicate symbol, and $q$ is a binary predicate symbol.}\figrule\end{figure*}}
+
+
+
+
+
+
+%%%%%%%%%% FIGURE Condensed forms of the four combinatorial proofs
+
+\newcommand\eabcpinline{\fibration{
+  \def\hi{.39}
+  \def\vi{.66}
+  \fibre{exbase}{\existsx}{
+    \over{black vx}{\lo}{x}
+    \over{black vx}{\hi}{xm}
+    \over{black vx}{\vi}{xu}
+  }
+  \symb{\mkern2mu(\mkern2mu}
+  \fibre{pabase}{\pa}{
+    \over{blue vx}{\lo}{pa}
+  }
+  \symb{\tightvee\mkern1.2mu}
+  \fibre{pybase}{\pb}{
+    \over{red vx}{\lo}{pb}
+  }
+  \symb{\mkern-1mu\implies\mkern-1mu}
+  \fibre{pxbase}{\px}{
+    \over{red vx}{\lo}{px}
+    \over{blue vx}{\hi}{pxm}
+  }
+  \symb{\mkern2mu)}
+  \e {x}{pa}
+  \e {pa}{pb}
+  \draw (x) to[out=20,in=165,looseness=.85] (pb);
+  \draw (xm) to[out=20,in=163,looseness=.8] (px);
+  \draw (xu) to[out=20,in=163,looseness=.8] (pxm);
+}}
+
+\newcommand\pfycpinline{\fibration{
+  \symb{(}
+  \fibre{axbase}{\allx}{
+     \over{black vx}{\lo}{xl}
+     \over{black vx}{\hi}{xu}
+  }
+  \symb{\mkern2mu}
+  \fibre{pxbase}{\px}{
+    \over{blue vx}{\lo}{pxl}
+    \over{red vx}{\hi}{pxu}
+  }
+  \symb{\mkern2mu)\mkern4mu\implies\mkern4mu}
+  \fibre{aybase}{\ally}{
+    \over{black vx}{\lo}{y}
+  }
+  \symb{\mkern2mu(\mkern1mu}
+  \fibre{pybase}{\py}{
+    \over{blue vx}{\lo}{py}
+  }
+  \symb{\mkern-2mu\wedge\mkern-2mu}
+  \fibre{pfybase}{\pfy}{
+    \over{red vx}{\lo}{pfy}
+  }
+  \symb{\mkern1mu)}
+  \draw (xu) -- (pxu);
+  \draw (xl) -- (pxl);
+  \draw (py) -- (pfy);
+}}
+
+
+\newcommand\cponeinline{\eabcpinline}
+\newcommand\cptwoinline{\pfycpinline}
+\newcommand\cpthreeinline{\pabcpinline}
+\newcommand\cpfourinline{\onioncpinline}
+
+
+
+\newcommand\figcpscondensed{\begin{figure*}\begin{center}\vspace{-1ex}\begin{tikzpicture}\newcommand\radius{3.2}%
+  \begin{scope}[shift={(-\radius,1.9)}]\cponeinline\end{scope}
+  \begin{scope}[shift={(\radius,1.9)}]\cptwoinline\end{scope}
+  \begin{scope}[shift={(-\radius,0)}]\cpthreeinline\end{scope}
+  \begin{scope}[shift={(\radius,0)}]\cpfourinline\end{scope}
+\end{tikzpicture}\end{center}%
+\caption{\label{fig:cps-condensed}Condensed forms of the four combinatorial proofs in Fig.\,\ref{fig:cps}.}\figrule\vspace{-4ex}\end{figure*}}
+
+
+
+
+%%%%%%% PICTURE: Drinker graph, cotree, binding graph
+
+
+\newcommand\drinkersquare{
+\lvx{-\halfedgelen,\halfedgelen}{x}{x}{135}
+\lvx{\halfedgelen,\halfedgelen}{px}{\mkern.5mu\likex\ppx}{45}
+\lvx{-\halfedgelen,-\halfedgelen}{y}{\mkern.5mu\likex y}{-135}
+\lvx{\halfedgelen,-\halfedgelen}{py}{\py}{-45}
+}
+\newcommand\drinkersquareedges{
+  \e x y
+  \e x {px}
+  \e x {py}
+}
+
+\newcommand\drinkersquarewithedges{\drinkersquare\drinkersquareedges}
+
+
+\newcommand\drinkergraphpic{\gr{\drinkersquarewithedges}}
+
+\newcommand\drinkercotreepic{\tr{\tikzset{level 1/.style={sibling distance=8ex},level 2/.style={sibling distance=4ex}}
+  \joinroot
+    child { \leaflab x }
+    child { 
+      \unionnode
+      child { \leaflab y }
+      child { \leaflab \ppx }
+      child { \leaflab \py }
+    }
+  ;
+}}
+
+\newcommand\drinkerbindinggraphpic{\gr{\drinkersquare \de x {px} \de y {py}}}
+
+
+%%%%%% PICTURE lifting diagrams
+
+\newcommand\liftingdiagrams{%
+\begin{center}\begin{tikzpicture}[graph,outer sep=1.5pt,inner sep=0pt]\begin{math}
+  \newcommand\rad{.8}
+  \newcommand\vht{1.55}
+  \newcommand\shortrad{.4}
+  \newcommand\commonsquarepart{
+    \node (liftw) at (-\rad,\vht) {$\skewlifting\vertexa$};
+    \node[left=-1pt of liftw,outer sep=0,inner sep=0] (uniqueliftw) {$\exists\mkern1mu!$};
+    \node (w) at (-\rad,0) {$\vertexa$};
+    \node (v) at (\rad,1.55) {$v$};
+    \node (fv) at (\rad,0) {$\fib(v)$};
+    % fibres
+    \begin{scope}[fibres]
+      \fe{liftw}{w}
+      \fe{v}{fv}
+    \end{scope}
+  }
+  \begin{scope}[shift={(-3.2,0)}]    
+    \commonsquarepart
+    % directed edges
+    \deseps {w} {fv} {1.8pt} {1.5pt}
+    \deseps {liftw} {v} {1.8pt} {1.5pt}
+  \end{scope}
+  \begin{scope}
+    \commonsquarepart
+    % undirected edges
+    \eseps {w} {fv} {1.7pt} {1.7pt}
+    \eseps {liftw} {v} {1.7pt} {1.7pt}
+  \end{scope}
+  \begin{scope}[shift={(3.2,0)}]    
+    \node (v) at (\rad,1.55) {$v$};
+    \node (fv) at (\rad,0) {$f(v)$};
+    \node (fliftw) at (-\rad,.3){$f(\skewlifting w)$};
+    \node (liftw) at (-\rad,1.8){$\skewlifting\vertexa$};
+    \node[left=-1pt of liftw,outer sep=0,inner sep=0] (uniqueliftw) {$\exists$};
+    \node (w) at (-\shortrad,-.35) {$w$};
+    % undirected edges
+    \eseps {w} {fv} {1.7pt} {1.7pt}
+    \eseps {liftw} {v} {1.7pt} {1.7pt}
+    \eseps {fliftw} {fv} {.3pt} {1.7pt}
+  \end{scope}
+  \begin{scope}[fibres]
+    \fe{liftw}{fliftw}
+    \fe{v}{fv}
+  \end{scope}
+\end{math}\end{tikzpicture}\end{center}}
+
+
+
+
+%%%%%%% FIGURE: Drinker bifibration, binding fibration, and skeleton
+
+% add a label to a vertex
+\newcommand\labsep[4]{% #1 point-being-labelled, #2 contents, #3 angle, #4 labelsep
+%\node (label) at ([shift={(#1)}] #3:#4) {\ensuremath{#2}};}
+\node[outer sep=0,inner sep=0,position=#3:#4 from #1] {\ensuremath{#2}};}
+
+\newcommand\coverylabelangle{-35}
+\newcommand\coverppxlabelangle{0}
+\newcommand\coverppxlabeldist{2pt}
+\newcommand\addalldrinkercoverlabels[3]{% #1 = upper x variant, #2 = lower x variant, #3 = universal binder var
+  \labsep{xa}{#1}{170}{2pt}
+  \labsep{xb}{#2}{-170}{2pt}
+  \labsep{ya}{\likex #3}{\coverylabelangle}{2pt}
+  \labsep{ppxb}{\likex{\mkern-1mu\pp\mkern-.6mu #2}}{\coverppxlabelangle}{\coverppxlabeldist}
+  \labsep{pya}{\likex{p #3}}{0}{2pt}
+}
+\newcommand\adddrinkercoverlabels[2]{\addalldrinkercoverlabels{#1}{#2}{y}}
+
+\newcommand\drinkercoververtices{
+  \begin{scope}[shift={(0,\drinkercovergap)}]
+    \vx{\drinkerx,0}{xa}
+    \vx{\drinkerxxx,-\drinkercoverseconddown}{ya}
+    \vx{\drinkerxxxx,0}{pya}
+  \end{scope}
+  \vx{\drinkerx,0}{xb}
+  \vx{\drinkerxx,-\drinkercoverfirstdown}{ppxb}
+}
+
+\newcommand\drinkercover{
+  \drinkercoververtices
+  \drinkercoveredges
+}
+
+\newcommand\drinkerfib{
+\begin{scope}[shift={(0,\fibheight)}]
+  \drinkercover
+\end{scope}
+\drinkerbase
+\drinkerfibres
+}
+
+\newcommand\drinkerfiblabelledpair[2]{% #1 = upper x variant, #2 = lower x variant
+  \drinkerfib
+%  \adddrinkercoverlabels{#1}{#2}
+}
+
+
+\newcommand\figdrinkerbifib{\begin{figure*}%
+\begin{center}\begin{tikzpicture}[graph]
+  \begin{scope}[shift={(-5,0)}]\drinkerfiblabelledpair{x}{x}\end{scope}
+%  \begin{scope}[shift={(0,0)}]\drinkerbindingfiblabelled{x}{x}\end{scope}
+%  \begin{scope}[shift={(5,0)}]\drinkerfib\end{scope}
+\end{tikzpicture}\end{center}\caption{\label{fig:drinkerbifib}A skew bifibration (left), its binding fibration (centre), and its skeleton (right).}\figrule\end{figure*}}
