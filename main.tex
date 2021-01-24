@@ -762,19 +762,19 @@ propositional variables.
 
 \begin{equation*}
 \vlderivation{
-  \vlin{\conr}{}{\sqn{\exists x.(\cneg{p}(x) \vlor (\forall y.p(y)))}}{
-    \vlin{\exists}{}{\sqn{\exists x.(\cneg{p}(x) \vlor (\forall y.p(y))),\exists
-x.(\cneg{p}(x) \vlor (\forall y.p(y)))}}{
-      \vlin{\vlor}{}{\sqn{\cneg{p}(w) \vlor (\forall y.p(y)), \exists
-x.(\cneg{p}(x) \vlor (\forall y.p(y)))}}{
-        \vlin{\forall}{}{\sqn{\cneg{p}(w), \forall y.p(y), \exists
-x.(\cneg{p}(x) \vlor (\forall y.p(y)))}}{
-          \vlin{\exists}{}{\sqn{\cneg{p}(w), p(z), \exists
-x.(\cneg{p}(x) \vlor (\forall y.p(y)))}}{
-            \vlin{\vlor}{}{\sqn{\cneg{p}(w), p(z), \cneg{p}(z) \vlor (\forall y.p(y)))}}{
-              \vlin{\weakr}{}{\sqn{\cneg{p}(w), p(z), \cneg{p}(z), (\forall y.p(y)))}}{
-                \vlin{\weakr}{}{\sqn{\cneg{p}(w), p(z), \cneg{p}(z)}}{
-                \vlin{\axr}{}{\sqn{p(z), \cneg{p}(z)}}{
+  \vlin{\conr}{}{\sqn{\exists x.(\cneg{p}x \vlor (\forall y.py))}}{
+    \vlin{\exists}{}{\sqn{\exists x.(\cneg{p}x \vlor (\forall y.py)),\exists
+x.(\cneg{p}x \vlor (\forall y.py))}}{
+      \vlin{\vlor}{}{\sqn{\cneg{p}w \vlor (\forall y.py), \exists
+x.(\cneg{p}x \vlor (\forall y.p(y)))}}{
+        \vlin{\forall}{}{\sqn{\cneg{p}w, \forall y.py, \exists
+x.(\cneg{p}x \vlor (\forall y.py))}}{
+          \vlin{\exists}{}{\sqn{\cneg{p}w, pz, \exists
+x.(\cneg{p}x \vlor (\forall y.py))}}{
+            \vlin{\vlor}{}{\sqn{\cneg{p}w, pz, \cneg{p}z \vlor (\forall y.py))}}{
+              \vlin{\weakr}{}{\sqn{\cneg{p}w, pz, \cneg{p}z, (\forall y.py))}}{
+                \vlin{\weakr}{}{\sqn{\cneg{p}w, pz, \cneg{p}z}}{
+                \vlin{\axr}{}{\sqn{pz, \cneg{p}z}}{
                   \vlhy{}}}}}}}}}}}
 \end{equation*}
 \juihsuan{LK1 and KS1 proofs of Peirce's law and LK1 proof of drinker formula}
@@ -884,24 +884,24 @@ in which the troublesome pair is collapsed to a single uncoloured vertex $\singl
 
 \begin{equation*}
 \vlderivation{
-  \vlin{\acD}{}{(\exists x. \cneg{p}(x)) \vlor (\forall y.(p(y) \vlan p(f(y))))}{
-    \vlin{\mexD}{}{(\exists x. (\cneg{p}(x) \vlor \cneg{p}(x)) \vlor (\forall
-y.(p(y) \vlan p(f(y))))}{
-      \vlin{\fequ}{}{(\exists x. \cneg{p}(x)) \vlor (\exists x.\cneg{p}(x))
-\vlor (\forall y.(p(y) \vlan p(f(y)))}{
-        \vlin{\exists}{}{\forall y.((\exists x. \cneg{p}(x)) \vlor (\exists x.\cneg{p}(x)) \vlor
-(p(y) \vlan p(f(y))))}{
-          \vlin{\exists}{}{\forall y.(\cneg{p}(y) \vlor (\exists x.\cneg{p}(x))
-\vlor (p(y) \vlan p(f(y))))}{
-            \vlin{\fequ}{}{\forall y.(\cneg{p}(y) \vlor \cneg{p}(f(y)) \vlor
-(p(y) \vlan p(f(y))))}{
-              \vlin{\sw}{}{\forall y.(\cneg{p}(y) \vlor ((p(y) \vlan p(f(y)))
-\vlor \cneg{p}(f(y))))}{
-                \vlin{\fequ}{}{\forall y.(\cneg{p}(y) \vlor (p(y) \vlan (p(f(y))
-\vlor \cneg{p}(f(y)))))}{
-                  \vlin{\aiD}{}{\forall y.((\cneg{p}(y) \vlor p(y)) \vlan (p(f(y))
-\vlor \cneg{p}(f(y))))}{
-                    \vlin{\aiD}{}{\forall y.((\cneg{p}(y) \vlor p(y)) \vlan
+  \vlin{\acD}{}{(\exists x. \cneg{p}x) \vlor (\forall y.(py \vlan pfy))}{
+    \vlin{\mexD}{}{(\exists x. (\cneg{p}x \vlor \cneg{p}x) \vlor (\forall
+y.(py \vlan pfy))}{
+      \vlin{\fequ}{}{((\exists x. \cneg{p}x) \vlor (\exists x.\cneg{p}x))
+\vlor (\forall y.(py \vlan pfy)}{
+        \vlin{\exists}{}{\forall y.(((\exists x. \cneg{p}x) \vlor (\exists
+x.\cneg{p}x)) \vlor (py \vlan pfy))}{
+          \vlin{\exists}{}{\forall y.((\cneg{p}y \vlor (\exists x.\cneg{p}x))
+\vlor (py \vlan pfy))}{
+            \vlin{\fequ}{}{\forall y.((\cneg{p}y \vlor \cneg{p}fy) \vlor
+(py \vlan pfy))}{
+              \vlin{\sw}{}{\forall y.(\cneg{p}y \vlor ((py \vlan pfy)
+\vlor \cneg{p}fy))}{
+                \vlin{\fequ}{}{\forall y.(\cneg{p}y \vlor (py \vlan (pfy
+\vlor \cneg{p}fy)))}{
+                  \vlin{\aiD}{}{\forall y.((\cneg{p}y \vlor py) \vlan (pfy
+\vlor \cneg{p}fy))}{
+                    \vlin{\aiD}{}{\forall y.((\cneg{p}y \vlor py) \vlan
 \ttt)}{
                       \vlin{\ttt}{}{\forall y.(\ttt \vlan \ttt)}{
                         \vlin{\forall}{}{\forall y.\ttt}{
@@ -936,7 +936,7 @@ $\FORM$ of \bfit{formulas}, denoted by $A,B,C,\ldots$:
 \end{array}
 \end{equation*}
 where the arity of $f$ and $p$ is $n$.
-For better readability of often omit parentheses and write simply $ft_1,\dots,t_n$ or $pt_1,\dots,t_n$.
+For better readability of often omit parentheses and write simply $ft_1 \dots t_n$ or $pt_1 \dots t_n$.
 We consider the truth constants
 $\ttt$ (\emph{true}) and $\fff$
 (\emph{false}) as additional atoms, and we consider all formulas in negation
@@ -3072,7 +3072,7 @@ The obvious next step in our research is to investigate proof
 composition and normalisation of first-order combinatorial
 proofs. Even in the propositional setting, the normalization of
 combinatorial proofs is underdevelopped. There exist two different
-procedures for cut elimination~\cite{hughes:invar,str:FSCD17}, but
+procedures for cut elimination~\cite{hughes:invar,str:fscd17}, but
 both have their insufficiencies, and there is no general theory.
 
 \lutz{do we want/can say more here?}
