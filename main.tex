@@ -882,9 +882,33 @@ so are outer $y$-binders in the scope of each other.
 The correct operation is shown above-right,
 in which the troublesome pair is collapsed to a single uncoloured vertex $\singleton{}$ over $\forall y$.
 
-
-
-
+\begin{equation*}
+\vlderivation{
+  \vlin{\acD}{}{(\exists x. \cneg{p}(x)) \vlor (\forall y.(p(y) \vlan p(f(y))))}{
+    \vlin{\mexD}{}{(\exists x. (\cneg{p}(x) \vlor \cneg{p}(x)) \vlor (\forall
+y.(p(y) \vlan p(f(y))))}{
+      \vlin{\fequ}{}{(\exists x. \cneg{p}(x)) \vlor (\exists x.\cneg{p}(x))
+\vlor (\forall y.(p(y) \vlan p(f(y)))}{
+        \vlin{\exists}{}{\forall y.((\exists x. \cneg{p}(x)) \vlor (\exists x.\cneg{p}(x)) \vlor
+(p(y) \vlan p(f(y))))}{
+          \vlin{\exists}{}{\forall y.(\cneg{p}(y) \vlor (\exists x.\cneg{p}(x))
+\vlor (p(y) \vlan p(f(y))))}{
+            \vlin{\fequ}{}{\forall y.(\cneg{p}(y) \vlor \cneg{p}(f(y)) \vlor
+(p(y) \vlan p(f(y))))}{
+              \vlin{\sw}{}{\forall y.(\cneg{p}(y) \vlor ((p(y) \vlan p(f(y)))
+\vlor \cneg{p}(f(y))))}{
+                \vlin{\fequ}{}{\forall y.(\cneg{p}(y) \vlor (p(y) \vlan (p(f(y))
+\vlor \cneg{p}(f(y)))))}{
+                  \vlin{\aiD}{}{\forall y.((\cneg{p}(y) \vlor p(y)) \vlan (p(f(y))
+\vlor \cneg{p}(f(y))))}{
+                    \vlin{\aiD}{}{\forall y.((\cneg{p}(y) \vlor p(y)) \vlan
+\ttt)}{
+                      \vlin{\ttt}{}{\forall y.(\ttt \vlan \ttt)}{
+                        \vlin{\forall}{}{\forall y.\ttt}{
+                          \vlhy{\ttt}}}}}}}}}}}}}}
+\end{equation*}
+\juihsuan{the decomposed KS1 proof of $(\exists x. \cneg{p}(x)) \vlor (\forall
+y.(p(y) \vlan p(f(y))))$}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
