@@ -17,7 +17,7 @@
 \newcommand\vertexap{w\primed}
 
 % Fibration symbol
-\newcommand\fib{f}
+\newcommand\fib{\phi}
 
 
 
@@ -467,7 +467,7 @@ node[leaf, label={[label distance=1pt]{-90}:${#1}$}]{} edge from parent[{_[sep=#
 \newcommand\veedrinkerformula{\exists x\mkern1mu(\mkern1mu\ppx\mkern-1mu\vee\mkern-1mu \aypy)}
 \newcommand\variantveedrinkerformula{\exists x\mkern2mu\forall y\mkern2mu(\py\mkern-1mu\vee\mkern-1mu\ppx)}
 
-\newcommand\drinkergraph{D}
+\newcommand\drinkergraph{\gD}
 
 % Parameters for drinker fibration
 
@@ -1087,22 +1087,16 @@ node[leaf, label={[label distance=1pt]{-90}:${#1}$}]{} edge from parent[{_[sep=#
       \fe{v}{fv}
     \end{scope}
   }
-  \begin{scope}[shift={(-3.2,0)}]    
-    \commonsquarepart
-    % directed edges
-    \deseps {w} {fv} {1.8pt} {1.5pt}
-    \deseps {liftw} {v} {1.8pt} {1.5pt}
-  \end{scope}
-  \begin{scope}
+  \begin{scope}[shift={(-3,0)}]    
     \commonsquarepart
     % undirected edges
     \eseps {w} {fv} {1.7pt} {1.7pt}
     \eseps {liftw} {v} {1.7pt} {1.7pt}
   \end{scope}
-  \begin{scope}[shift={(3.2,0)}]    
+  \begin{scope}
     \node (v) at (\rad,1.55) {$v$};
-    \node (fv) at (\rad,0) {$f(v)$};
-    \node (fliftw) at (-\rad,.3){$f(\skewlifting w)$};
+    \node (fv) at (\rad,0) {$\fib(v)$};
+    \node (fliftw) at (-\rad,.3){$\fib(\skewlifting w)$};
     \node (liftw) at (-\rad,1.8){$\skewlifting\vertexa$};
     \node[left=-1pt of liftw,outer sep=0,inner sep=0] (uniqueliftw) {$\exists$};
     \node (w) at (-\shortrad,-.35) {$w$};
@@ -1114,6 +1108,12 @@ node[leaf, label={[label distance=1pt]{-90}:${#1}$}]{} edge from parent[{_[sep=#
   \begin{scope}[fibres]
     \fe{liftw}{fliftw}
     \fe{v}{fv}
+  \end{scope}
+  \begin{scope}[shift={(3,0)}]    
+    \commonsquarepart
+    % directed edges
+    \deseps {w} {fv} {1.8pt} {1.5pt}
+    \deseps {liftw} {v} {1.8pt} {1.5pt}
   \end{scope}
 \end{math}\end{tikzpicture}\end{center}}
 
@@ -1209,7 +1209,8 @@ node[leaf, label={[label distance=1pt]{-90}:${#1}$}]{} edge from parent[{_[sep=#
 \newcommand\assign[2]{#1\mkern1.5mu\shortmapsto\mkern.7mu #2}
 \newcommand\assignopen{\{\mkern.5mu}
 \newcommand\assignclose{\mkern.5mu\}}
-\newcommand\twolinkassignment{\assignopen\assign x z,\assign y{fz}\assignclose}
+%\newcommand\twolinkassignment{\assignopen\assign x z,\assign y{fz}\assignclose}
+\newcommand\twolinkassignment{\sublist{\subst x z,\subst y{fz}}}
 
 \newcommand\twolinkfographvertices{
   \begin{scope}[shift={(-\halfedgelen,0)}]
@@ -1247,14 +1248,14 @@ node[leaf, label={[label distance=1pt]{-90}:${#1}$}]{} edge from parent[{_[sep=#
 }
 
 \newcommand\leapfig{%
-\begin{figure*}\begin{center}\vspace{-1ex}\begin{tikzpicture}[graph]
-  \begin{scope}[xshift=-3cm]\twolinkfograph\end{scope}
-  \begin{scope}[xshift=3cm]\twolinkleapgraph\end{scope}
+\begin{figure}\begin{center}\vspace{-1ex}\begin{tikzpicture}[graph]
+  \begin{scope}[xshift=-2.5cm]\twolinkfograph\end{scope}
+  \begin{scope}[xshift=2.5cm]\twolinkleapgraph\end{scope}
 \end{tikzpicture}\vspace{-4ex}\end{center}%
 \caption{\label{fig:leap}A fonet (left) with
-    unique dualizer $\protect\twolinkassignment$
+    dualizer $\protect\twolinkassignment$
     and its
-    leap graph (right).}\figrule\end{figure*}}
+    leap graph (right).}\end{figure}}
 
 
 

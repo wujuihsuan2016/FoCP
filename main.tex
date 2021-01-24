@@ -147,6 +147,7 @@
 \newcommand{\gB}{\graph{B}}
 \newcommand{\gBone}{\graph{B}_1}
 \newcommand{\gC}{\graph{C}}
+\newcommand{\gD}{\graph{D}}
 \newcommand{\gG}{\graph{G}}
 \newcommand{\gH}{\graph{H}}
 \newcommand{\gN}{\graph{N}}
@@ -154,6 +155,7 @@
 \newcommand{\bA}{\bgraph{A}}
 \newcommand{\bB}{\bgraph{B}}
 \newcommand{\bC}{\bgraph{C}}
+\newcommand{\bD}{\bgraph{D}}
 \newcommand{\bG}{\bgraph{G}}
 \newcommand{\bH}{\bgraph{H}}
 
@@ -754,7 +756,7 @@ However, even though Hughes proves soundness and completeness, the
 proof is highly unsatisfactory: (1) the soundness argument is extremely
 long, intricate and cumbersome, and (2) the completeness proof does not 
 allow a syntactic proof to be read back from a combinatorial proof, i.e.,
-completeness is not \emph{full}.\todo{cite something for full comp?}
+completeness is not \emph{full}~\cite{abramsky:jagadeesan:94}.\todo{cite something for full comp?}\lutz{is that enough?}
 A fundamental problem is that not all combinatorial
 proofs can be obtained as translations of sequent calculus proofs.
 
@@ -797,13 +799,7 @@ paper.
 
 \subsection{Pictures that could be used elsewhere in the paper}
 
-The fograph of drinker formula $\drinkerformula=\veedrinkerformula$:
-%
-\begin{center}\vspace{2ex}\begin{tikzpicture}
-\drinkerbase
-\end{tikzpicture}\vspace{1ex}\end{center}
-%
-%
+
 Condensed combinatorial proof of drinker formula(s):
 %
 \begin{center}\vspace{3ex}\begin{math}
@@ -820,30 +816,6 @@ Condensed combinatorial proof of drinker formula(s):
 \figcpscondensed Fig.\,\ref{fig:cps-condensed} is a floating figure with the condensed forms of the four combinatorial proofs in Fig.\,\ref{fig:cps}.
 
 
-Both $\veedrinkerformula$ and $\variantveedrinkerformula$ have the same
-rectified fograph $\drinkergraph$, shown below-left.
-%
-\begin{center}\begin{math}
-%
-\drinkergraphpic
-%
-\hspace{8ex}
-%
-\drinkercotreepic
-%
-\hspace{8ex}
-%
-\drinkerbindinggraphpic
-%
-\end{math}\end{center}
-
-Lifting diagrams:
-%
-\liftingdiagrams
-
-\figdrinkerbifib Fig.\,\ref{fig:drinkerbifib} shows the drinker bifibration, binding fibration, and skeleton.
-
-\leapfig Fig.\,\ref{fig:leap} shows a fonet with a unique dualizer, and its leap graph.
 
 Illustrating why we need to collapse twins during contraction, to preserve the target as a fograph:
 %
@@ -891,7 +863,9 @@ $\FORM$ of \bfit{formulas}, denoted by $A,B,C,\ldots$:
     A &\coloneqq~ a \mid A\vlan A \mid A\vlor A \mid \exists x.A \mid \forall x.A
 \end{array}
 \end{equation*}
-where the arity of $f$ and $p$ is $n$. We consider the truth constants
+where the arity of $f$ and $p$ is $n$.
+For better readability of often omit parentheses and write simply $ft_1,\dots,t_n$ or $pt_1,\dots,t_n$.
+We consider the truth constants
 $\ttt$ (\emph{true}) and $\fff$
 (\emph{false}) as additional atoms, and we consider all formulas in negation
 normal form, where \bfit{negation} $(\dual\cdot)$ is defined on
@@ -917,6 +891,7 @@ atoms and formulas via De Morgan's laws:
   \dual{A \vlor B} = \dual{A} \ \vlan \ \dual{B}
   \end{array}
 \end{equation*}
+Then we write $A\implies B$ as abbreviation for $\dual A\vlor B$.
 
 A formula is \bfit{rectified} if all bound variables are distinct from
 one another and from all free variables. Every formula can be
@@ -980,7 +955,7 @@ A \bfit{variable renaming} is a substitution $\rho$ with $\rho(x)\in\VAR$ for al
 
 \bfit{Sequents}, denoted by $\Gamma,\Delta,\ldots$, are finite
 multisets of formulas, written as lists, separated by comma. The
-\bfit{corresponding formula} \todo{Case $n=0$!} of a sequent $\Gamma=A_1,A_2,\ldots,A_n$
+\bfit{corresponding formula} of a (non-empty) sequent $\Gamma=A_1,A_2,\ldots,A_n$
 is the disjunction of its formulas: $\form\Gamma=A_1\vlor
 A_2\vlor\cdots\vlor A_n$. A sequent is \bfit{rectified} iff its
 corresponding formula is.
@@ -1094,9 +1069,9 @@ for all $v, w \in M$. A module $M$ is \bfit{strong} if for every
 module $M'$, we have $M' \subseteq M$, $M \subseteq$ or $M \cap M' =
 \emptyset$. A module is \bfit{proper} if it has two or more vertices.
 
-Modules in cographs correspond precisely to the subtrees of the
-cotrees (the term-trees constructing the graph via $+$ and~$\times$).\todo{Cotree
-must alternate $+$ and $\times$. Skip this comment completely?}
+%% Modules in cographs correspond precisely to the subtrees of the
+%% cotrees (the term-trees constructing the graph via $+$ and~$\times$).\todo{Cotree
+%% must alternate $+$ and $\times$. Skip this comment completely?}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1128,9 +1103,8 @@ A \bfit{first-order graph} or \bfit{fograph} is a logical cograph with legal bin
 
 We define a mapping $\graphof\cdot$ from formulas to (labelled)
 graphs, inductively as follows:
-
-For a formula $A$, we can define its
-associated fograph $\graphof{A}$ inductively by:\todo{duplicate two sentences above}
+%% For a formula $A$, we can define its
+%% associated fograph $\graphof{A}$ inductively by:\todo{duplicate two sentences above}
 \begin{equation*}
   \begin{array}{r@{\;}l@{\hskip4em}r@{\;}l}
     \graphof{a} &= \single a \rlap{\hskip1em(for any atom $a$)}  \\[.9ex]
@@ -1141,8 +1115,17 @@ associated fograph $\graphof{A}$ inductively by:\todo{duplicate two sentences ab
   \end{array}
 \end{equation*}
 where $\single a$ (resp. $\single x$) is a single-vertex graph whose vertex is 
-    labelled by $a$ (resp. $x$).
+labelled by $a$ (resp. $x$).
 
+\begin{example}
+  Below is the fograph of drinker formula $\drinkerformula=\veedrinkerformula$:
+%
+\begin{center}\vspace{2ex}\begin{tikzpicture}
+\drinkerbase
+\end{tikzpicture}\vspace{1ex}\end{center}
+%
+%
+\end{example}
 
 \begin{lemma}
   If $A$ is a rectified formula then $\graphof A$ is a fograph.
@@ -1162,6 +1145,8 @@ where $\single a$ (resp. $\single x$) is a single-vertex graph whose vertex is
   %% \todo{}\lutz{maybe mention also fn 2-5 in Dominic's arxiv-paper}
 \end{proof}
 %%\juihsuan{I'm still looking for a simple proof}
+
+\begin{remark}
 Note that $\graphof A$ is not necessarily a fograph if $A$ is not
 rectified. If $A = (\forall x. p(x)) \vlor (\forall x. q(x))$, then
 $\graphof A = \single x \ \single p(x) \ \single x \ \single q(x)$,
@@ -1171,31 +1156,32 @@ formulas which are translated to fographs by $\graphof\cdot$. For
 example, in the graph of $(\exists x. p(x)) \vlor (\exists x. q(x))$,
 both $x$-binders are legal, as they are not in each other's
 scope:
-%
 $\edgepairpic{x}{px}\mkern9mu\edgepairpic{x}{qx}$.
+\end{remark}
+
 %
-For this reason, we call a formula
-\bfit{clean} if it does not contain subformulas of the form $(\forall
-x.A)\vlor(\forall x.B)$ or $(\exists x.A)\vlan(\exists x.B)$,
-\todo{need the four cases as in clear definition in fopws? Consider
-$(\forall x.A)\vlor(B\vlor (\forall x.C))$. But then Lemma 6 doesn't hold.
-(fopws proves only that there's a surjection from clear formulas onto fographs,
-whose kernel is the six formula equalities)} and no
-$x$-quantified formula occurs as subformula of another $x$-quantified
-formula. Then we have:
+%% For this reason, we call a formula
+%% \bfit{clean} if it does not contain subformulas of the form $(\forall
+%% x.A)\vlor(\forall x.B)$ or $(\exists x.A)\vlan(\exists x.B)$,
+%% \todo{need the four cases as in clear definition in fopws? Consider
+%% $(\forall x.A)\vlor(B\vlor (\forall x.C))$. But then Lemma 6 doesn't hold.
+%% (fopws proves only that there's a surjection from clear formulas onto fographs,
+%% whose kernel is the six formula equalities)} and no
+%% $x$-quantified formula occurs as subformula of another $x$-quantified
+%% formula. Then we have:
 
-\begin{lemma}
-  If $A$ is clean iff\/ $\graphof A$ is a fograph.
-\end{lemma}
+%% \begin{lemma}
+%%   If $A$ is clean iff\/ $\graphof A$ is a fograph.
+%% \end{lemma}
 
-\begin{proof}
-  Induction on $A$, using  Theorem~\ref{thm:cograph}.
-\end{proof}
+%% \begin{proof}
+%%   Induction on $A$, using  Theorem~\ref{thm:cograph}.
+%% \end{proof}
 
-Even though for every formula $A$ we can obtain an
-equivalent clean formula by simply renaming some bound variables, this
-is not unique up to $\alpha$-conversion, as is the case for
-rectified formulas.
+%% Even though for every formula $A$ we can obtain an
+%% equivalent clean formula by simply renaming some bound variables, this
+%% is not unique up to $\alpha$-conversion, as is the case for
+%% rectified formulas.
 
 We define a congruence relation $\fequ$ on formulas by the following equations:
 \begin{equation}
@@ -1232,6 +1218,29 @@ $\FORM/\mathord\fequ$.
 \begin{proof}
   By a straightforward induction on $A$.
 \end{proof}
+
+\begin{example}
+  Both $\veedrinkerformula$ and $\variantveedrinkerformula$ (which are
+  equivalent modulo $\fequ$) have the same (rectified) fograph
+  $\drinkergraph$, shown below-left.
+  %
+  \begin{equation*}
+      \drinkergraphpic
+      %
+      \hspace{8ex}
+      %
+      \drinkercotreepic
+      %
+      \hspace{8ex}
+      %
+      \drinkerbindinggraphpic
+  \end{equation*}
+  In the middle above we show the \emph{cotree} of the underlying
+  cograph (illustrating the idea behind Theorem~\ref{thm:cograph}) and
+  on the right above is its binding graph $\bD$.
+\end{example}
+
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1271,6 +1280,22 @@ A \bfit{first-order net} or \bfit{fonet} is a linked fograph which has
 dualizer but no induced bimatching.  
 \end{definition}
 
+\begin{figure}[!t]
+  \begin{center}
+    \vspace{-1ex}
+    \begin{tikzpicture}[graph]
+      \begin{scope}[xshift=-2.2cm]\twolinkfograph\end{scope}
+        \begin{scope}[xshift=2.2cm]\twolinkleapgraph\end{scope}
+    \end{tikzpicture}\vspace{-4ex}
+  \end{center}%
+  \caption{\label{fig:leap}A fonet (left) with
+    dualizer $\protect\twolinkassignment$
+    and its
+    leap graph (right).}
+\end{figure}
+
+Figure~\ref{fig:leap} shows a fonet with a unique dualizer, and its leap graph.
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -1279,13 +1304,16 @@ dualizer but no induced bimatching.
 A graph homomorphism $\phi\colon \tuple{\vG, \eG} \rightarrow
 \tuple{\vH, \eH}$ is a \bfit{fibration} if for all $v \in \vG$ and
 $w\phi(v) \in \eH$, there exists a unique $\tilde{w} \in \vG$ such
-that $\tilde{w}v \in \eG$ and $\phi(\tilde{w}) = w$, and is a
+that $\tilde{w}v \in \eG$ and $\phi(\tilde{w}) = w$ (indicated on the left below), and is a
 \bfit{skew fibration} if for all $v \in \vG$ and $w\phi(v) \in \eH$
 there exists $\tilde{w} \in \vG$ such that $\tilde{w}v \in \eG$ and
-$\phi(\tilde{w})w \notin \eH$.  A directed graph homomorphism is a
+$\phi(\tilde{w})w \notin \eH$ (indicated in the middle below).  A directed graph homomorphism is a
 \bfit{fibration} if for all $v \in \vG$ and $\pair{w,\phi(v)} \in
 \eH$, there exists a unique $\tilde{w} \in \vG$ such that $\pair{\tilde{w},v}
-\in \eG$ and $\phi(\tilde{w}) = w$.
+\in \eG$ and $\phi(\tilde{w}) = w$ (indicated o the right below).
+%
+\liftingdiagrams
+
 
 A \bfit{fograph homomorphism} $\phi=\tuple{\phi,\rsubstof\phi}$ is a
 pair where $\phi\colon\gG\to\gH$ is a graph homomorphism between the
@@ -1308,6 +1336,24 @@ $\gG$, the vertex $\phi(b)$ is an existential binder in $\gH$.
 %existential-preserving fograph homomorphism whose restriction to the
 %binding graphs is a fibration.
 \end{definition}
+
+\begin{example}
+  Below on the left is a skew bifibration, with its binding fibration
+  in the middle. We often omit the labeling in the upper graph, as
+  done on the right below.
+  $$
+  \scalebox{.9}{
+  \begin{tikzpicture}[graph]\drinkerfiblabelledpair{x}{x}
+  \end{tikzpicture}
+  \quad
+  \begin{tikzpicture}[graph]\drinkerbindingfiblabelled{x}{x}
+  \end{tikzpicture}
+  \quad
+  \begin{tikzpicture}[graph]\drinkerfib
+  \end{tikzpicture}}
+  $$
+\end{example}
+
 
 %%\subsection{First-order combinatorial proofs}
 
