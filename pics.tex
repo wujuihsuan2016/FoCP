@@ -138,7 +138,7 @@
 \newcommand\labelvertexgap{5pt}
 \newcommand\vertexlabelgap{\labelvertexgap}
 \newcommand\labellabelgap{5pt}% account for \inlineoutersep
-\newcommand\pairvxgap{1.8ex}
+\newcommand\edgepairvxgap{1.8ex}
 \tikzset{% for inline labelled graphs
   graphlabel/.style={
 	text height=1.4ex,
@@ -254,6 +254,46 @@
 \newcommand\singletonqy{\singleton \qy}
 \newcommand\singletonpxy{\singleton \pxy}
 \newcommand\singletonppx{\singleton \ppx}
+
+%% Drawing pairs of vertices inline, labelled/coloured, with possible edge
+
+\newcommand\fullynamedcolouredpair[8]{% #1 left label name, #2 left label, #3 left vx name, #4 left colour, #5 right vx name, #6 right vx colour, #7 right label name, #8 right label
+\labelsolo {#1} {#2}
+\vxright[#4] {#3} {#1}
+\vxrightsep[#6] {#5} {#3} {\edgepairvxgap}
+\labelright {#7} {#8} {#5}
+\e {#3} {#5}
+}
+% \newcommand\fullynamedcolouredpair[8]{% #1 left label name, #2 left label, #3 left vx name, #4 left colour, #5 right vx name, #6 right vx colour, #7 right label name, #8 right label
+% \labelsolo {#1} {#2}
+% \vxright[#4] {#3} {#1}
+% \vxrightsep[#6] {#5} {#3} {\edgepairvxgap}
+% \labelright {#7} {#8} {#5}
+% \e {#3} {#5}
+% }
+\newcommand\fullynamedpair[6]{% #1 left label name, #2 left label, #3 left vx name, #4 right vx name, #5 right label name, #6 right label
+  \fullynamedcolouredpair{#1}{#2}{#3}{black}{#4}{black}{#5}{#6}}
+\newcommand\namedpair[4]{% #1 left label, #2 left vx name, #3 right vx name, #4 right label
+  \fullynamedpair{leftlabel}{#1}{#2}{#3}{rightlabel}{#4}}
+\newcommand\colouredpair[4]{% #1 left label, #2 left vx colour, #3 right vx colour, #4 right label
+  \fullynamedcolouredpair{leftlabel}{#1}{leftvx}{#2}{rightvx}{#3}{rightlabel}{#4}}
+%\newcommand\colouredpairafter[5]{% #1 left label, #2 left vx colour, #3 right vx colour, #4 right label, #5 node name right of left label
+%  \fullynamedcolouredpairafter{leftlabel}{#1}{leftvx}{#2}{rightvx}{#3}{rightlabel}{#4}{#5}}
+\newcommand\edgepair[2]{% #1 left label, #2 right label
+  \namedpair{#1}{leftvx}{rightvx}{#2}}
+\newcommand\edgepairpic[2]{% #1 left label, #2 right label
+\begin{tikzpicture}[inlinegraph]\edgepair{#1}{#2}\end{tikzpicture}}
+\newcommand\colouredpairpic[4]{% #1 left label, #2 left vx colour, #3 right vx colour, #4 right label
+\begin{tikzpicture}[inlinegraph]\colouredpair{#1}{#2}{#3}{#4}\end{tikzpicture}}
+
+\newcommand\unlabelledcolouredpairpic[2]{\colouredpairpic{}{#1}{#2}{}}
+
+\newcommand\unlabelledsingleton[1][black]{\begin{tikzpicture}[baseline]
+	\path[draw=none] (0,0) -- (0,1ex);  % [baseline] plus fake path => center is same as 'x' center, vertically
+	\node[#1 vx, anchor=center] at (0,.5ex) {};
+\end{tikzpicture}} 
+\newcommand\unlabelledbluesingleton{\unlabelledsingleton[blue]}
+
 
 
 

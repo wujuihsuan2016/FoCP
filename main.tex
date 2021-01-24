@@ -64,7 +64,10 @@
 \pagestyle{plain}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\newcommand{\dominic}[1]{{\color{green}     \noindent[\![\![{\bf Dominic: }#1]\!]\!]}}
+\usepackage[usenames,dvipsnames]{xcolor}% More colours (BrickRed, BlueViolet, ...). Must come before tikz or pstricks. Doc: http://en.wikibooks.org/wiki/LaTeX/Colors
+
+
+\newcommand{\dominic}[1]{{\color{green!60!black}     \noindent[\![\![{\bf Dominic: }#1]\!]\!]}}
 \newcommand{\lutz}[1]{{\color{blue}     \noindent[\![\![{\bf Lutz: }#1]\!]\!]}}
 \newcommand{\juihsuan}[1]{{\color{violet}     \noindent[\![\![{\bf Jui-Hsuan: }#1]\!]\!]}}
 
@@ -751,7 +754,7 @@ However, even though Hughes proves soundness and completeness, the
 proof is highly unsatisfactory: (1) the soundness argument is extremely
 long, intricate and cumbersome, and (2) the completeness proof does not 
 allow a syntactic proof to be read back from a combinatorial proof, i.e.,
-completeness is not \emph{full}.
+completeness is not \emph{full}.\todo{cite something for full comp?}
 A fundamental problem is that not all combinatorial
 proofs can be obtained as translations of sequent calculus proofs.
 
@@ -792,7 +795,7 @@ paper.
 
 
 
-\subsection{Pictures}
+\subsection{Pictures that could be used elsewhere in the paper}
 
 The fograph of drinker formula $\drinkerformula=\veedrinkerformula$:
 %
@@ -872,9 +875,9 @@ in which the troublesome pair is collapsed to a single uncoloured vertex $\singl
 
 \subsection{Terms and Formulas}
 
-We start from a countable set $\VAR=\set{x,y,z,\ldots}$ of variables,
-a countable set $\FUN=\set{f,g,\ldots}$ of function symbols, and a
-countable set $\PRED=\set{p,q,\ldots}$ of predicate symbols. Each function symbol and
+Fix pairwise disjoint countable sets $\VAR=\set{x,y,z,\ldots}$ of variables,
+$\FUN=\set{f,g,\ldots}$ of function symbols, and 
+$\PRED=\set{p,q,\ldots}$ of predicate symbols. Each function symbol and
 each predicate symbol has a finite arity. The grammars below generate
 the set $\TERM$ of \bfit{terms}, denoted by $s,t,u,\ldots$, the set
 $\ATOM$ of \bfit{atoms}, denoted by $a,b,c,\ldots$, and the set
@@ -888,11 +891,11 @@ $\FORM$ of \bfit{formulas}, denoted by $A,B,C,\ldots$:
     A &\coloneqq~ a \mid A\vlan A \mid A\vlor A \mid \exists x.A \mid \forall x.A
 \end{array}
 \end{equation*}
-where the arity of $f$ and $p$ is $n$. Note, that in this paper we
-consider the truth constants $\ttt$ (\emph{true}) and $\fff$
-(\emph{false}) as atoms, and we consider all formulas in negation
-normal form. The \bfit{negation} $(\dual\cdot)$ is defined for all
-atoms and formulas via the De Morgan laws as follows:
+where the arity of $f$ and $p$ is $n$. We consider the truth constants
+$\ttt$ (\emph{true}) and $\fff$
+(\emph{false}) as additional atoms, and we consider all formulas in negation
+normal form, where \bfit{negation} $(\dual\cdot)$ is defined on
+atoms and formulas via De Morgan's laws:
 \begin{equation*}
   \begin{array}{ccc}
     \dual{\dual a} = a
@@ -977,21 +980,21 @@ A \bfit{variable renaming} is a substitution $\rho$ with $\rho(x)\in\VAR$ for al
 
 \bfit{Sequents}, denoted by $\Gamma,\Delta,\ldots$, are finite
 multisets of formulas, written as lists, separated by comma. The
-\bfit{corresponding formula} of a sequent $\Gamma=A_1,A_2,\ldots,A_n$
+\bfit{corresponding formula} \todo{Case $n=0$!} of a sequent $\Gamma=A_1,A_2,\ldots,A_n$
 is the disjunction of its formulas: $\form\Gamma=A_1\vlor
 A_2\vlor\cdots\vlor A_n$. A sequent is \bfit{rectified} iff its
 corresponding formula is.
 
 In this paper we use the sequent calculus $\FOLK$, shown in
-Figure~\ref{fig:LK1}, which is an one-sided variant of Gentzen's
+Figure~\ref{fig:LK1}, which is a one-sided variant of Gentzen's
 original calculus~\cite{gentzen:35:I} for first-order logic. To
-simplify some technicalities later in this paper, we also include here
+simplify some technicalities later in this paper, we include
 the $\mixr$-rule.
-
+%
 \begin{thm}
   $\FOLK$ is sound and complete for first-order logic.
 \end{thm}
-
+%
 For a proof we refer to reader to any standard textbook, e.g.~\cite{TS:00}.
 
 The linear fragment of $\FOLK$, i.e., the fragment
@@ -1001,7 +1004,7 @@ logic}~\cite{girard:87,girard:88} \emph{with
 mix}~\cite{fleury:retore:94,bellin:97}~(MLL1+mix). We denote that system
 here with $\FOMLL$ (shown in Figure~\ref{fig:LK1} in the dashed box).
 
-In this paper we make also use of the cut elimination theorem. The \bfit{cut} rule is
+We will employ the cut elimination theorem. The \bfit{cut} rule is
 \begin{equation}
   \vliinf{\cutr}{}{\sqn{\Gamma,\Delta}}{\sqn{\Gamma,A}}{\sqn{\dual A,\Delta}}
 \end{equation}
@@ -1012,8 +1015,8 @@ In this paper we make also use of the cut elimination theorem. The \bfit{cut} ru
   provable in $\FOLK$. Furthermore, if $\sqn\Gamma$ is provable in
   $\FOMLLcut$ then it is also provable in $\FOMLL$.
 \end{thm}
-
-As before, this is standard, see e.g.~\cite{TS:00} for a proof.
+%
+\noindent As before, this is standard, see e.g.~\cite{TS:00} for a proof.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1042,7 +1045,7 @@ the graph $\tuple{\vG \cup\vH,\eG\cup \eH}$ and the \bfit{join} $\gG
 \times \gH$ is the graph $\tuple{\vG \cup\vH,\eG \cup \eH \cup \set{vw
 \mid v \in \vG, w \in \vH}}$.  A graph $\gG$ is \bfit{disconnected}
 if $\gG=\gG_1+\gG_2$ for two non-empty graphs $\gG_1,\gG_2$, otherwise
-it is \bfit{connected}. It is \emph{coconnected} if its complement is
+it is \bfit{connected}. It is \bfit{coconnected} if its complement is
 connected.
 
 A graph $\gG$ is \bfit{labelled} in a set $L$ if each vertex $v\in\vG$
@@ -1080,9 +1083,9 @@ $\tuple{\set{v_1, v_2, v_3, v_4},\set{v_1v_2, v_2v_3, v_3v_4}}$.  A
 cographs for our paper comes from the following well-known fact.
 
 \begin{thm}[\cite{duffin:65}]\label{thm:cograph}
-  A graph is a cograph iff it can be constructed from the singletons via the operations $+$ and~$\times$.
+  A graph is a cograph iff it can be constructed from the singletons
+  via the operations $+$ and~$\times$.
 \end{thm}
-\todo{ad the reference} \juihsuan{done}
 
 In a graph $\gG$, the \bfit{neighbourhood} $N(v)$ of a vertex $v \in\vG$ is defined as
 the set $\set{w \mid vw \in\eG}$. A \bfit{module} is a set $M \subseteq \vG$
@@ -1092,7 +1095,8 @@ module $M'$, we have $M' \subseteq M$, $M \subseteq$ or $M \cap M' =
 \emptyset$. A module is \bfit{proper} if it has two or more vertices.
 
 Modules in cographs correspond precisely to the subtrees of the
-cotrees (the term-trees constructing the graph via $+$ and~$\times$).
+cotrees (the term-trees constructing the graph via $+$ and~$\times$).\todo{Cotree
+must alternate $+$ and $\times$. Skip this comment completely?}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1101,7 +1105,7 @@ cotrees (the term-trees constructing the graph via $+$ and~$\times$).
 
 \subsection{Fographs}
 
-A cograph is \bfit{logical} if every vertex is labelled either by an
+A cograph is \bfit{logical} if every vertex is labelled by either an
 atom or variable, and it has at least one atom-labelled vertex. We
 write $\single\alpha$ for an $\alpha$-labelled vertex. An
 atom-labelled vertex is called a \bfit{literal} and a
@@ -1122,11 +1126,11 @@ A \bfit{first-order graph} or \bfit{fograph} is a logical cograph with legal bin
 \set{(b, l) \mid b \text{ binds } l}}$.
 \end{definition}
 
-We now define a mapping $\graphof\cdot$ from formulas to (labelled)
+We define a mapping $\graphof\cdot$ from formulas to (labelled)
 graphs, inductively as follows:
 
 For a formula $A$, we can define its
-associated fograph $\graphof{A}$ inductively by:
+associated fograph $\graphof{A}$ inductively by:\todo{duplicate two sentences above}
 \begin{equation*}
   \begin{array}{r@{\;}l@{\hskip4em}r@{\;}l}
     \graphof{a} &= \single a \rlap{\hskip1em(for any atom $a$)}  \\[.9ex]
@@ -1165,10 +1169,18 @@ the scope of each $x$-binder contains all the vertices, in particular,
 the two $x$-binders. On the other hand, there are non-rectified
 formulas which are translated to fographs by $\graphof\cdot$. For
 example, in the graph of $(\exists x. p(x)) \vlor (\exists x. q(x))$,
-both $x$-binders are legal, as they are not in each others
-scope.\todo{draw the picture}.  For this reason, we call a formula
+both $x$-binders are legal, as they are not in each other's
+scope:
+%
+$\edgepairpic{x}{px}\mkern9mu\edgepairpic{x}{qx}$.
+%
+For this reason, we call a formula
 \bfit{clean} if it does not contain subformulas of the form $(\forall
-x.A)\vlor(\forall x.B)$ or $(\exists x.A)\vlan(\exists x.B)$, and no
+x.A)\vlor(\forall x.B)$ or $(\exists x.A)\vlan(\exists x.B)$,
+\todo{need the four cases as in clear definition in fopws? Consider
+$(\forall x.A)\vlor(B\vlor (\forall x.C))$. But then Lemma 6 doesn't hold.
+(fopws proves only that there's a surjection from clear formulas onto fographs,
+whose kernel is the six formula equalities)} and no
 $x$-quantified formula occurs as subformula of another $x$-quantified
 formula. Then we have:
 
@@ -1180,9 +1192,9 @@ formula. Then we have:
   Induction on $A$, using  Theorem~\ref{thm:cograph}.
 \end{proof}
 
-Note that even though for every formula $A$ we can obtain an
+Even though for every formula $A$ we can obtain an
 equivalent clean formula by simply renaming some bound variables, this
-is not unique up to $\alpha$-conversion, as it is the case for
+is not unique up to $\alpha$-conversion, as is the case for
 rectified formulas.
 
 We define a congruence relation $\fequ$ on formulas by the following equations:
