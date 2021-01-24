@@ -2779,10 +2779,10 @@ Sections~\ref{sec:linear} and~\ref{sec:skew}.
   $\mapof{\rectif{\Deri_2}}\colon\graphof{\rectif{A'}}\to\graphof{\rectif
     A}$ is the same a the induced map
   $\mapof{\Deri_2}\colon\graphof{A'}\to\graphof{A}$ of $\Deri_2$. By
-  Lemma~\ref{lem:cw->skew}, this map is a skew bifibration. Hence, we have a combinatorial proof \lutz{shit, something's wrong...}
-    
-
-  
+  Lemma~\ref{lem:cw->skew}, this map is a skew bifibration. Hence, we
+  have a combinatorial proof $\phi\colon\gC\to\graphof{A}$ with
+  $\gC=\graphof{\rectif{A'}}$.
+  \lutz{shit, something's wrong...}
   %% Let $\downsmash{\vlderivation{
   %%   \vlde{\set{\wrD,\acD,\cfaD,\me,\mfaD,\mexD,\fequ}}{\Deri}{B}{
   %%     \vlhy{A}}}}$ be a derivation. Then there is a recified derivation
@@ -2792,16 +2792,18 @@ Sections~\ref{sec:linear} and~\ref{sec:skew}.
   %% $\mapof\Deri\colon\graphof{A}\to\graphof{B}$ and
   %% $\mapof{\rectif\Deri}\colon\graphof{\rectif A}\to\graphof{\rectif
   %%   B}$ are equal up to a variable renaming of the vertex labels.
-
-  
-  
   %% for some $A'\fequ C\sigma$ where $C$ is a formula with $\graphof
   %% C=\gC$ and $\sigma$ is a variable renaming substitution.  Conversely,
   %% whenever we have a derivation as in~\eqref{eq:decom} above, then
   %% there is a combinatorial proof $\phi\colon\gC\to\graphof A$ such
   %% that $\gC=\graphof{\rectif{A'}}$.
-    
 \end{proof}
+
+Note that Theorem~\ref{thm:CP-DI} shows at the same time soundness, completeness, and full completeness, as
+\begin{enumerate}
+\item every proof in $\FOKS$ can be translated into a combinatorial proof, and
+\item every combinatorial proof is the image of a $\FOKS$-proof under that translation.
+\end{enumerate}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -2810,9 +2812,23 @@ Sections~\ref{sec:linear} and~\ref{sec:skew}.
 
 \section{Conclusion}
 
+In this paper we have uncovered a close correspondence between
+first-order combinatorial proofs and decomposed deep inference
+derivations of system $\FOKS$, and we have shown that every proof in
+$\FOKS$ has such a decomposed form.
 
+The most surprising discovery for us was that all technical
+difficulties in our work could be reduced (in a non-trivial way) to
+the propositional setting.
 
+The obvious next step in our research is to investigate proof
+composition and normalisation of first-order combinatorial
+proofs. Even in the propositional setting, the normalization of
+combinatorial proofs is underdevelopped. There exist two different
+procedures for cut elimination~\cite{hughes:invar,str:FSCD17}, but
+both have their insufficiencies, and there is no general theory.
 
+\lutz{do we want/can say more here?}
 
 
 
