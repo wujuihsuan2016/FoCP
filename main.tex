@@ -596,17 +596,18 @@
 % author names and affiliations
 % use a multiple column layout for up to three different
 % affiliations
-\author{\IEEEauthorblockN{Dominic J. D. Hughes}
-\IEEEauthorblockA{}
-\and
-\IEEEauthorblockN{Lutz Straßburger}
-\IEEEauthorblockA{Inria, Equipe Partout\\
-Ecole Polytechnique, LIX \\ %UMR 7161\\
-France}
-\and
-\IEEEauthorblockN{Jui-Hsuan Wu}
-\IEEEauthorblockA{Ecole Normale Supérieure\\
-France}}
+
+%% \author{\IEEEauthorblockN{Dominic J. D. Hughes}
+%% \IEEEauthorblockA{}
+%% \and
+%% \IEEEauthorblockN{Lutz Straßburger}
+%% \IEEEauthorblockA{Inria, Equipe Partout\\
+%% Ecole Polytechnique, LIX \\ %UMR 7161\\
+%% France}
+%% \and
+%% \IEEEauthorblockN{Jui-Hsuan Wu}
+%% \IEEEauthorblockA{Ecole Normale Supérieure\\
+%% France}}
 
 % conference papers do not typically use \thanks and this command
 % is locked out in conference mode. If really needed, such as for
@@ -680,7 +681,7 @@ France}}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\todo{Examples,examples,examples}
+%\todo{Examples,examples,examples}
 \section{Introduction}
 
 First-order predicate logic is a cornerstone of modern
@@ -712,6 +713,41 @@ usually studied in logic, are inextricably tied to the syntactic
 (inference rule based) proof system in which they are carried out. And
 it is difficult to compare two proofs that are produced within two
 different syntactic proof systems, based on different sets of inference rules.
+
+\begin{figure}
+  $$
+  \scalebox{.9}{$
+\vlderivation{
+  \vlin{\vlor}{}{\sqn{((\cneg{p} \vlor q) \vlan \cneg{p}) \vlor p}}{
+    \vlin{\conr}{}{\sqn{(\cneg{p} \vlor q) \vlan \cneg{p}, p}}{
+      \vliin{\vlan}{}{\sqn{(\cneg{p} \vlor q) \vlan \cneg{p}, p, p}}{
+        \vlin{\vlor}{}{\sqn{\cneg{p} \vlor q, p}}{
+          \vlin{\weakr}{}{\sqn{\cneg{p}, q, p}}{
+            \vlin{\axr}{}{\sqn{\cneg{p}, p}}{
+              \vlhy{}}}}}{
+        \vlin{\axr}{}{\sqn{\cneg{p}, p}}{
+          \vlhy{}}}}}}
+\hskip3em
+\vlderivation{
+  \vlin{\acD}{}{((\cneg{p} \vlor q) \vlan \cneg{p}) \vlor p}{
+    \vlin{\fequ}{}{((\cneg{p} \vlor q) \vlan \cneg{p}) \vlor (p \vlor p)}{
+      \vlin{\sw}{}{(\cneg{p} \vlan (\cneg{p} \vlor q)) \vlor p) \vlor p}{
+        \vlin{\fequ}{}{(\cneg{p} \vlan ((\cneg{p} \vlor q) \vlor p)) \vlor p)}{
+          \vlin{\sw}{}{(p \vlor (\cneg{p} \vlor q)) \vlan \cneg{p}) \vlor p}{
+            \vlin{\aiD}{}{(p \vlor (\cneg{p} \vlor q)) \vlan (\cneg{p} \vlor p)}{
+              \vlin{\tttD}{}{(p \vlor (\cneg{p} \vlor q)) \vlan \ttt}{
+                \vlin{\fequ}{}{p \vlor (\cneg{p} \vlor q)}{
+                  \vlin{\wrD}{}{(p \vlor \cneg{p}) \vlor q}{
+                    \vlin{\aiD}{}{p \vlor \cneg{p}}{
+                      \vlhy{\ttt}}}}}}}}}}}}
+$}
+  $$
+  \caption{Two syntactic proofs of the same formula, in in the sequent calculus (left) and in the calculus of structures (right)}
+  \label{fig:exa-synt}
+\end{figure}
+
+
+
 \lutz{an example here?}
 
 This is where \emph{combinatorial proofs} come in. They have been
@@ -732,35 +768,9 @@ propositional variables.
 \end{tikzpicture}\vspace{0ex}\end{center}
 %
 
-\begin{equation*}
-\vlderivation{
-  \vlin{\vlor}{}{\sqn{((\cneg{p} \vlor q) \vlan \cneg{p}) \vlor p}}{
-    \vlin{\conr}{}{\sqn{(\cneg{p} \vlor q) \vlan \cneg{p}, p}}{
-      \vliin{\vlan}{}{\sqn{(\cneg{p} \vlor q) \vlan \cneg{p}, p, p}}{
-        \vlin{\vlor}{}{\sqn{\cneg{p} \vlor q, p}}{
-          \vlin{\weakr}{}{\sqn{\cneg{p}, q, p}}{
-            \vlin{\axr}{}{\sqn{\cneg{p}, p}}{
-              \vlhy{}}}}}{
-        \vlin{\axr}{}{\sqn{\cneg{p}, p}}{
-          \vlhy{}}}}}}
-\end{equation*}
 
 \begin{equation*}
-\vlderivation{
-  \vlin{\acD}{}{((\cneg{p} \vlor q) \vlan \cneg{p}) \vlor p}{
-    \vlin{\fequ}{}{((\cneg{p} \vlor q) \vlan \cneg{p}) \vlor (p \vlor p)}{
-      \vlin{\sw}{}{(\cneg{p} \vlan (\cneg{p} \vlor q)) \vlor p) \vlor p}{
-        \vlin{\fequ}{}{(\cneg{p} \vlan ((\cneg{p} \vlor q) \vlor p)) \vlor p)}{
-          \vlin{\sw}{}{(p \vlor (\cneg{p} \vlor q)) \vlan \cneg{p}) \vlor p}{
-            \vlin{\aiD}{}{(p \vlor (\cneg{p} \vlor q)) \vlan (\cneg{p} \vlor p)}{
-              \vlin{\tttD}{}{(p \vlor (\cneg{p} \vlor q)) \vlan \ttt}{
-                \vlin{\fequ}{}{p \vlor (\cneg{p} \vlor q)}{
-                  \vlin{\wrD}{}{(p \vlor \cneg{p}) \vlor q}{
-                    \vlin{\aiD}{}{p \vlor \cneg{p}}{
-                      \vlhy{\ttt}}}}}}}}}}}}
-\end{equation*}
-
-\begin{equation*}
+  \scalebox{.7}{$
 \vlderivation{
   \vlin{\conr}{}{\sqn{\exists x.(\cneg{p}x \vlor (\forall y.py))}}{
     \vlin{\exists}{}{\sqn{\exists x.(\cneg{p}x \vlor (\forall y.py)),\exists
@@ -776,9 +786,7 @@ x.(\cneg{p}x \vlor (\forall y.py))}}{
                 \vlin{\weakr}{}{\sqn{\cneg{p}w, pz, \cneg{p}z}}{
                 \vlin{\axr}{}{\sqn{pz, \cneg{p}z}}{
                   \vlhy{}}}}}}}}}}}
-\end{equation*}
-
-\begin{equation*}
+%\qquad
 \vlderivation{
   \vlin{\acD}{}{\exists x.(\cneg{p}x \vlor (\forall y.py))}{
     \vlin{\mfaD}{}{\exists x.(\cneg{p}x \vlor (\forall y.(py \vlor py)))}{
@@ -801,6 +809,7 @@ x.(\cneg{p}x \vlor (\forall y.py))))}{
                       \vlin{\aiD}{}{\forall y.(py \vlor \cneg{p}y)}{
                         \vlin{\forall}{}{\forall y.\ttt}{
                           \vlhy{\ttt}}}}}}}}}}}}}}
+$}
 \end{equation*}
 
 \juihsuan{LK1 and KS1 proofs of Peirce's law and LK1 proof of drinker formula}
@@ -1485,7 +1494,7 @@ $\graphof{A}$.
 \end{definition}
 
 To give some examples, we show in Figure~\ref{fig:cps} for examples of
-FOCPs, each above the formula it proves.  The same FOCPs are shown in
+FOCPs (taken from~\cite{hughes:fopws}), each above the formula it proves.  The same FOCPs are shown in
 Figure~\ref{fig:cps-condensed} in a more condensed notation.
 
 \begin{thm}[\cite{hughes:fopws}]
@@ -2932,12 +2941,52 @@ $Q=\PE D$ and there is a derivation $\vlder{\sysS'}{\DDeri'}{D}{C}$.
   encoding. There are two reasons for this: (i) we might have
   $P\PE\fequ Q$ where $P$ is a propositional encoding but $Q$ is not,
   and (ii) the rule $\acD$ can duplicate an atom
-  $x\in\VAR$. Let us write $\acDx$ for such instances. To address (i),
-  we consider here formulas equivalent modulo $\fequ$, always knowing
-  that we can add instances of $\fequ$ as needed.\footnote{Note that whenever we have formulas $P$ and $Q$ with $\PE P\PE\fequ\PE Q$ then $P\fequ Q$.} \juihsuan{this does
-    not seem clear to me. What if from $\PE A_1$ to $\PE B_1$ there
-    are just a bunch of $\PE\fequ$? What do we do in this case?}\lutz{see footnote} To
-  address (ii), we apply a permutation argument, permuting all
+  $x\in\VAR$. Let us write $\acDx$ for such instances.
+  The problem with (i) is that we could have the following situation
+  \begin{equation}
+    \label{eq:m-illegal}
+    \vlderivation{
+      \vlin{\me}{}{\Scons{((x\vlan E)\vlor(x\vlan F))\vlan(C\vlor D)}}{
+        \vlin{\PE\fequ}{}{\Scons{((x\vlan E)\vlan C)\vlor((x\vlan F)\vlan D)}}{
+          \vlhy{\Scons{(x\vlan (E\vlan C))\vlor(x\vlan (F\vlan D))}}}}}
+  \end{equation}
+  where $x$ occurs in $C\vlor D$. Then premise and conclusion are both
+  proposional encodings, but the whole derivation cannot be
+  lifted. However, since we demand that the the mapping is a fibration
+  (and therefore a momomorphism) on the binding graphs, there must be
+  another instance of $\me$ further below in the derivation:
+  \begin{equation}
+    \vlderivation{
+      \vlin{\me}{}{S'\cons{(x\vlor x)\vlan(E\vlor F)}}{
+        \vlhy{S'\cons{(x\vlan E)\vlor(x\vlan F)}}}}
+  \end{equation}
+  We can permute both instances via the following more general scheme
+  (see~\cite{str:medial,lamarche:gap} for a general discussion on
+  permutations of the $\me$-rule):
+  \begin{equation}
+    \label{eq:m-permutation}
+    \scalebox{.66}{$
+    \vlderivation{
+      \vlin{\me}{}{\Scons{(G\vlor H)\vlan(E\vlor F)\vlan(C\vlor D)}}{
+        \vlin{\me}{}{\Scons{((G\vlan E)\vlor(H\vlan F))\vlan(C\vlor D)}}{
+          \vlhy{\Scons{(G\vlan E\vlan C)\vlor(G\vlan F\vlan D)}}}}}
+    \;
+    \leftrightarrow
+    \;
+    \vlderivation{
+      \vlin{\me}{}{\Scons{(G\vlor H)\vlan(E\vlor F)\vlan(C\vlor D)}}{
+        \vlin{\me}{}{\Scons{(G\vlor H)\vlan((E\vlan C)\vlor(F\vlan D))}}{
+          \vlhy{\Scons{(G\vlan E\vlan C)\vlor(G\vlan F\vlan D)}}}}}    
+    $}
+  \end{equation}
+  We omitted some instances of $\PE\fequ$ and some parentheses.  We
+  now call instances of $\me$ as in~\eqref{eq:m-illegal}
+  \bfit{illegal}, and we can transform $\PE\Deri_2$ through
+  $\me$-permutations~\eqref{eq:m-permutation} into a derivation that
+  does not contain any illegal $\me$-instances.
+  To
+  address (ii),
+  we also apply a permutation argument, permuting all
   instances of $\acDx$ up until they either reach the top of the
   derivation or an instance of $\me$ which separates the two atoms in
   the premise. More precisely, we consider the following inference rule
@@ -2994,59 +3043,49 @@ $Q=\PE D$ and there is a derivation $\vlder{\sysS'}{\DDeri'}{D}{C}$.
       premise would not be a propositional encoding.
     \end{itemize}
   \item $\acD$ (contracting an ordinary atom): This can trivially be lifted.
-  \item $\me$ that is not in the situation of~\eqref{eq:mac}: Then now
-    encoding of a quantifier is affected and the instance of $\me$ can
-    be lifted.\todo{medial permutation!!!}
-  \item $\me/\acDx$ as in situation~\eqref{eq:mac}: We must have
+  \item $\me$: There are several cases to consider.
+    \begin{itemize}
+    \item If none of the four principal formulas in the premise is $x$
+      or $x\vlor F$ for some formula $F$ and $x\in\VAR$, then this
+      instance of $\me$ can trivially be lifted, and and we can
+      proceed by induction hypothesis.
+  \item If exactly one of the four principal formulas in the premise
+    is $x$ for some $x\in\VAR$, then this $x$ is the encoding of an existential in the
+    premise and of an universal in the conclusion. This is impossible,
+    as $\phi$ has to preserve existentials.
+  \item If two of the four principal formulas in the premise
+    are $x$ for some $x\in\VAR$, then we are in the following special case of~\eqref{eq:mac}:
+    \begin{equation*}
+      \vlderivation{
+        \vlin{\acDeq}{}{\Scons{x\vlan(C\vlor D)}}{
+          \vlin{\me}{}{\Scons{(x\vlor x)\vlan(C\vlor D)}}{
+            \vlhy{\Scons{(x\vlan C)\vlor (x\vlan D)}}}}}
+    \end{equation*}
+    which can be lifted immediately to
+    \begin{equation*}
+      \vlinf{\mexD}{}{\Scons{\exists x.(C\vlor D)}}{\Scons{(\exists x.C)\vlor(\exists x.D)}}
+    \end{equation*}
+  \item We have a situation~\eqref{eq:mac} where
     $R_1\cons{x}\fequ x\vlor E$ for some $E$ and $R_2\cons{x}\fequ
     x\vlor F$ for some $F$ with $R\cons{x}\fequ x\vlor E\vlor
-    F$. Otherwise, the application of $\acDeq$ would not be correct.
-    We have the following four cases: 
-    \begin{itemize}
-    \item $E$ and $F$ are both non-empty: Then~\eqref{eq:mac} is (modulo
-      omitted applications of $\fequ$):
-      \begin{equation*}
-        \vlderivation{
-          \vlin{\acDeq}{}{\Scons{(x\vlor E\vlor F)\vlan(C\vlor D)}}{
-            \vlin{\me}{}{\Scons{((x\vlor E)\vlor (x\vlor F))\vlan(C\vlor D)}}{
-              \vlhy{\Scons{((x\vlor E)\vlan C)\vlor ((x\vlor F)\vlan D)}}}}}
-      \end{equation*}
-      which can be lifted to
-      \begin{equation*}
-        \vlderivation{
-          \vlin{\mfaD}{}{\Scons{(\forall x.(E\vlor F))\vlan(C\vlor D)}}{
-            \vlin{\me}{}{\Scons{((\forall x. E)\vlor (\forall x. F))\vlan(C\vlor D)}}{
-              \vlhy{\Scons{((\forall x. E)\vlan C)\vlor ((\forall x. F)\vlan D)}}}}}
-      \end{equation*}
-    \juihsuan{maybe need some words to exclude the case in which $C$ (or $D$)
-is a propositional variable.}\lutz{shit. (you mean a ``first order variable'') this actually can happen. then we have another $\mexD$}
-    \item $E$ is empty and $F$ is not: Then~\eqref{eq:mac} becomes
-      \begin{equation*}
-        \vlderivation{
-          \vlin{\acDeq}{}{\Scons{(x\vlor F)\vlan(C\vlor D)}}{
-            \vlin{\me}{}{\Scons{(x\vlor (x\vlor F))\vlan(C\vlor D)}}{
-          \vlhy{\Scons{(x\vlan C)\vlor ((x\vlor F)\vlan D)}}}}}
-      \end{equation*}
-      The conclusion is the propositional encoding of $\Scons{(\forall
-        x. F)\vlan(C\vlor D)}$ and the premise is the propositional
-      encoding of $\Scons{(\exists x.C)\vlor ((\forall x. F)\vlor
-        D)}$. Also note that no $\me$-instance can break up the
-      conjunction in $x\vlan C$ in the premise. Hence, $\phi$ maps an
-      existential to a universal, which is ruled out by the
-      definition. Hence, this case cannot occur.
-    \item $E$ is non-empty and $F$ is empty: This case is similar to the
-      previous subcase.
-    \item   $E$ and $F$ are both empty: Then~\eqref{eq:mac} is
-      \begin{equation*}
-        \vlderivation{
-          \vlin{\acDeq}{}{\Scons{x\vlan(C\vlor D)}}{
-            \vlin{\me}{}{\Scons{(x\vlor x)\vlan(C\vlor D)}}{
-              \vlhy{\Scons{(x\vlan C)\vlor (x\vlan D)}}}}}
-      \end{equation*}
-      which can be lifted immediately to
-      \begin{equation*}
-        \vlinf{\mexD}{}{\Scons{\exists x.(C\vlor D)}}{\Scons{(\exists x.C)\vlor(\exists x.D)}}
-      \end{equation*}
+    F$ (Otherwise, the application of $\acDeq$ would not be correct.)
+    That means, we have: 
+    \begin{equation*}
+      \vlderivation{
+        \vlin{\acDeq}{}{\Scons{(x\vlor E\vlor F)\vlan(C\vlor D)}}{
+          \vlin{\me}{}{\Scons{((x\vlor E)\vlor (x\vlor F))\vlan(C\vlor D)}}{
+            \vlhy{\Scons{((x\vlor E)\vlan C)\vlor ((x\vlor F)\vlan D)}}}}}
+    \end{equation*}
+    which can be lifted to
+    \begin{equation*}
+      \vlderivation{
+        \vlin{\mfaD}{}{\Scons{(\forall x.(E\vlor F))\vlan(C\vlor D)}}{
+          \vlin{\me}{}{\Scons{((\forall x. E)\vlor (\forall x. F))\vlan(C\vlor D)}}{
+            \vlhy{\Scons{((\forall x. E)\vlan C)\vlor ((\forall x. F)\vlan D)}}}}}
+    \end{equation*}
+  \item In all other cases (e.g. exactly one of the principal formulas
+    is of shape $x\vlor F$ (and none is $x$), we can trivially lift
+    the $\me$-instance, as the quantifier structure is not affected.
     \end{itemize}
   \end{itemize}
   Thus $\PE\Deri_2$ can be lifted to
@@ -4455,6 +4494,87 @@ have a subformula of this form, which leads to a contradiction.
 
 \end{proof}	
 \end{lemma}
+
+
+\hrule
+    \begin{itemize}
+    \item If none of
+    the four principal formulas in the premise is $x$ or $x\vlor F$ or
+    $x\vlan F$ for some formula $F$ and $x\in\VAR$, then this instance
+    of $\me$ can trivially be lifted, and and we can proceed by
+    induction hypothesis.
+  \item If exactly one of the four principal formulas in the premise
+    is $x$ for some $x\in\VAR$, then this $x$ is the encoding of an existential in the
+    premise and of an universal in the conclusion. This is impossible,
+    as $\phi$ has to preserve existentials.
+  \item If two of the four principal formulas in the premise
+    are $x$ for some $x\in\VAR$, then we are in the following special case of~\eqref{eq:mac}:
+      \begin{equation*}
+        \vlderivation{
+          \vlin{\acDeq}{}{\Scons{x\vlan(C\vlor D)}}{
+            \vlin{\me}{}{\Scons{(x\vlor x)\vlan(C\vlor D)}}{
+              \vlhy{\Scons{(x\vlan C)\vlor (x\vlan D)}}}}}
+      \end{equation*}
+      which can be lifted immediately to
+      \begin{equation*}
+        \vlinf{\mexD}{}{\Scons{\exists x.(C\vlor D)}}{\Scons{(\exists x.C)\vlor(\exists x.D)}}
+      \end{equation*}
+
+
+
+  \item $\me/\acDx$ as in situation~\eqref{eq:mac}: We must have
+    $R_1\cons{x}\fequ x\vlor E$ for some $E$ and $R_2\cons{x}\fequ
+    x\vlor F$ for some $F$ with $R\cons{x}\fequ x\vlor E\vlor
+    F$. Otherwise, the application of $\acDeq$ would not be correct.
+    We have the following four cases: 
+%    \begin{itemize}
+    \item $E$ and $F$ are both non-empty: Then~\eqref{eq:mac} is (modulo
+      omitted applications of $\fequ$):
+      \begin{equation*}
+        \vlderivation{
+          \vlin{\acDeq}{}{\Scons{(x\vlor E\vlor F)\vlan(C\vlor D)}}{
+            \vlin{\me}{}{\Scons{((x\vlor E)\vlor (x\vlor F))\vlan(C\vlor D)}}{
+              \vlhy{\Scons{((x\vlor E)\vlan C)\vlor ((x\vlor F)\vlan D)}}}}}
+      \end{equation*}
+      which can be lifted to
+      \begin{equation*}
+        \vlderivation{
+          \vlin{\mfaD}{}{\Scons{(\forall x.(E\vlor F))\vlan(C\vlor D)}}{
+            \vlin{\me}{}{\Scons{((\forall x. E)\vlor (\forall x. F))\vlan(C\vlor D)}}{
+              \vlhy{\Scons{((\forall x. E)\vlan C)\vlor ((\forall x. F)\vlan D)}}}}}
+      \end{equation*}
+    \juihsuan{maybe need some words to exclude the case in which $C$ (or $D$)
+is a propositional variable.}\lutz{shit. (you mean a ``first order variable'') this actually can happen. then we have another $\mexD$}
+    \item $E$ is empty and $F$ is not: Then~\eqref{eq:mac} becomes
+      \begin{equation*}
+        \vlderivation{
+          \vlin{\acDeq}{}{\Scons{(x\vlor F)\vlan(C\vlor D)}}{
+            \vlin{\me}{}{\Scons{(x\vlor (x\vlor F))\vlan(C\vlor D)}}{
+          \vlhy{\Scons{(x\vlan C)\vlor ((x\vlor F)\vlan D)}}}}}
+      \end{equation*}
+      The conclusion is the propositional encoding of $\Scons{(\forall
+        x. F)\vlan(C\vlor D)}$ and the premise is the propositional
+      encoding of $\Scons{(\exists x.C)\vlor ((\forall x. F)\vlor
+        D)}$. Also note that no $\me$-instance can break up the
+      conjunction in $x\vlan C$ in the premise. Hence, $\phi$ maps an
+      existential to a universal, which is ruled out by the
+      definition. Hence, this case cannot occur.
+    \item $E$ is non-empty and $F$ is empty: This case is similar to the
+      previous subcase.
+    \item   $E$ and $F$ are both empty: Then~\eqref{eq:mac} is
+      \begin{equation*}
+        \vlderivation{
+          \vlin{\acDeq}{}{\Scons{x\vlan(C\vlor D)}}{
+            \vlin{\me}{}{\Scons{(x\vlor x)\vlan(C\vlor D)}}{
+              \vlhy{\Scons{(x\vlan C)\vlor (x\vlan D)}}}}}
+      \end{equation*}
+      which can be lifted immediately to
+      \begin{equation*}
+        \vlinf{\mexD}{}{\Scons{\exists x.(C\vlor D)}}{\Scons{(\exists x.C)\vlor(\exists x.D)}}
+      \end{equation*}
+    \end{itemize}
+
+
 
 % An example of a floating figure using the graphicx package.
 % Note that \label must occur AFTER (or within) \caption.
