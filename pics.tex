@@ -3,6 +3,10 @@
 \newcommand\vctr[1]{\vcenter{\hbox{$\m@th{#1}$}}}
 \makeatother
 
+% narrow column. argument e.g. A \\ B \\ C
+\newcommand\column[1]{\begin{array}{@{}c@{}}#1\end{array}}
+
+
 \newcommand\skewlifting[1]{\widetilde{#1}}
 
 % Vertex metavariables
@@ -189,6 +193,68 @@
 \lvxusep{#1}{#2}{#3}{\lvxugap}}
 \newcommand\lvxd[3]{% #1 placement e.g. "3,4"  #2 name  #3 contents
 \lvxsep{#1}{#2}{#3}{-90}{\lvxgap}}
+
+
+%%% Drawing vertices inline in text, coloured/labelled
+
+\newcommand\namedvx[2][black]{% optional style, name
+\node (#2) [#1 vx] {};}
+
+\newcommand\dummystart{\node (start) [graphlabel, inner sep=0, outer sep=0] {};}
+\newcommand\vxsep[5][black]{% #1 optional colour, #2 node name, #3 right/left of, #4 separation, #5 right/left
+  \node (#2) [#1 vx, #5=#4 of #3] {};}
+\newcommand\vxrightsep[4][black]{% #1 optional colour, #2 node name, #3 right of, #4 separation
+  \vxsep[#1]{#2}{#3}{#4}{right}}
+\newcommand\vxleftsep[4][black]{% #1 optional colour, #2 node name, #3 left of, #4 separation
+  \vxsep[#1]{#2}{#3}{#4}{left}}
+\newcommand\vxright[3][black]{% #1 optional colour, #2 node name, #3 node name right of
+  \vxrightsep[#1]{#2}{#3}{\vertextoitslabelgap}}
+\newcommand\vxleft[3][black]{% #1 optional colour, #2 node name, #3 node name left of
+  \vxleftsep[#1]{#2}{#3}{\vertextoitslabelgap}}
+\newcommand\labelright[4][\vertextoitslabelgap]{% #1 optional sep, #2 label name, #3 label contents, #4 node name right of
+  \node (#2) [graphlabel, right=#1 of #4] {$#3$};}
+\newcommand\labelleft[4][\vertextoitslabelgap]{% #1 optional sep, #2 label name, #3 label contents, #4 node name left of
+  \node (#2) [graphlabel, left=#1 of #4] {$#3$};}
+% \newcommand\labelrightgap[3]{% #1 label name, #2 label contents, #3 node name right of
+%   \node (#2) [graphlabel, right=\labellabelgap of #3] {$#2$};}
+
+% \newcommand\vxsolo[2][black]{% #1 optional colour, #2 name
+% \dummystart\vxright[#1]{#2}{start}}
+\newcommand\labelsolo[2]{% #1 name, #2 contents
+\dummystart\labelright[-1pt]{#1}{#2}{start}}% \node (#1) [graphlabel] {$#2$};   todo: why do we need this -1pt to make it flush?
+\newcommand\labvxright[4][black]{% #1 optional colour, #2 vertex name, #3 label name, #4 vertex type (optional)
+  % \labelsolo {#3} {#4}
+  % \vxleft[#1] {#2} {#3}
+  \dummystart % use the dummy start so that the vertex aligns correctly (center of vertex horizontally aligned with center of 'x')
+  \vxrightsep[#1] {#2} {start} {0}
+  \labelright {#3} {#4} {#2}
+}
+
+\newcommand\labvxleft[4][black]{% #1 optional colour, #2 vertex name, #3 label name, #4 label
+  \labelsolo {#3} {#4}
+  \vxrightsep[#1] {#2} {#3} \vertextoitslabelgap
+}
+
+\newcommand\singletonright[2][black]{\begin{tikzpicture}[baseline]\labvxright[#1]{v}{l}{#2}\end{tikzpicture}}
+\newcommand\singletonleft[2][black]{\begin{tikzpicture}[baseline]\labvxleft[#1]{v}{l}{#2}\end{tikzpicture}}
+
+\newcommand\singleton[2][black]{\singletonright[#1]{#2}}
+
+\newcommand\singletonx{\singleton x}
+\newcommand\singletony{\singleton y}
+\newcommand\singletonz{\singleton z}
+\newcommand\singletonp{\singleton \p}
+\newcommand\singletonq{\singleton \q}
+\newcommand\singletonqq{\singleton \qq}
+\newcommand\singletonpx{\singleton \px}
+\newcommand\singletonpy{\singleton \py}
+\newcommand\singletonppy{\singleton \ppy}
+\newcommand\singletonqx{\singleton \qx}
+\newcommand\singletonrx{\singleton \rx}
+\newcommand\singletonqy{\singleton \qy}
+\newcommand\singletonpxy{\singleton \pxy}
+\newcommand\singletonppx{\singleton \ppx}
+
 
 
 %%%%%%%%% EDGES
@@ -1095,3 +1161,144 @@ node[leaf, label={[label distance=1pt]{-90}:${#1}$}]{} edge from parent[{_[sep=#
 \end{tikzpicture}\end{center}\caption{\label{fig:drinkerbifib}A skew bifibration (left), its binding fibration (centre), and its skeleton (right).}\figrule\end{figure*}}
 
 
+
+%%%%%%%  FIGURE:  fonet + leap graph
+
+% macros for dualizer assignment
+\newcommand\shortmapsto{\scalebox{.8}[1]{\begin{math}\mapsto\end{math}}}
+\newcommand\assign[2]{#1\mkern1.5mu\shortmapsto\mkern.7mu #2}
+\newcommand\assignopen{\{\mkern.5mu}
+\newcommand\assignclose{\mkern.5mu\}}
+\newcommand\twolinkassignment{\assignopen\assign x z,\assign y{fz}\assignclose}
+
+\newcommand\twolinkfographvertices{
+  \begin{scope}[shift={(-\halfedgelen,0)}]
+    \lvx{-\edgelen,\halfedgelen}{x}{x}{180}
+    \redlvx{0,\halfedgelen}{ppx}{\ppx}{90}
+    \lvx{-\edgelen,-\halfedgelen}{y}{y}{180}
+    \bluelvxsep{0,-\halfedgelen}{qqy}{\likex\qqy}{-90}{5pt}
+  \end{scope}
+  \begin{scope}[shift={(\halfedgelen,0)}]
+    \redlvx{0,\halfedgelen}{pz}{\pz}{90}
+    \bluelvxsep{0,-\halfedgelen}{qfz}{\likex{\qfz}}{-90}{5pt}
+  \end{scope}
+  \begin{scope}[shift={(\edgelen,0)}]
+     \lvx{\halfedgelen,0}zz0
+  \end{scope}
+}
+\newcommand\twolinkfographedges{
+  \e x {ppx}
+  \e y {qqy}
+  \e {pz} {qfz}
+}
+\newcommand\twolinkfograph{\twolinkfographvertices\twolinkfographedges}
+
+\newcommand\twolinkleapgraphedges{
+  \begin{scope}[leap]
+    \draw (ppx) to[out=-30,in=-150] (pz);
+    \draw (qqy) to[out=30,in=150] (qfz);
+    \draw (x) to[out=65,in=95,looseness=1.5] (z);
+    \draw (y) to[out=-65,in=-95,looseness=1.5] (z);
+  \end{scope}
+}
+\newcommand\twolinkleapgraph{
+  \twolinkfographvertices
+  \twolinkleapgraphedges
+}
+
+\newcommand\leapfig{%
+\begin{figure*}\begin{center}\vspace{-1ex}\begin{tikzpicture}[graph]
+  \begin{scope}[xshift=-3cm]\twolinkfograph\end{scope}
+  \begin{scope}[xshift=3cm]\twolinkleapgraph\end{scope}
+\end{tikzpicture}\vspace{-4ex}\end{center}%
+\caption{\label{fig:leap}A fonet (left) with
+    unique dualizer $\protect\twolinkassignment$
+    and its
+    leap graph (right).}\figrule\end{figure*}}
+
+
+
+%%%%%%%%%%   PICTURE:  illustrating why we must collapse twins during contraction
+
+
+\newcommand\rawunaryruleright[3]{\prftree[r]{\,$#1$}{#2}{#3}}
+
+
+\newcommand\exppxfib[3]{% #1 vertex colour eg red blue, #2 cover binder name, #3 cover literal name
+  \symb{(}
+  \fibre{ex} {\exists x}{
+    \over{black vx}{\hi}{#2}
+  }
+  \symb{\mkern2mu}
+  \fibre{ppx} {\ppx}{
+    \over{#1 vx}{\lo}{#3}
+  }
+  \symb{)}
+}
+\newcommand\aypyfib[1]{% #1 vertex colour eg red blue
+  \fibre{a} {\forall y}{
+    \over{black vx}{\lo}{al}
+  }
+  \symb{\mkern2mu}
+  \fibre{py} {\py}{
+    \over{#1 vx}{\lo}{pyl}
+  }
+}
+\newcommand\expxexpxfib{
+  \exppxfib{blue}{bl}{ppxl}
+  \symb{\mkern-2mu\wedge\mkern-2mu}
+  \exppxfib{red}{br}{ppxr}
+  \draw (bl) -- (br);
+  \draw (ppxl) -- (br);
+  \draw (bl) -- (ppxr);
+  \draw (ppxl) -- (ppxr);
+  \draw (bl) -- (ppxl);
+  \draw (br) -- (ppxr);
+}
+
+
+\newcommand\opCegHyp{
+  \begin{tikzpicture}
+  \fibration{
+    \expxexpxfib
+    \opgap
+    \aypyfib{red}
+    \opgap
+    \aypyfib{blue}
+  }  
+  \end{tikzpicture}
+}
+\newcommand\opCegConc[1]{% #1 optional extra hi vertex, making illegal twin over \forall y
+  \rule{0ex}{6.5ex}
+  \begin{tikzpicture}
+  \fibration{
+    \expxexpxfib
+    \opgap
+    \fibre{a} {\forall y}{
+      \over{black vx}{\lo}{al}
+      #1
+    }
+    \symb{\mkern2mu}
+    \fibre{py} {\py}{
+      \over{blue vx}{\lo}{pyl}
+      \over{red vx}{\hi}{pyh}
+    }
+  }
+  \end{tikzpicture}
+}
+\newcommand\opCegConcGood{\opCegConc{}}
+\newcommand\opCegConcBad{\opCegConc{\over{black vx}{\hi}{ah}}}
+\newcommand\opgap{\symb{\hspace{3ex}}}
+
+
+\newcommand\twincollapsepic{%
+\begin{center}\begin{math}\begin{array}{@{}cc@{}}
+%
+\vctr{\rawunaryruleright{\textsf{C}}{\opCegHyp}{\opCegConcBad}}
+&
+\vctr{\color{red!80!black}\cross}
+\\[11ex]
+\vctr{\rawunaryruleright{\textsf{C}}{\opCegHyp}{\opCegConcGood}}
+&
+\vctr{\color{green!50!black}\checkmark}
+\end{array}\end{math}\end{center}}
