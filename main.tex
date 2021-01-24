@@ -778,6 +778,7 @@ x.(\cneg{p}x \vlor (\forall y.py))}}{
                   \vlhy{}}}}}}}}}}}
 \end{equation*}
 \juihsuan{LK1 and KS1 proofs of Peirce's law and LK1 proof of drinker formula}
+\lutz{can you also do the KS1 for the drinker?}
 
 Several authors have illustrated how syntactic proofs in various
 proof systems can be translated to propositional combinatorial proofs:
@@ -882,33 +883,6 @@ so are outer $y$-binders in the scope of each other.
 The correct operation is shown above-right,
 in which the troublesome pair is collapsed to a single uncoloured vertex $\singleton{}$ over $\forall y$.
 
-\begin{equation*}
-\vlderivation{
-  \vlin{\acD}{}{(\exists x. \cneg{p}x) \vlor (\forall y.(py \vlan pfy))}{
-    \vlin{\mexD}{}{(\exists x. (\cneg{p}x \vlor \cneg{p}x) \vlor (\forall
-y.(py \vlan pfy))}{
-      \vlin{\fequ}{}{((\exists x. \cneg{p}x) \vlor (\exists x.\cneg{p}x))
-\vlor (\forall y.(py \vlan pfy)}{
-        \vlin{\exists}{}{\forall y.(((\exists x. \cneg{p}x) \vlor (\exists
-x.\cneg{p}x)) \vlor (py \vlan pfy))}{
-          \vlin{\exists}{}{\forall y.((\cneg{p}y \vlor (\exists x.\cneg{p}x))
-\vlor (py \vlan pfy))}{
-            \vlin{\fequ}{}{\forall y.((\cneg{p}y \vlor \cneg{p}fy) \vlor
-(py \vlan pfy))}{
-              \vlin{\sw}{}{\forall y.(\cneg{p}y \vlor ((py \vlan pfy)
-\vlor \cneg{p}fy))}{
-                \vlin{\fequ}{}{\forall y.(\cneg{p}y \vlor (py \vlan (pfy
-\vlor \cneg{p}fy)))}{
-                  \vlin{\aiD}{}{\forall y.((\cneg{p}y \vlor py) \vlan (pfy
-\vlor \cneg{p}fy))}{
-                    \vlin{\aiD}{}{\forall y.((\cneg{p}y \vlor py) \vlan
-\ttt)}{
-                      \vlin{\ttt}{}{\forall y.(\ttt \vlan \ttt)}{
-                        \vlin{\forall}{}{\forall y.\ttt}{
-                          \vlhy{\ttt}}}}}}}}}}}}}}
-\end{equation*}
-\juihsuan{the decomposed KS1 proof of $(\exists x. \cneg{p}(x)) \vlor (\forall
-y.(p(y) \vlan p(f(y))))$}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1583,6 +1557,37 @@ first-order logic, which either separated only atomic contraction and
 atomic weakening~\cite{brunnler:phd} or only
 contraction~\cite{ralph:phd} or only the quantifiers in form of a
 Herbrand theorem~\cite{brunnler:06:locality,ralph:phd}.
+
+\begin{example}
+  Below is an example of a decomposed derivation in $\FOKS$ of the
+  formula $(\exists x. \cneg{p}(x)) \vlor (\forall y.(p(y) \vlan
+  p(f(y))))$:
+  \begin{equation*}
+    \vlderivation{
+      \vlin{\acD}{}{(\exists x. \cneg{p}x) \vlor (\forall y.(py \vlan pfy))}{
+        \vlin{\mexD}{}{(\exists x. (\cneg{p}x \vlor \cneg{p}x) \vlor (\forall
+          y.(py \vlan pfy))}{
+          \vlin{\fequ}{}{((\exists x. \cneg{p}x) \vlor (\exists x.\cneg{p}x))
+            \vlor (\forall y.(py \vlan pfy)}{
+            \vlin{\exists}{}{\forall y.(((\exists x. \cneg{p}x) \vlor (\exists
+              x.\cneg{p}x)) \vlor (py \vlan pfy))}{
+              \vlin{\exists}{}{\forall y.((\cneg{p}y \vlor (\exists x.\cneg{p}x))
+                \vlor (py \vlan pfy))}{
+                \vlin{\fequ}{}{\forall y.((\cneg{p}y \vlor \cneg{p}fy) \vlor
+                  (py \vlan pfy))}{
+              \vlin{\sw}{}{\forall y.(\cneg{p}y \vlor ((py \vlan pfy)
+                \vlor \cneg{p}fy))}{
+                \vlin{\fequ}{}{\forall y.(\cneg{p}y \vlor (py \vlan (pfy
+                  \vlor \cneg{p}fy)))}{
+                  \vlin{\aiD}{}{\forall y.((\cneg{p}y \vlor py) \vlan (pfy
+                    \vlor \cneg{p}fy))}{
+                    \vlin{\aiD}{}{\forall y.((\cneg{p}y \vlor py) \vlan
+                      \ttt)}{
+                      \vlin{\ttt}{}{\forall y.(\ttt \vlan \ttt)}{
+                        \vlin{\forall}{}{\forall y.\ttt}{
+                          \vlhy{\ttt}}}}}}}}}}}}}}
+  \end{equation*}
+\end{example}
 
 There is a weaker version of Theorem~\ref{thm:decomposition} that will
 also be useful:
