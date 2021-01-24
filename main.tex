@@ -731,6 +731,54 @@ propositional variables.
   \begin{scope}[shift={(\radius,0)}]{\drinkerfibcoloured}\end{scope}
 \end{tikzpicture}\vspace{0ex}\end{center}
 %
+
+\begin{equation*}
+\vlderivation{
+  \vlin{\vlor}{}{\sqn{((\cneg{p} \vlor q) \vlan \cneg{p}) \vlor p}}{
+    \vlin{\conr}{}{\sqn{(\cneg{p} \vlor q) \vlan \cneg{p}, p}}{
+      \vliin{\vlan}{}{\sqn{(\cneg{p} \vlor q) \vlan \cneg{p}, p, p}}{
+        \vlin{\vlor}{}{\sqn{\cneg{p} \vlor q, p}}{
+          \vlin{\weakr}{}{\sqn{\cneg{p}, q, p}}{
+            \vlin{\axr}{}{\sqn{\cneg{p}, p}}{
+              \vlhy{}}}}}{
+        \vlin{\axr}{}{\sqn{\cneg{p}, p}}{
+          \vlhy{}}}}}}
+\end{equation*}
+
+\begin{equation*}
+\vlderivation{
+  \vlin{\cD}{}{((\cneg{p} \vlor q) \vlan \cneg{p}) \vlor p}{
+    \vlin{\fequ}{}{((\cneg{p} \vlor q) \vlan \cneg{p}) \vlor (p \vlor p)}{
+      \vlin{\sw}{}{(\cneg{p} \vlan (\cneg{p} \vlor q)) \vlor p) \vlor p}{
+        \vlin{\fequ}{}{(\cneg{p} \vlan ((\cneg{p} \vlor q) \vlor p)) \vlor p)}{
+          \vlin{\sw}{}{(p \vlor (\cneg{p} \vlor q)) \vlan \cneg{p}) \vlor p}{
+            \vlin{\aiD}{}{(p \vlor (\cneg{p} \vlor q)) \vlan (\cneg{p} \vlor p)}{
+              \vlin{\tttD}{}{(p \vlor (\cneg{p} \vlor q)) \vlan \ttt}{
+                \vlin{\fequ}{}{p \vlor (\cneg{p} \vlor q)}{
+                  \vlin{\wrD}{}{(p \vlor \cneg{p}) \vlor q}{
+                    \vlin{\aiD}{}{p \vlor \cneg{p}}{
+                      \vlhy{\ttt}}}}}}}}}}}}
+\end{equation*}
+
+\begin{equation*}
+\vlderivation{
+  \vlin{\conr}{}{\sqn{\exists x.(\cneg{p}(x) \vlor (\forall y.p(y)))}}{
+    \vlin{\exists}{}{\sqn{\exists x.(\cneg{p}(x) \vlor (\forall y.p(y))),\exists
+x.(\cneg{p}(x) \vlor (\forall y.p(y)))}}{
+      \vlin{\vlor}{}{\sqn{\cneg{p}(w) \vlor (\forall y.p(y)), \exists
+x.(\cneg{p}(x) \vlor (\forall y.p(y)))}}{
+        \vlin{\forall}{}{\sqn{\cneg{p}(w), \forall y.p(y), \exists
+x.(\cneg{p}(x) \vlor (\forall y.p(y)))}}{
+          \vlin{\exists}{}{\sqn{\cneg{p}(w), p(z), \exists
+x.(\cneg{p}(x) \vlor (\forall y.p(y)))}}{
+            \vlin{\vlor}{}{\sqn{\cneg{p}(w), p(z), \cneg{p}(z) \vlor (\forall y.p(y)))}}{
+              \vlin{\weakr}{}{\sqn{\cneg{p}(w), p(z), \cneg{p}(z), (\forall y.p(y)))}}{
+                \vlin{\weakr}{}{\sqn{\cneg{p}(w), p(z), \ceng{p}(z)}}{
+                \vlin{\axr}{}{\sqn{p(z), \cneg{p}(z)}}{
+                  \vlhy{}}}}}}}}}}
+\end{equation*}
+\juihsuan{LK1 and KS1 proofs of Peirce's law and LK1 proof of drinker formula}
+
 Several authors have illustrated how syntactic proofs in various
 proof systems can be translated to propositional combinatorial proofs:
 for sequent proofs in~\cite{hughes:invar}, for deep inference proofs
