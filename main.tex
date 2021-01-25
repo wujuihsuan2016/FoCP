@@ -540,8 +540,10 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newcommand{\quand}{\quad\mbox{and}\quad}
-
 \newcommand{\qquand}{\qquad\mbox{and}\qquad}
+
+\newcommand{\quor}{\quad\mbox{or}\quad}
+\newcommand{\qquor}{\qquad\mbox{or}\qquad}
 
 % correct bad hyphenation here
 \hyphenation{op-tical net-works semi-conduc-tor}
@@ -2846,43 +2848,74 @@ $vw\in\eG$.
 \end{lemma}
 
 \begin{proof}
-   By \cite[Proposition~7.6.1]{str:07:RTA}, we have a
-  derivation $\vlder{\set{\wrD,\PE\fequ}}{\DDeri}{\PE H}{\PE G}$.
-  A subformula of $\PE B$ is called \emph{weak} if it has been
-  introduced by a weakening. All subformulas of a weak formula are
-  also weak. Two weak subformulas $B'$ and $B''$ of $\PE B$ form a
-  \emph{weak pair} if $\PE B\fequ\Scons{B'\vlor B''}$ for some context
-  $\Sconhole$. We can assume without loss of generality that
-  whenever weak subformulas $B'$ and $B''$ form a weak pair, they have
-  been introduced by the same instance of $\wrD$ in
-  $\PE\Deri_1$.\footnote{If $\PE\Deri_1$ is not of that shape, it can
-  brought into this form by simple rule permutations, and then
-  collapsing several weakenings into a single one.}  Now we show that
-  $\PE\Deri_1$ can be lifted. For this, observe that whenever a
-  weakening in $\PE\Deri_1$ deletes an atom $x\in\VAR$, it must also
-  delete all atoms in the scope of the corresponding quantifier,
-  because $\phi'$ is a fibration on the binding graph. Hence, each line
-  in $\PE\Deri_1$ is the propositional encoding $\PE P$ of a
-  first-order formula $P$.  We now have to show
-  that each instance of $\wrD$ is indeed a correct
-  application in first-order logic. For this we have to inspect the
-  cases a weakening happens inside a subformula $x\vlor C$ or $x\vlan
-  C$ in $\PE\Deri_1$. There are the following cases:
+   By \cite[Proposition~7.6.1]{str:07:RTA}, we have a derivation
+   $\vlder{\set{\wrD,\PE\fequ}}{\DDeri}{\PE H}{\PE G}$. In order to
+   lift $\DDeri$, we might need to reorganize the instancese of
+   $\wD$. If $H$ contains a subformula $\forall x.A$ which is not
+   present in $G$, the $\wD$-instances in $\DDeri$ could introduce the
+   parts of the propositional encoding $x\vlor A$ independently.  We
+   say that an instance $\rr_1$ of $\wD$ in $\Deri$ is \emph{in the
+   scope} of an instance $\rr_2$ of $\wD$ if $\rr_1$ introduced
+   formulas that contain a free variable $x$ (i.e., $x$ occurs in a
+   term in a predicate) and $\rr_2$ introduces the atom $x$ as a
+   subformula (i.e. the propositional encoding of the binder $x$).  We
+   can now permute the $\wD$-instances in $\DDeri$ such that whenever
+   a rule instance $\rr_1$ depends on an instance $\rr_2$, then
+   $\rr_2$ occurs below $\rr_1$ in $\DDeri$.
+   We can now lift $\DDeri$ stepwise. First, observe that each line of
+   in $\DDeri$ is $\PE\fequ$-equivalent to the propositional encoding $\PE P$ of a
+   first-order formula $P$.  We now have to show
+   that each other instance of $\wrD$ in $\DDeri$ is indeed the image of a correct
+   application of $\wD$ or $\wfaD$ in first-order logic.
+   If we have a $\wD$
+   \begin{equation*}
+     \vlinf{\wD}{}{\PE S\cons{x\vlor \PE A}}{\PE S\cons{\PE A}}
+     \qquor
+     \vlinf{\wD}{}{\PE S\cons{(x\vlor \PE B)\vlor \PE A}}{\PE S\cons{\PE A}}
+   \end{equation*}
+   then $x$ cannot occur freely in $A$, as otherwise the fibration
+   property would be violated. We can therefore lift these instances to
+   \begin{equation*}
+     \vlinf{\wfaD}{}{S\cons{\forall x. A}}{S\cons{A}}
+     \qquor
+     \vlinf{\wD}{}{S\cons{(\forall x. B)\vlor A}}{S\cons{A}}
+   \end{equation*}
+   respectively.     
+  %% A subformula of $\PE B$ is called \emph{weak} if it has been
+  %% introduced by a weakening. All subformulas of a weak formula are
+  %% also weak. Two weak subformulas $B'$ and $B''$ of $\PE B$ form a
+  %% \emph{weak pair} if $\PE B\fequ\Scons{B'\vlor B''}$ for some context
+  %% $\Sconhole$. We can assume without loss of generality that
+  %% whenever weak subformulas $B'$ and $B''$ form a weak pair, they have
+  %% been introduced by the same instance of $\wrD$ in
+  %% $\PE\Deri_1$.\footnote{If $\PE\Deri_1$ is not of that shape, it can
+  %% brought into this form by simple rule permutations, and then
+  %% collapsing several weakenings into a single one.}  Now we show that
+  %% $\PE\Deri_1$ can be lifted. For this, observe that whenever a
+  %% weakening in $\PE\Deri_1$ deletes an atom $x\in\VAR$, it must also
+  %% delete all atoms in the scope of the corresponding quantifier,
+  %% because $\phi'$ is a fibration on the binding graph. Hence, each line
+  If a  weakening happens inside a subformula $x\vlor \PE C$ or $x\vlan
+  \PE C$ in $\DDeri$, then there are the following cases:
   \begin{equation*}%\small
-    \vlinf{}{}{S\cons{x\vlor D\vlor C}}{S\cons{x\vlor C}}
-    \qquad
-    \vlinf{}{}{S\cons{x\vlan (D\vlor C)}}{S\cons{x\vlan C}}
-    \qquad
-    \vlinf{}{}{S\cons{(x\vlor D)\vlan C}}{S\cons{x\vlan C}}
+    \scalebox{.9}{$
+    \vlinf{\wD}{}{\PE S\cons{x\vlor\PE  D\vlor \PE C}}{\PE S\cons{x\vlor\PE  C}}
+    \quad
+    \vlinf{\wD}{}{\PE S\cons{x\vlan (\PE D\vlor \PE C)}}{\PE S\cons{x\vlan\PE  C}}
+    \quad
+    \vlinf{\wD}{}{\PE S\cons{(x\vlor\PE  D)\vlan \PE C}}{\PE S\cons{x\vlan \PE C}}
+    $}
   \end{equation*}
-  In the first case the weakening happens inside the scope of a
-  $\forall$-quantifier, and in the second case inside the scope of a
-  $\exists$-quantifier. Both cases are unproblematic in first-order
-  logic. However, in the third case an $\exists$-quantifier would be
+  The first two cases can be lifted to
+  \begin{equation*}
+    \vlinf{\wD}{}{S\cons{\forall x.( D\vlor C)}}{S\cons{\forall x.  C}}
+    \quand
+     \vlinf{\wD}{}{S\cons{\exists x.( D\vlor C)}}{S\cons{\exists x.  C}}
+  \end{equation*}
+  respectively. But in the third case,  an $\exists$-quantifier would be
   transformed into an $\forall$-quantifier. But as $\phi$ has to
-  preserve existentials, this third case cannot occur.
-  Thus we have a first order derivation
-  $\vlder{\set{\wrD,\fequ}}{\Deri_1}{B}{B_1}$ with $\PE B_1=\PEp B_1$.
+  preserve existentials, this third case cannot occur. All other situations can be lifted trivially, giving us
+  $\vlder{\set{\wrD,\wfaD\fequ}}{\Deri}{H}{G}$ as desired.
 \end{proof}
 
 
