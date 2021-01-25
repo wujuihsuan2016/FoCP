@@ -2365,7 +2365,7 @@ $\fographof\Deri=\tuple{\graphof{A},\linkingof{\Deri}}$.
 
 For proving this theorem, we have to show that no inference rule in
 $\FOMLS$ can introduce a bimatching. To simplify the argument, we
-introduce the \bfit{frame}~\cite{hughes:unifn} of the fograph $\gC$,
+introduce the \bfit{frame}~\cite{hughes:unifn} of the linked fograph $\gC$,
 which is a linked (proposional) cograph in which the dependencies
 between the binders in $\gC$ are encoded as links. 
 
@@ -2425,14 +2425,14 @@ $\tuple{\graphof{\frameof C},\linkingof{\frameof C}}$.
     %\qquad
     \vlderivation{
       \vlde{\set{\sw,\fequ}}{\DDeri_2}{\Scons{q_{h_1,j}\vlor\cdots\vlor
-          q_{h_j,j}\vlor(\dual q_{h_1,j}\vlan\cdots\vlan\dual
-          q_{h_j,j}\vlan\ttt)}}{
+          q_{h_n,j}\vlor(\dual q_{h_1,j}\vlan\cdots\vlan\dual
+          q_{h_n,j}\vlan\ttt)}}{
         \vlde{\set{\aiD,\tttD}}{\DDeri_1}{
-          \Scons{(q_{h_1,j}\vlor \dual q_{h_1,j})\vlan\cdots\vlan(q_{h_j,j}\vlor \dual q_{h_j,j})\vlan\ttt}}{
+          \Scons{(q_{h_1,j}\vlor \dual q_{h_1,j})\vlan\cdots\vlan(q_{h_n,j}\vlor \dual q_{h_n,j})\vlan\ttt}}{
           \vlhy{\ttt}}}}
     $}
   \end{equation*}
-  where $h_1,\ldots,h_j$ range over the indices of the existential
+  where $h_1,\ldots,h_n$ range over the indices of the existential
   binders dependend on that $y_j$. It is easy to see how $\DDeri_1$ is
   constructed, and for $\DDeri_2$ see,
   e.g. \cite{ATS:esslli2019,gug:str:01,brunnler:tiu:01,dissvonlutz}. Then, every
@@ -2450,13 +2450,13 @@ $\tuple{\graphof{\frameof C},\linkingof{\frameof C}}$.
   instance by the following derivation
   \begin{equation*}
     \vlder{\set{\sw,\fequ}}{\DDeri_3}{ S_0\cons{S_1\cons{\cdots
-          S_{k_i-1}\cons{S_{k_i}\cons{\dual q_{i,k_1}\vlan\dual
-              q_{i,k_2}\vlan\cdots q_{i,k_i}\vlan B'}}\cdots}}}{
+          S_{k_l-1}\cons{S_{k_l}\cons{\dual q_{i,k_1}\vlan\dual
+              q_{i,k_2}\vlan\cdots q_{i,k_l}\vlan B'}}\cdots}}}{
       S_0\cons{\dual q_{i,k_1}\vlan S_1\cons{\dual
-          q_{i,k_2}\vlan\cdots S_{k_i-1}\cons{\dual q_{i,k_i}\vlan
-            S_{k_i}\cons{B'}}\cdots}}}
+          q_{i,k_2}\vlan\cdots S_{k_l-1}\cons{\dual q_{i,k_k}\vlan
+            S_{k_l}\cons{B'}}\cdots}}}
   \end{equation*}
-  where $k_1,\ldots,k_i$ are the indices of of the universal binders
+  where $k_1,\ldots,k_l$ are the indices of of the universal binders
   on which that $x_i$ depends, and $B'$ is $B$ in which all predicates
   are replaced by a nullary one (step~3 in the frame construction). The
   derivation $\DDeri_3$ can be constructed in the same way as
@@ -2914,7 +2914,7 @@ $vw\in\eG$.
   respectively. But in the third case,  an $\exists$-quantifier would be
   transformed into an $\forall$-quantifier. But as $\phi$ has to
   preserve existentials, this third case cannot occur. All other situations can be lifted trivially, giving us
-  $\vlder{\set{\wrD,\wfaD\fequ}}{\Deri}{H}{G}$ as desired.
+  $\vlder{\set{\wrD,\wfaD,\fequ}}{\Deri}{H}{G}$ as desired.
 \end{proof}
 
 
