@@ -1293,12 +1293,12 @@ write $\single\alpha$ for a single-vertex  labelled by $\alpha$.
 %
 \begin{remark}
 Note that $\graphof A$ is not necessarily a fograph if $A$ is not
-rectified. If $A = (\forall x. p(x)) \vlor (\forall x. q(x))$, then
-$\graphof A = \single x \ \single p(x) \ \single x \ \single q(x)$,
+rectified. If $A = (\forall x. px) \vlor (\forall x. qx)$, then
+$\graphof A = \single x \ \single px \ \single x \ \single qx$,
 the scope of each $x$-binder contains all the vertices, in particular,
 the other $x$-binder. On the other hand, there are non-rectified
 formulas which are translated to fographs by $\graphof\cdot$. For
-example, in the graph of $(\exists x. p(x)) \vlor (\exists x. q(x))$,
+example, in the graph of $(\exists x. px) \vlor (\exists x. qx)$,
 both $x$-binders are legal, as they are not in each other's
 scope:
 $\edgepairpic{x}{px}\mkern9mu\edgepairpic{x}{qx}$.
@@ -2246,7 +2246,7 @@ end we can conclude that $\fographof\Pi$ is in fact a fonet.
   $\dsubstof\Pi=\dsubstof{\Pi'}\cup\dsubstof{\Pi''}$.
 \item The last rule in $\Pi$ is $\vlinf{\vlor}{}{\sqn{\Gamma_1,A\vlor
     B}}{\sqn{\Gamma_1,A,B}}$ : By induction hypothesis, there is
-  proofs $\Pi'$ of $\Gamma'={\Gamma_1,A,B}$. We have
+  a proof $\Pi'$ of $\Gamma'={\Gamma_1,A,B}$. We have
   $\graphof{\Gamma}=\graphof{\Gamma'}$ and let
   $\linkingof\Pi\;=\;\linkingof{\Pi'}$ and
   $\dsubstof\Pi=\dsubstof{\Pi'}$.
@@ -2261,7 +2261,7 @@ end we can conclude that $\fographof\Pi$ is in fact a fonet.
 \item The last rule in $\Pi$ is
   $\vlinf{\exists}{}{\sqn{\Gamma_1,\exists x.A}}
   {\sqn{\Gamma_1,A\ssubst{x}{t}}}$ : By induction hypothesis, there is
-  a $\Pi'$ of $\Gamma'={\Gamma_1,A\ssubst{x}{t}}$.  For each atom in
+  a proof $\Pi'$ of $\Gamma'={\Gamma_1,A\ssubst{x}{t}}$.  For each atom in
   $\Gamma'=\Gamma_1, A \ssubst{x}{t}$, there is a corresponding atom
   in $\Gamma=\Gamma_1, \exists x.A$. We can therefore define the
   linking $\linkingof{\Pi}$ from the linking $\linkingof{\Pi'}$ via
@@ -3307,7 +3307,7 @@ Otherwise, the proof can be transformed using the following rewriting rules.
   \vlhy{\sqns{\Gamma, A}}}
 \end{equation*}
 Note that in the case of $\vlor$, we use the deep rule $\wrD$ which can be
-permuted down over all the rules. By using these rewriting rules, we can eventually get
+permuted under all the rules. By using these rewriting rules, we can eventually get
 a derivation with all the instances of $\weakr$ and $\wrD$ at the bottom. Now observe
 that the instances of $\conr$ in $\Deri$ can be transformed using the following
 rule:
@@ -3323,12 +3323,12 @@ rule:
       \vlhy{\sqns{\Gamma, A, A}}}}}
 \end{equation*}
 
-Knowing that $\cD$ can be permuted down over all the rules of $\FOMLL$, we
+Knowing that $\cD$ can be permuted under all the rules of $\FOMLL$, we
 eventually obtain a derivation:
 \begin{equation*}
 \vlderivation{
   \vlde{\set{\weakr, \wrD,\cD,\fequ}}{\Deri'_2}{\sqns{\Gamma}}{
-    \vltrl{}{\FOMLL}{\Deri'_1}{\sqns{\Gamma_0}}{
+    \vltrl{}{\FOMLL}{\Deri'_1}{\sqns{\Gamma'}}{
       \vlhy{\quad}}{
       \vlhy{}}{
       \vlhy{}}}}
@@ -3351,12 +3351,12 @@ we obtain a derivation
 \begin{equation*}
 \vlderivation{
   \vlde{\set{\wrD,\cD,\fequ}}{\Deri_2}{\sqns{\form{\Gamma}}}{
-    \vltrl{}{\FOMLL}{\Deri_1}{\sqns{\Gamma'}}{
+    \vltrl{}{\FOMLL}{\Deri_1}{\sqns{\form{\Gamma'}}}{
       \vlhy{\quad}}{
       \vlhy{}}{
       \vlhy{}}}}
 \end{equation*}
-where $\Gamma' = \form{\Gamma_0}$ and $\Deri_1$ can be obtained from $\Deri'_1$
+where $\Deri_1$ can be obtained from $\Deri'_1$
 by applying the $\vlor$ rule.
 \end{proof}
 
