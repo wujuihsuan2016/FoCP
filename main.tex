@@ -1737,8 +1737,7 @@ decomposition.
 
 %\begin{example}
   Figure~\ref{fig:example-decompose} shows an example of a decomposed derivation in $\FOKS$ of the
-  formula $(\exists x. \cneg{p}(x)) \vlor (\forall y.(p(y) \vlan
-  p(f(y))))$.
+  formula $(\exists x. \cneg{p}x) \vlor (\forall y.(py \vlan pfy))$.
 %\end{example}
 
 \begin{figure}
@@ -1777,7 +1776,7 @@ There is a weaker version of Theorem~\ref{thm:decomposition} that will
 also be useful:
 %
 \begin{thm}\label{thm:decompositionA}
-  For every derivation $\upsmash{\vlder{\FOKS}{\Deri}{A}{\ttt}}$ there is a formula~$A_1$ not containing any occurence of $\fff$, such that there is a derivation:
+  For every derivation $\upsmash{\vlder{\FOKS}{\Deri}{A}{\ttt}}$ there is a formula~$A_1$ not containing any occurrence of $\fff$, such that there is a derivation:
   \begin{equation*}
     %\scalebox{.9}{$
     \vlderivation{
@@ -1803,7 +1802,7 @@ combinatorial proofs.
   for some $A'\fequ C\rsubstof\phi$ where $C$ is a formula with $\graphof
   C=\gC$ and $\rsubstof\phi$ is the variable renaming substitution
   induced by~$\phi$.  Conversely,
-  whenever we have a derivation as in~\eqref{eq:decom} above, such that $\fff$ does not occur in~$A_1$, then
+  whenever we have a derivation as in~\eqref{eq:decom} above, such that $\fff$ does not occur in~$A'$, then
   there is a combinatorial proof $\phi\colon\gC\to\graphof A$ such
   that $\gC=\graphof{\rectif{A'}}$.
 \end{thm}
@@ -2005,7 +2004,6 @@ other results.
 \begin{proof}
   We only show the cases for $\wfaD$ and $\cfaD$:
   $$
-  \todo{}
   \vlderivation{
     \vlin{\cD}{}{\forall x.A}{
       \vlin{\fequ}{(x \notin fv(A))}{\forall x.(A \vlor A)}{
@@ -2417,7 +2415,7 @@ $\tuple{\graphof{\frameof C},\linkingof{\frameof C}}$.
   q_{h_1,j}\vlan\cdots\vlan\dual q_{h_j,j}\vlan F)$ in the derivation
   below that $\forall$-instance. Now, observe that all instances of
   the $\exists$-rule introducing $x_i$ dependend on $y_j$ must occur
-  below in the derivation (otherwise $\Deri$ would not be recified).
+  below in the derivation (otherwise $\Deri$ would not be rectified).
   Now consider such an instance $\vlinf{\exists}{}{\Scons{\exists
       x_i.B}}{\Scons{B\ssubst {x_i} t}}$.  Its context $\Sconhole$
   must contain all the $\forall y_j$ the $\exists x_i$ depends on,
@@ -2699,7 +2697,7 @@ $\Sconhole$ here (induced maps act clearly as the identity on contexts but we ne
 \begin{lemma}\label{lem:cw->rectif}
   Let $\downsmash{\vlderivation{
     \vlde{\set{\wrD,\acD,\cfaD,\me,\mfaD,\mexD,\fequ}}{\Deri}{B}{
-      \vlhy{A}}}}$ be a derivation. Then there is a recified derivation
+      \vlhy{A}}}}$ be a derivation. Then there is a rectified derivation
   $\vlderivation{
     \vlde{\set{\wrD,\rectif\acD,\rectif\cfaD,\me,\rectif\mfaD,\rectif\mexD,\fequ}}{\rectif\Deri}{\rectif
       B}{ \vlhy{\rectif A}}}$, such that the induced maps
@@ -2793,7 +2791,7 @@ into an instance of the same rule. It's trivial but may be worth mentioning.}\lu
   \end{equation*}
   respectively, where $\rectif\acD$ is a $\acD$ that renames the
   variables---the propositional variable, as well as the first-order
-  variable of the same name---as everything is recified, there is no
+  variable of the same name---as everything is rectified, there is no
   ambiguity here. Any instance of a rule $\wD$, $\acD$, $\me$, or
   $\fequ$ is translated to an instance of the same rule, and
   $\rectif\cfaD$ is translated to $\rectif\acD$.
@@ -3099,7 +3097,7 @@ Sections~\ref{sec:linear} and~\ref{sec:skew}.
         \vlde{\FOMLS}{\Deri_1}{A'}{
           \vlhy{\ttt}}}}
   \end{equation}
-  Then we can transform $\Deri_1$ into a recified form
+  Then we can transform $\Deri_1$ into a rectified form
   $\rectif\Deri_1$, proving $\rectif A'$. By
   Theorem~\ref{thm:MLS1->fonet}, the linked fograph
   $\fographof{\rectif\Deri_1}=\tuple{\fographof{\rectif
