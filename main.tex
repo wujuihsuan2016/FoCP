@@ -1993,6 +1993,13 @@ other results.
   $$
   \vlderivation{
     \vlin{\cD}{}{\forall x.A}{
+      \vlin{\fequ}{(x \notin fv(A))}{\forall x.(A \vlor A)}{
+        \vlin{\wrD}{}{A \vlor (\forall x.A)}{
+          \vlhy{A}}}}}
+  $$.
+  $$
+  \vlderivation{
+    \vlin{\cD}{}{\forall x.A}{
       \vlin{\equiv}{(x \notin fv(\forall x.A))}{(\forall x.A) \vlor (\forall x.A)}{
         \vlin{\wrD}{}{\forall x.((\forall x.A) \vlor A)}{
           \vlhy{\forall x.\forall x.A}}}}}
@@ -2254,55 +2261,7 @@ prove that for all $r_1 \in \set{\forall, \aiD, \tttD}$, for all $r_2 \in
 \end{lemma}
 
 \begin{proof}
-  First, a derivation consisting of an instance of $\wrD$ followed by $\rr \in \set{\acD, \cfaD,
-\me, \mfaD, \mexD}$ can be either replaced by a derivation consisting of $\wrD$
-only or the instance of $\wrD$ can be permuted downwards. We show some cases
-here, and leave the others to the reader.
-  \begin{equation*}
-  \vlderivation{
-    \vlin{\mfaD}{}{\Scons{\forall x.(A \vlor B)}}{
-      \vlin{\wrD}{}{\Scons{(\forall x.A) \vlor (\forall x.B)}}{
-        \vlhy{\Scons{\forall x.A}}}}}
-  \leadsto
-  \vlderivation{
-    \vlin{\wrD}{}{\Scons{\forall x.(A \vlor B)}}{
-      \vlhy{\Scons{\forall x.A}}}}
-  \end{equation*}
-  \begin{equation*}
-  \vlderivation{
-    \vlin{\me}{}{\Scons{(A \vlor B) \vlan (C \vlor D)}}{
-      \vlin{\wrD}{}{\Scons{(A \vlan C) \vlor (B \vlan D)}}{
-        \vlhy{\Scons{A \vlan C}}}}}
-  \leadsto
-  \vlderivation{
-    \vlin{\wrD}{}{\Scons{(A \vlor B) \vlan (C \vlor D)}}{
-      \vlin{\wrD}{}{\Scons{(A \vlor B) \vlan C}}{
-        \vlhy{\Scons{A \vlan C}}}}}
-  \end{equation*}
-  \begin{equation*}
-  \vlderivation{
-    \vlin{\acD}{}{\Scons{a}}{
-      \vlin{\wrD}{}{\Scons{a \vlor a}}{
-        \vlhy{\Scons{a}}}}}
-  \leadsto
-  \vlderivation{
-    \vlhy{\Scons{a}}}
-  \end{equation*}
-
-  For $\rr_1 \in \set{\me, \mfaD, \mexD}$, $\rr_2 \in \set{\acD, \cfaD}$,
-$\rr_1$ can be permuted upwards over $\rr_2$ (with some $\fequ$ inserted). The only non-trivial case is shown below:
-  \begin{equation*}
-  \vlderivation{
-    \vlin{\mfaD}{}{\Scons{\forall x.(A \vlor B)}}{
-      \vlin{\cfaD}{}{\Scons{(\forall x.A) \vlor (\forall x.B)}}{
-        \vlhy{\Scons{(\forall x.\forall x.A) \vlor (\forall x.B)}}}}}
-  \leadsto
-  \vlderivation{
-    \vlin{\mfaD}{}{\Scons{\forall x.(A \vlor B)}}{
-      \vlin{\fequ}{}{\Scons{(\forall x.A) \vlor (\forall x.B)}}{
-        \vlin{\mfaD}{}{\Scons{\forall x.(\forall x.A \vlor B)}}{
-          \vlhy{\Scons{(\forall x.\forall x.A) \vlor (\forall x.B)}}}}}}
-  \end{equation*}
+  
   \todo{permutation with $\fequ$}
 
 \end{proof}
@@ -3346,9 +3305,82 @@ both have their insufficiencies, and there is no general theory.
 \appendix
 
 \subsection{Rule permutation for the proof of Lemma~\ref{lem:cw-decomposition}}
-  
-Interaction between two rules:
+   
+We first study the interactions between two rules (only non-trivial cases are
+presented here):
 \begin{itemize}
+\item $\rr_1/\rr_2$, where $\rr_1 \in \set{\wrD, \wfaD}$ and $\rr_2 \in
+\set{\acD, \cfaD, \me, \mfaD, \mexD}$: 
+
+\begin{equation*}
+\vlderivation{
+  \vlin{\acD}{}{a}{
+    \vlin{\wrD}{}{a \vlor a}{ 
+      \vlhy{a}}}}
+\leadsto
+\vlderivation{
+  \vlhy{a}}
+\end{equation*}
+
+\begin{equation*}
+\vlderivation{
+  \vlin{\me}{}{(A \vlor B) \vlan (C \vlor D)}{
+    \vlin{\wrD}{}{(A \vlan C) \vlor (B \vlan D)}{
+      \vlhy{A \vlan C}}}}
+\leadsto 
+\vlderivation{
+  \vlin{\wrD}{}{(A \vlor B) \vlan (C \vlor D)}{
+    \vlin{\wrD}{}{(A \vlor B) \vlan C}{
+      \vlhy{A \vlan C}}}}
+\end{equation*}
+
+\begin{equation*}
+\vlderivation{
+  \vlin{\mfaD}{}{\forall x.(A \vlor B)}{
+    \vlin{\wrD}{}{(\forall x.A) \vlor (\forall x.B)}{
+      \vlhy{\forall x.A}}}}
+\leadsto
+\vlderivation{
+  \vlin{\wrD}{}{\forall x.(A \vlor B)}{
+    \vlhy{\forall x.A}}}
+\end{equation*}
+
+\begin{equation*}
+\vlderivation{
+  \vlin{\cfaD}{}{\forall x.A}{
+    \vlin{\wfaD}{(x \notin fv(\forall x.A))}{\forall x.\forall x.A}{
+      \vlhy{\forall x.A}}}}
+\leadsto
+\vlderivation{
+  \vlhy{\forall x.A}}
+\end{equation*}
+
+\begin{equation*}
+\vlderivation{
+  \vlin{\mfaD}{}{\forall x.(A \vlor B)}{
+    \vlin{\wfaD}{(x \notin fv(A))}{(\forall x.A) \vlor (\forall x.B)}{
+      \vlhy{A \vlor (\forall x.B)}}}}
+\leadsto
+\vlderivation{
+  \vlin{\fequ}{(x \notin fv(A))}{\forall x.(A \vlor B)}{
+    \vlhy{A \vlor (\forall x.B)}}} 
+\end{equation*}
+
+\item $\rr_1/\rr_2$, where $\rr_1 \in \set{\acD, \cfaD}$ and $\rr_2 \in
+\set{\me, \mfaD, \mexD}$: 
+  \begin{equation*}
+  \vlderivation{
+    \vlin{\mfaD}{}{\Scons{\forall x.(A \vlor B)}}{
+      \vlin{\cfaD}{}{\Scons{(\forall x.A) \vlor (\forall x.B)}}{
+        \vlhy{\Scons{(\forall x.\forall x.A) \vlor (\forall x.B)}}}}}
+  \leadsto
+  \vlderivation{
+    \vlin{\mfaD}{}{\Scons{\forall x.(A \vlor B)}}{
+      \vlin{\fequ}{}{\Scons{(\forall x.A) \vlor (\forall x.B)}}{
+        \vlin{\mfaD}{}{\Scons{\forall x.(\forall x.A \vlor B)}}{
+          \vlhy{\Scons{(\forall x.\forall x.A) \vlor (\forall x.B)}}}}}}
+  \end{equation*}
+
 \item $\cfaD/\fequ$:
 
 \begin{equation*}
@@ -3423,6 +3455,54 @@ Interaction between two rules:
 \vlderivation{
   \vlin{\wrD}{}{\forall x.(A \vlor B)}{
     \vlhy{\forall x.A}}}
+\end{equation*}
+
+\item $\wfaD/\fequ$:
+
+In the following two cases, we assume $x \neq y$ (otherwise they are trivial).
+
+\begin{equation*}
+\vlderivation{
+  \vlin{\fequ}{}{\forall y.\forall x.A}{
+    \vlin{\wfaD}{(x \notin fv(\forall y.A))}{\forall x.\forall y.A}{
+      \vlhy{\forall y.A}}}}
+\leadsto
+\vlderivation{
+  \vlin{\wfaD}{(x \notin fv(A))}{\forall y.\forall x.A}{
+    \vlhy{\forall y.A}}}
+\end{equation*}
+
+\begin{equation*}
+\vlderivation{
+  \vlin{\fequ}{}{\forall x.\forall y.A}{
+    \vlin{\wfaD}{(x \notin fv(A))}{\forall y.\forall x.A}{
+      \vlhy{\forall y.A}}}}
+\leadsto
+\vlderivation{
+  \vlin{\wfaD}{(x \notin fv(\forall y.A))}{\forall x.\forall y.A}{
+    \vlhy{\forall y.A}}}
+\end{equation*}
+
+\begin{equation*}
+\vlderivation{
+  \vlin{\fequ}{(x \notin fv(B))}{(\forall x.A) \vlor B}{
+    \vlin{\wfaD}{(x \notin fv(A \vlor B))}{\forall x.(A \vlor B)}{
+      \vlhy{A \vlor B}}}}
+\leadsto
+\vlderivation{
+  \vlin{\wfaD}{(x \notin fv(A))}{(\forall x.A) \vlor B}{
+    \vlhy{A \vlor B}}}
+\end{equation*}
+
+\begin{equation*}
+\vlderivation{
+  \vlin{\fequ}{(x \notin fv(B))}{\forall x.(A \vlor B)}{
+    \vlin{\wfaD}{(x \notin fv(A))}{(\forall x.A) \vlor B}{
+      \vlhy{A \vlor B}}}}
+\leadsto
+\vlderivation{
+  \vlin{\wfaD}{(x \notin fv(A \vlor B))}{\forall x.(A \vlor B)}{
+    \vlhy{A \vlor B}}}
 \end{equation*}
 
 \item $\fequ/\cfaD$:
@@ -3599,7 +3679,7 @@ $\acD$ under $\fequ$ and then permute $\acD$ under $\rr$.
   \begin{equation*}
   \vlderivation{
     \vlin{\acD}{}{a \vlor B}{
-      \vlin{\fequ}{}{(a \vlor a) vlor B}{
+      \vlin{\fequ}{}{(a \vlor a) \vlor B}{
         \vlin{\wrD}{}{a \vlor (a \vlor B)}{
           \vlhy{a}}}}}
   \leadsto
@@ -3625,7 +3705,10 @@ $\acD$ under $\fequ$ and then permute $\acD$ under $\rr$.
       \vlin{\fequ}{(x \notin fv(a))}{\forall x.(a \vlor a)}{
         \vlin{\wrD}{}{a \vlor (\forall x.a)}{
           \vlhy{a}}}}}
-  \leadsto     
+  \leadsto
+  \vlderivation{
+    \vlin{\wfaD}{(x \notin fv(a))}{\forall x.a}{
+      \vlhy{a}}}
   \end{equation*}
 
 \item $\wrD/\fequ/\me$:
@@ -3646,11 +3729,17 @@ $\acD$ under $\fequ$ and then permute $\acD$ under $\rr$.
   \begin{equation*}
   \vlderivation{
     \vlin{\me}{}{\forall x.((A \vlor B) \vlan (C \vlor D))}{
-      \vlin{\fequ}{x \notin fv(B \vlan D)}{\forall x.((A \vlan C) \vlor (B \vlan
+      \vlin{\fequ}{(x \notin fv(B \vlan D))}{\forall x.((A \vlan C) \vlor (B \vlan
 D))}{
         \vlin{\wrD}{}{(B \vlan D) \vlor (\forall x.(A \vlan C))}{
           \vlhy{B \vlan D}}}}}
   \leadsto
+  \vlderivation{
+    \vlin{\fequ}{}{\forall x.((A \vlor B) \vlan (C \vlor D))}{
+      \vlin{\wrD}{}{\forall x.((B \vlor A) \vlan (D \vlor C))}{
+        \vlin{\wrD}{}{\forall x.((B \vlor A) \vlan D)}{
+          \vlin{\faD}{(x \notin fv(B \vlan D))}{\forall x.(B \vlan D)}{
+            \vlhy{B \vlan D}}}}}}
   \end{equation*}
 
 \item $\wrD/\fequ/\mfaD$:
