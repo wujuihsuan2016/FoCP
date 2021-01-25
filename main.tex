@@ -1813,7 +1813,10 @@ Furthermore, in the proof of Theorem~\ref{thm:CP-DI}, we will see that
 atoms that meet in the instances of the $\aiD$-rule in the derivation
 $\Deri_1$, and (ii) the ''flow-graph'' of $\Deri_2$ that traces the
 quantifier- and atom-occurrences in the derivation corresponds exactly
-to the vertex-mapping induced by $\phi$.
+to the vertex-mapping induced by $\phi$. To give an example, consider
+the derivation in Figure~\ref{fig:example-decompose} which corresponds
+to the right-most combinatorial proof in Figures~\ref{fig:cps}
+and~\ref{fig:cps-condensed}.
 
 Thus, combinatorial proofs are closely related to derivations of the
 form~\eqref{eq:decom}, and since by Theorem~\ref{thm:decomposition}
@@ -2003,23 +2006,26 @@ other results.
 \end{lemma}
 
 \begin{proof}
-  We only show the cases for $\wfaD$ and $\cfaD$:
-  $$
-  \todo{}
+  We only show the cases for $\wfaD$ and $\cfaD$ (for the others see~\cite{brunnler:phd}):
+  \vadjust{\vskip-2ex}
+  \begin{equation}
+    \label{eq:wfa-cfa}
+  \qquad
   \vlderivation{
     \vlin{\cD}{}{\forall x.A}{
-      \vlin{\fequ}{(x \notin fv(A))}{\forall x.(A \vlor A)}{
+      \vlin{\fequ}{}{\forall x.(A \vlor A)}{
         \vlin{\wrD}{}{A \vlor (\forall x.A)}{
           \vlhy{A}}}}}
-  $$.
-  $$
+  \qquad
+  \quad
   \vlderivation{
     \vlin{\cD}{}{\forall x.A}{
-      \vlin{\equiv}{(x \notin fv(\forall x.A))}{(\forall x.A) \vlor (\forall x.A)}{
+      \vlin{\equiv}{}{(\forall x.A) \vlor (\forall x.A)}{
         \vlin{\wrD}{}{\forall x.((\forall x.A) \vlor A)}{
           \vlhy{\forall x.\forall x.A}}}}}
-  $$
-  The other cases have been shown before (e.g.~\cite{brunnler:phd}).
+  \end{equation}
+  where in the first derivation, $x$ is not free in $A$, and in the second one not free in $\forall x.A$.
+%  The other cases have been shown before (e.g.~\cite{brunnler:phd}).
 %%   We have the following derivations:
 %%   $$
 %%   \vlderivation{
@@ -2058,7 +2064,7 @@ other results.
 %% reduce the size of derivations...}\lutz{I was thinking about that, but (i) it is probably not worth the effort, as we wont have many derivation, and (ii) it is hard to define rectified derivations this way.}
 \end{proof}
 
-\begin{lemma}
+\begin{lemma}\label{lem:cw-atomic}
   Let $A$ and $B$ be formulas. Then
   \begin{equation*}
     \vlderivation{
@@ -2104,7 +2110,7 @@ other results.
 \end{thm}
 
 \begin{proof}
-  First, we can replace every instance of the $\fff$-rule by
+  First, we can replace every instance of the $\fff$-rule in $\Deri$ by
   $\weakr$. Then the instances of $\weakr$ and $\conr$ are replaced by
   $\wD$ and $\cD$, which can then be permuted down. (Details are in
   Appendix~\ref{app:LK1-decompose}.
@@ -2127,48 +2133,52 @@ other results.
 \end{lemma}
 
 \begin{proof}
-  First, observe that the $\exists$ rule can be permuted downwards over all the
-other rules since $A\ssubst{x}{t}$ has the same structure as $A$ and none of the
-other rules has a premise of the form $\Scons{\exists x.A}$. It suffices now to
-prove that for all $r_1 \in \set{\forall, \aiD, \tttD}$, for all $r_2 \in
-\set{\sw, \mix, \fequ}$, we can permute $r_1$ upwards over $r_2$.
-  We show some cases here, and leave the others to the reader.
-  \begin{equation*}
-  \vlderivation{
-    \vlin{\aiD}{}{\Scons{(A \vlan (a \vlor \cneg a)) \vlor C}}{
-      \vlin{\sw}{}{\Scons{(A \vlan \ttt) \vlor C}}{
-        \vlhy{\Scons{A \vlan (\ttt \vlor C)}}}}}
-  \leadsto
-  \vlderivation{
-    \vlin{\sw}{}{\Scons{(A \vlan (a \vlor \cneg a)) \vlor C}}{
-      \vlin{\aiD}{}{\Scons{A \vlan ((a \vlor \cneg a) \vlor C)}}{
-        \vlhy{\Scons{A \vlan (\ttt \vlor C)}}}}}
-  \end{equation*}
-  \begin{equation*}
-    \vlderivation{
-      \vlin{\tttD}{}{\Scons{(A \vlor (B \vlan \ttt))}}{
-        \vlin{\mix}{}{\Scons{A \vlor B}}{
-          \vlhy{\Scons{A \vlan B}}}}}
-  \leadsto
-  \vlderivation{
-    \vlin{\mix}{}{\Scons{(A \vlor (B \vlan \ttt)}}{
-      \vlin{\tttD}{}{\Scons{A \vlan (B \vlan \ttt)}}{
-        \vlhy{\Scons{A \vlan B}}}}}
-  \end{equation*}
-
-
-  \tocheck{}
+  First, observe that the $\exists$ rule can be permuted downwards
+  over all the other rules since $A\ssubst{x}{t}$ has the same
+  structure as $A$ and none of the other rules has a premise of the
+  form $\Scons{\exists x.A}$. It suffices now to prove that all rules
+  in $\set{\forall, \aiD, \tttD}$ can be permuted over the rules in
+  $\set{\sw, \mix, \fequ}$, which is straightforward
+  (see~\cite{dissvonlutz} for details).
 \end{proof}
+%% we can permute $r_1$ upwards over $r_2$.
+%%   We show some cases here, and leave the others to the reader.
+%%   \begin{equation*}
+%%   \vlderivation{
+%%     \vlin{\aiD}{}{\Scons{(A \vlan (a \vlor \cneg a)) \vlor C}}{
+%%       \vlin{\sw}{}{\Scons{(A \vlan \ttt) \vlor C}}{
+%%         \vlhy{\Scons{A \vlan (\ttt \vlor C)}}}}}
+%%   \leadsto
+%%   \vlderivation{
+%%     \vlin{\sw}{}{\Scons{(A \vlan (a \vlor \cneg a)) \vlor C}}{
+%%       \vlin{\aiD}{}{\Scons{A \vlan ((a \vlor \cneg a) \vlor C)}}{
+%%         \vlhy{\Scons{A \vlan (\ttt \vlor C)}}}}}
+%%   \end{equation*}
+%%   \begin{equation*}
+%%     \vlderivation{
+%%       \vlin{\tttD}{}{\Scons{(A \vlor (B \vlan \ttt))}}{
+%%         \vlin{\mix}{}{\Scons{A \vlor B}}{
+%%           \vlhy{\Scons{A \vlan B}}}}}
+%%   \leadsto
+%%   \vlderivation{
+%%     \vlin{\mix}{}{\Scons{(A \vlor (B \vlan \ttt)}}{
+%%       \vlin{\tttD}{}{\Scons{A \vlan (B \vlan \ttt)}}{
+%%         \vlhy{\Scons{A \vlan B}}}}}
+%%   \end{equation*}
+
+
+%%   \tocheck{}
+%% \end{proof}
 
 \begin{lemma}\label{lem:cw-decomposition}
   For every derivation
   $\vlderivation{
-      \vlde{\set{\wrD,\acD,\cfaD,\me,\mfaD,\mexD,\fequ}}{}{B}{
+      \vlde{\set{\wrD,\wfaD,\acD,\cfaD,\me,\mfaD,\mexD,\fequ}}{}{B}{
         \vlhy{A}}}$
   there are formulas $A'$ and $B'$ such that 
   \begin{equation*}
     \vlderivation{
-      \vlde{\set{\wrD,\fequ}}{}{B}{
+      \vlde{\set{\wrD,\wfaD,\fequ}}{}{B}{
         \vlde{\set{\acD,\cfaD}}{}{B'}{
           \vlde{\set{\me,\mfaD,\mexD,\fequ}}{}{A'}{
             \vlhy{A}}}}}
@@ -2176,9 +2186,16 @@ prove that for all $r_1 \in \set{\forall, \aiD, \tttD}$, for all $r_2 \in
 \end{lemma}
 
 \begin{proof}
-  
-  \todo{permutation with $\fequ$}
-
+  We first permute all instances of $\wD$ and $\wfaD$ to the bottom of
+  the derivation and then permute in a second step the rules $\cD$ and
+  $\cfaD$ below $\set{\me,\mfaD,\mexD}$. This involves a tedious but
+  straightforward case analysis. However, unlike most other rule
+  permutations in this paper this has not been done before in the deep
+  inference literature. For this reason, we give the full case
+  analysis in Appendix~\ref{app:cw-decomposition}. Note that this
+  Lemma is the reason for the presence of the rules $\wfaD$ and
+  $\cfaD$, as without them the permutation cases in~\eqref{eq:wfa-cfa}
+  could not be resolved.
 \end{proof}
 
 We can now complete the proof of Theorems~\ref{thm:decomposition} and~\ref{thm:decompositionA}.
@@ -2194,7 +2211,7 @@ We can now complete the proof of Theorems~\ref{thm:decomposition} and~\ref{thm:d
   Assume we have a proof of $A$ in $\FOKS$. We first apply
   Theorem~\ref{thm:decompositionA}, and then
   Lemma~\ref{lem:MLS1-decomposition} to the upper half and
-  Lemma~\ref{lem:cw-decomposition} to the lower half.
+  Lemmas~\ref{lem:cw-atomic} and~\ref{lem:cw-decomposition} to the lower half.
 \end{proof}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -3339,7 +3356,8 @@ by applying the $\vlor$ rule.
 
 
 \subsection{Rule permutation for the proof of Lemma~\ref{lem:cw-decomposition}}
-   
+\label{app:cw-decomposition}
+
 We first study the interactions between two rules (only non-trivial cases are
 presented here):
 \begin{itemize}
