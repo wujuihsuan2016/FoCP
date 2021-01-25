@@ -747,13 +747,13 @@ different syntactic proof systems, based on different sets of inference rules. J
     \vlin{\exists}{}{\sqn{\exists x.(\cneg{p}x \vlor (\forall y.py)),\exists
 x.(\cneg{p}x \vlor (\forall y.py))}}{
       \vlin{\vlor}{}{\sqn{\cneg{p}w \vlor (\forall y.py), \exists
-x.(\cneg{p}x \vlor (\forall y.p(y)))}}{
+x.(\cneg{p}x \vlor (\forall y.py))}}{
         \vlin{\forall}{}{\sqn{\cneg{p}w, \forall y.py, \exists
 x.(\cneg{p}x \vlor (\forall y.py))}}{
           \vlin{\exists}{}{\sqn{\cneg{p}w, pz, \exists
 x.(\cneg{p}x \vlor (\forall y.py))}}{
-            \vlin{\vlor}{}{\sqn{\cneg{p}w, pz, \cneg{p}z \vlor (\forall y.py))}}{
-              \vlin{\weakr}{}{\sqn{\cneg{p}w, pz, \cneg{p}z, (\forall y.py))}}{
+            \vlin{\vlor}{}{\sqn{\cneg{p}w, pz, \cneg{p}z \vlor (\forall y.py)}}{
+              \vlin{\weakr}{}{\sqn{\cneg{p}w, pz, \cneg{p}z, \forall y.py}}{
                 \vlin{\weakr}{}{\sqn{\cneg{p}w, pz, \cneg{p}z}}{
                 \vlin{\axr}{}{\sqn{pz, \cneg{p}z}}{
                   \vlhy{}}}}}}}}}}}
@@ -1349,9 +1349,8 @@ $\edgepairpic{x}{px}\mkern9mu\edgepairpic{x}{qx}$.
   \end{array}
 \end{equation}
 where $x$ must not be free in $B$ in the last two equations.
-Two formulas $A$ and $B$ are \bfit{equivalent} if $A \fequ B$. The following
-theorem shows that the set of fographs can been seen as the quotient
-$\FORM/\mathord\fequ$.
+Two formulas $A$ and $B$ are \bfit{equivalent} if $A \fequ B$. We have the
+following theorem:
 \begin{thm}
   Let $A,B$ be rectified formulas. Then
   $$
@@ -3370,7 +3369,7 @@ from any derivation. Intuitively, we want to move all the instances of $\rr \in
 We first study the interactions between two rules. Certain cases are unsolved at
 this stage, and they are considered later when we study the interactions between
 two non-$\fequ$ rule instances seperated by $\fequ$. Only non-trivial cases are
-considered here:
+presented here:
 \begin{itemize}
 \item $\rr_1/\rr_2$, where $\rr_1 \in \set{\wrD, \wfaD}$ and $\rr_2 \in
 \set{\acD, \cfaD, \me, \mfaD, \mexD}$:
