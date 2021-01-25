@@ -2815,11 +2815,11 @@ propositional formulas, i.e., the first two lines in~\eqref{eq:fequ}.
   and $\graphof B=\gB$. Then there are derivations
   \begin{equation*}
     \vlderivation{
-      \vlde{\set{\wrD,\acD,\rectif\cfaD,\me,\rectif\mfaD,\rectif\mexD,\fequ}}{\rectif\Deri}{B}{
+      \vlde{\set{\wrD,\wfaD,\acD,\rectif\cfaD,\me,\rectif\mfaD,\rectif\mexD,\fequ}}{\rectif\Deri}{B}{
         \vlhy{A}}}
     \quand
     \vlderivation{
-      \vlde{\set{\wrD,\acD,\cfaD,\me,\mfaD,\mexD,\fequ}}{\Deri}{B}{
+      \vlde{\set{\wrD,\wfaD,\acD,\cfaD,\me,\mfaD,\mexD,\fequ}}{\Deri}{B}{
         \vlhy{A\rsubstof\phi}}}
   \end{equation*}
   such that $\mapof{\rectif\Deri}=\phi$ and $\rectif{\Deri}$ is a
@@ -2834,18 +2834,20 @@ places of atoms).  We say that $\DDeri$ can be \bfit{lifted} to
 $\sysS'$ if there are (first-order) formulas $C$ and $D$ such that $P=\PE C$ and
 $Q=\PE D$ and there is a derivation $\vlder{\sysS'}{\DDeri'}{D}{C}$.
 
-\begin{proof}[Proof of Lemma~\ref{lem:skew->cw}]
-  By Lemma~\ref{lem:PE} we have $\gA=\graphof{\PE A}$ and
-  $\gB=\graphof{\PE B}$.  Let $\vB'\subseteq\vB$ be the image of
-  $\phi$, and let $\gB_1$ be the subgraph of $\gB$ induced by
-  $\vB'$. Hence, we have two maps $\phi''\colon\gA\to\gB_1$ being a
-  surjection and $\phi'\colon \gB_1\to\gB$ being an injection that
-  reflects edges.  Both, $\phi'$ and $\phi''$ remain skew
-  bifibrations. Let us first look at $\phi'$.  Let $\PEp B_1$ be the
-  propositional formula obtained from $\PE B$ by removing all atoms
-  that are not represented by vertices in $\vB'$. Then $\graphof{\PEp
-    B_1}=\gB_1$.  By \cite[Proposition~7.6.1]{str:07:RTA}, we have a
-  derivation $\vlder{\set{\wrD,\PE\fequ}}{\PE\Deri_1}{\PE B}{\PEp B_1}$.
+We say a fograph homomorphism $\phi\colon\gG\to\gH$ is \bfit{full} if
+for all $v,w\in\vG$, we have that $\phi(v)\phi(w)\in\eH$ implies
+$vw\in\eG$.
+
+\begin{lemma}\label{lem:fullinj->w}
+  Let $\phi\colon\gG\to\gH$ be full and injective skew bifibration
+  such that $\rsubstof\phi$ is the identity substitution, and let $G$
+  and $H$ be formulas with $\graphof G=\gG$ and $\graphof H=\gH$. Then
+  There is a derivation $\vlder{\set{\wrD,\wfaD,\fequ}}{}{H}{G}$.
+\end{lemma}
+
+\begin{proof}
+   By \cite[Proposition~7.6.1]{str:07:RTA}, we have a
+  derivation $\vlder{\set{\wrD,\PE\fequ}}{\DDeri}{\PE H}{\PE G}$.
   A subformula of $\PE B$ is called \emph{weak} if it has been
   introduced by a weakening. All subformulas of a weak formula are
   also weak. Two weak subformulas $B'$ and $B''$ of $\PE B$ form a
@@ -2881,7 +2883,22 @@ $Q=\PE D$ and there is a derivation $\vlder{\sysS'}{\DDeri'}{D}{C}$.
   preserve existentials, this third case cannot occur.
   Thus we have a first order derivation
   $\vlder{\set{\wrD,\fequ}}{\Deri_1}{B}{B_1}$ with $\PE B_1=\PEp B_1$.
+\end{proof}
 
+
+\begin{proof}[Proof of Lemma~\ref{lem:skew->cw}]
+  By Lemma~\ref{lem:PE} we have $\gA=\graphof{\PE A}$ and
+  $\gB=\graphof{\PE B}$.  Let $\vB'\subseteq\vB$ be the image of
+  $\phi$, and let $\gB_1$ be the subgraph of $\gB$ induced by
+  $\vB'$. Hence, we have two maps $\phi''\colon\gA\to\gB_1$ being a
+  surjection and $\phi'\colon \gB_1\to\gB$ being an injection that
+  reflects edges.  Both, $\phi'$ and $\phi''$ remain skew
+  bifibrations. Let us first look at $\phi'$.  Let $\PEp B_1$ be the
+  propositional formula obtained from $\PE B$ by removing all atoms
+  that are not represented by vertices in $\vB'$. Then $\graphof{\PEp
+    B_1}=\gB_1$.
+
+  
   Let us now look at $\phi''$. Let $\gA_1=\gA\substof\phi$ be the
   graph obtained from $\gA$ by applying $\substof\phi$ to all the
   labels. Note that $\gA_1$ is not necessarily a fograph, as binders
