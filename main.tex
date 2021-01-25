@@ -2303,178 +2303,6 @@ $\rr_1$ can be permuted upwards over $\rr_2$ (with some $\fequ$ inserted). The o
   \end{equation*}
   \todo{permutation with $\fequ$}
 
-($\cfaD/\fequ$)
-
-\begin{equation*}
-\vlderivation{
-  \vlin{\fequ}{}{\forall y.\forall x.A}{
-    \vlin{\cfaD}{}{\forall x.\forall y.A}{
-      \vlhy{\forall x.\forall x.\forall y.A}}}}
-\leadsto
-\vlderivation{
-  \vlin{\cfaD}{}{\forall y.\forall x.A}{
-    \vlin{\fequ}{}{\forall y.\forall x.\forall x.A}{
-      \vlhy{\forall x.\forall x.\forall y.A}}}}
-\end{equation*}
-
-\begin{equation*}
-\vlderivation{
-  \vlin{\fequ}{(x \notin fv(B))}{(\forall x.A) \vlor B}{
-    \vlin{\cfaD}{}{\forall x.(A \vlor B)}{
-      \vlhy{\forall x.\forall x.(A \vlor B)}}}}
-\leadsto
-\vlderivation{
-  \vlin{\cfaD}{}{(\forall x.A) \vlor B}{
-    \vlin{\fequ}{(x \notin fv(B))}{(\forall x.\forall x. A) \vlor B}{
-      \vlhy{\forall x.\forall x.(A \vlor B)}}}}
-\end{equation*}
-
-\begin{equation*}
-\vlderivation{
-  \vlin{\fequ}{(x \notin fv(B))}{\forall x.(A \vlor B)}{
-    \vlin{\cfaD}{}{(\forall x.A) \vlor B}{
-      \vlhy{(\forall x.\forall x.A) \vlor B}}}}
-\leadsto
-\vlderivation{
-  \vlin{\cfaD}{}{\forall x.(A \vlor B)}{
-    \vlin{\fequ}{(x \notin fv(B))}{\forall x.\forall x.(A \vlor B)}{
-      \vlhy{(\forall x.\forall x.A) \vlor B}}}}
-\end{equation*}
-
-($\wrD/\fequ$)
-
-\begin{equation*}
-\vlderivation{
-  \vlin{\fequ}{}{B \vlor A}{
-    \vlin{\wrD}{}{A \vlor B}{
-      \vlhy{A}}}}
-\end{equation*}
-
-\begin{equation*}
-\vlderivation{
-  \vlin{\fequ}{}{A \vlor (B \vlor C)}{
-    \vlin{\wrD}{}{(A \vlor B) \vlor C)}{
-      \vlhy{A \vlor C}}}}
-\end{equation*}
-
-\begin{equation*}
-\vlderivation{
-  \vlin{\fequ}{(x \notin fv(B))}{(\forall x.A) \vlor B}{
-    \vlin{\wrD}{}{\forall x.(A \vlor B)}{
-      \vlhy{\forall x.A}}}}
-\leadsto
-\vlderivation{
-  \vlin{\wrD}{}{(\forall x. A) \vlor B}{
-    \vlhy{\forall x.A}}}
-\end{equation*}
-
-\begin{equation*}
-\vlderivation{
-  \vlin{\fequ}{(x \notin fv(B))}{\forall x.(A \vlor B)}{
-    \vlin{\wrD}{}{(\forall x.A) \vlor B}{
-      \vlhy{\forall x.A}}}}
-\leadsto
-\vlderivation{
-  \vlin{\wrD}{}{\forall x.(A \vlor B)}{
-    \vlhy{\forall x.A}}}
-\end{equation*}
-
-($\fequ/\cfaD$)
-
-\begin{equation*}
-\vlderivation{
-  \vlin{\cfaD}{}{\forall x.\forall y.A}{
-    \vlin{\fequ}{}{\forall x.\forall x.\forall y. A}{
-      \vlhy{\forall x.\forall y.\forall x.A}}}}
-\end{equation*}
-
-\begin{equation*}
-\vlderivation{
-  \vlin{\cfaD}{}{\forall y.\forall x.A}{
-    \vlin{\fequ}{}{\forall y.\forall x.\forall x.A}{
-      \vlhy{\forall x.\forall y.\forall x.A}}}}
-\end{equation*}
-
-\begin{equation*}
-\vlderivation{
-  \vlin{\cfaD}{}{(\forall x.A) \vlor B}{
-    \vlin{\fequ}{(x \notin fv(B))}{(\forall x.\forall x.A) \vlor B}{
-      \vlhy{\forall x.((\forall x.A) \vlor B)}}}}
-\end{equation*}
-
-\begin{equation*}
-\vlderivation{
-  \vlin{\cfaD}{}{\forall x.(A \vlor B)}{
-    \vlin{\fequ}{(x \notin fv(B))}{\forall x.\forall x.(A \vlor B)}{
-      \vlhy{\forall x.((\forall x.A) \vlor B)}}}}
-\end{equation*}
-
-($\fequ/\me$)
-
-\begin{equation*}
-\vlderivation{
-  \vlin{\me}{}{(A \vlor B) \vlan (C \vlor D)}{
-    \vlin{\fequ}{}{(A \vlan C) \vlor (B \vlan D)}{
-      \vlhy{(C \vlan A) \vlor (B \vlan D)}}}}
-\end{equation*}
-
-\begin{equation*}
-\vlderivation{
-  \vlin{\me}{}{(A \vlor B) \vlan (C \vlor D)}{
-    \vlin{\fequ}{}{(A \vlan C) \vlor (B \vlan D)}{
-      \vlhy{(B \vlan D) \vlor (A \vlan C)}}}}
-\leadsto
-\vlderivation{
-  \vlin{\fequ}{}{(A \vlor B) \vlan (C \vlor D)}{
-    \vlin{\me}{}{(B \vlor A) \vlan (D \vlor C)}{
-      \vlhy{(B \vlan D) \vlor (A \vlan C)}}}}
-\end{equation*}
-
-\begin{equation*}
-\vlderivation{
-  \vlin{\me}{}{(A \vlor B) \vlan ((C \vlan E) \vlor D)}{
-    \vlin{\fequ}{}{(A \vlan (C \vlan E)) \vlor (B \vlan D)}{
-      \vlhy{((A \vlan C) \vlan E) \vlor (B \vlan D)}}}}
-\end{equation*}
-
-\begin{equation*}
-\vlderivation{
-  \vlin{\me}{}{\forall x.((A \vlor B) \vlan (C \vlor D))}{
-    \vlin{\fequ}{(x \notin fv(B \vlan D))}{\forall x.((A \vlan C) \vlor (B \vlan D))}{
-      \vlhy{(forall x.(A \vlan C)) \vlor (B \vlan D)}}}}
-\end{equation*}
-
-($\fequ/\mfaD$)
-
-\begin{equation*}
-\vlderivation{
-  \vlin{\mfaD}{}{\forall x.(A \vlor B)}{
-    \vlin{\fequ}{}{(\forall x.A) \vlor (\forall x.B)}{
-      \vlhy{(\forall x.B) \vlor (\forall x.A)}}}}
-\leadsto
-\vlderivation{
-  \vlin{\fequ}{}{\forall x.(A \vlor B)}{
-    \vlin{\mfaD}{}{\forall x.(B \vlor A)}{
-      \vlhy{(\forall x.B) \vlor (\forall x.A)}}}}
-\end{equation*}
-
-\begin{equation*}
-\vlderivation{
-  \vlin{\mfaD}{}{\forall x.((\forall y.A) \vlor B)}{
-    \vlin{\fequ}{}{(\forall x.\forall y.A) \vlor (\forall x.B)}{
-      \vlhy{(\forall y.\forall x.A) \vlor (\forall x.B)}}}}
-\end{equation*}
-
-\begin{equation*}
-\vlderivation{
-  \vlin{\mfaD}{}{\forall x.(A \vlor B)}{
-    \vlin{\fequ}{}{(\forall x.A) \vlor (\forall x.B)}{
-      \vlhy{\forall x.(A \vlor (\forall x.B))}}}}
-\end{equation*}
-
-($\fequ/\mexD$): similar to $\fequ/\mfaD$
-
-
 \end{proof}
 
 We can now complete the proof of Theorems~\ref{thm:decomposition} and~\ref{thm:decompositionA}.
@@ -3219,7 +3047,7 @@ $Q=\PE D$ and there is a derivation $\vlder{\sysS'}{\DDeri'}{D}{C}$.
         \vlhy{S'\cons{(x\vlan E)\vlor(x\vlan F)}}}}
   \end{equation}
   We can permute both instances via the following more general scheme
-  (see~\cite{str:medial,lamarche:gap} for a general discussion on
+  (see~\cite{str:07:RTA,lamarche:gap} for a general discussion on
   permutations of the $\me$-rule):
   \begin{equation}
     \label{eq:m-permutation}
@@ -3517,7 +3345,342 @@ both have their insufficiencies, and there is no general theory.
 
 \subsection{Rule permutation for the proof of Lemma~\ref{lem:cw-decomposition}}
   
+Interaction between two rules:
+\begin{itemize}
+\item $\cfaD/\fequ$:
 
+\begin{equation*}
+\vlderivation{
+  \vlin{\fequ}{}{\forall y.\forall x.A}{
+    \vlin{\cfaD}{}{\forall x.\forall y.A}{
+      \vlhy{\forall x.\forall x.\forall y.A}}}}
+\leadsto
+\vlderivation{
+  \vlin{\cfaD}{}{\forall y.\forall x.A}{
+    \vlin{\fequ}{}{\forall y.\forall x.\forall x.A}{
+      \vlhy{\forall x.\forall x.\forall y.A}}}}
+\end{equation*}
+
+\begin{equation*}
+\vlderivation{
+  \vlin{\fequ}{(x \notin fv(B))}{(\forall x.A) \vlor B}{
+    \vlin{\cfaD}{}{\forall x.(A \vlor B)}{
+      \vlhy{\forall x.\forall x.(A \vlor B)}}}}
+\leadsto
+\vlderivation{
+  \vlin{\cfaD}{}{(\forall x.A) \vlor B}{
+    \vlin{\fequ}{(x \notin fv(B))}{(\forall x.\forall x. A) \vlor B}{
+      \vlhy{\forall x.\forall x.(A \vlor B)}}}}
+\end{equation*}
+
+\begin{equation*}
+\vlderivation{
+  \vlin{\fequ}{(x \notin fv(B))}{\forall x.(A \vlor B)}{
+    \vlin{\cfaD}{}{(\forall x.A) \vlor B}{
+      \vlhy{(\forall x.\forall x.A) \vlor B}}}}
+\leadsto
+\vlderivation{
+  \vlin{\cfaD}{}{\forall x.(A \vlor B)}{
+    \vlin{\fequ}{(x \notin fv(B))}{\forall x.\forall x.(A \vlor B)}{
+      \vlhy{(\forall x.\forall x.A) \vlor B}}}}
+\end{equation*}
+
+\item $\wrD/\fequ$:
+
+\begin{equation*}
+\vlderivation{
+  \vlin{\fequ}{}{B \vlor A}{
+    \vlin{\wrD}{}{A \vlor B}{
+      \vlhy{A}}}}
+\end{equation*}
+
+\begin{equation*}
+\vlderivation{
+  \vlin{\fequ}{}{A \vlor (B \vlor C)}{
+    \vlin{\wrD}{}{(A \vlor B) \vlor C)}{
+      \vlhy{A \vlor C}}}}
+\end{equation*}
+
+\begin{equation*}
+\vlderivation{
+  \vlin{\fequ}{(x \notin fv(B))}{(\forall x.A) \vlor B}{
+    \vlin{\wrD}{}{\forall x.(A \vlor B)}{
+      \vlhy{\forall x.A}}}}
+\leadsto
+\vlderivation{
+  \vlin{\wrD}{}{(\forall x. A) \vlor B}{
+    \vlhy{\forall x.A}}}
+\end{equation*}
+
+\begin{equation*}
+\vlderivation{
+  \vlin{\fequ}{(x \notin fv(B))}{\forall x.(A \vlor B)}{
+    \vlin{\wrD}{}{(\forall x.A) \vlor B}{
+      \vlhy{\forall x.A}}}}
+\leadsto
+\vlderivation{
+  \vlin{\wrD}{}{\forall x.(A \vlor B)}{
+    \vlhy{\forall x.A}}}
+\end{equation*}
+
+\item $\fequ/\cfaD$:
+
+\begin{equation*}
+\vlderivation{
+  \vlin{\cfaD}{}{\forall x.\forall y.A}{
+    \vlin{\fequ}{}{\forall x.\forall x.\forall y. A}{
+      \vlhy{\forall x.\forall y.\forall x.A}}}}
+\end{equation*}
+
+\begin{equation*}
+\vlderivation{
+  \vlin{\cfaD}{}{\forall y.\forall x.A}{
+    \vlin{\fequ}{}{\forall y.\forall x.\forall x.A}{
+      \vlhy{\forall x.\forall y.\forall x.A}}}}
+\end{equation*}
+
+\begin{equation*}
+\vlderivation{
+  \vlin{\cfaD}{}{(\forall x.A) \vlor B}{
+    \vlin{\fequ}{(x \notin fv(B))}{(\forall x.\forall x.A) \vlor B}{
+      \vlhy{\forall x.((\forall x.A) \vlor B)}}}}
+\end{equation*}
+
+\begin{equation*}
+\vlderivation{
+  \vlin{\cfaD}{}{\forall x.(A \vlor B)}{
+    \vlin{\fequ}{(x \notin fv(B))}{\forall x.\forall x.(A \vlor B)}{
+      \vlhy{\forall x.((\forall x.A) \vlor B)}}}}
+\end{equation*}
+
+\item $\fequ/\me$:
+
+\begin{equation*}
+\vlderivation{
+  \vlin{\me}{}{(A \vlor B) \vlan (C \vlor D)}{
+    \vlin{\fequ}{}{(A \vlan C) \vlor (B \vlan D)}{
+      \vlhy{(C \vlan A) \vlor (B \vlan D)}}}}
+\end{equation*}
+
+\begin{equation*}
+\vlderivation{
+  \vlin{\me}{}{(A \vlor B) \vlan (C \vlor D)}{
+    \vlin{\fequ}{}{(A \vlan C) \vlor (B \vlan D)}{
+      \vlhy{(B \vlan D) \vlor (A \vlan C)}}}}
+\leadsto
+\vlderivation{
+  \vlin{\fequ}{}{(A \vlor B) \vlan (C \vlor D)}{
+    \vlin{\me}{}{(B \vlor A) \vlan (D \vlor C)}{
+      \vlhy{(B \vlan D) \vlor (A \vlan C)}}}}
+\end{equation*}
+
+\begin{equation*}
+\vlderivation{
+  \vlin{\me}{}{(A \vlor B) \vlan ((C \vlan E) \vlor D)}{
+    \vlin{\fequ}{}{(A \vlan (C \vlan E)) \vlor (B \vlan D)}{
+      \vlhy{((A \vlan C) \vlan E) \vlor (B \vlan D)}}}}
+\end{equation*}
+
+\begin{equation*}
+\vlderivation{
+  \vlin{\me}{}{\forall x.((A \vlor B) \vlan (C \vlor D))}{
+    \vlin{\fequ}{(x \notin fv(B \vlan D))}{\forall x.((A \vlan C) \vlor (B \vlan D))}{
+      \vlhy{(\forall x.(A \vlan C)) \vlor (B \vlan D)}}}}
+\end{equation*}
+
+\item $\fequ/\mfaD$:
+
+\begin{equation*}
+\vlderivation{
+  \vlin{\mfaD}{}{\forall x.(A \vlor B)}{
+    \vlin{\fequ}{}{(\forall x.A) \vlor (\forall x.B)}{
+      \vlhy{(\forall x.B) \vlor (\forall x.A)}}}}
+\leadsto
+\vlderivation{
+  \vlin{\fequ}{}{\forall x.(A \vlor B)}{
+    \vlin{\mfaD}{}{\forall x.(B \vlor A)}{
+      \vlhy{(\forall x.B) \vlor (\forall x.A)}}}}
+\end{equation*}
+
+\begin{equation*}
+\vlderivation{
+  \vlin{\mfaD}{}{\forall x.((\forall y.A) \vlor B)}{
+    \vlin{\fequ}{}{(\forall x.\forall y.A) \vlor (\forall x.B)}{
+      \vlhy{(\forall y.\forall x.A) \vlor (\forall x.B)}}}}
+\end{equation*}
+
+\begin{equation*}
+\vlderivation{
+  \vlin{\mfaD}{}{\forall x.(A \vlor B)}{
+    \vlin{\fequ}{}{(\forall x.A) \vlor (\forall x.B)}{
+      \vlhy{\forall x.(A \vlor (\forall x.B))}}}}
+\end{equation*}
+
+\item $\fequ/\mexD$: similar to $\fequ/\mfaD$
+ 
+\end{itemize}
+
+Interactions between two non-$\fequ$ rules with the presence of $\fequ$ in
+between:
+
+\begin{itemize}
+\item $\cfaD/\fequ/\rr$ where $\rr \in \set{\me, \mfaD, \mexD}$: First permute
+$\cfaD$ under $\fequ$ and then permute $\cfaD$ under $\rr$.
+
+\item $\acD/\fequ/\rr$ where $\rr \in \set{\me, \mfaD, \mexD}$: First permute
+$\acD$ under $\fequ$ and then permute $\acD$ under $\rr$.
+
+\item $\wrD/\fequ/\cfaD$: We only list non-trivial cases here:
+  \begin{equation*}
+  \vlderivation{
+    \vlin{\cfaD}{}{(\forall x.A) \vlor B}{
+      \vlin{\fequ}{(x \notin fv(B))}{(\forall x.\forall x.A) \vlor B}{
+        \vlin{\wrD}{}{\forall x.((\forall x.A) \vlor B)}{
+          \vlhy{\forall x.\forall x.A}}}}}
+  \leadsto
+  \vlderivation{
+    \vlin{\wrD}{}{(\forall x.A) \vlor B}{
+      \vlin{\cfaD}{}{(\forall x.A) \vlor B}{
+        \vlhy{\forall x.\forall x.A}}}}
+  \end{equation*}
+  \begin{equation*}
+  \vlderivation{
+    \vlin{\cfaD}{}{(\forall x.A) \vlor B}{
+      \vlin{\fequ}{(x \notin fv(B))}{(\forall x.\forall x.A) \vlor B}{
+        \vlin{\wrD}{}{\forall x.(B \vlor (\forall x.A))}{
+          \vlhy{\forall x.B}}}}}
+  \leadsto
+  \vlderivation{
+    \vlin{\fequ}{(x \notin fv(B))}{(\forall x.A) \vlor B}{
+      \vlin{\wrD}{}{\forall x.(B \vlor A)}{
+        \vlhy{\forall x.B}}}}
+  \end{equation*}
+
+  \begin{equation*}
+  \vlderivation{
+    \vlin{\cfaD}{}{\forall x.(A \vlor B)}{
+      \vlin{\fequ}{(x \notin fv(B))}{\forall x.\forall x.(A \vlor B)}{
+        \vlin{\wrD}{}{\forall x.((\forall x.A) \vlor B)}{
+          \vlhy{\forall x.\forall x.A}}}}}
+  \leadsto
+  \vlderivation{
+    \vlin{\wrD}{}{\forall x.(A \vlor B)}{
+      \vlin{\cfaD}{}{\forall x.A}{
+        \vlhy{\forall x.\forall x.A}}}}
+  \end{equation*}
+
+  \begin{equation*}
+  \vlderivation{
+    \vlin{\cfaD}{}{\forall x.(A \vlor B)}{
+      \vlin{\fequ}{(x \notin fv(B))}{\forall x.\forall x.(A \vlor B)}{
+        \vlin{\wrD}{}{\forall x.(B \vlor (\forall x.A))}{
+          \vlhy{\forall x.B}}}}}
+  \leadsto
+  \vlderivation{
+    \vlin{\fequ}{}{\forall x.(A \vlor B)}{
+      \vlin{\wrD}{}{\forall x.(B \vlor A)}{
+        \vlhy{\forall x.B}}}}
+  \end{equation*}
+
+\item $\wrD/\fequ/\acD$:
+  \begin{equation*}
+  \vlderivation{
+    \vlin{\acD}{}{a \vlor B}{
+      \vlin{\fequ}{}{(a \vlor a) \vlor B}{
+        \vlin{\wrD}{}{(a \vlor B) \vlor a}{
+          \vlhy{a \vlor B}}}}}
+  \leadsto
+  \vlderivation{
+    \vlhy{a \vlor B}}
+  \end{equation*}
+
+  \begin{equation*}
+  \vlderivation{
+    \vlin{\acD}{}{a \vlor B}{
+      \vlin{\fequ}{}{(a \vlor a) vlor B}{
+        \vlin{\wrD}{}{a \vlor (a \vlor B)}{
+          \vlhy{a}}}}}
+  \leadsto
+  \vlderivation{
+    \vlin{\wrD}{}{a \vlor B}{
+      \vlhy{a}}}
+  \end{equation*}
+  
+  \begin{equation*}
+  \vlderivation{
+    \vlin{\acD}{}{\forall x.a}{
+      \vlin{\fequ}{(x \notin fv(a))}{\forall x.(a \vlor a)}{
+        \vlin{\wrD}{}{(\forall x.a) \vlor a}{
+          \vlhy{\forall x.a}}}}}
+  \leadsto
+  \vlderivation{
+    \vlhy{\forall x.a}}
+  \end{equation*}
+
+  \begin{equation*}
+  \vlderivation{
+    \vlin{\acD}{}{\forall x.a}{
+      \vlin{\fequ}{(x \notin fv(a))}{\forall x.(a \vlor a)}{
+        \vlin{\wrD}{}{a \vlor (\forall x.a)}{
+          \vlhy{a}}}}}
+  \leadsto     
+  \end{equation*}
+
+\item $\wrD/\fequ/\me$:
+  \begin{equation*}
+  \vlderivation{
+    \vlin{\me}{}{(A \vlor B) \vlan (C \vlor D)}{
+      \vlin{\fequ}{}{(A \vlan C) \vlor (B \vlan D)}{
+        \vlin{\wrD}{}{(C \vlan A) \vlor (B \vlan D)}{
+          \vlhy{C \vlan A}}}}}
+  \leadsto
+  \vlderivation{
+    \vlin{\wrD}{}{(A \vlor B) \vlan (C \vlor D)}{
+      \vlin{\wrD}{}{(A \vlor B) \vlan C}{
+        \vlin{\fequ}{}{A \vlan C}{
+          \vlhy{C \vlan A}}}}}
+  \end{equation*}
+
+  \begin{equation*}
+  \vlderivation{
+    \vlin{\me}{}{\forall x.((A \vlor B) \vlan (C \vlor D))}{
+      \vlin{\fequ}{x \notin fv(B \vlan D)}{\forall x.((A \vlan C) \vlor (B \vlan
+D))}{
+        \vlin{\wrD}{}{(B \vlan D) \vlor (\forall x.(A \vlan C))}{
+          \vlhy{B \vlan D}}}}}
+  \leadsto
+  \end{equation*}
+
+\item $\wrD/\fequ/\mfaD$:
+  \begin{equation*}
+  \vlderivation{
+    \vlin{\mfaD}{}{\forall x.(A \vlor B)}{
+      \vlin{\fequ}{}{(\forall x.A) \vlor (\forall x.B)}{
+        \vlin{\wrD}{}{(\forall x.B) \vlor (\forall x.A)}{
+          \vlhy{\forall x.B}}}}}
+  \leadsto
+  \vlderivation{
+    \vlin{\fequ}{}{\forall x.(A \vlor B)}{
+      \vlin{\wrD}{}{\forall x.(B \vlor A)}{
+        \vlhy{\forall x.B}}}}
+  \end{equation*}
+
+\item $\wrD/\fequ/\mexD$:
+
+  \begin{equation*}
+  \vlderivation{
+    \vlin{\mexD}{}{\exists x.(A \vlor B)}{
+      \vlin{\fequ}{}{(\exists x.A) \vlor (\exists x.B)}{
+        \vlin{\wrD}{}{(\exists x.B) \vlor (\exists x.A)}{
+          \vlhy{\exists x.B}}}}}
+  \leadsto
+  \vlderivation{
+    \vlin{\fequ}{}{\exists x.(A \vlor B)}{
+      \vlin{\wrD}{}{\exists x.(B \vlor A)}{
+        \vlhy{\exists x.B}}}}
+  \end{equation*}
+
+\end{itemize}
 
 
 
