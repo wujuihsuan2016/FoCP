@@ -527,7 +527,8 @@
 \newcommand{\linking}{\sim}
 \newcommand{\mapof}[1]{\lfloor{#1}\rfloor}
 \newcommand{\labelof}[1]{\ell(#1)}
-\newcommand{\form}[1]{\mathrm{fm}(#1)}
+%\newcommand{\form}[1]{\mathrm{fm}(#1)}
+\newcommand{\form}[1]{\bigvee\mkern-1mu(\mkern-2mu #1\mkern-2mu)}
 \newcommand{\formtree}[1]{\mathcal{F}(#1)}
 
 \renewcommand{\phi}{\varphi}
@@ -879,7 +880,7 @@ a notion of proof identity for first-order logic. \emph{First-order
 combinatorial proofs} were introduced by Hughes in~\cite{hughes:fopws}.
 For example, a first-order combinatorial proof of Smullyan's 
 ``drinker paradox'' $\drinkerformula=\veedrinkerformula$ is shown on the
-right of Fig.\,\ref{fig:translate},
+right of Fig.\,\ref{fig:translate},\todo{wrong implies symbol in drinkerformula?}
 a homomorphism from a partially coloured graph to a labelled graph.
 However, even though Hughes proves soundness and completeness, the 
 proof is highly unsatisfactory: (1) the soundness argument is extremely
@@ -892,12 +893,12 @@ completeness is not
 A fundamental problem is that not all combinatorial
 proofs can be obtained as translations of sequent calculus proofs.
 
-In this paper we solve these issues by moving to a deep inference
+We solve these issues by moving to a deep inference
 system. More precisely, we introduce a new proof system, called
 $\FOKS$, for first-order logic, that (a) reflects every combinatorial
 proof, i.e., there is a surjection from $\FOKS$ proofs to
 combinatorial proofs, (b) yields far simpler proofs of
-soundness and completeness of combinatorial proofs, and (c) admits
+soundness and completeness for combinatorial proofs, and (c) admits
 new decomposition theorems establishing a precise correspondence
 between certain syntactic inference rules and certain combinatorial
 notions.
@@ -917,7 +918,7 @@ deep inference, new kinds of proof decompositions became possible,
 most notably the separation between the linear part of a proof and the
 resource management of a proof. It has been shown by
 Stra{\ss}burger~\cite{str:07:RTA} that a proof in classical
-propositional logic can be decomposed into a proof of (multiplicative)
+propositional logic can be decomposed into a proof of multiplicative
 linear logic, followed by a proof consisting only of contractions and
 weakenings. In this paper we show that the same is possible for
 first-order logic.
@@ -1042,7 +1043,7 @@ the identity almost everywhere. We denote substitutions as
 $\sigma=\sublist{\subst{x_1}{t_1},\ldots,\subst{x_n}{t_n}}$, where
 $\sigma(x_i)=t_i$ for $i=1..n$ and $\sigma(x)=x$ for all
 $x\notin\set{x_1,\ldots,x_n}$. 
-We write $A\sigma$ for the formula
+Write $A\sigma$ for the formula
 obtained from $A$ by applying $\sigma$, i.e., by simultaneously
 replacing all occurrences of $x_i$ by $t_i$.
 A \bfit{variable renaming} is a substitution $\rho$ with $\rho(x)\in\VAR$ for all variables $x$.
@@ -1093,7 +1094,8 @@ multisets of formulas, written as lists, separated by comma. The
 \bfit{corresponding formula} of a (non-empty) sequent $\Gamma=A_1,A_2,\ldots,A_n$
 is the disjunction of its formulas: $\form\Gamma=A_1\vlor
 A_2\vlor\cdots\vlor A_n$. A sequent is \bfit{rectified} iff its
-corresponding formula is.
+corresponding formula is.\dominic{I changed fm$(\Gamma)$ to $\form\Gamma$,
+easier for referee to understand/intuit/remember later in the paper}
 
 In this paper we use the sequent calculus $\FOLK$, shown in
 Figure~\ref{fig:LK1}, which is a one-sided variant of Gentzen's
@@ -1229,14 +1231,14 @@ $x$-literal in its scope.  In a logical cograph $\gG$, a binder $b$ is
 $v$ in its scope, we have $bv \in \eG$ (resp. $bv \notin \eG$). An
 $x$-binder is \bfit{legal} if its scope contains no other $x$-binder
 and at least one literal.
-
+%
 \begin{definition}
 A \bfit{first-order graph} or \bfit{fograph} is a logical cograph with legal binders. The
 \bfit{binding graph} of a fograph $\gG$ is the directed graph $\bG=\tuple{\vG,
 \set{(b, l) \mid b \text{ binds } l}}$.
 \end{definition}
-
-We define a mapping $\graphof\cdot$ from formulas to (labelled)
+%
+\noindent We define a mapping $\graphof\cdot$ from formulas to (labelled)
 graphs, inductively as follows:
 %% For a formula $A$, we can define its
 %% associated fograph $\graphof{A}$ inductively by:\todo{duplicate two sentences above}
@@ -1280,20 +1282,19 @@ labelled by $a$ (resp. $x$).
   %% \todo{}\lutz{maybe mention also fn 2-5 in Dominic's arxiv-paper}
 \end{proof}
 %%\juihsuan{I'm still looking for a simple proof}
-
+%
 \begin{remark}
 Note that $\graphof A$ is not necessarily a fograph if $A$ is not
 rectified. If $A = (\forall x. p(x)) \vlor (\forall x. q(x))$, then
 $\graphof A = \single x \ \single p(x) \ \single x \ \single q(x)$,
 the scope of each $x$-binder contains all the vertices, in particular,
-the two $x$-binders. On the other hand, there are non-rectified
+the other $x$-binder. On the other hand, there are non-rectified
 formulas which are translated to fographs by $\graphof\cdot$. For
 example, in the graph of $(\exists x. p(x)) \vlor (\exists x. q(x))$,
 both $x$-binders are legal, as they are not in each other's
 scope:
 $\edgepairpic{x}{px}\mkern9mu\edgepairpic{x}{qx}$.
 \end{remark}
-
 %
 %% For this reason, we call a formula
 %% \bfit{clean} if it does not contain subformulas of the form $(\forall
@@ -1304,21 +1305,21 @@ $\edgepairpic{x}{px}\mkern9mu\edgepairpic{x}{qx}$.
 %% whose kernel is the six formula equalities)} and no
 %% $x$-quantified formula occurs as subformula of another $x$-quantified
 %% formula. Then we have:
-
+%
 %% \begin{lemma}
 %%   If $A$ is clean iff\/ $\graphof A$ is a fograph.
 %% \end{lemma}
-
+%
 %% \begin{proof}
 %%   Induction on $A$, using  Theorem~\ref{thm:cograph}.
 %% \end{proof}
-
+%
 %% Even though for every formula $A$ we can obtain an
 %% equivalent clean formula by simply renaming some bound variables, this
 %% is not unique up to $\alpha$-conversion, as is the case for
 %% rectified formulas.
-
-We define a congruence relation $\fequ$ on formulas by the following equations:
+%
+\noindent We define a congruence relation $\fequ$ on formulas by the following equations:
 \begin{equation}
   \label{eq:fequ}
   \begin{array}{c@{\hskip1.5em}c}
@@ -1340,6 +1341,7 @@ We define a congruence relation $\fequ$ on formulas by the following equations:
   \end{array}
 \end{equation}
 where $x \notin fv(B)$ in the last two equations.
+\todo{Define $fv$; used later too, e.g.\ proof of Lem.\,\ref{lem:me}}
 Two formulas $A$ and $B$ are \bfit{equivalent} if $A \fequ B$. The following
 theorem shows that the set of fographs can been seen as the quotient
 $\FORM/\mathord\fequ$.
@@ -1355,8 +1357,8 @@ $\FORM/\mathord\fequ$.
 \end{proof}
 
 \begin{example}
-  Both $\veedrinkerformula$ and $\variantveedrinkerformula$ (which are
-  equivalent modulo $\fequ$) have the same (rectified) fograph
+  Both $\veedrinkerformula$ and $\variantveedrinkerformula$, which are
+  equivalent modulo $\fequ$, have the same (rectified) fograph
   $\drinkergraph$, shown below-left.
   %
   \begin{equation*}
@@ -1370,9 +1372,9 @@ $\FORM/\mathord\fequ$.
       %
       \drinkerbindinggraphpic
   \end{equation*}
-  In the middle above we show the \emph{cotree} of the underlying
+  Above-left we show the \emph{cotree} of the underlying
   cograph (illustrating the idea behind Theorem~\ref{thm:cograph}) and
-  on the right above is its binding graph $\bD$.
+  above-right is its binding graph $\bD$.
 \end{example}
 
 
@@ -1405,16 +1407,19 @@ general dualizer}. A \bfit{dependency} is a pair $\set{\single x, \single y}$ of
 existential binder $\single x$ and a universal binder $\single y$ such that the most
 general dualizer assigns to $x$ a term containing $y$. A \bfit{leap} is either a
 link or a dependency. The \bfit{leap graph} $\lgC$ of $\gC$ is the undirected
-graph $\tuple{\vC, \lpC}$ where $\lpC$ is the set of leaps of $\gC$. A vertex set $W \subseteq \vC$ induces a \bfit{matching} in
-$\gC$ if for all $w \in W$, $N(w) \cap W$ is a singleton. We say that $W$ induces a
+graph $\tuple{\vC, \lpC}$ where $\lpC$ is the set of leaps of $\gC$.
+A vertex set $W \subseteq \vC$ induces a \bfit{matching} in
+$\gC$ if 
+it is non-empty\dominic{added non-empty (necessary, right?)}
+for all $w \in W$, $N(w) \cap W$ is a singleton. We say that $W$ induces a
 \bfit{bimatching} in $\gC$ if it induces a matching in $\gC$ and a matching in $\lgC$.
 
 
 \begin{definition}
-A \bfit{first-order net} or \bfit{fonet} is a linked fograph which has
-dualizer but no induced bimatching.  
+A \bfit{first-order net} or \bfit{fonet} is a linked fograph which
+has a dualizer but no induced bimatching.  
 \end{definition}
-
+%
 \begin{figure}[!t]
   \begin{center}
     \vspace{-1ex}
@@ -1427,8 +1432,8 @@ dualizer but no induced bimatching.
     dualizer $\protect\twolinkassignment$
     and its
     leap graph (right).}
-\end{figure}
-
+\end{figure}%
+%
 Figure~\ref{fig:leap} shows a fonet with a unique dualizer, and its leap graph.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1486,29 +1491,39 @@ Figure~\ref{fig:leap} shows a fonet with a unique dualizer, and its leap graph.
 A graph homomorphism $\phi\colon \tuple{\vG, \eG} \rightarrow
 \tuple{\vH, \eH}$ is a \bfit{fibration} if for all $v \in \vG$ and
 $w\phi(v) \in \eH$, there exists a unique $\tilde{w} \in \vG$ such
-that $\tilde{w}v \in \eG$ and $\phi(\tilde{w}) = w$ (indicated on the left below), and is a
+that $\tilde{w}v \in \eG$ and $\phi(\tilde{w}) = w$ (indicated below-left),
+and is a
 \bfit{skew fibration} if for all $v \in \vG$ and $w\phi(v) \in \eH$
 there exists $\tilde{w} \in \vG$ such that $\tilde{w}v \in \eG$ and
-$\phi(\tilde{w})w \notin \eH$ (indicated in the middle below).  A directed graph homomorphism is a
+$\phi(\tilde{w})w \notin \eH$ (indicated below-centre).
+A directed graph homomorphism is a
 \bfit{fibration} if for all $v \in \vG$ and $\pair{w,\phi(v)} \in
 \eH$, there exists a unique $\tilde{w} \in \vG$ such that $\pair{\tilde{w},v}
-\in \eG$ and $\phi(\tilde{w}) = w$ (indicated o the right below).
+\in \eG$ and $\phi(\tilde{w}) = w$ (indicated below-right).
 %
 \liftingdiagrams
-
-
+%
 A \bfit{fograph homomorphism} $\phi=\tuple{\phi,\rsubstof\phi}$ is a
 pair where $\phi\colon\gG\to\gH$ is a graph homomorphism between the
-underlying graphs, and $\rsubstof\phi$, also called the \bfit{substitution induced by $\phi$} is a variable renaming such that
+underlying graphs, and $\rsubstof\phi$, also called the
+\bfit{substitution induced by $\phi$} is a variable renaming 
+such that
 for all $v\in\vG$ we have
-$\labelof{\phi(v)}=\rsubstof\phi(\labelof v)$. Note that this entails that
-$\phi$ maps binders to binders and literals to literals.
-We say that a
-fograph homomorphism $\phi\colon\gG \rightarrow \gH$ is
+$\labelof{\phi(v)}=\rsubstof\phi(\labelof v)$,
+and $\rsubstof\phi$ is the identity on variables not in $\gG$.
+%
+Note that $\phi$ necessarily maps binders to binders
+and literals to literals.
+%
+Since $\rsubstof\phi$ is fully determined by $\phi$ alone, we often
+leave $\rsubstof\phi$ implicit.
+A fograph homomorphism $\phi\colon\gG \rightarrow \gH$
 %%\bfit{label-preserving} if for all $v \in \vG, label(v) = label(f(v))$, and is
-\bfit{existential-preserving} if for all existential binders $b$ in
-$\gG$, the vertex $\phi(b)$ is an existential binder in $\gH$.
-
+% is \bfit{existential-preserving} 
+\bfit{preserves existentials}
+if for all existential binders $b$ in
+$\gG$, the binder $\phi(b)$ is a existential in $\gH$.\dominic{tweaked this paragraph}
+%
 \begin{definition}
   Let $\gG$ and $\gH$ be fographs. A \bfit{skew bifibration}
   $\phi\colon\gG\to\gH$ is an existential-preserving fograph
@@ -1518,12 +1533,17 @@ $\gG$, the vertex $\phi(b)$ is an existential binder in $\gH$.
 %existential-preserving fograph homomorphism whose restriction to the
 %binding graphs is a fibration.
 \end{definition}
-
+%
 \begin{example}
-  Below on the left is a skew bifibration, with its binding fibration
-  in the middle. We often omit the labeling in the upper graph, as
-  done on the right below.
-  $$
+  Below-left is a skew bifibration, whose binding fibration
+  is below-centre. When the labels on the source fograph can be inferred
+  (modulo renaming),
+  we often omit the labeling in the upper graph, as below-right, which refer to as 
+  \bfit{condensed form}.\dominic{I said ``can be inferred'' to account for 
+  e.g.\
+  $\graphof{\forall x_1\forall x_2 (px_i\vee px_j\vee px_k\vee px_l)} \to \forall x px$ whose
+  unlabelled skeleton is the skeleton of many distinct formula variants (``who binds who?'').}
+  \begin{center}\begin{math}
   \scalebox{.9}{
   \begin{tikzpicture}[graph]\drinkerfiblabelledpair{x}{x}
   \end{tikzpicture}
@@ -1533,30 +1553,29 @@ $\gG$, the vertex $\phi(b)$ is an existential binder in $\gH$.
   \quad
   \begin{tikzpicture}[graph]\drinkerfib
   \end{tikzpicture}}
-  $$
-\end{example}
-
-
+\end{math}\end{center}\end{example}
+%
 %%\subsection{First-order combinatorial proofs}
-
+%
 \begin{definition}
 A \bfit{first-order combinatorial proof} (\bfit{FOCP}) of a fograph $\gG$ is a skew
 bifibration $\phi\colon \gC \rightarrow \gG$ where $\gC$ is a fonet. A \bfit{first-order
 combinatorial proof} of a formula $A$ is a combinatorial proof of its graph
 $\graphof{A}$.
 \end{definition}
-
-To give some examples, we show in Figure~\ref{fig:cps} for examples of
-FOCPs (taken from~\cite{hughes:fopws}), each above the formula it proves.  The same FOCPs are shown in
-Figure~\ref{fig:cps-condensed} in a more condensed notation.
-
+%
+Figure~\ref{fig:cps} shows examples of
+FOCPs (taken from~\cite{hughes:fopws}), each above the formula it proves.
+The same FOCPs are shown in
+Figure~\ref{fig:cps-condensed} in condensed form.
+%
 \begin{thm}[\cite{hughes:fopws}]
   \label{thm:FOCP}
   FOCPs are sound and complete for first-order logic.
 \end{thm}
-
+%
 \begin{remark}
-  In or definition of FOCP, we are slightly laxer than the original
+  Our definition of FOCP is slightly more lax than the original
   definition of~\cite{hughes:fopws}, as we allow for a variable
   renaming $\substof\phi$ which was forced to be the identity
   in~\cite{hughes:fopws}.
@@ -1617,10 +1636,10 @@ Figure~\ref{fig:cps-condensed} in a more condensed notation.
   \caption{Deep inference systems $\FOKS$ (all rules) and $\FOMLS$ (rules in the dashed box)}
   \label{fig:KS1}
 \end{figure}
-
-Contrary to standard proof formalisms, like sequent calculi or
+%
+In contrast to to standard proof formalisms, like sequent calculi or
 tableaux, where inference rules decompose the principal formula along
-its root connective, can \emph{deep inference rules} be applied like
+its root connective, \emph{deep inference rules} apply like
 rewriting rules inside any (positive) formula or sequent
 \bfit{context}, which is denoted as $\Sconhole$, and which is a
 formula (resp.~sequent) with exactly one occurrence of the \bfit{hole}
@@ -1628,10 +1647,10 @@ $\conhole$ in the position of an atom. Then $\Scons A$ is the result
 of replacing the hole $\conhole$ in $\Sconhole$ with $A$.
 
 Figure~\ref{fig:KS1} shows the inference rules for the deep inference
-system~$\FOKS$ that we are using in this paper. It is a slight variation
+system~$\FOKS$ that we introduce in this paper. It is a slight variation
 of the systems presented by Br\"unnler~\cite{brunnler:phd} and
-Ralph~\cite{ralph:phd} in their PhD-theses. The main differences being
-that we have (i) the explicit presence of the $\mixr$-rule, (ii) a
+Ralph~\cite{ralph:phd} in their PhD-theses. The main differences are
+(i) the explicit presence of the $\mixr$-rule, (ii) a
 different choice of how the formula equivalence $\fequ$ is defined,
 and (iii) an explicit rule for the equivalence.
 
@@ -1645,15 +1664,15 @@ inference literature, the cut-free fragment is also called the
 here, we omit the down-arrows $\downarrow$ in the rule names.}
 
 As with the sequent system $\FOLK$, we also need for $\FOKS$ the
-\emph{linear fragment}, that we call here $\FOMLS$, and that is shown
+\emph{linear fragment}, $\FOMLS$, and that is shown
 in Figure~\ref{fig:KS1} in the dashed box.
 
-We write $\vlder{\sysS}{\Deri}{A}{B}$ to denote a derivation $\Deri$
+Write $\vlder{\sysS}{\Deri}{A}{B}$ to denote a derivation $\Deri$
 from $B$ to $A$ using the rules from system $\sysS$. A formula $A$ is
 \bfit{provable} in a system $\sysS$ if there is a derivation in
 $\sysS$ from $\ttt$ to $A$.
 
-In the course of this paper we are also going to make use of the
+In the course of this paper we will employ the
 general (non-atomic) version of the contraction rule:
 \begin{equation*}
   \vlinf{\cD}{}{\Scons{A}}{\Scons{A\vlor A}}  
@@ -1668,9 +1687,9 @@ general (non-atomic) version of the contraction rule:
 \section{Main Results}
 \label{sec:main}
 
-We are now ready to see the main results of this paper. We only state
-them here and give the proofs in the later sections of the paper. The
-first one is routine and expected, but needs to be proved nonetheless:
+We state the main results of this paper here,
+and prove them in later sections. The
+first is routine and expected, but needs to be proved nonetheless:
 
 \begin{thm}\label{thm:KS1}
   $\FOKS$ is sound and complete for first-order logic.
@@ -1729,10 +1748,10 @@ Herbrand theorem~\cite{brunnler:06:locality,ralph:phd}.
                           \vlhy{\ttt}}}}}}}}}}}}}}
   \end{equation*}
 \end{example}
-
+%
 There is a weaker version of Theorem~\ref{thm:decomposition} that will
 also be useful:
-
+%
 \begin{thm}\label{thm:decompositionA}
   For every derivation $\vlder{\FOKS}{\Deri}{A}{\ttt}$ there is a formula $A_1$, such that there is a derivation:
   \begin{equation*}
@@ -1756,7 +1775,8 @@ combinatorial proofs.
           \vlhy{\ttt}}}}
   \end{equation}
   for some $A'\fequ C\substof\phi$ where $C$ is a formula with $\graphof
-  C=\gC$ and $\substof\phi$ is the variable renaming substitution induced by~$\phi$.  Conversely,
+  C=\gC$ and $\substof\phi$ is the variable renaming substitution
+  induced by~$\phi$.  Conversely,
   whenever we have a derivation as in~\eqref{eq:decom} above, then
   there is a combinatorial proof $\phi\colon\gC\to\graphof A$ such
   that $\gC=\graphof{\rectif{A'}}$.
@@ -1814,13 +1834,13 @@ In this section we show the equivalence of $\FOMLL$ and $\FOMLS$.
   hypothesis, there is a proof of $\form\Delta\vlor A$ in $\FOMLS$. We
   can prefix every line in that proof by $\forall x$ and then compose
   the following derivation:
-  \begin{equation*}
+  \begin{center}\vspace{-2ex}\begin{math}
     \vlderivation{
       \vlin{\fequ}{}{\form\Delta\vlor\forall x.A}{
         \vlde{\FOMLS}{}{\forall x.\form\Delta\vlor A}{
           \vlin{\forall}{}{\forall x.\ttt}{
             \vlhy{\ttt}}}}}
-  \end{equation*}
+  \end{math}\end{center}
   where we can apply the $\fequ$-rule because $x$ is not free in $\Delta$.
 \end{proof}
 
