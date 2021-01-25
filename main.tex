@@ -2516,38 +2516,8 @@ $\tuple{\gC,\linkingof\gC}$ we can construct a sequent proof $\Pi$ in
 $\FOMLL$ such that $\fographof\Pi=\tuple{\gC,\linkingof\gC}$. In the
 proof net literature, this operation is also called
 \emph{sequentialization}. The basic idea behind our sequentialization
-is to construct a propositional linked cograph, called the \bfit{frame}~\cite{hughes:unifn}
-of $\gC$, in which the dependencies between the binders in $\gC$ are
-encoded as links. Then we can apply the \emph{splitting tensor
-theorem} to the frame, and then reconstruct the sequent proof $\Pi$.
-\lutz{if the proof of thm \ref{thm:MLS1->fonet} is verified, we can delete the frame-def here}
-
-More formally, let $\Gamma$ be a sequent with $\graphof\Gamma=\gC$, to which we
-exhaustively apply the following
-subformula rewriting steps, to obtain a sequent $\frameof\Gamma$:
-\begin{enumerate}
-\item {\bf Encode dependencies as fresh links.} For each dependency
-  $\pair{\single x,\single y}$ in $\gC$, with corresponding
-  subformulas $\exists x A$ and $\forall y B$ in $\Gamma$, we pick a
-  fresh (nullary) predicate symbol $q$, and then replace $\exists
-  x. A$ by $q \cand \exists x. A$, and replace $\forall y. B$ by
-  $\dual q \cor \forall y. B$.
-\item {\bf Erase quantifiers.} After step 1, remove all the
-  quantifiers, i.e., replace $\exists x.A$ by $A$ and replace $\forall
-  y.B$ by $B$ everywhere.
-\item {\bf Simplify atoms.} After step 2, replace every predicate
-  $p(t_1 \cdots t_n)$ (resp. $\dual p(t_1 \cdots t_n)$) with a nullary
-  predicate symbol $p$ (resp.~$\dual p$)
-\end{enumerate}
-The $\linkingof{\frameof\Gamma}$ consists of the pairs induced by
-$\linkingof\gC$ and the new pairs $\set{q,\dual q}$ introduced in
-step~1 above. We call $\frameof\Gamma$ the \bfit{frame} of $\Gamma$ and we define the \bfit{frame} of $\gC$, denoted
-$\frameof\gC$, as
-$\tuple{\graphof{\frameof\Gamma},\linkingof{\frameof\Gamma}}$, and we immediately have the following:
-
-\begin{lemma}\label{lem:frame}
-  A linked fograph $\gC$ induces a bimatching iff its frame $\frameof\gC$ has an induced bimatching.
-\end{lemma}
+is to use the frame of $\gC$, to which  we can apply the \emph{splitting tensor
+theorem}, and then reconstruct the sequent proof $\Pi$.
 
 Let $\Gamma$ be a propositional sequent and $\linkingof\Gamma$ be a
 linking for $\graphof\Gamma$. A conjunction formula $A\vlan B$ is
@@ -2567,20 +2537,20 @@ $\linking_2$ is a linking for $\graphof{\Gamma''}$.
 Finally, $\tuple{
   \graphof\Gamma,\linkingof\Gamma}$ is \bfit{splittable} if it is mixed or has a splitting tensor.
 
-The purpose of introducing the frame is the following theorem.
 
 \begin{thm}
   \label{thm:splitting}
-  Let $\Gamma$ be a propositional sequent containing only atoms
+  Let $\Gamma$ be a $\fff$-free propositional sequent containing only atoms
   and $\vlan$-formulas, and $\linkingof\Gamma$ be a
   linking for $\graphof\Gamma$. If $\tuple{
     \graphof\Gamma,\linkingof\Gamma}$ does not induce a bimatching then it is splittable.
 \end{thm}
 
-This is the well-know splitting-tensor-theorem
+This is the well-known splitting-tensor-theorem
 \cite{girard:87,danos:regnier:89}, adapted for the presence of
 $\mix$. In the setting of linked cographs, it has first been proved by
-Retor\'e~\cite{retore:03,retore:99}. We use it now for our sequentialization:
+Retor\'e~\cite{retore:03,retore:99} and then rediscovered by Hughes~\cite{hughes:pws}.
+We use it now for our sequentialization:
 
 \begin{thm}
   \label{thm:fonet->MLL1}
@@ -2613,7 +2583,7 @@ Retor\'e~\cite{retore:03,retore:99}. We use it now for our sequentialization:
   $\frameof\Gamma$ is not mixed and all splitting tensors are
   $\vlan$-formulas introduced in step~1 of the frame construction,
   then we get a contradiction as in that case there must be a $\vlor$- or $\forall$-formula in $\Gamma$.
-  \lutz{can anyone give a good argument here?}
+%  \lutz{can anyone give a good argument here?}
 \end{proof}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -2637,7 +2607,7 @@ We can now straightforwardly obtain the same result for $\FOMLS$:
 
 \begin{proof}
   We apply Theorem~\ref{thm:fonet->MLL1} to obtain a sequent
-  proof~$\Pi$ of $\sqn C$ with
+  proof~$\Pi$ of \hbox{$\sqn C$} with
   $\fographof\Pi=\tuple{\gC,\linkingof\gC}$. Then we apply
   Lemma~\ref{lem:MLL1->MLS1}, observing that the translation from
   $\FOMLL$ to $\FOMLS$ preserves linking and dualizer.
@@ -2663,14 +2633,15 @@ We can now straightforwardly obtain the same result for $\FOMLS$:
 \label{sec:skew}
 
 In this section we establish the relation between skew bifibrations and derivations  in
-$\set{\wrD,\acD,\cfaD,\me,\mfaD,\mexD,\fequ}$. However, 
+$\set{\wrD,\wfaD,\acD,\cfaD,\me,\mfaD,\mexD,\fequ}$. However, 
 if a derivation $\Deri$ contains instances of the rules $\cfaD$, $\mfaD$, and
 $\mexD$ we can no longer naively define the rectification
 $\rectif\Deri$ as in the previous section for $\FOMLS$, as these two
 rules cannot be applied if premise and conclusion are rectified. For
 this reason we define here rectified versions $\rectif\cfaD$,  $\rectif\mfaD$ and
-$\rectif\mexD$, shown below:
+$\rectif\mexD$, shown below:%\vadjust{\vskip-1ex}
 \begin{equation*}
+  \scalebox{.9}{$
   \vlinf{\rectif\cfaD}{}{\Scons{\forall x.Ax}}{\Scons{\forall y.\forall x.Ax}}
   \hskip3em
   \begin{array}{c}
@@ -2678,6 +2649,7 @@ $\rectif\mexD$, shown below:
     \\ \\[-1ex]
     \vlinf{\rectif\mexD}{}{\Scons{\exists x.(Ax\vlor Bx)}}{\Scons{(\exists y.Ay)\vlor(\exists z.Bz)}}
   \end{array}
+  $}
 \end{equation*}
 Here, we use the notation $A\cdot$ for a formula $A$ with occurrences
 of a placeholder $\cdot$ for a variable. Then $Ax$ stands for the
@@ -2694,38 +2666,40 @@ $\mexD$ as special cases of $\rectif\mfaD$ and $\rectif\mexD$, respectively. And
 is a special case of $\rectif\cfaD$.
 
 For a derivation $\Deri$ in
-$\set{\wrD,\acD,\cfaD,\me,\mfaD,\mexD,\fequ}$, we can now construct the
+$\set{\wrD,\wfaD,\acD,\cfaD,\me,\mfaD,\mexD,\fequ}$, we can now construct the
 \bfit{rectification} $\rectif\Deri$ by rectifying each line of $\Deri$, yielding
 a derivation in
-$\set{\wrD,\acD,\me,\rectif\mfaD,\rectif\mexD,\fequ}$.
+$\set{\wrD,\wfaD,\acD,\rectif\cfaD,\me,\rectif\mfaD,\rectif\mexD,\fequ}$.
 
 For each instance $\vlinf{\rr}{}{P}{Q}$ of an inference rule in
 $\set{\wrD,\acD,\rectif\cfaD,\me,\rectif\mfaD,\rectif\mexD,\fequ}$ we can
 define the \bfit{induced map} $\mapof{\rr}\colon\vgraphof
 Q\to\vgraphof P$ which acts as the identity for
 $\rr\in\set{\me,\fequ}$ and as the canonical injection for
-$\rr=\wrD$. For $\rr=\acD$ it maps the vertices
+$\rr\in\set{\wrD,\wfaD}$. For $\rr=\acD$ it maps the vertices
 corresponding to the two atoms in the premise to vertex of the
 contracted atom in the conclusion, and for
 $\rr\in\set{\rectif\cfaD,\rectif\mfaD,\rectif\mexD}$ it maps the two vertices
 corresponding to the quantifiers in the premise to the one in the
-conclusion (as acts as the identity on all other vertices).
+conclusion (and acts as the identity on all other vertices).
 For a
 derivation $\Deri$ in
-$\set{\wrD,\acD,\rectif\cfaD,\me,\rectif\mfaD,\rectif\mexD,\fequ}$ we can then define
+$\set{\wrD,\wfaD,\acD,\rectif\cfaD,\me,\rectif\mfaD,\rectif\mexD,\fequ}$ we can then define
 the \bfit{induced map} $\mapof\Deri$ as the composition of the induced
 maps of the rule instances in $\Deri$.
-\juihsuan{maybe mention at least that the induced
-maps define graph homomorphisms. Do we need to talk about the contexts
-$\Sconhole$ here (induced maps act clearly as the identity on contexts but we need them for the composition)?}
-\lutz{For the context, I aleady say it is the identity. For the homom, it comes later}
+%% \juihsuan{maybe mention at least that the induced
+%% maps define graph homomorphisms. Do we need to talk about the contexts
+%% $\Sconhole$ here (induced maps act clearly as the identity on contexts but we need them for the composition)?}
+%% \lutz{For the context, I aleady say it is the identity. For the homom, it comes later}
 
 \begin{lemma}\label{lem:cw->rectif}
   Let $\downsmash{\vlderivation{
-    \vlde{\set{\wrD,\acD,\cfaD,\me,\mfaD,\mexD,\fequ}}{\Deri}{B}{
-      \vlhy{A}}}}$ be a derivation. Then there is a rectified derivation
+    \vlde{\set{\wrD,\wfaD,\acD,\cfaD,\me,\mfaD,\mexD,\fequ}}{\Deri}{B}{
+      \vlhy{A}}}}$ be given.
+  %%a derivation.
+  Then there is a rectified derivation
   $\vlderivation{
-    \vlde{\set{\wrD,\rectif\acD,\rectif\cfaD,\me,\rectif\mfaD,\rectif\mexD,\fequ}}{\rectif\Deri}{\rectif
+    \vlde{\set{\wrD,\wfaD,\acD,\rectif\cfaD,\me,\rectif\mfaD,\rectif\mexD,\fequ}}{\rectif\Deri}{\rectif
       B}{ \vlhy{\rectif A}}}$, such that the induced maps
   $\mapof\Deri\colon\graphof{A}\to\graphof{B}$ and
   $\mapof{\rectif\Deri}\colon\graphof{\rectif A}\to\graphof{\rectif
@@ -2736,23 +2710,21 @@ $\Sconhole$ here (induced maps act clearly as the identity on contexts but we ne
   Immediate from the definition.
 \end{proof}
 
-\todo{example}
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \subsection{From Contraction and Weakening to Skew Bifibrations}
 
-We say that a derivation $\Deri$ is \bfit{sane} if for every line $Q$
-in $\Deri$ we have that $\graphof D$ is a fograph (i.e., all binders
-are legal). Clearly, every rectified derivation is sane, but not vice
-versa, as we might have multiple occurrences of bound variables in $Q$,
-such that $\graphof Q$ is still a fograph.
+%% We say that a derivation $\Deri$ is \bfit{sane} if for every line $Q$
+%% in $\Deri$ we have that $\graphof D$ is a fograph (i.e., all binders
+%% are legal). Clearly, every rectified derivation is sane, but not vice
+%% versa, as we might have multiple occurrences of bound variables in $Q$,
+%% such that $\graphof Q$ is still a fograph.
 
 \begin{lemma}\label{lem:cw->skew}
   Let $\vlderivation{
     \vlde{\set{\wrD,\acD,\rectif\cfaD,\me,\rectif\mfaD,\rectif\mexD,\fequ}}{\Deri}{B}{
-      \vlhy{A}}}$ be a sane derivation. Then the induced map
+      \vlhy{A}}}$ be a rectified derivation. Then the induced map
   $\mapof\Deri\colon\graphof{A}\to\graphof{B}$ is a skew bifibration.
 \end{lemma}
 
@@ -2789,31 +2761,29 @@ propositional formulas, i.e., the first two lines in~\eqref{eq:fequ}.
 
 \begin{proof}[Proof of Lemma~\ref{lem:cw->skew}]
   First, observe that for every inference rule
-  $\rr\in\set{\wrD,\acD,\rectif\cfaD,\me,\rectif\mfaD,\rectif\mexD,\fequ}$ 
-  the induced map $\mapof{\rr}\colon\vgraphof Q\to\vgraphof P$ defines a existential preserving graph homomorphism $\graphof Q\to\graphof P$ and  a fibration on the corresponding binding graphs. \juihsuan{we may need to have
-some explication here.}\lutz{no} Therefore, their
-  composition $\mapof\Deri$ has the same properties fibration.
+  $\rr\in\set{\wrD,\wfaD,\acD,\rectif\cfaD,\me,\rectif\mfaD,\rectif\mexD,\fequ}$
+  the induced map $\mapof{\rr}\colon\vgraphof Q\to\vgraphof P$ defines
+  a existential preserving graph homomorphism $\graphof Q\to\graphof
+  P$ and a fibration on the corresponding binding graphs.  Therefore,
+  their composition $\mapof\Deri$ has the same properties fibration.
 
   For showing that it is also a skew fibration, we construct for
   $\Deri$ its propositional encoding $\PE\Deri$ by
   translating every line into its propositional encoding.
-  \juihsuan{maybe mention that an instance of one of the other rules can be translated
-into an instance of the same rule. It's trivial but may be worth mentioning.}\lutz{done below}
   The instances
-  of the rules $\rectif\mfaD$ and $\rectif\mexD$ are replaced in two
-  steps by:
+  of the rules $\rectif\mfaD$ and $\rectif\mexD$ are replaced by:
   \begin{equation*}
+    \scalebox{.85}{$
     \vlderivation{
       \vlin{\rectif\acD}{}{\Scons{x\vlor(\PE{(Ax)}\vlor\PE{(Bx)})}}{
         \vlin{\fequ}{}{\Scons{(y\vlor z)\vlor(\PE{(Ay)}\vlor\PE{(Bz)})}}{
           \vlhy{\Scons{(y\vlor\PE{(Ay)})\vlor (z\vlor\PE{(Bz)})}}}}}
-  \end{equation*}
-  and
-  \begin{equation*}
+    \qquad\!
     \vlderivation{
       \vlin{\rectif\acD}{}{\Scons{x\vlan(\PE{(Ax)}\vlor\PE{(Bx)})}}{
         \vlin{\me}{}{\Scons{(y\vlor z)\vlan(\PE{(Ay)}\vlor\PE{(Bz)})}}{
           \vlhy{\Scons{(y\vlan\PE{(Ay)})\vlor (z\vlan\PE{(Bz)})}}}}}
+    $}
   \end{equation*}
   respectively, where $\rectif\acD$ is a $\acD$ that renames the
   variables---the propositional variable, as well as the first-order
@@ -2826,8 +2796,10 @@ into an instance of the same rule. It's trivial but may be worth mentioning.}\lu
     \vlde{\set{\wrD,\acD,\rectif\acD,\me,\PE\fequ}}{\PE\Deri}{\PE B}{
       \vlhy{\PE A}}}$ such that $\mapof{\PE\Deri}=\mapof\Deri$. It has
   been shown in~\cite{str:07:RTA} that $\mapof{\PE\Deri}$ is a skew
-  fibration (see
-  also~\cite{hughes:invar,str:ral:tableaux19,str:RR-9048}). Hence,
+  fibration.
+  %(see
+  %also~\cite{hughes:invar,str:ral:tableaux19}).
+  Hence,
   $\mapof\Deri$ is a skew fibration.
   %%That $\mapof{\PE\Deri}$ preserves
   %%exponentials follows immediately from its construction.
@@ -2848,10 +2820,10 @@ into an instance of the same rule. It's trivial but may be worth mentioning.}\lu
     \quand
     \vlderivation{
       \vlde{\set{\wrD,\acD,\cfaD,\me,\mfaD,\mexD,\fequ}}{\Deri}{B}{
-        \vlhy{A\substof\phi}}}
+        \vlhy{A\rsubstof\phi}}}
   \end{equation*}
   such that $\mapof{\rectif\Deri}=\phi$ and $\rectif{\Deri}$ is a
-  rectification of $\Deri$, and $\substof\phi$ is the substitution
+  rectification of $\Deri$, and $\rsubstof\phi$ is the substitution
   induced by $\phi$.
 \end{lemma}
 
@@ -2868,12 +2840,12 @@ $Q=\PE D$ and there is a derivation $\vlder{\sysS'}{\DDeri'}{D}{C}$.
   $\phi$, and let $\gB_1$ be the subgraph of $\gB$ induced by
   $\vB'$. Hence, we have two maps $\phi''\colon\gA\to\gB_1$ being a
   surjection and $\phi'\colon \gB_1\to\gB$ being an injection that
-  reflects edges. \juihsuan{what do you mean by "reflect edges"?}\lutz{edge downstairs implies edge upstairs} Both, $\phi'$ and $\phi''$ remain skew
+  reflects edges.  Both, $\phi'$ and $\phi''$ remain skew
   bifibrations. Let us first look at $\phi'$.  Let $\PEp B_1$ be the
   propositional formula obtained from $\PE B$ by removing all atoms
   that are not represented by vertices in $\vB'$. Then $\graphof{\PEp
     B_1}=\gB_1$.  By \cite[Proposition~7.6.1]{str:07:RTA}, we have a
-  derivation $\vlder{\set{\wrD,\fequ}}{\PE\Deri_1}{\PE B}{\PEp B_1}$.
+  derivation $\vlder{\set{\wrD,\PE\fequ}}{\PE\Deri_1}{\PE B}{\PEp B_1}$.
   A subformula of $\PE B$ is called \emph{weak} if it has been
   introduced by a weakening. All subformulas of a weak formula are
   also weak. Two weak subformulas $B'$ and $B''$ of $\PE B$ form a
@@ -3833,7 +3805,7 @@ D))}{
 \end{itemize}
 
 
-
+\end{document}
 
 % that's all folks
 %\end{document}
