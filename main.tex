@@ -652,7 +652,7 @@
   We uncover a close relationship between combinatorial and
   syntactic proofs for first-order logic. Whereas syntactic proofs are
   formalized in a deductive proof system based on inference rules,
-  a combinatorial proof is a syntax-fre presentation of a proof
+  a combinatorial proof is a syntax-free presentation of a proof
   that is independent from any set of inference rules. We show that
   the two proof representations are related via a deep inference
   decomposition theorem that establishes a new kind of normal form
@@ -2366,7 +2366,7 @@ $\fographof\Deri=\tuple{\graphof{A},\linkingof{\Deri}}$.
 For proving this theorem, we have to show that no inference rule in
 $\FOMLS$ can introduce a bimatching. To simplify the argument, we
 introduce the \bfit{frame}~\cite{hughes:unifn} of the linked fograph $\gC$,
-which is a linked (proposional) cograph in which the dependencies
+which is a linked (propositional) cograph in which the dependencies
 between the binders in $\gC$ are encoded as links. 
 
 More formally, let $C$ be a formula with $\graphof C=\gC$, to which we
@@ -2433,14 +2433,14 @@ $\tuple{\graphof{\frameof C},\linkingof{\frameof C}}$.
     $}
   \end{equation*}
   where $h_1,\ldots,h_n$ range over the indices of the existential
-  binders dependend on that $y_j$. It is easy to see how $\DDeri_1$ is
+  binders dependent on that $y_j$. It is easy to see how $\DDeri_1$ is
   constructed, and for $\DDeri_2$ see,
   e.g. \cite{ATS:esslli2019,gug:str:01,brunnler:tiu:01,dissvonlutz}. Then, every
   occurrence of $\forall y_j.F$ is replaced by
   $q_{h_1,j}\vlor\cdots\vlor q_{h_j,j}\vlor (\dual
   q_{h_1,j}\vlan\cdots\vlan\dual q_{h_j,j}\vlan F)$ in the derivation
   below that $\forall$-instance. Now, observe that all instances of
-  the $\exists$-rule introducing $x_i$ dependend on $y_j$ must occur
+  the $\exists$-rule introducing $x_i$ dependent on $y_j$ must occur
   below in the derivation (otherwise $\Deri$ would not be rectified).
   Now consider such an instance $\vlinf{\exists}{}{\Scons{\exists
       x_i.B}}{\Scons{B\ssubst {x_i} t}}$.  Its context $\Sconhole$
@@ -2469,9 +2469,9 @@ $\tuple{\graphof{\frameof C},\linkingof{\frameof C}}$.
   been shown by Retor\'e~\cite{retore:pomset:RR} and
   rediscovered by Stra{\ss}burger~\cite{dissvonlutz} that
   $\fographof{\frameof\Deri}=\tuple{\graphof{\frameof
-      C},\linkingof{\frameof\Deri}}$ can not contain an induced
+      C},\linkingof{\frameof\Deri}}$ cannot contain an induced
   bimatching. By Lemma~\ref{lem:frame}, $\fographof{\Deri}$ does not
-  have an induced bimatching either. Furthemore, it followed from the
+  have an induced bimatching either. Furthermore, it followed from the
   definition of $\dsubstof\Deri$ that it is a dualizer for
   $\fographof{\Deri}$.
   %Hence $\fographof{\Deri}$ is a fonet.
@@ -2849,7 +2849,7 @@ $vw\in\eG$.
 \begin{proof}
    By \cite[Proposition~7.6.1]{str:07:RTA}, we have a derivation
    $\vlder{\set{\wrD,\PE\fequ}}{\DDeri}{\PE H}{\PE G}$. In order to
-   lift $\DDeri$, we might need to reorganize the instancese of
+   lift $\DDeri$, we might need to reorganize the instances of
    $\wD$. If $H$ contains a subformula $\forall x.A$ which is not
    present in $G$, the $\wD$-instances in $\DDeri$ could introduce the
    parts of the propositional encoding $x\vlor A$ independently.  We
@@ -2941,7 +2941,7 @@ $vw\in\eG$.
   $\vlder{\set{\acD,\me,\PE\fequ}}{\PE\Deri_2}{\PE B_1}{\PE A_1}$,
   where $\PE A_1 =\PE A\substof\phi$ is the result of applying
   $\substof\phi$ to~$\PE A$. Note that $\PE A_1 =
-  \PE{(A\substof\phi)}$ and $\PE B_1$ are both proposional
+  \PE{(A\substof\phi)}$ and $\PE B_1$ are both propositional
   encodings. We plan to show that $\Deri_2$ can be lifted to
   $\set{\acD,\cfaD,\me,\mfaD,\mexD,\fequ}$. However, observe that not
   every formula occurring in $\Deri_2$ is a propositional
@@ -2958,9 +2958,9 @@ $vw\in\eG$.
           \vlhy{\Scons{(x\vlan (E\vlan C))\vlor(x\vlan (F\vlan D))}}}}}
   \end{equation}
   where $x$ occurs in $C\vlor D$. Then premise and conclusion are both
-  proposional encodings, but the whole derivation cannot be
+  propositional encodings, but the whole derivation cannot be
   lifted. However, since we demand that the the mapping is a fibration
-  (and therefore a momomorphism) on the binding graphs, there must be
+  (and therefore a homomorphism) on the binding graphs, there must be
   another instance of $\me$ further below in the derivation:
   \begin{equation}
     \vlderivation{
@@ -3022,7 +3022,7 @@ $vw\in\eG$.
   the height of $\PE\Deri_2$, beginning at the top, making a case
   analysis on the topmost rule that is not a~$\fequ$.
   \begin{itemize}
-  \item $\acDx$: We know that the premisse of~\eqref{eq:acDeq} is a
+  \item $\acDx$: We know that the premise of~\eqref{eq:acDeq} is a
     propositional encoding. Hence, $S_1\conhole=\conhole\vlor \PE E$ and
     $S_2\conhole=\conhole\vlor \PE F$ and both $x$ are universals, and
     $\PE E\vlor \PE F$ contains all occurrences of $x$ bound by that
@@ -3401,7 +3401,7 @@ from any derivation. Intuitively, we want to move all the instances of $\rr \in
 
 We first study the interactions between two rules. Certain cases are unsolved at
 this stage, and they are considered later when we study the interactions between
-two non-$\fequ$ rule instances seperated by $\fequ$. Only non-trivial cases are
+two non-$\fequ$ rule instances separated by $\fequ$. Only non-trivial cases are
 presented here:
 \begin{itemize}
 \item $\rr_1/\rr_2$, where $\rr_1 \in \set{\wrD, \wfaD}$ and $\rr_2 \in
@@ -3465,6 +3465,7 @@ where in the last case, $x$ is not free in $A$.
 \item $\rr_1/\rr_2$, where $\rr_1 \in \set{\acD, \cfaD}$ and $\rr_2 \in
 \set{\me, \mfaD, \mexD}$: 
   \begin{equation*}
+  \scalebox{.9}{$
   \vlderivation{
     \vlin{\mfaD}{}{\Scons{\forall x.(A \vlor B)}}{
       \vlin{\cfaD}{}{\Scons{(\forall x.A) \vlor (\forall x.B)}}{
@@ -3474,7 +3475,7 @@ where in the last case, $x$ is not free in $A$.
     \vlin{\mfaD}{}{\Scons{\forall x.(A \vlor B)}}{
       \vlin{\fequ}{}{\Scons{(\forall x.A) \vlor (\forall x.B)}}{
         \vlin{\mfaD}{}{\Scons{\forall x.(\forall x.A \vlor B)}}{
-          \vlhy{\Scons{(\forall x.\forall x.A) \vlor (\forall x.B)}}}}}}
+          \vlhy{\Scons{(\forall x.\forall x.A) \vlor (\forall x.B)}}}}}}$}
   \end{equation*}
 
 \item $\cfaD/\fequ$:
@@ -3573,6 +3574,7 @@ where in the last four cases, $x$ is not free in $B$.
 In the following two cases, we assume $x \neq y$ (otherwise they are trivial).
 
 \begin{equation*}
+\scalebox{.9}{$
 \vlderivation{
   \vlin{\fequ}{}{\forall y.\forall x.A}{
     \vlin{\wfaD}{(x \notin fv(\forall y.A))}{\forall x.\forall y.A}{
@@ -3580,10 +3582,11 @@ In the following two cases, we assume $x \neq y$ (otherwise they are trivial).
 \leadsto
 \vlderivation{
   \vlin{\wfaD}{(x \notin fv(A))}{\forall y.\forall x.A}{
-    \vlhy{\forall y.A}}}
+    \vlhy{\forall y.A}}}$}
 \end{equation*}
 
 \begin{equation*}
+\scalebox{.9}{$
 \vlderivation{
   \vlin{\fequ}{}{\forall x.\forall y.A}{
     \vlin{\wfaD}{(x \notin fv(A))}{\forall y.\forall x.A}{
@@ -3591,7 +3594,7 @@ In the following two cases, we assume $x \neq y$ (otherwise they are trivial).
 \leadsto
 \vlderivation{
   \vlin{\wfaD}{(x \notin fv(\forall y.A))}{\forall x.\forall y.A}{
-    \vlhy{\forall y.A}}}
+    \vlhy{\forall y.A}}}$}
 \end{equation*}
 
 \begin{equation*}
@@ -3840,6 +3843,7 @@ $\acD$ under $\fequ$ and then permute $\acD$ under $\rr$.
   \end{equation*}
 
   \begin{equation*}
+  \scalebox{.9}{$
   \vlderivation{
     \vlin{\me}{}{\forall x.((A \vlor B) \vlan (C \vlor D))}{
       \vlin{\fequ}{}{\forall x.((A \vlan C) \vlor (B \vlan
@@ -3852,7 +3856,7 @@ D))}{
       \vlin{\wrD}{}{\forall x.((B \vlor A) \vlan (D \vlor C))}{
         \vlin{\wrD}{}{\forall x.((B \vlor A) \vlan D)}{
           \vlin{\faD}{}{\forall x.(B \vlan D)}{
-            \vlhy{B \vlan D}}}}}}
+            \vlhy{B \vlan D}}}}}}$}
   \end{equation*}
   where in the second case, $x$ is free in $B \vlan D$.
 
