@@ -995,9 +995,9 @@ $\FORM$ of \bfit{formulas}, denoted by $A,B,C,\ldots$:
   \begin{array}{r@{~}l}
     t &\coloneqq~ x \mid f(t_1,\dots,t_n)
     \\[.5ex]
-    a &\coloneqq~ p(t_1,\dots,t_n) \mid \dual p(t_1,\dots,t_n)
+    a &\coloneqq~ \ttt\mid\fff\mid p(t_1,\dots,t_n) \mid \dual p(t_1,\dots,t_n)
     \\[.5ex]
-    A &\coloneqq~ a \mid \ttt\mid\fff\mid A\vlan A \mid A\vlor A \mid \exists x.A \mid \forall x.A
+    A &\coloneqq~ a \mid A\vlan A \mid A\vlor A \mid \exists x.A \mid \forall x.A
 \end{array}
 \end{equation*}
 where the arity of $f$ and $p$ is $n$.
@@ -1248,12 +1248,13 @@ graphs, inductively as follows:
 %% associated fograph $\graphof{A}$ inductively by:\todo{duplicate two sentences above}
 \begin{equation*}
   \begin{array}{r@{\;}l@{\hskip4em}r@{\;}l}
-    \multicolumn{4}{c}{
-      \quad\graphof{\ttt}=\single\ttt
-      \qquad
-      \graphof{\fff}=\single\fff
-      \qquad
-    \graphof{a} = \single a \hbox{\hskip1em(for any atom $a$)} } \\[1.1ex]
+    %% \multicolumn{4}{c}{
+    %%   \quad\graphof{\ttt}=\single\ttt
+    %%   \qquad
+    %%   \graphof{\fff}=\single\fff
+    %%   \qquad
+    %% \graphof{a} = \single a \hbox{\hskip1em(for any atom $a$)} } \\[1.1ex]
+    \graphof{a} &= \single a \rlap{\hskip1em(for any atom $a$)}  \\[.9ex]
     \graphof{A \cor B} &= \graphof{A} + \graphof{B} &
     \graphof{\exists x . A} &= \single x \times \graphof{A} \\[.9ex]
     \graphof{A \cand B} &= \graphof{A} \times \graphof{B} &
@@ -1399,11 +1400,11 @@ $\FORM/\mathord\fequ$.
 
 \subsection{Fonets}
 
-Two atoms are \bfit{pre-dual} if their predicate symbols are dual
+Two atoms are \bfit{pre-dual} if they are not $\ttt$ or $\fff$, and their predicate symbols are dual
 (e.g. $p(x, y)$ and $\dual{p}(y, z)$) and two literals are \bfit{pre-dual} if their
 labels (atoms) are pre-dual. A \bfit{linked fograph} $\tuple{\gC,\linkingof\gC}$ is a coloured fograph $\gC$ such
 that every colour (i.e., equivalence class of~$\linkingof\gC$), called a \bfit{link}, consists of two pre-dual literals, and
-every literal is either $\ttt$-labelled or in a link.
+every literal is either $\ttt$-labelled or in a link. Hence, in a linked fograph no vertex is labeled~$\fff$.
 
 Let $\gC$ be a linked fograph. The set of links can be seen as a unification problem
 by identifying dual predicate symbols. A \bfit{dualizer} of $\gC$ is a substitution $\delta$
@@ -1708,8 +1709,9 @@ Our second result is more surprising, as it is a very strong
 decomposition result for first order logic.
 
 \begin{thm}\label{thm:decomposition}
-  For every derivation $\vlder{\FOKS}{\Deri}{A}{\ttt}$ there are formulas $A_1,\ldots,A_5$, such that there is a derivation:
+  For every derivation $\vlder{\FOKS}{\Deri}{A}{\ttt}$ there are $\fff$-free formulas $A_1,\ldots,A_5$, such that there is a derivation:
   \begin{equation*}
+    \scalebox{.9}{$
     \vlderivation{
       \vlde{\set{\wrD,\wfaD,\fequ}}{}{A}{
         \vlde{\set{\acD,\cfaD}}{}{A_1}{
@@ -1718,6 +1720,7 @@ decomposition result for first order logic.
               \vlde{\set{\sw,\mix,\fequ}}{}{A_4}{
                 \vlde{\set{\faD,\aiD,\tttD}}{}{A_5}{
                   \vlhy{\ttt}}}}}}}}
+    $}
   \end{equation*}
 \end{thm}
 \noindent
@@ -1732,11 +1735,15 @@ $\wfaD$ and $\cfaD$ in system $\FOKS$, as these rules are derivable
 with the other rules. However, they are needed to obtain this
 decomposition.
 
-\begin{example}
-  Below is an example of a decomposed derivation in $\FOKS$ of the
+%\begin{example}
+  Figure~\ref{fig:example-decompose} shows an example of a decomposed derivation in $\FOKS$ of the
   formula $(\exists x. \cneg{p}(x)) \vlor (\forall y.(p(y) \vlan
-  p(f(y))))$:
+  p(f(y))))$.
+%\end{example}
+
+\begin{figure}
   \begin{equation*}
+    \scalebox{.9}{$
     \vlderivation{
       \vlin{\acD}{}{(\exists x. \cneg{p}x) \vlor (\forall y.(py \vlan pfy))}{
         \vlin{\mexD}{}{(\exists x. (\cneg{p}x \vlor \cneg{p}x) \vlor (\forall
@@ -1760,19 +1767,24 @@ decomposition.
                       \vlin{\ttt}{}{\forall y.(\ttt \vlan \ttt)}{
                         \vlin{\forall}{}{\forall y.\ttt}{
                           \vlhy{\ttt}}}}}}}}}}}}}}
-  \end{equation*}
-\end{example}
+    $}
+  \end{equation*}    
+    \caption{Example derivation in decomposed form of Theorem~\ref{thm:decomposition}}
+    \label{fig:example-decompose}
+  \end{figure}
 %
 There is a weaker version of Theorem~\ref{thm:decomposition} that will
 also be useful:
 %
 \begin{thm}\label{thm:decompositionA}
-  For every derivation $\vlder{\FOKS}{\Deri}{A}{\ttt}$ there is a formula $A_1$, such that there is a derivation:
+  For every derivation $\upsmash{\vlder{\FOKS}{\Deri}{A}{\ttt}}$ there is a formula~$A_1$ not containing any occurence of $\fff$, such that there is a derivation:
   \begin{equation*}
+    %\scalebox{.9}{$
     \vlderivation{
       \vlde{\set{\wrD,\cD,\fequ}}{}{A}{
         \vlde{\FOMLS}{}{A_1}{
           \vlhy{\ttt}}}}
+   % $}
   \end{equation*}
 \end{thm}
 
@@ -1788,10 +1800,10 @@ combinatorial proofs.
         \vlde{\FOMLS}{\Deri_1}{A'}{
           \vlhy{\ttt}}}}
   \end{equation}
-  for some $A'\fequ C\substof\phi$ where $C$ is a formula with $\graphof
-  C=\gC$ and $\substof\phi$ is the variable renaming substitution
+  for some $A'\fequ C\rsubstof\phi$ where $C$ is a formula with $\graphof
+  C=\gC$ and $\rsubstof\phi$ is the variable renaming substitution
   induced by~$\phi$.  Conversely,
-  whenever we have a derivation as in~\eqref{eq:decom} above, then
+  whenever we have a derivation as in~\eqref{eq:decom} above, such that $\fff$ does not occur in~$A_1$, then
   there is a combinatorial proof $\phi\colon\gC\to\graphof A$ such
   that $\gC=\graphof{\rectif{A'}}$.
 \end{thm}
@@ -1842,12 +1854,13 @@ In this section we show the equivalence of $\FOMLL$ and $\FOMLS$.
 \begin{proof}
   This is a straightforward induction on the proof of $\sqn\Gamma$ in
   $\FOMLL$, making a case analysis on the bottommost rule instance. We
-  show here only the case of $\vlinf{\forall}{}{\sqn{\Delta,\forall
-      x.A}}{\sqn{\Delta,A}}$ (all other cases are simpler and have
-  been shown before, e.g.~\cite{brunnler:phd}): By induction
-  hypothesis, there is a proof of $\form\Delta\vlor A$ in $\FOMLS$. We
-  can prefix every line in that proof by $\forall x$ and then compose
-  the following derivation:
+  show here only the case of
+%%  $\downsmash{\vlinf{\fff}{}{\sqn{\Delta,\fff}}{\sqn\Delta}}$ and
+  $\vlinf{\forall}{}{\sqn{\Delta,\forall x.A}}{\sqn{\Delta,A}}$ (all
+  other cases are simpler or have been shown before,
+  e.g.~\cite{brunnler:phd}): By induction hypothesis, there is a proof
+  of $\form\Delta\vlor A$ in $\FOMLS$. We can prefix every line in
+  that proof by $\forall x$ and then compose the following derivation:
   \begin{center}\vspace{-2ex}\begin{math}
     \vlderivation{
       \vlin{\fequ}{}{\form\Delta\vlor\forall x.A}{
@@ -1860,11 +1873,12 @@ In this section we show the equivalence of $\FOMLL$ and $\FOMLS$.
 
 \begin{lemma}\label{lem:shallow}
   Let $\vlinf{\rr}{}{\Scons B}{\Scons A}$ be an inference rule in
-  $\FOMLS$ other than $\aiD$. Then the sequent $\sqn{\cneg A,B}$ is provable in $\FOMLL$.
+  $\FOMLS$. Then the sequent $\sqn{\cneg A,B}$ is provable in $\FOMLL$.
 \end{lemma}
 \begin{proof}
-  This is a straightforward exercise that we leave to the reader. (Note that the
-$\ax$-rule can be applied to $\sqn{\fff,\ttt}$ in the cases of $\rr = \faD$.)
+  This is a straightforward exercise.
+%%  that we leave to the reader. (Note that the
+%%$\ax$-rule can be applied to $\sqn{\fff,\ttt}$ in the cases of $\rr = \faD$.)
 \end{proof}
 
 \begin{lemma}\label{lem:context}
@@ -1885,25 +1899,26 @@ $\ax$-rule can be applied to $\sqn{\fff,\ttt}$ in the cases of $\rr = \faD$.)
   We proceed by induction on the number of inference steps in the
   proof of $C$ in $\FOMLS$. Consider the bottommost rule instance
   $\vlinf{\rr}{}{\Scons B}{\Scons A}$. By induction hypothesis we have
-  a $\FOMLL$ proof $\Proof$ of $\sqn{\Scons A}$. If $\rr$ is
-  $\upsmash{\vlinf{\aiD}{}{\Scons{a\vlor\cneg a}}{\Scons\ttt}}$, we replace
-  in $\Pi$ all corresponding occurrences of $\ttt$ with
-  $a \vlor \cneg a$ and the rule instance
-  $\vlinf{\ttt}{}{\sqn{\ttt}}{}$ with the derivation $ \vlderivation{
-    \vlin{\vlor}{}{\sqn{a \vlor \cneg a}}{ \vlin{\axr}{}{\sqn{a, \cneg
-          a}}{ \vlhy{}}}} $. This gives us a proof of
-  $\sqn{\Scons{a \vlor \cneg a}}$. In all other cases, 
-    %\item $\vlinf{\faD}{}{\Scons{\forall x.\ttt}}{\Scons\ttt}$
-     % In this case, we replace simultaneously in $\Pi$ the corresponding
-     % occurrences of $\ttt$ with $\forall x.\ttt$ and the rule instance
-     % $\vlinf{\ttt}{}{\sqn{\ttt}}{}$ with the derivation
-     % $
-     % \vlderivation{
-     %   \vlin{\forall}{}{\sqn{\forall x.\ttt}}{
-     %     \vlin{\axr}{}{\sqn{\ttt}}{
-     %       \vlhy{}}}}
-     % $, and we get a proof $\Pi'$ of $\sqn{\Scons{\forall x.\ttt}}$.
-      by Lemmas~\ref{lem:shallow} and~\ref{lem:context}, we have a $\FOMLL$ proof of
+  a $\FOMLL$ proof $\Proof$ of $\sqn{\Scons A}$.
+  %% If $\rr$ is
+  %% $\upsmash{\vlinf{\aiD}{}{\Scons{a\vlor\cneg a}}{\Scons\ttt}}$, we replace
+  %% in $\Pi$ all corresponding occurrences of $\ttt$ with
+  %% $a \vlor \cneg a$ and the rule instance
+  %% $\vlinf{\ttt}{}{\sqn{\ttt}}{}$ with the derivation $ \vlderivation{
+  %%   \vlin{\vlor}{}{\sqn{a \vlor \cneg a}}{ \vlin{\axr}{}{\sqn{a, \cneg
+  %%         a}}{ \vlhy{}}}} $. This gives us a proof of
+  %% $\sqn{\Scons{a \vlor \cneg a}}$. In all other cases, 
+  %%   %\item $\vlinf{\faD}{}{\Scons{\forall x.\ttt}}{\Scons\ttt}$
+  %%    % In this case, we replace simultaneously in $\Pi$ the corresponding
+  %%    % occurrences of $\ttt$ with $\forall x.\ttt$ and the rule instance
+  %%    % $\vlinf{\ttt}{}{\sqn{\ttt}}{}$ with the derivation
+  %%    % $
+  %%    % \vlderivation{
+  %%    %   \vlin{\forall}{}{\sqn{\forall x.\ttt}}{
+  %%    %     \vlin{\axr}{}{\sqn{\ttt}}{
+  %%    %       \vlhy{}}}}
+  %%    % $, and we get a proof $\Pi'$ of $\sqn{\Scons{\forall x.\ttt}}$.
+      By Lemmas~\ref{lem:shallow} and~\ref{lem:context}, we have a $\FOMLL$ proof of
       $\sqn{\cneg{\Scons A},\Scons B}$. We can compose them via $\cutr$:
       \begin{equation*}
         \vliinf{\cutr}{}{\sqn{\Scons B}}{\sqn{\Scons A}}{\sqn{\cneg{\Scons
@@ -1933,52 +1948,53 @@ other results.
 \end{lemma}
 
 \begin{proof}
-  We show that there is always a derivation
-  $$
-  \vlderivation{
-    \vlde{\sysS}{}{A}{
-      \vlhy{A \vlor A}}}
-  $$, where $\sysS = \set{\acD,\me,\mfaD,\mexD,\fequ}$, by induction on $A$:
-  \begin{itemize}
-    \item If $A = a$, then we have
-      $
-      \vlderivation{
-        \vlin{\acD}{}{a}{
-          \vlhy{a \vlor a}}}
-      $.
-    \item If $A = B \vlan C$, then we have
-      $
-      \vlderivation{
-	\vlde{\sysS}{}{B \vlan C}{
-	  \vlde{\sysS}{}{B \vlan (C \vlor C)}{
-	    \vlin{\me}{}{(B \vlor B) \vlan (C \vlor C)}{
-	      \vlhy{(B \vlan C) \vlor (B \vlan C)}}}}}
-      $.\\[.5ex]
-    \item If $A = B \vlor C$, then we have
-      $
-      \vlderivation{
-	\vlde{\sysS}{}{B \vlor C}{
-	  \vlde{\sysS}{}{B \vlor (C \vlor C)}{
-	    \vlin{\fequ}{}{(B \vlor B) \vlor (C \vlor C)}{
-	      \vlhy{(B \vlor C) \vlor (B \vlor C)}}}}}
-      $.\\[.5ex]
-    \item If $A = \exists x.A'$, then we have
-      $
-      \vlderivation{
-	\vlde{\sysS}{}{\exists x.A'}{
-	  \vlin{\mexD}{}{\exists x.(A' \vlor A')}{
-	    \vlhy{(\exists x.A') \vlor (\exists x.A')}}}}
-      $.\\[.5ex]
-    \item If $A = \forall x.A'$, then we have
-      $
-      \vlderivation{
-	\vlde{\sysS}{}{\forall x.A'}{
-	  \vlin{\mexD}{}{\forall x.(A' \vlor A')}{
-	    \vlhy{(\forall x.A') \vlor (\forall x.A')}}}}
-      $.
-  \end{itemize}
-  \todo{}
-  \juihsuan{done. Maybe just keep one case.}\lutz{yes, but we do that at the end. don't think about space right now.}
+  This can be shown by a straightforward induction on $A$ (for details, see e.g.~\cite{brunnler:phd}).
+  %% We show that there is always a derivation
+  %% $$
+  %% \vlderivation{
+  %%   \vlde{\sysS}{}{A}{
+  %%     \vlhy{A \vlor A}}}
+  %% $$, where $\sysS = \set{\acD,\me,\mfaD,\mexD,\fequ}$, by induction on $A$:
+  %% \begin{itemize}
+  %%   \item If $A = a$, then we have
+  %%     $
+  %%     \vlderivation{
+  %%       \vlin{\acD}{}{a}{
+  %%         \vlhy{a \vlor a}}}
+  %%     $.
+  %%   \item If $A = B \vlan C$, then we have
+  %%     $
+  %%     \vlderivation{
+  %%       \vlde{\sysS}{}{B \vlan C}{
+  %%         \vlde{\sysS}{}{B \vlan (C \vlor C)}{
+  %%           \vlin{\me}{}{(B \vlor B) \vlan (C \vlor C)}{
+  %%             \vlhy{(B \vlan C) \vlor (B \vlan C)}}}}}
+  %%     $.\\[.5ex]
+  %%   \item If $A = B \vlor C$, then we have
+  %%     $
+  %%     \vlderivation{
+  %%       \vlde{\sysS}{}{B \vlor C}{
+  %%         \vlde{\sysS}{}{B \vlor (C \vlor C)}{
+  %%           \vlin{\fequ}{}{(B \vlor B) \vlor (C \vlor C)}{
+  %%             \vlhy{(B \vlor C) \vlor (B \vlor C)}}}}}
+  %%     $.\\[.5ex]
+  %%   \item If $A = \exists x.A'$, then we have
+  %%     $
+  %%     \vlderivation{
+  %%       \vlde{\sysS}{}{\exists x.A'}{
+  %%         \vlin{\mexD}{}{\exists x.(A' \vlor A')}{
+  %%           \vlhy{(\exists x.A') \vlor (\exists x.A')}}}}
+  %%     $.\\[.5ex]
+  %%   \item If $A = \forall x.A'$, then we have
+  %%     $
+  %%     \vlderivation{
+  %%       \vlde{\sysS}{}{\forall x.A'}{
+  %%         \vlin{\mexD}{}{\forall x.(A' \vlor A')}{
+  %%           \vlhy{(\forall x.A') \vlor (\forall x.A')}}}}
+  %%     $.
+  %% \end{itemize}
+  %% \todo{}
+  %% \juihsuan{done. Maybe just keep one case.}\lutz{yes, but we do that at the end. don't think about space right now.}
 \end{proof}
 
 \begin{lemma}
@@ -1987,10 +2003,9 @@ other results.
 \end{lemma}
 
 \begin{proof}
-  \todo{}
-
-  We have the following derivations:
+  We only show the cases for $\wfaD$ and $\cfaD$:
   $$
+  \todo{}
   \vlderivation{
     \vlin{\cD}{}{\forall x.A}{
       \vlin{\fequ}{(x \notin fv(A))}{\forall x.(A \vlor A)}{
@@ -2003,35 +2018,44 @@ other results.
       \vlin{\equiv}{(x \notin fv(\forall x.A))}{(\forall x.A) \vlor (\forall x.A)}{
         \vlin{\wrD}{}{\forall x.((\forall x.A) \vlor A)}{
           \vlhy{\forall x.\forall x.A}}}}}
-  $$.
   $$
-  \vlderivation{
-    \vlin{\cD}{}{(A \vlor B) \vlan (C \vlor D)}{
-      \vlin{\fequ}{}{((A \vlor B) \vlan (C \vlor D)) \vlor ((A \vlor B) \vlan (C \vlor D))}{
-      \vlin{\wrD}{}{((A \vlor B) \vlan (C \vlor D)) \vlor ((B \vlor A) \vlan (D \vlor C))}{
-	\vlin{\wrD}{}{((A \vlor B) \vlan (C \vlor D)) \vlor ((B \vlor A) \vlan D))}{
-	  \vlin{\wrD}{}{((A \vlor B) \vlan (C \vlor D)) \vlor (B \vlan D))}{
-	    \vlin{\wrD}{}{((A \vlor B) \vlan C) \vlor (B \vlan D)}{
-	      \vlhy{(A \vlan C) \vlor (B \vlan D)}}}}}}}}
-  $$.
-  $$
-  \vlderivation{
-    \vlin{\cD}{}{\exists x.(A \vlor B)}{
-      \vlin{\fequ}{}{\exists x.(A \vlor B)) \vlor (\exists x.(A \vlor B))}{
-      \vlin{\wrD}{}{(\exists x.(A \vlor B)) \vlor (\exists x.(B \vlor A))}{
-	\vlin{\wrD}{}{(\exists x.(A \vlor B)) \vlor (\exists x.B)}{
-	  \vlhy{(\exists x.A) \vlor (\exists x.B)}}}}}}
-  $$.
-  $$
-  \vlderivation{
-    \vlin{\cD}{}{\forall x.(A \vlor B)}{
-      \vlin{\fequ}{}{(\forall x.(A \vlor B)) \vlor (\forall x.(A \vlor B))}{
-      \vlin{\wrD}{}{(\forall x.(A \vlor B)) \vlor (\forall x.(B \vlor A))}{
-	\vlin{\wrD}{}{(\forall x.(A \vlor B)) \vlor (\forall x.B)}{
-	  \vlhy{(\forall x.A) \vlor (\forall x.B)}}}}}}
-  $$.
-  \juihsuan{done. If needed, we can introduce the notion of open deduction to
-reduce the size of derivations...}\lutz{I was thinking about that, but (i) it is probably not worth the effort, as we wont have many derivation, and (ii) it is hard to define rectified derivations this way.}
+  The other cases have been shown before (e.g.~\cite{brunnler:phd}).
+%%   We have the following derivations:
+%%   $$
+%%   \vlderivation{
+%%     \vlin{\cD}{}{\forall x.A}{
+%%       \vlin{\equiv}{(x \notin fv(\forall x.A))}{(\forall x.A) \vlor (\forall x.A)}{
+%%         \vlin{\wrD}{}{\forall x.((\forall x.A) \vlor A)}{
+%%           \vlhy{\forall x.\forall x.A}}}}}
+%%   $$.
+%%   $$
+%%   \vlderivation{
+%%     \vlin{\cD}{}{(A \vlor B) \vlan (C \vlor D)}{
+%%       \vlin{\fequ}{}{((A \vlor B) \vlan (C \vlor D)) \vlor ((A \vlor B) \vlan (C \vlor D))}{
+%%       \vlin{\wrD}{}{((A \vlor B) \vlan (C \vlor D)) \vlor ((B \vlor A) \vlan (D \vlor C))}{
+%% 	\vlin{\wrD}{}{((A \vlor B) \vlan (C \vlor D)) \vlor ((B \vlor A) \vlan D))}{
+%% 	  \vlin{\wrD}{}{((A \vlor B) \vlan (C \vlor D)) \vlor (B \vlan D))}{
+%% 	    \vlin{\wrD}{}{((A \vlor B) \vlan C) \vlor (B \vlan D)}{
+%% 	      \vlhy{(A \vlan C) \vlor (B \vlan D)}}}}}}}}
+%%   $$.
+%%   $$
+%%   \vlderivation{
+%%     \vlin{\cD}{}{\exists x.(A \vlor B)}{
+%%       \vlin{\fequ}{}{\exists x.(A \vlor B)) \vlor (\exists x.(A \vlor B))}{
+%%       \vlin{\wrD}{}{(\exists x.(A \vlor B)) \vlor (\exists x.(B \vlor A))}{
+%% 	\vlin{\wrD}{}{(\exists x.(A \vlor B)) \vlor (\exists x.B)}{
+%% 	  \vlhy{(\exists x.A) \vlor (\exists x.B)}}}}}}
+%%   $$.
+%%   $$
+%%   \vlderivation{
+%%     \vlin{\cD}{}{\forall x.(A \vlor B)}{
+%%       \vlin{\fequ}{}{(\forall x.(A \vlor B)) \vlor (\forall x.(A \vlor B))}{
+%%       \vlin{\wrD}{}{(\forall x.(A \vlor B)) \vlor (\forall x.(B \vlor A))}{
+%% 	\vlin{\wrD}{}{(\forall x.(A \vlor B)) \vlor (\forall x.B)}{
+%% 	  \vlhy{(\forall x.A) \vlor (\forall x.B)}}}}}}
+%%   $$.
+%%   \juihsuan{done. If needed, we can introduce the notion of open deduction to
+%% reduce the size of derivations...}\lutz{I was thinking about that, but (i) it is probably not worth the effort, as we wont have many derivation, and (ii) it is hard to define rectified derivations this way.}
 \end{proof}
 
 \begin{lemma}
@@ -2050,7 +2074,7 @@ reduce the size of derivations...}\lutz{I was thinking about that, but (i) it is
 \end{lemma}
 
 \begin{proof}
-  This follows immediately from Lemmas~\ref{lem:ac} and~\ref{lem:me}.
+  Immediately from Lemmas~\ref{lem:ac} and~\ref{lem:me}.
 \end{proof}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -3178,7 +3202,7 @@ Sections~\ref{sec:linear} and~\ref{sec:skew}.
 
   Conversely, assume we have a decomposed derivation
   \begin{equation}
-    \label{eq:decom}
+    \label{eq:decomx}
     \vlderivation{
       \vlde{\set{\wrD,\acD,\me,\mfaD,\mexD,\fequ}}{\Deri_2}{A}{
         \vlde{\FOMLS}{\Deri_1}{A'}{
