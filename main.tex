@@ -2077,7 +2077,7 @@ other results.
 %All statements in this section are proved by rule permutation arguments.
 \begin{thm}\label{thm:LK1-decompose}
   Let $\Gamma$ be a sequent. If\/ $\sqn\Gamma$ is provable in $\FOLK$ (as depicted on the left below) then there is a sequent
-  $\Gamma'$ such that there is a derivation as shown on the right below:\vadjust{\vskip-2ex}
+  $\Gamma'$ not containing any $\fff$, such that there is a derivation as shown on the right below:\vadjust{\vskip-2ex}
   \begin{equation*}
     \vlderivation{
         \vltrl{}{\FOLK}{\Deri}{\sqns{\Gamma}}{
@@ -2089,7 +2089,7 @@ other results.
     \qquad
     \vlderivation{
       \vlde{\set{\wrD,\cD,\fequ}}{\Deri_2}{\sqns{\form{\Gamma}}}{
-        \vltrl{}{\FOMLL}{\Deri_1}{\sqns{\Gamma'}}{
+        \vltrl{}{\FOMLL}{\Deri_1}{\sqns{\form{\Gamma'}}}{
           \vlhy{\quad}}{
           \vlhy{}}{
           \vlhy{}}}}
@@ -2097,119 +2097,10 @@ other results.
 \end{thm}
 
 \begin{proof}
-
-  Note that the instances of $\wrD,\cD$ in $\Deri_2$ are deep, but inside sequent contexts.
-
-First, if an instance of $\vlinf{\weakr}{}{\sqn{\Gamma,A}}{\sqn{\Gamma}}$
- is followed by a rule in which $A$ is not in the principal
-formula, it can be permuted downwards.
-Otherwise, the proof can be transformed using the following rewriting rules.
-
-\begin{equation*}
-\vlderivation{
-  \vliin{\vlan}{}{\sqns{\Gamma, A \vlan B, \Delta}}{
-    \vlin{\weakr}{}{\sqns{\Gamma, A}}{
-      \vlhy{\sqns{\Gamma}}}}{
-    \vlhy{\sqns{B, \Delta}}}}
-\leadsto
-\vlderivation{
-  \vlin{\weakr}{}{\sqns{\Gamma, A \vlan B, \Delta}}{
-    \vlin{\weakr}{}{\vlvdots}{
-      \vlhy{\sqns{\Gamma}}}}}
-\end{equation*}
-\begin{equation*}
-\vlderivation{
-  \vlin{\vlor}{}{\sqns{\Gamma, A \vlor B}}{
-    \vlin{\weakr}{}{\sqns{\Gamma, A, B}}{
-      \vlhy{\sqns{\Gamma, A}}}}}
-\leadsto
-\vlderivation{
-  \vlin{\wrD}{}{\sqns{\Gamma, A \vlor B}}{
-    \vlhy{\sqns{\Gamma, A}}}}
-\end{equation*}
-\begin{equation*}
-\vlderivation{
-  \vlin{\exists}{}{\sqns{\Gamma, \exists x.A}}{
-    \vlin{\weakr}{}{\sqns{\Gamma, A\ssubst{x}{t}}}{
-      \vlhy{\sqns{\Gamma}}}}}
-\leadsto
-\vlderivation{
-  \vlin{\weakr}{}{\sqns{\Gamma, \exists x.A}}{
-    \vlhy{\sqns{\Gamma}}}}
-\end{equation*}
-\begin{equation*}
-\vlderivation{
-  \vlin{\forall}{}{\sqns{\Gamma, \forall x.A}}{
-    \vlin{\weakr}{}{\sqns{\Gamma, A}}{
-      \vlhy{\sqns{\Gamma}}}}}
-\leadsto
-\vlderivation{
-  \vlin{\weakr}{}{\sqns{\Gamma, \forall x.A}}{
-    \vlhy{\sqns{\Gamma}}}}
-\end{equation*}
-\begin{equation*}
-\vlderivation{
-  \vlin{\conr}{}{\sqns{\Gamma, A}}{
-    \vlin{\weakr}{}{\sqns{\Gamma, A, A}}{
-      \vlhy{\sqns{\Gamma, A}}}}}
-\leadsto
-\vlderivation{
-  \vlhy{\sqns{\Gamma, A}}}
-\end{equation*}
-Note that in the case of $\vlor$, we use the deep rule $\wrD$ which can be
-permuted down over all the rules. By using these rewriting rules, we can eventually get
-a derivation with all the instances of $\weakr$ and $\wrD$ at the bottom. Now observe
-that the instances of $\conr$ in $\Deri$ can be transformed using the following
-rule:
-
-\begin{equation*}
-\vlderivation{
-  \vlin{\conr}{}{\sqns{\Gamma, A}}{
-    \vlhy{\sqns{\Gamma, A, A}}}}
-\leadsto
-\vlderivation{
-  \vlin{\cD}{}{\sqns{\Gamma, A}}{
-    \vlin{\vlor}{}{\sqns{\Gamma, A \vlor A}}{
-      \vlhy{\sqns{\Gamma, A, A}}}}}
-\end{equation*}
-
-Knowing that $\cD$ can be permuted down over all the rules of $\FOMLL$, we
-eventually obtain a derivation:
-\begin{equation*}
-\vlderivation{
-  \vlde{\set{\weakr, \wrD,\cD,\fequ}}{\Deri'_2}{\sqns{\Gamma}}{
-    \vltrl{}{\FOMLL}{\Deri'_1}{\sqns{\Gamma_0}}{
-      \vlhy{\quad}}{
-      \vlhy{}}{
-      \vlhy{}}}}
-\end{equation*}
-Note that $\fequ$ is required here since the permutation of formulas is implicit
-in $\FOMLL$.
-
-By transforming each sequent of $\Deri'_2$ into its corresponding formula, and by
-considering the following rewriting rule:
-\begin{equation*}
-\vlderivation{
-  \vlin{\weakr}{}{\sqns{\Gamma, A}}{
-    \vlhy{\sqns{\Gamma}}}}
-\leadsto
-\vlderivation{
-  \vlin{\wrD}{}{\sqns{\form{\Gamma} \vlor A}}{
-    \vlhy{\sqns{\form{\Gamma}}}}}
-\end{equation*},
-we obtain a derivation
-\begin{equation*}
-\vlderivation{
-  \vlde{\set{\wrD,\cD,\fequ}}{\Deri_2}{\sqns{\form{\Gamma}}}{
-    \vltrl{}{\FOMLL}{\Deri_1}{\sqns{\Gamma'}}{
-      \vlhy{\quad}}{
-      \vlhy{}}{
-      \vlhy{}}}}
-\end{equation*}
-where $\Gamma' = \form{\Gamma_0}$ and $\Deri_1$ can be obtained from $\Deri'_1$
-by applying the $\vlor$ rule.
-\tocheck{}
-\juihsuan{This might be a bit long...}
+  First, we can replace every instance of the $\fff$-rule by
+  $\weakr$. Then the instances of $\weakr$ and $\conr$ are replaced by
+  $\wD$ and $\cD$, which can then be permuted down. (Details are in
+  Appendix~\ref{app:LK1-decompose}.
 \end{proof}
 
 
@@ -3368,6 +3259,125 @@ both have their insufficiencies, and there is no general theory.
 \vskip3em
 
 \appendix
+
+\subsection{Proof of Theorem~\ref{thm:LK1-decompose}}
+\label{app:LK1-decompose}
+
+\begin{proof}[Proof of Theorem~\ref{thm:LK1-decompose}]
+
+  Note that the instances of $\wrD,\cD$ in $\Deri_2$ are deep, but inside sequent contexts.
+
+First, if an instance of $\vlinf{\weakr}{}{\sqn{\Gamma,A}}{\sqn{\Gamma}}$
+ is followed by a rule in which $A$ is not in the principal
+formula, it can be permuted downwards.
+Otherwise, the proof can be transformed using the following rewriting rules.
+
+\begin{equation*}
+\vlderivation{
+  \vliin{\vlan}{}{\sqns{\Gamma, A \vlan B, \Delta}}{
+    \vlin{\weakr}{}{\sqns{\Gamma, A}}{
+      \vlhy{\sqns{\Gamma}}}}{
+    \vlhy{\sqns{B, \Delta}}}}
+\leadsto
+\vlderivation{
+  \vlin{\weakr}{}{\sqns{\Gamma, A \vlan B, \Delta}}{
+    \vlin{\weakr}{}{\vlvdots}{
+      \vlhy{\sqns{\Gamma}}}}}
+\end{equation*}
+\begin{equation*}
+\vlderivation{
+  \vlin{\vlor}{}{\sqns{\Gamma, A \vlor B}}{
+    \vlin{\weakr}{}{\sqns{\Gamma, A, B}}{
+      \vlhy{\sqns{\Gamma, A}}}}}
+\leadsto
+\vlderivation{
+  \vlin{\wrD}{}{\sqns{\Gamma, A \vlor B}}{
+    \vlhy{\sqns{\Gamma, A}}}}
+\end{equation*}
+\begin{equation*}
+\vlderivation{
+  \vlin{\exists}{}{\sqns{\Gamma, \exists x.A}}{
+    \vlin{\weakr}{}{\sqns{\Gamma, A\ssubst{x}{t}}}{
+      \vlhy{\sqns{\Gamma}}}}}
+\leadsto
+\vlderivation{
+  \vlin{\weakr}{}{\sqns{\Gamma, \exists x.A}}{
+    \vlhy{\sqns{\Gamma}}}}
+\end{equation*}
+\begin{equation*}
+\vlderivation{
+  \vlin{\forall}{}{\sqns{\Gamma, \forall x.A}}{
+    \vlin{\weakr}{}{\sqns{\Gamma, A}}{
+      \vlhy{\sqns{\Gamma}}}}}
+\leadsto
+\vlderivation{
+  \vlin{\weakr}{}{\sqns{\Gamma, \forall x.A}}{
+    \vlhy{\sqns{\Gamma}}}}
+\end{equation*}
+\begin{equation*}
+\vlderivation{
+  \vlin{\conr}{}{\sqns{\Gamma, A}}{
+    \vlin{\weakr}{}{\sqns{\Gamma, A, A}}{
+      \vlhy{\sqns{\Gamma, A}}}}}
+\leadsto
+\vlderivation{
+  \vlhy{\sqns{\Gamma, A}}}
+\end{equation*}
+Note that in the case of $\vlor$, we use the deep rule $\wrD$ which can be
+permuted down over all the rules. By using these rewriting rules, we can eventually get
+a derivation with all the instances of $\weakr$ and $\wrD$ at the bottom. Now observe
+that the instances of $\conr$ in $\Deri$ can be transformed using the following
+rule:
+
+\begin{equation*}
+\vlderivation{
+  \vlin{\conr}{}{\sqns{\Gamma, A}}{
+    \vlhy{\sqns{\Gamma, A, A}}}}
+\leadsto
+\vlderivation{
+  \vlin{\cD}{}{\sqns{\Gamma, A}}{
+    \vlin{\vlor}{}{\sqns{\Gamma, A \vlor A}}{
+      \vlhy{\sqns{\Gamma, A, A}}}}}
+\end{equation*}
+
+Knowing that $\cD$ can be permuted down over all the rules of $\FOMLL$, we
+eventually obtain a derivation:
+\begin{equation*}
+\vlderivation{
+  \vlde{\set{\weakr, \wrD,\cD,\fequ}}{\Deri'_2}{\sqns{\Gamma}}{
+    \vltrl{}{\FOMLL}{\Deri'_1}{\sqns{\Gamma_0}}{
+      \vlhy{\quad}}{
+      \vlhy{}}{
+      \vlhy{}}}}
+\end{equation*}
+Note that $\fequ$ is required here since the permutation of formulas is implicit
+in $\FOMLL$.
+
+By transforming each sequent of $\Deri'_2$ into its corresponding formula, and by
+considering the following rewriting rule:
+\begin{equation*}
+\vlderivation{
+  \vlin{\weakr}{}{\sqns{\Gamma, A}}{
+    \vlhy{\sqns{\Gamma}}}}
+\leadsto
+\vlderivation{
+  \vlin{\wrD}{}{\sqns{\form{\Gamma} \vlor A}}{
+    \vlhy{\sqns{\form{\Gamma}}}}}
+\end{equation*},
+we obtain a derivation
+\begin{equation*}
+\vlderivation{
+  \vlde{\set{\wrD,\cD,\fequ}}{\Deri_2}{\sqns{\form{\Gamma}}}{
+    \vltrl{}{\FOMLL}{\Deri_1}{\sqns{\Gamma'}}{
+      \vlhy{\quad}}{
+      \vlhy{}}{
+      \vlhy{}}}}
+\end{equation*}
+where $\Gamma' = \form{\Gamma_0}$ and $\Deri_1$ can be obtained from $\Deri'_1$
+by applying the $\vlor$ rule.
+\end{proof}
+
+
 
 \subsection{Rule permutation for the proof of Lemma~\ref{lem:cw-decomposition}}
   
