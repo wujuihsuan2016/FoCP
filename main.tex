@@ -470,6 +470,7 @@
 \renewcommand\acD {\mathsf{ac}}
 \newcommand\acDx {\mathsf{ac}_x}
 \newcommand\acDeq {\mathsf{ac}_x^\fequ}
+\newcommand\wfaD {\mathsf{w_\forall}}
 \newcommand\cfaD {\mathsf{c_\forall}}
 \newcommand\mfaD {\mathsf{m_\forall}}
 \newcommand\mexD {\mathsf{m_\exists}}
@@ -712,7 +713,7 @@ The main reason for this problem is that formal proofs, as they are
 usually studied in logic, are inextricably tied to the syntactic
 (inference rule based) proof system in which they are carried out. And
 it is difficult to compare two proofs that are produced within two
-different syntactic proof systems, based on different sets of inference rules.
+different syntactic proof systems, based on different sets of inference rules. Just consider the derivations in Figure~\ref{fig:translate}, showing two proofs of the formula $\peirceformula$ and two proofs of the formula $\veedrinkerformula$, one in the sequent calculus (top) and one in a deep inference system (bottom). It is, \emph{a priori}, not clear how to compare them.
 %
 \newcommand\lkpeirceproof{
 \vlderivation{
@@ -880,15 +881,15 @@ a notion of proof identity for first-order logic. \emph{First-order
 combinatorial proofs} were introduced by Hughes in~\cite{hughes:fopws}.
 For example, a first-order combinatorial proof of Smullyan's 
 ``drinker paradox'' $\drinkerformula=\veedrinkerformula$ is shown on the
-right of Fig.\,\ref{fig:translate},\todo{wrong implies symbol in drinkerformula?}
+right of Fig.\,\ref{fig:translate}, %\todo{wrong implies symbol in drinkerformula?}
 a homomorphism from a partially coloured graph to a labelled graph.
 However, even though Hughes proves soundness and completeness, the 
 proof is highly unsatisfactory: (1) the soundness argument is extremely
 long, intricate and cumbersome, and (2) the completeness proof does not 
 allow a syntactic proof to be read back from a combinatorial proof, i.e.,
 completeness is not
-\emph{sequentializable} \cite{girard:87} or
-\emph{full}~\cite{abramsky:jagadeesan:94}.\dominic{ok to say sequentializable too?}
+\emph{sequentializable} \cite{girard:87} nor
+\emph{full}~\cite{abramsky:jagadeesan:94}. %\dominic{ok to say sequentializable too?}
 %
 A fundamental problem is that not all combinatorial
 proofs can be obtained as translations of sequent calculus proofs.
@@ -927,10 +928,10 @@ Combinatorial proofs and deep inference can be seen as opposite ends
 of a spectrum: whereas deep inference allows for a very fine
 granularity of inference rules---one inference rule in a standard
 formalism, like sequent calculus or semantic tableaux, is usually
-simulated by a sequence of different deep inference rules---
-combinatorial proofs have completely abolished the concept of inference
-rule. And yet, there is a close relationship between the two,
-realized through a decomposition theorem, as we establish in this
+simulated by a sequence of different deep inference
+rules---combinatorial proofs have completely abolished the concept of
+inference rule. And yet, there is a close relationship between the
+two, realized through a decomposition theorem, as we establish in this
 paper.
 
 
@@ -994,9 +995,9 @@ $\FORM$ of \bfit{formulas}, denoted by $A,B,C,\ldots$:
   \begin{array}{r@{~}l}
     t &\coloneqq~ x \mid f(t_1,\dots,t_n)
     \\[.5ex]
-    a &\coloneqq~ \ttt\mid\fff\mid p(t_1,\dots,t_n) \mid \dual p(t_1,\dots,t_n)
+    a &\coloneqq~ p(t_1,\dots,t_n) \mid \dual p(t_1,\dots,t_n)
     \\[.5ex]
-    A &\coloneqq~ a \mid A\vlan A \mid A\vlor A \mid \exists x.A \mid \forall x.A
+    A &\coloneqq~ a \mid \ttt\mid\fff\mid A\vlan A \mid A\vlor A \mid \exists x.A \mid \forall x.A
 \end{array}
 \end{equation*}
 where the arity of $f$ and $p$ is $n$.
@@ -1063,13 +1064,15 @@ A \bfit{variable renaming} is a substitution $\rho$ with $\rho(x)\in\VAR$ for al
           \begin{array}{c}
             \vlinf{\axr}{}{\sqn{a,\cneg a}}{}
             \qquad
-            \vlinf{\ttt}{}{\sqn{\ttt}}{}
-            \qquad
-            \vliinf{\mixr}{}{\sqn{\Gamma,\Delta}}{\sqn\Gamma}{\sqn\Delta}
-            \\ \\[-1ex]
             \vlinf{\vlor}{}{\sqn{\Gamma,A\vlor B}}{\sqn{\Gamma,A,B}}
             \qquad
             \vliinf{\vlan}{}{\sqn{\Gamma,A\vlan B, \Delta}}{\sqn{\Gamma,A}}{\sqn{B,\Delta}}
+            \\ \\[-1ex]
+            \vlinf{\ttt}{}{\sqn{\ttt}}{}
+            \qquad\;
+            \vlinf{\fff}{}{\sqn{\Gamma,\fff}}{\sqn{\Gamma}}
+            \qquad\;
+            \vliinf{\mixr}{}{\sqn{\Gamma,\Delta}}{\sqn\Gamma}{\sqn\Delta}
             \\ \\[-1ex]
             \vlinf{\exists}{}{\sqn{\Gamma,\exists x.A}}{\sqn{\Gamma,A\ssubst{x}{t}}}
             \qquad
@@ -1094,8 +1097,9 @@ multisets of formulas, written as lists, separated by comma. The
 \bfit{corresponding formula} of a (non-empty) sequent $\Gamma=A_1,A_2,\ldots,A_n$
 is the disjunction of its formulas: $\form\Gamma=A_1\vlor
 A_2\vlor\cdots\vlor A_n$. A sequent is \bfit{rectified} iff its
-corresponding formula is.\dominic{I changed fm$(\Gamma)$ to $\form\Gamma$,
-easier for referee to understand/intuit/remember later in the paper}
+corresponding formula is.
+%\dominic{I changed fm$(\Gamma)$ to $\form\Gamma$,
+%easier for referee to understand/intuit/remember later in the paper}
 
 In this paper we use the sequent calculus $\FOLK$, shown in
 Figure~\ref{fig:LK1}, which is a one-sided variant of Gentzen's
@@ -1109,14 +1113,15 @@ the $\mixr$-rule.
 %
 \noindent For a proof, see any standard textbook, e.g.~\cite{TS:00}.
 
-The linear fragment of $\FOLK$, i.e., the fragment
-without the rules $\conr$ (\emph{contraction}) and $\weakr$
-(\emph{weakening}) defines \emph{first-order multiplicative linear
+The linear fragment of $\FOLK$, i.e., the fragment without the rules
+$\conr$ (\emph{contraction}) and $\weakr$ (\emph{weakening}) defines
+\emph{first-order multiplicative linear
 logic}~\cite{girard:87,girard:88} \emph{with
-mix}~\cite{fleury:retore:94,bellin:97}~(MLL1+mix). We denote that system
-here with $\FOMLL$ (shown in Figure~\ref{fig:LK1} in the dashed box).
+mix}~\cite{fleury:retore:94,bellin:97}~(MLL1+mix). We denote that
+system here with $\FOMLL$ (shown in Figure~\ref{fig:LK1} in the dashed
+box).
 
-We will employ the cut elimination theorem. The \bfit{cut} rule is
+We will use the cut elimination theorem. The \bfit{cut} rule is
 \begin{equation}
   \vliinf{\cutr}{}{\sqn{\Gamma,\Delta}}{\sqn{\Gamma,A}}{\sqn{\dual A,\Delta}}
 \end{equation}
@@ -1218,8 +1223,7 @@ module $M'$, we have $M' \subseteq M$, $M \subseteq$ or $M \cap M' =
 \subsection{Fographs}
 
 A cograph is \bfit{logical} if every vertex is labelled by either an
-atom or variable, and it has at least one atom-labelled vertex. We
-write $\single\alpha$ for an $\alpha$-labelled vertex. An
+atom or variable, and it has at least one atom-labelled vertex. An
 atom-labelled vertex is called a \bfit{literal} and a
 variable-labelled vertex is called a \bfit{binder}. A binder labelled
 with $x$ is called an \bfit{$x$-binder}. The \bfit{scope} of a binder
@@ -1244,24 +1248,27 @@ graphs, inductively as follows:
 %% associated fograph $\graphof{A}$ inductively by:\todo{duplicate two sentences above}
 \begin{equation*}
   \begin{array}{r@{\;}l@{\hskip4em}r@{\;}l}
-    \graphof{a} &= \single a \rlap{\hskip1em(for any atom $a$)}  \\[.9ex]
+    \multicolumn{4}{c}{
+      \quad\graphof{\ttt}=\single\ttt
+      \qquad
+      \graphof{\fff}=\single\fff
+      \qquad
+    \graphof{a} = \single a \hbox{\hskip1em(for any atom $a$)} } \\[1.1ex]
     \graphof{A \cor B} &= \graphof{A} + \graphof{B} &
     \graphof{\exists x . A} &= \single x \times \graphof{A} \\[.9ex]
     \graphof{A \cand B} &= \graphof{A} \times \graphof{B} &
     \graphof{\forall x . A} &= \single x + \graphof{A}    
   \end{array}
 \end{equation*}
-where $\single a$ (resp. $\single x$) is a single-vertex graph whose vertex is 
-labelled by $a$ (resp. $x$).
+where we
+write $\single\alpha$ for a single-vertex  labelled by $\alpha$.
 
 \begin{example}
-  Below is the fograph of the drinker formula $\drinkerformula=\veedrinkerformula$:
-%
-\begin{center}\vspace{2ex}\begin{tikzpicture}
-\drinkerbase
-\end{tikzpicture}\vspace{1ex}\end{center}
-%
-%
+  Here is the fograph of the drinker formula $\drinkerformula=\veedrinkerformula$:
+  \;\;
+  \hbox{\begin{tikzpicture}[baseline={([yshift={-1.5ex}]current bounding box.north)}]
+      \drinkerbase
+  \end{tikzpicture}}
 \end{example}
 
 \begin{lemma}
@@ -1340,8 +1347,7 @@ $\edgepairpic{x}{px}\mkern9mu\edgepairpic{x}{qx}$.
     \exists x . (A \vlan B) \fequ (\exists x . A) \vlan B
   \end{array}
 \end{equation}
-where $x \notin fv(B)$ in the last two equations.
-\todo{Define $fv$; used later too, e.g.\ proof of Lem.\,\ref{lem:me}}
+where $x$ must not be free in $B$ in the last two equations.
 Two formulas $A$ and $B$ are \bfit{equivalent} if $A \fequ B$. The following
 theorem shows that the set of fographs can been seen as the quotient
 $\FORM/\mathord\fequ$.
@@ -1372,7 +1378,7 @@ $\FORM/\mathord\fequ$.
       %
       \drinkerbindinggraphpic
   \end{equation*}
-  Above-left we show the \emph{cotree} of the underlying
+  Above-middle we show the \emph{cotree} of the underlying
   cograph (illustrating the idea behind Theorem~\ref{thm:cograph}) and
   above-right is its binding graph $\bD$.
 \end{example}
@@ -1617,17 +1623,17 @@ Figure~\ref{fig:cps-condensed} in condensed form.
           $
         }
         \\ \\[-1ex]
+        \vlinf{\wrD}{}{\Scons{A\vlor B}}{\Scons{A}}
+        \quad\;
+        \vlinf{\me}{}{\Scons{(A\vlor B)\vlan(C\vlor D)}}{\Scons{(A\vlan C)\vlor(B\vlan D)}}
+        \quad\;
+        \vlinf{\acD}{}{\Scons{a}}{\Scons{a\vlor a}}
+        \\ \\[-1ex]
         \vlinf{\mfaD}{}{\Scons{\forall x.(A\vlor B)}}{\Scons{(\forall x.A)\vlor(\forall x.B)}}
         \qquad
         \vlinf{\mexD}{}{\Scons{\exists x.(A\vlor B)}}{\Scons{(\exists x.A)\vlor(\exists x.B)}}        
         \\ \\[-1ex]
-        \vlinf{\me}{}{\Scons{(A\vlor B)\vlan(C\vlor D)}}{\Scons{(A\vlan C)\vlor(B\vlan D)}}
-        \\ \\[-1ex]
-        \vlinf{\wrD}{}{\Scons{A\vlor B}}{\Scons{A}}
-        %%\qquad
-        %%\vlinf{\wlD}{}{\Scons{B\vlor A}}{\Scons{A}}
-        \qquad
-        \vlinf{\acD}{}{\Scons{a}}{\Scons{a\vlor a}}
+        \vlinf{\wfaD}{\text{($x$ not free in $A$)}}{\Scons{\forall x.A}}{\Scons{A}}
         \qquad
         \vlinf{\cfaD}{}{\Scons{\forall x. A}}{\Scons{\forall x.\forall x.A}}
       \end{array}
@@ -1703,7 +1709,7 @@ decomposition result for first order logic.
   For every derivation $\vlder{\FOKS}{\Deri}{A}{\ttt}$ there are formulas $A_1,\ldots,A_5$, such that there is a derivation:
   \begin{equation*}
     \vlderivation{
-      \vlde{\set{\wrD,\fequ}}{}{A}{
+      \vlde{\set{\wrD,\wfaD,\fequ}}{}{A}{
         \vlde{\set{\acD,\cfaD}}{}{A_1}{
           \vlde{\set{\me,\mfaD,\mexD,\fequ}}{}{A_2}{
             \vlde{\set{\exD}}{}{A_3}{
@@ -1718,6 +1724,11 @@ first-order logic, which either separated only atomic contraction and
 atomic weakening~\cite{brunnler:phd} or only
 contraction~\cite{ralph:phd} or only the quantifiers in form of a
 Herbrand theorem~\cite{brunnler:06:locality,ralph:phd}.
+
+Theorem~\ref{thm:decomposition} is also the reason why we have te rule
+$\wfaD$ and $\cfaD$ in system $\FOKS$, as these rules are derivable
+with the other rules. However, they are needed to obtain this
+decomposition.
 
 \begin{example}
   Below is an example of a decomposed derivation in $\FOKS$ of the
@@ -1771,7 +1782,7 @@ combinatorial proofs.
   \begin{equation}
     \label{eq:decom}
     \vlderivation{
-      \vlde{\set{\wrD,\acD,\cfaD,\me,\mfaD,\mexD,\fequ}}{\Deri_2}{A}{
+      \vlde{\set{\wrD,\wfaD,\acD,\cfaD,\me,\mfaD,\mexD,\fequ}}{\Deri_2}{A}{
         \vlde{\FOMLS}{\Deri_1}{A'}{
           \vlhy{\ttt}}}}
   \end{equation}
@@ -1970,7 +1981,7 @@ other results.
 
 \begin{lemma}
   \label{lem:me}
-  $\cfaD,\me,\mfaD,\mexD$ are derivable in \hbox{$\set{\wrD,\cD,\fequ}$}. 
+  $\wfaD,\cfaD,\me,\mfaD,\mexD$ are derivable in \hbox{$\set{\wrD,\cD,\fequ}$}. 
 \end{lemma}
 
 \begin{proof}
@@ -2024,7 +2035,7 @@ reduce the size of derivations...}\lutz{I was thinking about that, but (i) it is
     \iff
     \qquad
     \vlderivation{
-      \vlde{\set{\wrD,\acD,\cfaD,\me,\mfaD,\mexD,\fequ}}{}{B}{
+      \vlde{\set{\wrD,\wfaD,\acD,\cfaD,\me,\mfaD,\mexD,\fequ}}{}{B}{
         \vlhy{A}}}
   \end{equation*}
 \end{lemma}
