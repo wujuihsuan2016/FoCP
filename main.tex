@@ -1487,7 +1487,7 @@ Figure~\ref{fig:leap} shows a fonet with a unique dualizer, and its leap graph.
   \end{tikzpicture}
   $$
   \vskip-2ex
-  \caption{Condensed forms of the four combinatorial proofs in Fig.\,\ref{fig:cps}.}
+  \caption{Condensed forms of the four combinatorial proofs in Figure~\ref{fig:cps}. We do not show the lower graph, and indicate the mapping by the position of the vertices of the upper graph.}
   \label{fig:cps-condensed}
   %\vspace{-4ex}
 \end{figure*}
@@ -1544,12 +1544,13 @@ $\gG$, the binder $\phi(b)$ is a existential in $\gH$.
   Below-left is a skew bifibration, whose binding fibration
   is below-centre. When the labels on the source fograph can be inferred
   (modulo renaming),
-  we often omit the labeling in the upper graph, as below-right, which refer to as 
-  \bfit{condensed form}.\dominic{I said ``can be inferred'' to account for 
-  e.g.\
-  $\graphof{\forall x_1\forall x_2 (px_i\vee px_j\vee px_k\vee px_l)}
-  \to \graphof{\forall x\mkern2mu px}$ whose
-  unlabelled skeleton is the skeleton of many distinct formula variants (``who binds who?'').}
+  we often omit the labeling in the upper graph, as below-right.
+  %% , which refer to as 
+  %% \bfit{condensed form}.\dominic{I said ``can be inferred'' to account for 
+  %% e.g.\
+  %% $\graphof{\forall x_1\forall x_2 (px_i\vee px_j\vee px_k\vee px_l)}
+  %% \to \graphof{\forall x\mkern2mu px}$ whose
+  %% unlabelled skeleton is the skeleton of many distinct formula variants (``who binds who?'').}
   \begin{center}\begin{math}
   \scalebox{.9}{
   \begin{tikzpicture}[graph]\drinkerfiblabelledpair{x}{x}
@@ -1574,7 +1575,7 @@ $\graphof{A}$.
 Figure~\ref{fig:cps} shows examples of
 FOCPs (taken from~\cite{hughes:fopws}), each above the formula it proves.
 The same FOCPs are shown in
-Figure~\ref{fig:cps-condensed} in condensed form.
+Figure~\ref{fig:cps-condensed} in a ``condensed form''.
 %
 \begin{thm}[\cite{hughes:fopws}]
   \label{thm:FOCP}
@@ -1584,7 +1585,7 @@ Figure~\ref{fig:cps-condensed} in condensed form.
 \begin{remark}
   Our definition of FOCP is slightly more lax than the original
   definition of~\cite{hughes:fopws}, as we allow for a variable
-  renaming $\substof\phi$ which was forced to be the identity
+  renaming $\rsubstof\phi$ which was forced to be the identity
   in~\cite{hughes:fopws}.
   %The reason for this relaxation in our case is that we want to cover a richer class of proofs, also allowing 
 \end{remark}
@@ -1642,6 +1643,7 @@ Figure~\ref{fig:cps-condensed} in condensed form.
   \end{center}
   \caption{Deep inference systems $\FOKS$ (all rules) and $\FOMLS$ (rules in the dashed box)}
   \label{fig:KS1}
+  \vskip-.2ex
 \end{figure}
 %
 In contrast to to standard proof formalisms, like sequent calculi or
@@ -1669,21 +1671,21 @@ elsewhere (e.g.~\cite{brunnler:06:herbrand,alertubella:guglielmi:18}).%
 inference literature, the cut-free fragment is also called the
 \emph{down-fragment}. But as we do not discuss the \emph{up-fragment}
 here, we omit the down-arrows $\downarrow$ in the rule names.}
-
+%
 As with the sequent system $\FOLK$, we also need for $\FOKS$ the
 \emph{linear fragment}, $\FOMLS$, and that is shown
 in Figure~\ref{fig:KS1} in the dashed box.
 
-Write $\vlder{\sysS}{\Deri}{A}{B}$ to denote a derivation $\Deri$
+We write $\vlder{\sysS}{\Deri}{A}{B}$ to denote a derivation $\Deri$
 from $B$ to $A$ using the rules from system $\sysS$. A formula $A$ is
 \bfit{provable} in a system $\sysS$ if there is a derivation in
 $\sysS$ from $\ttt$ to $A$.
 
 In the course of this paper we will employ the
 general (non-atomic) version of the contraction rule:
-\begin{equation*}
+\begin{equation}
   \vlinf{\cD}{}{\Scons{A}}{\Scons{A\vlor A}}  
-\end{equation*}
+\end{equation}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1718,14 +1720,14 @@ decomposition result for first order logic.
                   \vlhy{\ttt}}}}}}}}
   \end{equation*}
 \end{thm}
-
+\noindent
 This theorem is stronger than the existing decompositions for
-first-order logic, which either separated only atomic contraction and
+first-order logic, which either separate only atomic contraction and
 atomic weakening~\cite{brunnler:phd} or only
 contraction~\cite{ralph:phd} or only the quantifiers in form of a
 Herbrand theorem~\cite{brunnler:06:locality,ralph:phd}.
 
-Theorem~\ref{thm:decomposition} is also the reason why we have te rule
+Theorem~\ref{thm:decomposition} is also the reason why we have the rules
 $\wfaD$ and $\cfaD$ in system $\FOKS$, as these rules are derivable
 with the other rules. However, they are needed to obtain this
 decomposition.
