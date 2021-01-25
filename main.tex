@@ -3336,12 +3336,27 @@ by applying the $\vlor$ rule.
 
 \subsection{Rule permutation for the proof of Lemma~\ref{lem:cw-decomposition}}
 \label{app:cw-decomposition}
+We construct a rewriting system based on rule permutation on derivations in $\set{\wrD, \wfaD, \acD,
+\cfaD, \me, \mfaD, \mexD, \fequ}$ that allows us to reach a derivation of the
+form 
+\begin{equation*}
+    \vlderivation{
+      \vlde{\set{\wrD,\wfaD,\fequ}}{}{B}{
+        \vlde{\set{\acD,\cfaD}}{}{B'}{
+          \vlde{\set{\me,\mfaD,\mexD,\fequ}}{}{A'}{
+            \vlhy{A}}}}}
+\end{equation*}
+from any derivation. Intuitively, we want to move all the instances of $\rr \in
+\set{\wrD, \wfaD}$ downwards and all the instances of $\rr' \in \set{\me,
+\mfaD, \mexD}$ upwards.
 
-We first study the interactions between two rules (only non-trivial cases are
-presented here):
+We first study the interactions between two rules. Certain cases are unsolved at
+this stage, and they are considered later when we study the interactions between
+two non-$\fequ$ rule instances seperated by $\fequ$. Only non-trivial cases are
+considered here:
 \begin{itemize}
 \item $\rr_1/\rr_2$, where $\rr_1 \in \set{\wrD, \wfaD}$ and $\rr_2 \in
-\set{\acD, \cfaD, \me, \mfaD, \mexD}$: 
+\set{\acD, \cfaD, \me, \mfaD, \mexD}$:
 
 \begin{equation*}
 \vlderivation{
@@ -3379,7 +3394,7 @@ presented here):
 \begin{equation*}
 \vlderivation{
   \vlin{\cfaD}{}{\forall x.A}{
-    \vlin{\wfaD}{(x \notin fv(\forall x.A))}{\forall x.\forall x.A}{
+    \vlin{\wfaD}{}{\forall x.\forall x.A}{
       \vlhy{\forall x.A}}}}
 \leadsto
 \vlderivation{
@@ -3389,13 +3404,14 @@ presented here):
 \begin{equation*}
 \vlderivation{
   \vlin{\mfaD}{}{\forall x.(A \vlor B)}{
-    \vlin{\wfaD}{(x \notin fv(A))}{(\forall x.A) \vlor (\forall x.B)}{
+    \vlin{\wfaD}{}{(\forall x.A) \vlor (\forall x.B)}{
       \vlhy{A \vlor (\forall x.B)}}}}
 \leadsto
 \vlderivation{
-  \vlin{\fequ}{(x \notin fv(A))}{\forall x.(A \vlor B)}{
+  \vlin{\fequ}{}{\forall x.(A \vlor B)}{
     \vlhy{A \vlor (\forall x.B)}}} 
 \end{equation*}
+where in the last case, $x$ is not free in $A$.
 
 \item $\rr_1/\rr_2$, where $\rr_1 \in \set{\acD, \cfaD}$ and $\rr_2 \in
 \set{\me, \mfaD, \mexD}$: 
@@ -3428,27 +3444,28 @@ presented here):
 
 \begin{equation*}
 \vlderivation{
-  \vlin{\fequ}{(x \notin fv(B))}{(\forall x.A) \vlor B}{
+  \vlin{\fequ}{}{(\forall x.A) \vlor B}{
     \vlin{\cfaD}{}{\forall x.(A \vlor B)}{
       \vlhy{\forall x.\forall x.(A \vlor B)}}}}
 \leadsto
 \vlderivation{
   \vlin{\cfaD}{}{(\forall x.A) \vlor B}{
-    \vlin{\fequ}{(x \notin fv(B))}{(\forall x.\forall x. A) \vlor B}{
+    \vlin{\fequ}{}{(\forall x.\forall x. A) \vlor B}{
       \vlhy{\forall x.\forall x.(A \vlor B)}}}}
 \end{equation*}
 
 \begin{equation*}
 \vlderivation{
-  \vlin{\fequ}{(x \notin fv(B))}{\forall x.(A \vlor B)}{
+  \vlin{\fequ}{}{\forall x.(A \vlor B)}{
     \vlin{\cfaD}{}{(\forall x.A) \vlor B}{
       \vlhy{(\forall x.\forall x.A) \vlor B}}}}
 \leadsto
 \vlderivation{
   \vlin{\cfaD}{}{\forall x.(A \vlor B)}{
-    \vlin{\fequ}{(x \notin fv(B))}{\forall x.\forall x.(A \vlor B)}{
+    \vlin{\fequ}{}{\forall x.\forall x.(A \vlor B)}{
       \vlhy{(\forall x.\forall x.A) \vlor B}}}}
 \end{equation*}
+where in the last two cases, $x$ is not free in $B$.
 
 \item $\wrD/\fequ$:
 
@@ -3468,7 +3485,7 @@ presented here):
 
 \begin{equation*}
 \vlderivation{
-  \vlin{\fequ}{(x \notin fv(B))}{(\forall x.A) \vlor B}{
+  \vlin{\fequ}{}{(\forall x.A) \vlor B}{
     \vlin{\wrD}{}{\forall x.(A \vlor B)}{
       \vlhy{\forall x.A}}}}
 \leadsto
@@ -3479,7 +3496,14 @@ presented here):
 
 \begin{equation*}
 \vlderivation{
-  \vlin{\fequ}{(x \notin fv(B))}{\forall x.(A \vlor B)}{
+  \vlin{\fequ}{}{(\forall x.A) \vlor B}{
+    \vlin{\wrD}{}{\forall x.(B \vlor A)}{
+      \vlhy{\forall x.B}}}}
+\end{equation*}
+
+\begin{equation*}
+\vlderivation{
+  \vlin{\fequ}{}{\forall x.(A \vlor B)}{
     \vlin{\wrD}{}{(\forall x.A) \vlor B}{
       \vlhy{\forall x.A}}}}
 \leadsto
@@ -3488,6 +3512,13 @@ presented here):
     \vlhy{\forall x.A}}}
 \end{equation*}
 
+\begin{equation*}
+\vlderivation{
+  \vlin{\fequ}{}{\forall x.(A \vlor B)}{
+    \vlin{\wrD}{}{B \vlor (\forall x.A)}{
+      \vlhy{B}}}}
+\end{equation*}
+where in the last four cases, $x$ is not free in $B$.
 \item $\wfaD/\fequ$:
 
 In the following two cases, we assume $x \neq y$ (otherwise they are trivial).
@@ -3516,25 +3547,27 @@ In the following two cases, we assume $x \neq y$ (otherwise they are trivial).
 
 \begin{equation*}
 \vlderivation{
-  \vlin{\fequ}{(x \notin fv(B))}{(\forall x.A) \vlor B}{
-    \vlin{\wfaD}{(x \notin fv(A \vlor B))}{\forall x.(A \vlor B)}{
+  \vlin{\fequ}{}{(\forall x.A) \vlor B}{
+    \vlin{\wfaD}{}{\forall x.(A \vlor B)}{
       \vlhy{A \vlor B}}}}
 \leadsto
 \vlderivation{
-  \vlin{\wfaD}{(x \notin fv(A))}{(\forall x.A) \vlor B}{
+  \vlin{\wfaD}{}{(\forall x.A) \vlor B}{
     \vlhy{A \vlor B}}}
 \end{equation*}
 
 \begin{equation*}
 \vlderivation{
-  \vlin{\fequ}{(x \notin fv(B))}{\forall x.(A \vlor B)}{
-    \vlin{\wfaD}{(x \notin fv(A))}{(\forall x.A) \vlor B}{
+  \vlin{\fequ}{}{\forall x.(A \vlor B)}{
+    \vlin{\wfaD}{}{(\forall x.A) \vlor B}{
       \vlhy{A \vlor B}}}}
 \leadsto
 \vlderivation{
-  \vlin{\wfaD}{(x \notin fv(A \vlor B))}{\forall x.(A \vlor B)}{
+  \vlin{\wfaD}{}{\forall x.(A \vlor B)}{
     \vlhy{A \vlor B}}}
 \end{equation*}
+where in the last two cases, the constraint on $x$ on the left-hand side implies
+that of the right-hand side.
 
 \item $\fequ/\cfaD$:
 
@@ -3643,11 +3676,11 @@ $\cfaD$ under $\fequ$ and then permute $\cfaD$ under $\rr$.
 \item $\acD/\fequ/\rr$ where $\rr \in \set{\me, \mfaD, \mexD}$: First permute
 $\acD$ under $\fequ$ and then permute $\acD$ under $\rr$.
 
-\item $\wrD/\fequ/\cfaD$: We only list non-trivial cases here:
+\item $\wrD/\fequ/\cfaD$:
   \begin{equation*}
   \vlderivation{
     \vlin{\cfaD}{}{(\forall x.A) \vlor B}{
-      \vlin{\fequ}{(x \notin fv(B))}{(\forall x.\forall x.A) \vlor B}{
+      \vlin{\fequ}{}{(\forall x.\forall x.A) \vlor B}{
         \vlin{\wrD}{}{\forall x.((\forall x.A) \vlor B)}{
           \vlhy{\forall x.\forall x.A}}}}}
   \leadsto
@@ -3659,12 +3692,12 @@ $\acD$ under $\fequ$ and then permute $\acD$ under $\rr$.
   \begin{equation*}
   \vlderivation{
     \vlin{\cfaD}{}{(\forall x.A) \vlor B}{
-      \vlin{\fequ}{(x \notin fv(B))}{(\forall x.\forall x.A) \vlor B}{
+      \vlin{\fequ}{}{(\forall x.\forall x.A) \vlor B}{
         \vlin{\wrD}{}{\forall x.(B \vlor (\forall x.A))}{
           \vlhy{\forall x.B}}}}}
   \leadsto
   \vlderivation{
-    \vlin{\fequ}{(x \notin fv(B))}{(\forall x.A) \vlor B}{
+    \vlin{\fequ}{}{(\forall x.A) \vlor B}{
       \vlin{\wrD}{}{\forall x.(B \vlor A)}{
         \vlhy{\forall x.B}}}}
   \end{equation*}
@@ -3672,7 +3705,7 @@ $\acD$ under $\fequ$ and then permute $\acD$ under $\rr$.
   \begin{equation*}
   \vlderivation{
     \vlin{\cfaD}{}{\forall x.(A \vlor B)}{
-      \vlin{\fequ}{(x \notin fv(B))}{\forall x.\forall x.(A \vlor B)}{
+      \vlin{\fequ}{}{\forall x.\forall x.(A \vlor B)}{
         \vlin{\wrD}{}{\forall x.((\forall x.A) \vlor B)}{
           \vlhy{\forall x.\forall x.A}}}}}
   \leadsto
@@ -3685,7 +3718,7 @@ $\acD$ under $\fequ$ and then permute $\acD$ under $\rr$.
   \begin{equation*}
   \vlderivation{
     \vlin{\cfaD}{}{\forall x.(A \vlor B)}{
-      \vlin{\fequ}{(x \notin fv(B))}{\forall x.\forall x.(A \vlor B)}{
+      \vlin{\fequ}{}{\forall x.\forall x.(A \vlor B)}{
         \vlin{\wrD}{}{\forall x.(B \vlor (\forall x.A))}{
           \vlhy{\forall x.B}}}}}
   \leadsto
@@ -3694,7 +3727,7 @@ $\acD$ under $\fequ$ and then permute $\acD$ under $\rr$.
       \vlin{\wrD}{}{\forall x.(B \vlor A)}{
         \vlhy{\forall x.B}}}}
   \end{equation*}
-
+  where in all four cases, $x$ is not free in $B$.
 \item $\wrD/\fequ/\acD$:
   \begin{equation*}
   \vlderivation{
@@ -3760,7 +3793,7 @@ $\acD$ under $\fequ$ and then permute $\acD$ under $\rr$.
   \begin{equation*}
   \vlderivation{
     \vlin{\me}{}{\forall x.((A \vlor B) \vlan (C \vlor D))}{
-      \vlin{\fequ}{(x \notin fv(B \vlan D))}{\forall x.((A \vlan C) \vlor (B \vlan
+      \vlin{\fequ}{}{\forall x.((A \vlan C) \vlor (B \vlan
 D))}{
         \vlin{\wrD}{}{(B \vlan D) \vlor (\forall x.(A \vlan C))}{
           \vlhy{B \vlan D}}}}}
@@ -3769,9 +3802,10 @@ D))}{
     \vlin{\fequ}{}{\forall x.((A \vlor B) \vlan (C \vlor D))}{
       \vlin{\wrD}{}{\forall x.((B \vlor A) \vlan (D \vlor C))}{
         \vlin{\wrD}{}{\forall x.((B \vlor A) \vlan D)}{
-          \vlin{\faD}{(x \notin fv(B \vlan D))}{\forall x.(B \vlan D)}{
+          \vlin{\faD}{}{\forall x.(B \vlan D)}{
             \vlhy{B \vlan D}}}}}}
   \end{equation*}
+  where in the second case, $x$ is free in $B \vlan D$.
 
 \item $\wrD/\fequ/\mfaD$:
   \begin{equation*}
@@ -3786,7 +3820,20 @@ D))}{
       \vlin{\wrD}{}{\forall x.(B \vlor A)}{
         \vlhy{\forall x.B}}}}
   \end{equation*}
-
+  
+  \begin{equation*}
+  \vlderivation{
+    \vlin{\mfaD}{}{\forall x.(A \vlor B)}{
+      \vlin{\fequ}{}{(\forall x.A) \vlor (\forall x.B)}{
+        \vlin{\wrD}{}{\forall x.((\forall x.A) \vlor B)}{
+          \vlhy{\forall x.\forall x.A}}}}}
+  \leadsto
+  \vlderivation{
+    \vlin{\wrD}{}{\forall x.(A \vlor B)}{
+      \vlin{\cfaD}{}{\forall x.A}{
+        \vlhy{\forall x.\forall x.A}}}}
+  \end{equation*}
+  
 \item $\wrD/\fequ/\mexD$:
 
   \begin{equation*}
