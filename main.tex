@@ -2516,38 +2516,8 @@ $\tuple{\gC,\linkingof\gC}$ we can construct a sequent proof $\Pi$ in
 $\FOMLL$ such that $\fographof\Pi=\tuple{\gC,\linkingof\gC}$. In the
 proof net literature, this operation is also called
 \emph{sequentialization}. The basic idea behind our sequentialization
-is to construct a propositional linked cograph, called the \bfit{frame}~\cite{hughes:unifn}
-of $\gC$, in which the dependencies between the binders in $\gC$ are
-encoded as links. Then we can apply the \emph{splitting tensor
-theorem} to the frame, and then reconstruct the sequent proof $\Pi$.
-\lutz{if the proof of thm \ref{thm:MLS1->fonet} is verified, we can delete the frame-def here}
-
-More formally, let $\Gamma$ be a sequent with $\graphof\Gamma=\gC$, to which we
-exhaustively apply the following
-subformula rewriting steps, to obtain a sequent $\frameof\Gamma$:
-\begin{enumerate}
-\item {\bf Encode dependencies as fresh links.} For each dependency
-  $\pair{\single x,\single y}$ in $\gC$, with corresponding
-  subformulas $\exists x A$ and $\forall y B$ in $\Gamma$, we pick a
-  fresh (nullary) predicate symbol $q$, and then replace $\exists
-  x. A$ by $q \cand \exists x. A$, and replace $\forall y. B$ by
-  $\dual q \cor \forall y. B$.
-\item {\bf Erase quantifiers.} After step 1, remove all the
-  quantifiers, i.e., replace $\exists x.A$ by $A$ and replace $\forall
-  y.B$ by $B$ everywhere.
-\item {\bf Simplify atoms.} After step 2, replace every predicate
-  $p(t_1 \cdots t_n)$ (resp. $\dual p(t_1 \cdots t_n)$) with a nullary
-  predicate symbol $p$ (resp.~$\dual p$)
-\end{enumerate}
-The $\linkingof{\frameof\Gamma}$ consists of the pairs induced by
-$\linkingof\gC$ and the new pairs $\set{q,\dual q}$ introduced in
-step~1 above. We call $\frameof\Gamma$ the \bfit{frame} of $\Gamma$ and we define the \bfit{frame} of $\gC$, denoted
-$\frameof\gC$, as
-$\tuple{\graphof{\frameof\Gamma},\linkingof{\frameof\Gamma}}$, and we immediately have the following:
-
-\begin{lemma}\label{lem:frame}
-  A linked fograph $\gC$ induces a bimatching iff its frame $\frameof\gC$ has an induced bimatching.
-\end{lemma}
+is to use the frame of $\gC$, to which  we can apply the \emph{splitting tensor
+theorem}, and then reconstruct the sequent proof $\Pi$.
 
 Let $\Gamma$ be a propositional sequent and $\linkingof\Gamma$ be a
 linking for $\graphof\Gamma$. A conjunction formula $A\vlan B$ is
@@ -2567,20 +2537,20 @@ $\linking_2$ is a linking for $\graphof{\Gamma''}$.
 Finally, $\tuple{
   \graphof\Gamma,\linkingof\Gamma}$ is \bfit{splittable} if it is mixed or has a splitting tensor.
 
-The purpose of introducing the frame is the following theorem.
 
 \begin{thm}
   \label{thm:splitting}
-  Let $\Gamma$ be a propositional sequent containing only atoms
+  Let $\Gamma$ be a $\fff$-free propositional sequent containing only atoms
   and $\vlan$-formulas, and $\linkingof\Gamma$ be a
   linking for $\graphof\Gamma$. If $\tuple{
     \graphof\Gamma,\linkingof\Gamma}$ does not induce a bimatching then it is splittable.
 \end{thm}
 
-This is the well-know splitting-tensor-theorem
+This is the well-known splitting-tensor-theorem
 \cite{girard:87,danos:regnier:89}, adapted for the presence of
 $\mix$. In the setting of linked cographs, it has first been proved by
-Retor\'e~\cite{retore:03,retore:99}. We use it now for our sequentialization:
+Retor\'e~\cite{retore:03,retore:99} and then rediscovered by Hughes~\cite{hughes:pws}.
+We use it now for our sequentialization:
 
 \begin{thm}
   \label{thm:fonet->MLL1}
@@ -2613,7 +2583,7 @@ Retor\'e~\cite{retore:03,retore:99}. We use it now for our sequentialization:
   $\frameof\Gamma$ is not mixed and all splitting tensors are
   $\vlan$-formulas introduced in step~1 of the frame construction,
   then we get a contradiction as in that case there must be a $\vlor$- or $\forall$-formula in $\Gamma$.
-  \lutz{can anyone give a good argument here?}
+%  \lutz{can anyone give a good argument here?}
 \end{proof}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -2637,7 +2607,7 @@ We can now straightforwardly obtain the same result for $\FOMLS$:
 
 \begin{proof}
   We apply Theorem~\ref{thm:fonet->MLL1} to obtain a sequent
-  proof~$\Pi$ of $\sqn C$ with
+  proof~$\Pi$ of \hbox{$\sqn C$} with
   $\fographof\Pi=\tuple{\gC,\linkingof\gC}$. Then we apply
   Lemma~\ref{lem:MLL1->MLS1}, observing that the translation from
   $\FOMLL$ to $\FOMLS$ preserves linking and dualizer.
