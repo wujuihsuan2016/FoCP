@@ -580,9 +580,8 @@
 
 
 \begin{document}
-\vlnosmallleftlabels
-
-\bstctlcite{refs:BSTcontrol}
+\vlnosmallleftlabels%
+\bstctlcite{refs:BSTcontrol}%
 %
 % paper title
 % Titles are generally capitalized except for words such as a, an, and, as,
@@ -590,7 +589,7 @@
 % not capitalized unless they are the first or last word of the title.
 % Linebreaks \\ can be used within to get better formatting as desired.
 % Do not put math or special symbols in the title.
-\title{Combinatorial Proofs and Decomposition Theorems for First-order Logic}
+\title{Combinatorial Proofs and Decomposition Theorems for First-order Logic\vspace{-3ex}}
 
 
 % author names and affiliations
@@ -648,13 +647,13 @@
 \begin{abstract}
   We uncover a close relationship between combinatorial and
   syntactic proofs for first-order logic. Whereas syntactic proofs are
-  formalized in some deductive proof system based on inference rules,
-  a combinatorial proof is a ``syntax-free'' presentation of a proof
+  formalized in a deductive proof system based on inference rules,
+  a combinatorial proof is a syntax-fre presentation of a proof
   that is independent from any set of inference rules. We show that
   the two proof representations are related via a deep inference
   decomposition theorem that establishes a new kind of normal form
-  of syntactic proofs. This yields (a) a simple proof
-  of the soundness and completeness of first-order combinatorial
+  for syntactic proofs. This yields (a) a simple proof
+  of soundness and completeness for first-order combinatorial
   proofs, and (b) a full completeness theorem: every combinatorial
   proof is the image of a syntactic proof.
 \end{abstract}
@@ -713,12 +712,10 @@ usually studied in logic, are inextricably tied to the syntactic
 (inference rule based) proof system in which they are carried out. And
 it is difficult to compare two proofs that are produced within two
 different syntactic proof systems, based on different sets of inference rules.
-
-\begin{figure}
-  $$
-  \scalebox{.9}{$
+%
+\newcommand\lkpeirceproof{
 \vlderivation{
-  \vlin{\vlor}{}{\sqn{((\cneg{p} \vlor q) \vlan \cneg{p}) \vlor p}}{
+  \vlin{\vlor}{}{\sqn{\peirceformula}}{
     \vlin{\conr}{}{\sqn{(\cneg{p} \vlor q) \vlan \cneg{p}, p}}{
       \vliin{\vlan}{}{\sqn{(\cneg{p} \vlor q) \vlan \cneg{p}, p, p}}{
         \vlin{\vlor}{}{\sqn{\cneg{p} \vlor q, p}}{
@@ -727,9 +724,10 @@ different syntactic proof systems, based on different sets of inference rules.
               \vlhy{}}}}}{
         \vlin{\axr}{}{\sqn{\cneg{p}, p}}{
           \vlhy{}}}}}}
-\hskip3em
+}
+\newcommand\dipeirceproof{
 \vlderivation{
-  \vlin{\acD}{}{((\cneg{p} \vlor q) \vlan \cneg{p}) \vlor p}{
+  \vlin{\acD}{}{\peirceformula}{
     \vlin{\fequ}{}{((\cneg{p} \vlor q) \vlan \cneg{p}) \vlor (p \vlor p)}{
       \vlin{\sw}{}{(\cneg{p} \vlan (\cneg{p} \vlor q)) \vlor p) \vlor p}{
         \vlin{\fequ}{}{(\cneg{p} \vlan ((\cneg{p} \vlor q) \vlor p)) \vlor p)}{
@@ -740,37 +738,8 @@ different syntactic proof systems, based on different sets of inference rules.
                   \vlin{\wrD}{}{(p \vlor \cneg{p}) \vlor q}{
                     \vlin{\aiD}{}{p \vlor \cneg{p}}{
                       \vlhy{\ttt}}}}}}}}}}}}
-$}
-  $$
-  \caption{Two syntactic proofs of the same formula, in in the sequent calculus (left) and in the calculus of structures (right)}
-  \label{fig:exa-synt}
-\end{figure}
-
-
-
-\lutz{an example here?}
-
-This is where \emph{combinatorial proofs} come in. They have been
-introduced by Hughes~\cite{hughes:pws} for classical propositional
-logic as a ``syntax-free'' notion of proof, and as a potential solution
-to Hilbert's 24th problem~\cite{hughes:invar} (see
-also~\cite{str:hilbert:24}). The basic idea is to abstract away from
-the syntax of the inference rules used in the proof and consider the
-proof as a combinatorial object, more precisely as a special kind of
-graph homomorphism. For example, a propositional combinatorial
-proof of Peirce's law $\peirceimpliesformula$ is depicted below-left,
-a homomorphism from a coloured graph to a graph labelled with
-propositional variables.
-%
-\begin{center}\vspace{.5ex}\begin{tikzpicture}\newcommand\radius{2.3}
-  \begin{scope}[shift={(-\radius,0)}]{\peircecp}\end{scope}
-  \begin{scope}[shift={(\radius,0)}]{\drinkerfibcoloured}\end{scope}
-\end{tikzpicture}\vspace{0ex}\end{center}
-%
-
-
-\begin{equation*}
-  \scalebox{.7}{$
+}
+\newcommand\lkdrinkerproof{
 \vlderivation{
   \vlin{\conr}{}{\sqn{\exists x.(\cneg{p}x \vlor (\forall y.py))}}{
     \vlin{\exists}{}{\sqn{\exists x.(\cneg{p}x \vlor (\forall y.py)),\exists
@@ -786,35 +755,104 @@ x.(\cneg{p}x \vlor (\forall y.py))}}{
                 \vlin{\weakr}{}{\sqn{\cneg{p}w, pz, \cneg{p}z}}{
                 \vlin{\axr}{}{\sqn{pz, \cneg{p}z}}{
                   \vlhy{}}}}}}}}}}}
-%\qquad
+}
+\newcommand\ksonedrinkerproof{
 \vlderivation{
   \vlin{\acD}{}{\exists x.(\cneg{p}x \vlor (\forall y.py))}{
     \vlin{\mfaD}{}{\exists x.(\cneg{p}x \vlor (\forall y.(py \vlor py)))}{
-      \vlin{\acD}{}{\exists x.(\cneg{p}x \vlor ((\forall y.py) \vlor (\forall
-y.py)))}{
-        \vlin{\fequ}{}{\exists x.((\cneg{p}x \vlor \cneg{p}x) \vlor ((\forall
-y.py) \vlor (\forall y.py)))}{
-          \vlin{\mexD}{}{\exists x.((\cneg{p}x \vlor (\forall y.py)) \vlor
-(\cneg{p}x \vlor (\forall y.py)))}{
-            \vlin{\exists}{}{(\exists x.(\cneg{p}x \vlor (\forall y.py))) \vlor
-(\exists x.(\cneg{p}x \vlor (\forall y.py)))}{
-              \vlin{\fequ}{}{(\cneg{p}w \vlor (\forall y.py)) \vlor (\exists
-x.(\cneg{p}x \vlor (\forall y.py)))}{
-                \vlin{\exists}{}{\forall y.((\cneg{p}w \vlor py) \vlor (\exists
-x.(\cneg{p}x \vlor (\forall y.py))))}{
-                  \vlin{\fequ}{}{\forall y.((\cneg{p}w \vlor py) \vlor
-(\cneg{p}y \vlor (\forall y.py)))}{
-                    \vlin{\wD}{}{\forall y.((py \vlor \cneg{p}y) \vlor
-(\cneg{p}w \vlor (\forall y.py)))}{
+      \vlin{\acD}{}{\exists x.(\cneg{p}x \vlor ((\forall y.py) \vlor (\forall y.py)))}{
+        \vlin{\fequ}{}{\exists x.((\cneg{p}x \vlor \cneg{p}x) \vlor ((\forall y.py) \vlor (\forall y.py)))}{
+          \vlin{\mexD}{}{\exists x.((\cneg{p}x \vlor (\forall y.py)) \vlor (\cneg{p}x \vlor (\forall y.py)))}{
+            \vlin{\exists}{}{(\exists x.(\cneg{p}x \vlor (\forall y.py))) \vlor (\exists x.(\cneg{p}x \vlor (\forall y.py)))}{
+              \vlin{\fequ}{}{(\cneg{p}w \vlor (\forall y.py)) \vlor (\exists x.(\cneg{p}x \vlor (\forall y.py)))}{
+                \vlin{\exists}{}{\forall y.((\cneg{p}w \vlor py) \vlor (\exists x.(\cneg{p}x \vlor (\forall y.py))))}{
+                  \vlin{\fequ}{}{\forall y.((\cneg{p}w \vlor py) \vlor (\cneg{p}y \vlor (\forall y.py)))}{
+                    \vlin{\wD}{}{\forall y.((py \vlor \cneg{p}y) \vlor (\cneg{p}w \vlor (\forall y.py)))}{
                       \vlin{\aiD}{}{\forall y.(py \vlor \cneg{p}y)}{
                         \vlin{\forall}{}{\forall y.\ttt}{
                           \vlhy{\ttt}}}}}}}}}}}}}}
-$}
-\end{equation*}
+}
+\begin{figure}\vspace{-2ex}\begin{center}\hspace*{-0ex}\begin{math}
+\newcommand\peircescale{.75}
+\newcommand\drinkerscale{\peircescale}
+\newcommand\cpscale{.9}
+\begin{array}{@{}c@{\hspace{4ex}}c@{}}
+{}\scalebox{\peircescale}{$\lkpeirceproof$}
+&
+{}\scalebox{\drinkerscale}{$\lkdrinkerproof$}
+\\[13ex]
+\downarrow
+&
+\downarrow
+\\[1ex]
+\vctr{\scalebox{\cpscale}{\peircecppic}}
+&
+\vctr{\raisebox{-2ex}[16.5ex]{\scalebox{\cpscale}{\drinkerfibcolouredpic}}}
+\\[10ex]
+\uparrow
+&
+\uparrow
+\\[2ex]
+{}\scalebox{\peircescale}{$\dipeirceproof$}
+&
+{}\scalebox{\drinkerscale}{$\ksonedrinkerproof$}
+%
+\end{array}
+\end{math}\hspace*{-8ex}\end{center}\caption{Left:
+syntactic proofs in sequent calculus (above)
+and the calculus of structures (below)
+which translate to the same propositional combinatorial proof (centre).
+%
+Right:
+syntactic proofs 
+in sequent calculus (above)
+and the new calculus $\FOKS$ introduced in this paper (below),
+which translate to the same first-order combinatorial proof (centre).%
+% two syntactic proofs of 
+% $\protect\peirceformula$,
+% in the sequent calculus (above)
+% and in the calculus of structures (below),
+% which translate to the same propositional combinatorial proof (centre).
+% %
+% Right:
+% two syntactic proofs of 
+% $\protect\veedrinkerformula$,
+% in the sequent calculus (above)
+% and the new calculus $\FOKS$ introduced in this paper (below),
+% which translate to the same first-order combinatorial proof (centre).%
+}\label{fig:translate}\vspace{-4ex}\end{figure}%
 
-\juihsuan{LK1 and KS1 proofs of Peirce's law and LK1 proof of drinker formula}
-\lutz{can you also do the KS1 for the drinker?}
-\juihsuan{done}
+This is where \emph{combinatorial proofs} come in. They were
+introduced by Hughes~\cite{hughes:pws} for classical propositional
+logic as a syntax-free notion of proof, and as a potential solution
+to Hilbert's 24th problem~\cite{hughes:invar} (see
+also~\cite{str:hilbert:24}). The basic idea is to abstract away from
+the syntax of the inference rules used in inductively-generated proofs
+and consider the proof as a combinatorial object, more precisely
+as a special kind of
+graph homomorphism. For example, a propositional combinatorial
+proof of Peirce's law $\peirceimpliesformula=\peirceformula$ is shown mid-left in
+Fig.\,\ref{fig:translate},
+%depicted below-left,
+a homomorphism from a coloured graph to a graph labelled with
+propositional variables.
+%
+% \begin{center}\vspace{.5ex}\begin{tikzpicture}\newcommand\radius{2.3}
+%   \begin{scope}[shift={(-\radius,0)}]{\peircecp}\end{scope}
+%   \begin{scope}[shift={(\radius,0)}]{\drinkerfibcoloured}\end{scope}
+% \end{tikzpicture}\vspace{0ex}\end{center}
+% %
+% 
+% \begin{equation*}
+%   \scalebox{.7}{$\lkdrinkerproof
+% %\qquad
+% \ksonedrinkerproof
+% $}
+% \end{equation*}
+% 
+% \juihsuan{LK1 and KS1 proofs of Peirce's law and LK1 proof of drinker formula}
+% \lutz{can you also do the KS1 for the drinker?}
+% \juihsuan{done}
 
 Several authors have illustrated how syntactic proofs in various
 proof systems can be translated to propositional combinatorial proofs:
@@ -824,6 +862,11 @@ tableaux systems and resolution in~\cite{acc:str:18}. This enables a
 natural definition of proof identity for propositional logic: two
 proofs are \emph{the same}, if they are mapped to the same
 combinatorial proof.
+%
+For example, the left side of Fig.\,\ref{fig:translate} translates
+syntactic proofs from sequent calculus and the calculus of structures into
+the same combinatorial proofs, witnessing that the two syntactic proofs,
+from different systems, are \emph{the same}.
 
 Recently, Acclavio and Stra\ss burger extended this notion to relevant
 logics~\cite{acc:str:relevant} and to modal
@@ -835,25 +878,34 @@ In this paper we advance the idea that combinatorial proofs can provide
 a notion of proof identity for first-order logic. \emph{First-order
 combinatorial proofs} were introduced by Hughes in~\cite{hughes:fopws}.
 For example, a first-order combinatorial proof of Smullyan's 
-``drinker paradox'' $\drinkerformula$ is shown above-right,
+``drinker paradox'' $\drinkerformula=\veedrinkerformula$ is shown on the
+right of Fig.\,\ref{fig:translate},
 a homomorphism from a partially coloured graph to a labelled graph.
 However, even though Hughes proves soundness and completeness, the 
 proof is highly unsatisfactory: (1) the soundness argument is extremely
 long, intricate and cumbersome, and (2) the completeness proof does not 
 allow a syntactic proof to be read back from a combinatorial proof, i.e.,
-completeness is not \emph{full}~\cite{abramsky:jagadeesan:94}.\todo{cite something for full comp?}\lutz{is that enough?}
+completeness is not
+\emph{sequentializable} \cite{girard:87} or
+\emph{full}~\cite{abramsky:jagadeesan:94}.\dominic{ok to say sequentializable too?}
+%
 A fundamental problem is that not all combinatorial
 proofs can be obtained as translations of sequent calculus proofs.
 
-In this paper we solve this issue by moving to a deep inference
+In this paper we solve these issues by moving to a deep inference
 system. More precisely, we introduce a new proof system, called
 $\FOKS$, for first-order logic, that (a) reflects every combinatorial
-proof, i.e., there is a surjective mapping from proofs in $\FOKS$ to
-combinatorial proofs, and (b) yields far simpler proofs of
+proof, i.e., there is a surjection from $\FOKS$ proofs to
+combinatorial proofs, (b) yields far simpler proofs of
 soundness and completeness of combinatorial proofs, and (c) admits
 new decomposition theorems establishing a precise correspondence
 between certain syntactic inference rules and certain combinatorial
 notions.
+%
+The right side of Fig.\,\ref{fig:translate}
+illustrates the surjection in (a), and since the syntactic proofs 
+of the two systems both translate the same combinatorial proof,
+they can be considered \emph{the same}.
 
 In general, a \emph{decomposition theorem} provides normal forms of
 proofs, separating subsets of inference rules of a proof system. A
@@ -874,27 +926,28 @@ Combinatorial proofs and deep inference can be seen as opposite ends
 of a spectrum: whereas deep inference allows for a very fine
 granularity of inference rules---one inference rule in a standard
 formalism, like sequent calculus or semantic tableaux, is usually
-simulated by a sequence of different deep inference rules---have
-combinatorial proofs completely abolished the concept of inference
-rule. Nonetheless, there is a close relationship between the two,
-realized through a decomposition theorem, as we establish it in this
+simulated by a sequence of different deep inference rules---
+combinatorial proofs have completely abolished the concept of inference
+rule. And yet, there is a close relationship between the two,
+realized through a decomposition theorem, as we establish in this
 paper.
 
 
 
-\subsection{Pictures that could be used elsewhere in the paper}
+% \subsection{Pictures that could be used elsewhere in the paper}
+% 
+% 
+% Condensed combinatorial proof of drinker formula(s):
+% %
+% \begin{center}\vspace{3ex}\begin{math}
+% \begin{tikzpicture}
+% \drinkerInline
+% \end{tikzpicture}
+% \hspace{10ex}
+% \begin{tikzpicture}
+% \veedrinkerInline
+% \end{tikzpicture}\end{math}\end{center}
 
-
-Condensed combinatorial proof of drinker formula(s):
-%
-\begin{center}\vspace{3ex}\begin{math}
-\begin{tikzpicture}
-\drinkerInline
-\end{tikzpicture}
-\hspace{10ex}
-\begin{tikzpicture}
-\veedrinkerInline
-\end{tikzpicture}\end{math}\end{center}
 
 %%\figcps Fig.\,\ref{fig:cps} is a floating figure with four combinatorial proofs.
 
@@ -902,22 +955,22 @@ Condensed combinatorial proof of drinker formula(s):
 
 
 
-Illustrating why we need to collapse twins during contraction, to preserve the target as a fograph:
-%
-\twincollapsepic
-%
-Aligning both $\singleton{}\mkern4mu\singleton[red]{}$ and
-$\singleton{}\mkern4mu\singleton[blue]{}$ over
-a single copy of $\forall y\mkern2mu\py$
-results in two uncoloured vertices
-\raisebox{2pt}[0ex][0ex]{$\column{\singleton{}\\[-1.6ex]\singleton{}}$\hspace{-2pt}}
-over $\forall y$.
-%
-The cover therefore fails to be a fograph: both uncoloured vertices are implicitly labelled with $y$ and
-so are outer $y$-binders in the scope of each other.
-%
-The correct operation is shown above-right,
-in which the troublesome pair is collapsed to a single uncoloured vertex $\singleton{}$ over $\forall y$.
+% Illustrating why we need to collapse twins during contraction, to preserve the target as a fograph:
+% %
+% \twincollapsepic
+% %
+% Aligning both $\singleton{}\mkern4mu\singleton[red]{}$ and
+% $\singleton{}\mkern4mu\singleton[blue]{}$ over
+% a single copy of $\forall y\mkern2mu\py$
+% results in two uncoloured vertices
+% \raisebox{2pt}[0ex][0ex]{$\column{\singleton{}\\[-1.6ex]\singleton{}}$\hspace{-2pt}}
+% over $\forall y$.
+% %
+% The cover therefore fails to be a fograph: both uncoloured vertices are implicitly labelled with $y$ and
+% so are outer $y$-binders in the scope of each other.
+% %
+% The correct operation is shown above-right,
+% in which the troublesome pair is collapsed to a single uncoloured vertex $\singleton{}$ over $\forall y$.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1052,7 +1105,7 @@ the $\mixr$-rule.
   $\FOLK$ is sound and complete for first-order logic.
 \end{thm}
 %
-For a proof we refer to reader to any standard textbook, e.g.~\cite{TS:00}.
+\noindent For a proof, see any standard textbook, e.g.~\cite{TS:00}.
 
 The linear fragment of $\FOLK$, i.e., the fragment
 without the rules $\conr$ (\emph{contraction}) and $\weakr$
@@ -1200,7 +1253,7 @@ where $\single a$ (resp. $\single x$) is a single-vertex graph whose vertex is
 labelled by $a$ (resp. $x$).
 
 \begin{example}
-  Below is the fograph of drinker formula $\drinkerformula=\veedrinkerformula$:
+  Below is the fograph of the drinker formula $\drinkerformula=\veedrinkerformula$:
 %
 \begin{center}\vspace{2ex}\begin{tikzpicture}
 \drinkerbase
