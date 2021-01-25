@@ -1415,8 +1415,7 @@ general dualizer assigns to $x$ a term containing $y$. A \bfit{leap} is either a
 link or a dependency. The \bfit{leap graph} $\lgC$ of $\gC$ is the undirected
 graph $\tuple{\vC, \lpC}$ where $\lpC$ is the set of leaps of $\gC$.
 A vertex set $W \subseteq \vC$ induces a \bfit{matching} in
-$\gC$ if 
-it is non-empty\dominic{added non-empty (necessary, right?)}
+$\gC$ if $W\neq\emptyset$ and 
 for all $w \in W$, $N(w) \cap W$ is a singleton. We say that $W$ induces a
 \bfit{bimatching} in $\gC$ if it induces a matching in $\gC$ and a matching in $\lgC$.
 
@@ -1440,6 +1439,7 @@ has a dualizer but no induced bimatching.
     leap graph (right).}
 \end{figure}%
 %
+%\noindent
 Figure~\ref{fig:leap} shows a fonet with a unique dualizer, and its leap graph.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1528,7 +1528,7 @@ A fograph homomorphism $\phi\colon\gG \rightarrow \gH$
 % is \bfit{existential-preserving} 
 \bfit{preserves existentials}
 if for all existential binders $b$ in
-$\gG$, the binder $\phi(b)$ is a existential in $\gH$.\dominic{tweaked this paragraph}
+$\gG$, the binder $\phi(b)$ is a existential in $\gH$.
 %
 \begin{definition}
   Let $\gG$ and $\gH$ be fographs. A \bfit{skew bifibration}
