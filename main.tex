@@ -2227,24 +2227,23 @@ We can now complete the proof of Theorems~\ref{thm:decomposition} and~\ref{thm:d
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{From $\FOMLL$ Proofs to Fonets}
 
-Let $\Pi$ be a $\FOMLL$ proof of a rectified sequent $\sqn\Gamma$. We now show
+Let $\Pi$ be a $\FOMLL$ proof of a rectified sequent $\sqn\Gamma$ not containing $\fff$. We now show
 how $\Pi$ is translated into a linked fograph
 $\fographof\Pi=\tuple{\graphof\Gamma,\linkingof\Pi}$. We proceed
 inductively, making a case analysis on the last rule in $\Pi$. At the
 same time we are constructing a dualizer $\dsubstof\Pi$, so that in the
 end we can conclude that $\fographof\Pi$ is in fact a fonet.
 \begin{enumerate}
-  %\setlength\itemsep{.5ex}
-\item $\Pi$ is $\vlinf{\axr}{}{\sqn{a,\cneg a}}{}$ : Then the only
+  \addtolength\itemsep{.7ex}
+\item $\Pi$ is $\upsmash{\vlinf{\axr}{}{\sqn{a,\cneg a}}{}}$ : Then the only
   link is $\set{a, \dual{a}}$, and $\dsubstof\Pi$ is empty.
-\item $\Pi$ is $\vlinf{\ttt}{}{\sqn{\ttt}}{}$ : Then
+\item $\Pi$ is $\smash{\vlinf{\ttt}{}{\sqn{\ttt}}{}}$ : Then
   $\linkingof\Pi$ and $\dsubstof\Pi$ are both empty.
 \item The last rule in $\Pi$ is $\vliinf{\mixr}{}{\sqn{\Gamma',\Gamma''}}{\sqn\Gamma'}{\sqn\Gamma''}$ :
   By induction hypothesis, we have proofs $\Pi'$ and $\Pi''$ of $\Gamma'$ and $\Gamma''$, respectively. We have
-  $\graphof{\Gamma}=\graphof{\Gamma'}+\graphof{\Gamma''}$ and let
-  $$\linkingof\Pi\;=\;\linkingof{\Pi'}\cup\linkingof{\Pi''}
-  \qquand
-  \dsubstof\Pi=\dsubstof{\Pi'}\cup\dsubstof{\Pi''}$$
+  $\graphof{\Gamma}=\graphof{\Gamma'}+\graphof{\Gamma''}$ and we can let
+  $\linkingof\Pi\;=\;\linkingof{\Pi'}\cup\linkingof{\Pi''}$ and
+  $\dsubstof\Pi=\dsubstof{\Pi'}\cup\dsubstof{\Pi''}$.
 \item The last rule in $\Pi$ is $\vlinf{\vlor}{}{\sqn{\Gamma_1,A\vlor
     B}}{\sqn{\Gamma_1,A,B}}$ : By induction hypothesis, there is
   proofs $\Pi'$ of $\Gamma'={\Gamma_1,A,B}$. We have
@@ -2257,8 +2256,8 @@ end we can conclude that $\fographof\Pi$ is in fact a fonet.
   $\Gamma'=\Gamma_1,A$ and $\Gamma''=B,\Gamma_2$, respectively. We
   have $\graphof{\Gamma}=\graphof{\Gamma_1}+\mbox{$(\graphof A\times\graphof
   B)$}+\graphof{\Gamma_2}$ and we let
-  $$\linkingof\Pi\;=\;\linkingof{\Pi'}\cup\linkingof{\Pi''} \qquand
-  \dsubstof\Pi=\dsubstof{\Pi'}\cup\dsubstof{\Pi''}$$
+  $\linkingof\Pi\;=\;\linkingof{\Pi'}\cup\linkingof{\Pi''}$ and
+  $\dsubstof\Pi=\dsubstof{\Pi'}\cup\dsubstof{\Pi''}$.
 \item The last rule in $\Pi$ is
   $\vlinf{\exists}{}{\sqn{\Gamma_1,\exists x.A}}
   {\sqn{\Gamma_1,A\ssubst{x}{t}}}$ : By induction hypothesis, there is
@@ -2282,8 +2281,8 @@ end we can conclude that $\fographof\Pi$ is in fact a fonet.
 
 \begin{thm}
   \label{thm:MLL1->fonet}
-  If $\Pi$ is a $\FOMLL$ proof of a rectified sequent $\sqn\Gamma$,
-  then $\fographof\Pi$ is a fonet and $\dsubstof\Pi$ is a dualizer for it.
+  If $\Pi$ is a $\FOMLL$ proof of a rectified $\fff$-free sequent $\sqn\Gamma$,
+  then $\fographof\Pi$ is a fonet and $\dsubstof\Pi$ a dualizer for it.
 \end{thm}
 
 \begin{proof}
@@ -2315,20 +2314,26 @@ direct proof of Theorem~\ref{thm:MLL1->fonet}.
 However, for translating $\FOMLS$ derivation into fonets, we employ
 exactly that direct path.
 
-A derivation $\Deri$ in $\FOMLS$ is \bfit{rectified} if every line in $\Deri$ is
-rectified.
+First observe that in a derivation in $\FOMLS$
+where the conclusion is rectified, every line is also rectified, as
+the only rules involving bound variables are $\forall$ and $\exists$
+which both remove a binder.
+Therefore, we can call such a derivation \bfit{rectified}, and
+%% if every line in $\Deri$ is
+%% rectified.
 
-\begin{lemma}
-  Let  $\Deri$ be a $\FOMLS$ proof of a formula $A$. Then $\Deri$ is rectified iff $A$ is rectified.
-\end{lemma}
+%% \begin{lemma}
+%%   Let  $\Deri$ be a $\FOMLS$ proof of a formula $A$. Then $\Deri$ is rectified iff $A$ is rectified.
+%% \end{lemma}
 
-\begin{proof}
-   The only rules involving bound
-   variables are $\forall$ and $\exists$ which both remove a binder (and
-   all occurrences of the variable it binds).
-\end{proof}
+%% \begin{proof}
+%%    The only rules involving bound
+%%    variables are $\forall$ and $\exists$ which both remove a binder (and
+%%    all occurrences of the variable it binds).
+%% \end{proof}
 
-Hence, for a non-rectified  $\FOMLS$ derivation $\Deri$ in $\FOMLS$ we can
+%% Hence,
+for a non-rectified  $\FOMLS$ derivation $\Deri$ we can
 define its \bfit{rectification} $\rectif\Deri$ inductively, by rectifying each
 line, proceeding step-wise
 from conclusion to premise.\footnote{As for formulas,
@@ -2350,10 +2355,10 @@ $\fographof\Deri=\tuple{\graphof{A},\linkingof{\Deri}}$.
 
 
 
-\todo{example here}
+%\todo{example here}
 
 \begin{thm}\label{thm:MLS1->fonet}
-  Let $\vlder{\FOMLS}{\Deri}{A}{\ttt}$ be a rectified derivation. Then
+  Let $\vlder{\FOMLS}{\Deri}{A}{\ttt}$ be a rectified derivation where $A$ is $\fff$-free. Then
   $\fographof\Deri$ is a fonet and $\dsubstof{\Deri}$ a dualizer for it.
 \end{thm}
 
@@ -2383,7 +2388,7 @@ subformula rewriting steps, to obtain a sequent $\frameof C$:
 %%   $q_0\vlor\dual q_0$ and all $\fff$ are replaced by $q_0\vlan\dual
 %%   q_0$ for some fresh nullary predicate $q_0$.
 \end{enumerate}
-The $\linkingof{\frameof C}$ consists of the pairs induced by
+Then $\linkingof{\frameof C}$ consists of the pairs induced by
 $\linkingof\gC$ and the new pairs $\set{q_{i,j},\dual q_{i,j}}$ introduced in
 step~1 above.
 We call $\frameof C$ the \bfit{frame} of $C$ and we define the \bfit{frame} of $\gC$, denoted
@@ -2391,11 +2396,12 @@ $\frameof\gC$, as
 $\tuple{\graphof{\frameof C},\linkingof{\frameof C}}$.
 
 \begin{lemma}\label{lem:frame}
-  A linked fograph $\gC$ has an induced bimatching iff its frame $\frameof\gC$ has an induced bimatching.
+  If a linked fograph $\gC$ has an induced bimatching then so does its frame $\frameof\gC$. % has an induced bimatching.
 \end{lemma}
 
 \begin{proof}
-  This immediately follows from the construction of the frame.\lutz{is it really an ``iff''? It is easy to construct from a bimatching in $\gC$ a bimatching in the frame. (and I think we only need that direction). But what about the other direction?}
+  Immediately from the construction of the frame.
+  %%\lutz{is it really an ``iff''? It is easy to construct from a bimatching in $\gC$ a bimatching in the frame. (and I think we only need that direction). But what about the other direction?}
 \end{proof}
 
 \begin{proof}[Proof of Theorem~\ref{thm:MLS1->fonet}]
@@ -2409,8 +2415,9 @@ $\tuple{\graphof{\frameof C},\linkingof{\frameof C}}$.
   replaced by the derivation on the right below:\footnote{For better
   readability we omit superfluous parentheses, knowing that we always
   have $\fequ$ incorporating associativity and commutativity of
-  $\vlan$ and $\vlor$.}
-  \begin{equation*}\small
+  $\vlan$ and $\vlor$.} \vadjust{\vskip-2ex}
+  \begin{equation*}
+    \scalebox{.95}{$
     \vlinf{\forall}{}{\Scons{\forall y_j.\ttt}}{\Scons{\ttt}}
     %\qquad
     \;\leadsto
@@ -2422,12 +2429,12 @@ $\tuple{\graphof{\frameof C},\linkingof{\frameof C}}$.
         \vlde{\set{\aiD,\tttD}}{\DDeri_1}{
           \Scons{(q_{h_1,j}\vlor \dual q_{h_1,j})\vlan\cdots\vlan(q_{h_j,j}\vlor \dual q_{h_j,j})\vlan\ttt}}{
           \vlhy{\ttt}}}}
+    $}
   \end{equation*}
   where $h_1,\ldots,h_j$ range over the indices of the existential
   binders dependend on that $y_j$. It is easy to see how $\DDeri_1$ is
   constructed, and for $\DDeri_2$ see,
-  e.g. \cite{ESSLI19-notes,gug:str:01,brunnler:tiu:01}\lutz{check if
-    it is really there. otherwise \cite{dissvonlutz}} Then, every
+  e.g. \cite{ATS:esslli2019,gug:str:01,brunnler:tiu:01,dissvonlutz}. Then, every
   occurrence of $\forall y_j.F$ is replaced by
   $q_{h_1,j}\vlor\cdots\vlor q_{h_j,j}\vlor (\dual
   q_{h_1,j}\vlan\cdots\vlan\dual q_{h_j,j}\vlan F)$ in the derivation
@@ -2450,22 +2457,23 @@ $\tuple{\graphof{\frameof C},\linkingof{\frameof C}}$.
   \end{equation*}
   where $k_1,\ldots,k_i$ are the indices of of the universal binders
   on which that $x_i$ depends, and $B'$ is $B$ in which all predicates
-  are replaced by nullary one (step~3 in the frame construction). The
+  are replaced by a nullary one (step~3 in the frame construction). The
   derivation $\DDeri_3$ can be constructed in the same way as
-  $\DDeri_2$ above.
+  $\DDeri_2$.
 
   Doing this to all instances of the rules $\forall$ and $\exists$ in
   $\Deri$ yields indeed a propositional derivation $\frameof\Deri$
   with
   \hbox{$\fographof{\frameof\Deri}=\frameof{\fographof\Deri}$}. It has
-  been shown by Retor\'e~\cite{some tech-report to be found} and
+  been shown by Retor\'e~\cite{retore:pomset:RR} and
   rediscovered by Stra{\ss}burger~\cite{dissvonlutz} that
   $\fographof{\frameof\Deri}=\tuple{\graphof{\frameof
       C},\linkingof{\frameof\Deri}}$ can not contain an induced
   bimatching. By Lemma~\ref{lem:frame}, $\fographof{\Deri}$ does not
   have an induced bimatching either. Furthemore, it followed from the
   definition of $\dsubstof\Deri$ that it is a dualizer for
-  $\fographof{\Deri}$. Hence $\fographof{\Deri}$ is a fonet.
+  $\fographof{\Deri}$.
+  %Hence $\fographof{\Deri}$ is a fonet.
   %% We have
   %% to show that no inference rule in $\FOMLS$ can introduce a
   %% bimatching. For the rules $\forall$, $\aiD$, $\tttD$, $\fequ$, and
