@@ -464,7 +464,8 @@ node[leaf, label={[label distance=1pt]{-90}:${#1}$}]{} edge from parent[{_[sep=#
 
 
 \newcommand\drinkerformula{\exists x\mkern1mu(\mkern1mu px\mkern-1mu\implies\mkern-1mu \aypy)}
-\newcommand\veedrinkerformula{\exists x\mkern1mu(\mkern1mu\ppx\mkern-1mu\vee\mkern-1mu \aypy)}
+\newcommand\veedrinkerformula{\exists x.(\cneg{p}x \vlor (\forall y.py))}
+\newcommand\veedrinkerformulaOLD{\exists x\mkern1mu(\mkern1mu\ppx\mkern-1mu\vee\mkern-1mu \aypy)}
 \newcommand\variantveedrinkerformula{\exists x\mkern2mu\forall y\mkern2mu(\py\mkern-1mu\vee\mkern-1mu\ppx)}
 
 \newcommand\drinkergraph{\gD}
@@ -554,6 +555,11 @@ node[leaf, label={[label distance=1pt]{-90}:${#1}$}]{} edge from parent[{_[sep=#
 \drinkerfibres
 }
 
+\newcommand\drinkerfibcolouredpic{
+  \begin{tikzpicture}
+    \drinkerfibcoloured
+  \end{tikzpicture}
+}
 % Inline versions of drinker CP
 
 \newcommand\drinkerInlineAbstract[4]{\fibration{
@@ -1192,7 +1198,6 @@ node[leaf, label={[label distance=1pt]{-90}:${#1}$}]{} edge from parent[{_[sep=#
   \de{x}{ppx}
 }
 
-
 \newcommand\figdrinkerbifib{\begin{figure*}%
 \begin{center}\begin{tikzpicture}[graph]
   \begin{scope}[shift={(-5,0)}]\drinkerfiblabelledpair{x}{x}\end{scope}
@@ -1349,7 +1354,11 @@ node[leaf, label={[label distance=1pt]{-90}:${#1}$}]{} edge from parent[{_[sep=#
 
 %%%%%%  PICTURE:  Peirce's law cp
 
-\newcommand\peirceformula{\left(\rule{0ex}{1.7ex}\mkern-1mu(\pp\mkern-1mu\tightvee\mkern-3mu q)\mkern-2mu\tightwedge\mkern-2mu\pp\right)\mkern-1mu\tightvee\mkern-0mu p}
+\newcommand\peirceformula{((\cneg{p} \vlor q) \vlan \cneg{p}) \vlor p}
+\newcommand\peirceformulaOLD{\left(\rule{0ex}{1.7ex}\mkern-1mu
+(\pp\mkern-1mu\tightvee\mkern-3mu q)
+\mkern-2mu\tightwedge\mkern-2mu
+\pp\right)\mkern-1mu\tightvee\mkern-0mu p}
 \newcommand\peirceimpliesformula{\left(\rule{0ex}{1.7ex}\mkern-1mu(p\mkern-1mu\tightimplies\mkern-2mu q)\mkern-1mu\tightimplies p\right)\mkern-2mu\tightimplies\mkern-.3mu p}
 
 \newcommand\peircexone{-.9}
@@ -1392,4 +1401,9 @@ node[leaf, label={[label distance=1pt]{-90}:${#1}$}]{} edge from parent[{_[sep=#
     \fe {cpu}{cpd}
     \fe {cpd}{p}
   \end{scope}
+}
+\newcommand\peircecppic{
+  \begin{tikzpicture}
+    \peircecp
+  \end{tikzpicture}
 }
