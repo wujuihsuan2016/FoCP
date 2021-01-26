@@ -908,7 +908,7 @@ notions.
 %
 The right side of Fig.\,\ref{fig:translate}
 illustrates the surjection in (a), and since the syntactic proofs 
-of the two systems both translate the same combinatorial proof,
+of the two systems both translate to the same combinatorial proof,
 they can be considered \emph{the same}.
 
 In general, a \emph{decomposition theorem} provides normal forms of
@@ -1003,7 +1003,7 @@ $\FORM$ of \bfit{formulas}, denoted by $A,B,C,\ldots$:
 \end{array}
 \end{equation*}
 where the arity of $f$ and $p$ is $n$.
-For better readability of often omit parentheses and write simply $ft_1 \dots t_n$ or $pt_1 \dots t_n$.
+For better readability we often omit parentheses and write simply $ft_1 \dots t_n$ or $pt_1 \dots t_n$.
 We consider the truth constants
 $\ttt$ (\emph{true}) and $\fff$
 (\emph{false}) as additional atoms, and we consider all formulas in negation
@@ -1210,7 +1210,7 @@ In a graph $\gG$, the \bfit{neighbourhood} $N(v)$ of a vertex $v \in\vG$ is defi
 the set $\set{w \mid vw \in\eG}$. A \bfit{module} is a set $M \subseteq \vG$
 such that $N(v) \setminus M = N(w) \setminus M$
 for all $v, w \in M$. A module $M$ is \bfit{strong} if for every
-module $M'$, we have $M' \subseteq M$, $M \subseteq$ or $M \cap M' =
+module $M'$, we have $M' \subseteq M$, $M \subseteq M'$ or $M \cap M' =
 \emptyset$. A module is \bfit{proper} if it has two or more vertices.
 
 %% Modules in cographs correspond precisely to the subtrees of the
@@ -1361,7 +1361,7 @@ following theorem:
 \end{thm}
 
 \begin{proof}
-  By a straightforward induction on $A$.
+  Straightforward induction on $A$.
 \end{proof}
 
 \begin{example}
@@ -1405,7 +1405,7 @@ Two atoms are \bfit{pre-dual} if they are not $\ttt$ or $\fff$, and their predic
 (e.g. $p(x, y)$ and $\dual{p}(y, z)$) and two literals are \bfit{pre-dual} if their
 labels (atoms) are pre-dual. A \bfit{linked fograph} $\tuple{\gC,\linkingof\gC}$ is a coloured fograph $\gC$ such
 that every colour (i.e., equivalence class of~$\linkingof\gC$), called a \bfit{link}, consists of two pre-dual literals, and
-every literal is either $\ttt$-labelled or in a link. Hence, in a linked fograph no vertex is labeled~$\fff$.
+every literal is either $\ttt$-labelled or in a link. Hence, in a linked fograph no vertex is labelled~$\fff$.
 
 Let $\gC$ be a linked fograph. The set of links can be seen as a unification problem
 by identifying dual predicate symbols. A \bfit{dualizer} of $\gC$ is a substitution $\delta$
@@ -1514,7 +1514,7 @@ A directed graph homomorphism is a
 A \bfit{fograph homomorphism} $\phi=\tuple{\phi,\rsubstof\phi}$ is a
 pair where $\phi\colon\gG\to\gH$ is a graph homomorphism between the
 underlying graphs, and $\rsubstof\phi$, also called the
-\bfit{substitution induced by $\phi$} is a variable renaming 
+\bfit{substitution induced by $\phi$}, is a variable renaming
 such that
 for all $v\in\vG$ we have
 $\labelof{\phi(v)}=\rsubstof\phi(\labelof v)$,
@@ -1530,7 +1530,7 @@ A fograph homomorphism $\phi\colon\gG \rightarrow \gH$
 % is \bfit{existential-preserving} 
 \bfit{preserves existentials}
 if for all existential binders $b$ in
-$\gG$, the binder $\phi(b)$ is a existential in $\gH$.
+$\gG$, the binder $\phi(b)$ is existential in $\gH$.
 %
 \begin{definition}
   Let $\gG$ and $\gH$ be fographs. A \bfit{skew bifibration}
@@ -1546,7 +1546,7 @@ $\gG$, the binder $\phi(b)$ is a existential in $\gH$.
   Below-left is a skew bifibration, whose binding fibration
   is below-centre. When the labels on the source fograph can be inferred
   (modulo renaming),
-  we often omit the labeling in the upper graph, as below-right.
+  we often omit the labelling in the upper graph, as below-right.
   %% , which refer to as 
   %% \bfit{condensed form}.\dominic{I said ``can be inferred'' to account for 
   %% e.g.\
@@ -1648,7 +1648,7 @@ Figure~\ref{fig:cps-condensed} in a ``condensed form''.
   \vskip-.2ex
 \end{figure}
 %
-In contrast to to standard proof formalisms, like sequent calculi or
+In contrast to standard proof formalisms, like sequent calculi or
 tableaux, where inference rules decompose the principal formula along
 its root connective, \emph{deep inference rules} apply like
 rewriting rules inside any (positive) formula or sequent
@@ -1707,7 +1707,7 @@ first is routine and expected, but needs to be proved nonetheless:
 \end{thm}
 
 Our second result is more surprising, as it is a very strong
-decomposition result for first order logic.
+decomposition result for first-order logic.
 
 \begin{thm}\label{thm:decomposition}
   For every derivation $\vlder{\FOKS}{\Deri}{A}{\ttt}$ there are $\fff$-free formulas $A_1,\ldots,A_5$, such that there is a derivation:
@@ -1821,13 +1821,13 @@ and~\ref{fig:cps-condensed}.
 Thus, combinatorial proofs are closely related to derivations of the
 form~\eqref{eq:decom}, and since by Theorem~\ref{thm:decomposition}
 every derivation can be transformed into that form, we can say that
-combinatorial proofs form a canonical proof representation for first
-order logic, similarly to what proof nets are for linear
+combinatorial proofs form a canonical proof representation for first-order
+logic, similarly to what proof nets are for linear
 logic~\cite{girard:96:PN}.
 
 Finally, Theorems~\ref{thm:KS1}, \ref{thm:decomposition}
 and~\ref{thm:CP-DI} imply Theorem~\ref{thm:FOCP}, which means that we
-have here an alternative proof of the soundness and completeness of
+have here an alternative proof of the soundness and completeness for
 first-order combinatorial proofs which is simpler than the one given
 in~\cite{hughes:fopws}.
 
@@ -2112,7 +2112,7 @@ other results.
 \begin{proof}
   First, we can replace every instance of the $\fff$-rule in $\Deri$ by
   $\weakr$. Then the instances of $\weakr$ and $\conr$ are replaced by
-  $\wD$ and $\cD$, which can then be permuted down. (Details are in
+  $\wD$ and $\cD$, which can then be permuted down. Details are in
   Appendix~\ref{app:LK1-decompose}.
 \end{proof}
 
@@ -2133,8 +2133,7 @@ other results.
 \end{lemma}
 
 \begin{proof}
-  First, observe that the $\exists$ rule can be permuted downwards
-  over all the other rules since $A\ssubst{x}{t}$ has the same
+  First, observe that the $\exists$ rule can be permuted under all the other rules since $A\ssubst{x}{t}$ has the same
   structure as $A$ and none of the other rules has a premise of the
   form $\Scons{\exists x.A}$. It suffices now to prove that all rules
   in $\set{\forall, \aiD, \tttD}$ can be permuted over the rules in
@@ -2437,8 +2436,8 @@ $\tuple{\graphof{\frameof C},\linkingof{\frameof C}}$.
   constructed, and for $\DDeri_2$ see,
   e.g. \cite{ATS:esslli2019,gug:str:01,brunnler:tiu:01,dissvonlutz}. Then, every
   occurrence of $\forall y_j.F$ is replaced by
-  $q_{h_1,j}\vlor\cdots\vlor q_{h_j,j}\vlor (\dual
-  q_{h_1,j}\vlan\cdots\vlan\dual q_{h_j,j}\vlan F)$ in the derivation
+  $q_{h_1,j}\vlor\cdots\vlor q_{h_n,j}\vlor (\dual
+  q_{h_1,j}\vlan\cdots\vlan\dual q_{h_n,j}\vlan F)$ in the derivation
   below that $\forall$-instance. Now, observe that all instances of
   the $\exists$-rule introducing $x_i$ dependent on $y_j$ must occur
   below in the derivation (otherwise $\Deri$ would not be rectified).
@@ -2450,13 +2449,13 @@ $\tuple{\graphof{\frameof C},\linkingof{\frameof C}}$.
   instance by the following derivation
   \begin{equation*}
     \vlder{\set{\sw,\fequ}}{\DDeri_3}{ S_0\cons{S_1\cons{\cdots
-          S_{k_l-1}\cons{S_{k_l}\cons{\dual q_{i,k_1}\vlan\dual
+          S_{l-1}\cons{S_{l}\cons{\dual q_{i,k_1}\vlan\dual
               q_{i,k_2}\vlan\cdots q_{i,k_l}\vlan B'}}\cdots}}}{
       S_0\cons{\dual q_{i,k_1}\vlan S_1\cons{\dual
-          q_{i,k_2}\vlan\cdots S_{k_l-1}\cons{\dual q_{i,k_k}\vlan
-            S_{k_l}\cons{B'}}\cdots}}}
+          q_{i,k_2}\vlan\cdots S_{l-1}\cons{\dual q_{i,k_l}\vlan
+            S_{l}\cons{B'}}\cdots}}}
   \end{equation*}
-  where $k_1,\ldots,k_l$ are the indices of of the universal binders
+  where $k_1,\ldots,k_l$ are the indices of the universal binders
   on which that $x_i$ depends, and $B'$ is $B$ in which all predicates
   are replaced by a nullary one (step~3 in the frame construction). The
   derivation $\DDeri_3$ can be constructed in the same way as
@@ -2471,7 +2470,7 @@ $\tuple{\graphof{\frameof C},\linkingof{\frameof C}}$.
   $\fographof{\frameof\Deri}=\tuple{\graphof{\frameof
       C},\linkingof{\frameof\Deri}}$ cannot contain an induced
   bimatching. By Lemma~\ref{lem:frame}, $\fographof{\Deri}$ does not
-  have an induced bimatching either. Furthermore, it followed from the
+  have an induced bimatching either. Furthermore, it follows from the
   definition of $\dsubstof\Deri$ that it is a dualizer for
   $\fographof{\Deri}$.
   %Hence $\fographof{\Deri}$ is a fonet.
@@ -2673,7 +2672,7 @@ a derivation in
 $\set{\wrD,\wfaD,\acD,\rectif\cfaD,\me,\rectif\mfaD,\rectif\mexD,\fequ}$.
 
 For each instance $\vlinf{\rr}{}{P}{Q}$ of an inference rule in
-$\set{\wrD,\acD,\rectif\cfaD,\me,\rectif\mfaD,\rectif\mexD,\fequ}$ we can
+$\set{\wrD,\wfaD,\acD,\rectif\cfaD,\me,\rectif\mfaD,\rectif\mexD,\fequ}$ we can
 define the \bfit{induced map} $\mapof{\rr}\colon\vgraphof
 Q\to\vgraphof P$ which acts as the identity for
 $\rr\in\set{\me,\fequ}$ and as the canonical injection for
@@ -2724,7 +2723,7 @@ maps of the rule instances in $\Deri$.
 
 \begin{lemma}\label{lem:cw->skew}
   Let $\vlderivation{
-    \vlde{\set{\wrD,\acD,\rectif\cfaD,\me,\rectif\mfaD,\rectif\mexD,\fequ}}{\Deri}{B}{
+    \vlde{\set{\wrD,\wfaD,\acD,\rectif\cfaD,\me,\rectif\mfaD,\rectif\mexD,\fequ}}{\Deri}{B}{
       \vlhy{A}}}$ be a rectified derivation. Then the induced map
   $\mapof\Deri\colon\graphof{A}\to\graphof{B}$ is a skew bifibration.
 \end{lemma}
@@ -2790,8 +2789,9 @@ propositional formulas, i.e., the first two lines in~\eqref{eq:fequ}.
   variables---the propositional variable, as well as the first-order
   variable of the same name---as everything is rectified, there is no
   ambiguity here. Any instance of a rule $\wD$, $\acD$, $\me$, or
-  $\fequ$ is translated to an instance of the same rule, and
-  $\rectif\cfaD$ is translated to $\rectif\acD$.
+  $\fequ$ is translated to an instance of the same rule,
+  $\rectif\cfaD$ is translated to $\rectif\acD$, and $\wfaD$ is
+  translated to $\wD$.
 
   This gives us a derivation $\vlderivation{
     \vlde{\set{\wrD,\acD,\rectif\acD,\me,\PE\fequ}}{\PE\Deri}{\PE B}{
