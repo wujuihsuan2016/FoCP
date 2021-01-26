@@ -708,8 +708,8 @@ mathematical field. For example in group theory, two groups are
 \emph{the same} iff they are homeomorphic; etc. In proof theory, we
 have no such notion telling us when two proofs are \emph{the same},
 even though Hilbert was considering this problem as a possible 24th
-problem for his famous lecture~\cite{hilbert:00} in
-1900~\cite{thiele:03}, before proof theory existed as a mathematical
+problem~\cite{thiele:03} for his famous lecture in
+1900~\cite{hilbert:00}, before proof theory existed as a mathematical
 field.
 
 The main reason for this problem is that formal proofs, as they are
@@ -1240,7 +1240,7 @@ $x$-binder is \bfit{legal} if its scope contains no other $x$-binder
 and at least one literal.
 %
 \begin{definition}
-A \bfit{first-order graph} or \bfit{fograph} is a logical cograph with legal binders. The
+A \bfit{first-order graph} or \bfit{fograph} is a logical cograph in which all binders are legal. The
 \bfit{binding graph} of a fograph $\gG$ is the directed graph $\bG=\tuple{\vG,
 \set{(b, l) \mid b \text{ binds } l}}$.
 \end{definition}
@@ -1663,12 +1663,15 @@ $\conhole$ in the position of an atom. Then $\Scons A$ is the result
 of replacing the hole $\conhole$ in $\Sconhole$ with $A$.
 
 Figure~\ref{fig:KS1} shows the inference rules for the deep inference
-system~$\FOKS$ that we introduce in this paper. It is a slight variation
-of the systems presented by Br\"unnler~\cite{brunnler:phd} and
-Ralph~\cite{ralph:phd} in their PhD-theses. The main differences are
-(i) the explicit presence of the $\mixr$-rule, (ii) a
-different choice of how the formula equivalence $\fequ$ is defined,
-and (iii) an explicit rule for the equivalence.
+system~$\FOKS$ that we introduce in this paper. It is a slight
+variation of the systems presented by Br\"unnler~\cite{brunnler:phd}
+and Ralph~\cite{ralph:phd} in their PhD-theses. The main differences
+are (i) the explicit presence of the $\mixr$-rule, (ii) a different
+choice of how the formula equivalence $\fequ$ is defined, (iii) an
+explicit rule for the equivalence, and (iv) new inference rules
+$\wfaD$ and $\cfaD$. The reason behind these design choices is to
+obtain the correspondence with combinatorial proofs and the full
+completeness result.
 
 We consider here only the cut-free fragment, as cut-elimination for
 deep inference systems has already been discussed
@@ -1688,7 +1691,7 @@ from $B$ to $A$ using the rules from system $\sysS$. A formula $A$ is
 \bfit{provable} in a system $\sysS$ if there is a derivation in
 $\sysS$ from $\ttt$ to $A$.
 
-We will sometimes employ the
+We will for some results also employ the
 general (non-atomic) version of the contraction rule:
 \begin{equation}
   \vlinf{\cD}{}{\Scons{A}}{\Scons{A\vlor A}}  
@@ -1876,13 +1879,13 @@ We show that $\FOMLL$ and $\FOMLS$ are equivalent.
   e.g.~\cite{brunnler:phd}): By induction hypothesis, there is a proof
   of $\form\Delta\vlor A$ in $\FOMLS$. We can prefix every line in
   that proof by $\forall x$ and then compose the following derivation:
-  \begin{center}\vspace{-2ex}\begin{math}
+  \begin{center}\vspace{-2ex}\scalebox{.9}{\begin{math}
     \vlderivation{
       \vlin{\fequ}{}{\form\Delta\vlor\forall x.A}{
         \vlde{\FOMLS}{}{\forall x.\form\Delta\vlor A}{
           \vlin{\forall}{}{\forall x.\ttt}{
             \vlhy{\ttt}}}}}
-  \end{math}\end{center}
+  \end{math}}\end{center}
   where we can apply the $\fequ$-rule because $x$ is not free in $\Delta$.
 \end{proof}
 
@@ -2095,6 +2098,9 @@ other results.
   Immediately from Lemmas~\ref{lem:ac} and~\ref{lem:me}.
 \end{proof}
 
+\begin{remark}
+  Observe that Lemma~\ref{lem:cw-atomic} would also hold with the rules $\wfaD$ and~$\cfaD$ removed.
+\end{remark}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Rule Permutations}
@@ -2201,7 +2207,7 @@ other results.
   the derivation and then permute in a second step the rules $\cD$ and
   $\cfaD$ below $\set{\me,\mfaD,\mexD}$. This involves a tedious but
   straightforward case analysis. However, unlike most other rule
-  permutations in this paper this has not been done before in the deep
+  permutations in this paper, this has not been done before in the deep
   inference literature. For this reason, we give the full case
   analysis in Appendix~\ref{app:cw-decomposition}. Note that this
   Lemma is the reason for the presence of the rules $\wfaD$ and
@@ -2333,17 +2339,17 @@ which both remove a binder.
 Therefore, we can call such a derivation \bfit{rectified}, and
 %% if every line in $\Deri$ is
 %% rectified.
-
+%
 %% \begin{lemma}
 %%   Let  $\Deri$ be a $\FOMLS$ proof of a formula $A$. Then $\Deri$ is rectified iff $A$ is rectified.
 %% \end{lemma}
-
+%
 %% \begin{proof}
 %%    The only rules involving bound
 %%    variables are $\forall$ and $\exists$ which both remove a binder (and
 %%    all occurrences of the variable it binds).
 %% \end{proof}
-
+%
 %% Hence,
 for a non-rectified  $\FOMLS$ derivation $\Deri$ we can
 define its \bfit{rectification} $\rectif\Deri$ inductively, by rectifying each
@@ -2427,7 +2433,7 @@ $\tuple{\graphof{\frameof C},\linkingof{\frameof C}}$.
   replaced by the derivation on the right below:\footnote{For better
   readability we omit superfluous parentheses, knowing that we always
   have $\fequ$ incorporating associativity and commutativity of
-  $\vlan$ and $\vlor$.} \vadjust{\vskip-2ex}
+  $\vlan$ and $\vlor$.} \vadjust{\vskip-4ex}
   \begin{equation*}
     \scalebox{.95}{$
     \vlinf{\forall}{}{\Scons{\forall y_j.\ttt}}{\Scons{\ttt}}
@@ -2445,7 +2451,7 @@ $\tuple{\graphof{\frameof C},\linkingof{\frameof C}}$.
   \end{equation*}
   where $h_1,\ldots,h_n$ range over the indices of the existential
   binders dependent on that $y_j$. It is easy to see how $\DDeri_1$ is
-  constructed, and for $\DDeri_2$ see,
+  constructed. The construction of $\DDeri_2$, using $\sw$ and $\fequ$, is standard, see,
   e.g. \cite{ATS:esslli2019,gug:str:01,brunnler:tiu:01,dissvonlutz}. Then, every
   occurrence of $\forall y_j.F$ is replaced by
   $q_{h_1,j}\vlor\cdots\vlor q_{h_n,j}\vlor (\dual
@@ -2502,7 +2508,7 @@ $\tuple{\graphof{\frameof C},\linkingof{\frameof C}}$.
   There is an alternative path of proving Theorem~\ref{thm:MLS1->fonet}
   by translating $\Deri$ to an $\FOMLL$-proof $\Pi$, observing that
   this process preserves the linking and the dualizer. However, for
-  this, we have to extend the construction above to the $\cut$-rule,
+  this, we have to extend the construction from the previous subsection to the $\cut$-rule,
   and then show that linking and dualizer of a sequent proof $\Pi$ are
   invariant under cut elimination. This can be done similarly to
   unification nets in~\cite{hughes:unifn}.
@@ -2651,9 +2657,9 @@ $\mexD$ we can no longer naively define the rectification
 $\rectif\Deri$ as in the previous section for $\FOMLS$, as these two
 rules cannot be applied if premise and conclusion are rectified. For
 this reason we define here rectified versions $\rectif\cfaD$,  $\rectif\mfaD$ and
-$\rectif\mexD$, shown below:%\vadjust{\vskip-1ex}
+$\rectif\mexD$, shown below:\vadjust{\vskip-1ex}
 \begin{equation*}
-  \scalebox{.9}{$
+  \scalebox{1}{$
   \vlinf{\rectif\cfaD}{}{\Scons{\forall x.Ax}}{\Scons{\forall y.\forall x.Ax}}
   \hskip3em
   \begin{array}{c}
@@ -2855,13 +2861,13 @@ $vw\in\eG$.
   Let $\phi\colon\gG\to\gH$ be full and injective skew bifibration
   such that $\rsubstof\phi$ is the identity substitution, and let $G$
   and $H$ be formulas with $\graphof G=\gG$ and $\graphof H=\gH$. Then
-  There is a derivation $\vlder{\set{\wrD,\wfaD,\fequ}}{}{H}{G}$.
+  there is a derivation $\vlder{\set{\wrD,\wfaD,\fequ}}{\Deri}{H}{G}$.
 \end{lemma}
 
 \begin{proof}
    By \cite[Proposition~7.6.1]{str:07:RTA}, we have a derivation
    $\vlder{\set{\wrD,\PE\fequ}}{\DDeri}{\PE H}{\PE G}$. In order to
-   lift $\DDeri$, we might need to reorganize the instances of
+   lift $\DDeri$, we need to reorganize the instances of
    $\wD$. If $H$ contains a subformula $\forall x.A$ which is not
    present in $G$, the $\wD$-instances in $\DDeri$ could introduce the
    parts of the propositional encoding $x\vlor A$ independently.  We
@@ -2871,25 +2877,29 @@ $vw\in\eG$.
    term in a predicate) and $\rr_2$ introduces the atom $x$ as a
    subformula (i.e. the propositional encoding of the binder $x$).  We
    can now permute the $\wD$-instances in $\DDeri$ such that whenever
-   a rule instance $\rr_1$ depends on an instance $\rr_2$, then
+   a rule instance $\rr_1$ is in the scope on an instance $\rr_2$, then
    $\rr_2$ occurs below $\rr_1$ in $\DDeri$.
-   We can now lift $\DDeri$ stepwise. First, observe that each line of
+   Then we can lift $\DDeri$ stepwise. First, observe that each line of
    $\DDeri$ is $\PE\fequ$-equivalent to the propositional encoding $\PE P$ of a
    first-order formula $P$.  We now have to show
    that each instance of $\wrD$ in $\DDeri$ is indeed the image of a correct
    application of $\wD$ or $\wfaD$ in first-order logic.
    If we have a $\wD$ of the form
    \begin{equation*}
+     \scalebox{1}{$
      \vlinf{\wD}{}{\PE S\cons{x\vlor \PE A}}{\PE S\cons{\PE A}}
      \qquor
      \vlinf{\wD}{}{\PE S\cons{(x\vlor \PE B)\vlor \PE A}}{\PE S\cons{\PE A}}
+     $}
    \end{equation*}
    then $x$ cannot occur freely in $A$, as otherwise the fibration
    property would be violated. We can therefore lift these instances to
    \begin{equation*}
-     \vlinf{\wfaD}{}{S\cons{\forall x. A}}{S\cons{A}}
+      \scalebox{1}{$
+    \vlinf{\wfaD}{}{S\cons{\forall x. A}}{S\cons{A}}
      \qquor
      \vlinf{\wD}{}{S\cons{(\forall x. B)\vlor A}}{S\cons{A}}
+     $}
    \end{equation*}
    respectively.     
   %% A subformula of $\PE B$ is called \emph{weak} if it has been
@@ -3073,8 +3083,10 @@ The obvious next step in our research is to investigate proof
 composition and normalisation of first-order combinatorial
 proofs. Even in the propositional setting, the normalisation of
 combinatorial proofs is underdeveloped. There exist two different
-procedures for cut elimination~\cite{hughes:invar,str:fscd17}, but
-both have their insufficiencies, and there is no general theory.
+procedures for cut elimination for combinatorial proofs in classical
+propositional logic~\cite{hughes:invar,str:fscd17}, but both have
+their insufficiencies, and they have not been extended to other
+logics.
 
 Nonetheless, we hope to get new insights in the normalisation of
 classical first-order proofs through our work on combinatorial proofs.
