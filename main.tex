@@ -490,6 +490,7 @@
 \newcommand{\Gr}{\mathcal{G}}
 \newcommand{\PE}[1]{#1^\circ}
 \newcommand{\PEp}[1]{\tilde{#1}}
+\newcommand\fv{\textsf{\small fv}}
 
 % ** FONT STYLE **
 
@@ -1449,10 +1450,10 @@ Figure~\ref{fig:leap} shows a fonet with a unique dualizer, and its leap graph.
 
 \begin{figure*}
   $$
-  \begin{tikzpicture}\cponeonformula
+  \begin{tikzpicture}\cptwoonformula
   \end{tikzpicture}
   \qquad
-  \begin{tikzpicture}\cptwoonformula
+  \begin{tikzpicture}\cponeonformula
   \end{tikzpicture}
   \qquad
   \begin{tikzpicture}\cpthreeonformula
@@ -1473,11 +1474,11 @@ Figure~\ref{fig:leap} shows a fonet with a unique dualizer, and its leap graph.
 \begin{figure*}
   $$
   \begin{tikzpicture}
-    \cponeinline
+    \cptwoinline
   \end{tikzpicture}
   \qquad\;
   \begin{tikzpicture}
-    \cptwoinline
+    \cponeinline
   \end{tikzpicture}
   \qquad\;
   \begin{tikzpicture}
@@ -1576,8 +1577,12 @@ $\graphof{A}$.
 %
 Figure~\ref{fig:cps} shows examples of
 FOCPs (taken from~\cite{hughes:fopws}), each above the formula it proves.
-The same FOCPs are shown in
-Figure~\ref{fig:cps-condensed} in a ``condensed form''.
+The same FOCPs are in
+Figure~\ref{fig:cps-condensed} in \emph{condensed form}, with the formula
+graph left implicit.
+%  (No information is lost, since 
+% atom/quantifier-occurrences in a formula
+% are in bijection with vertices of its graph.)
 %
 \begin{thm}[\cite{hughes:fopws}]
   \label{thm:FOCP}
@@ -1683,7 +1688,7 @@ from $B$ to $A$ using the rules from system $\sysS$. A formula $A$ is
 \bfit{provable} in a system $\sysS$ if there is a derivation in
 $\sysS$ from $\ttt$ to $A$.
 
-In the course of this paper we will employ the
+We will sometimes employ the
 general (non-atomic) version of the contraction rule:
 \begin{equation}
   \vlinf{\cD}{}{\Scons{A}}{\Scons{A\vlor A}}  
@@ -1710,7 +1715,7 @@ Our second result is more surprising, as it is a very strong
 decomposition result for first-order logic.
 
 \begin{thm}\label{thm:decomposition}
-  For every derivation $\vlder{\FOKS}{\Deri}{A}{\ttt}$ there are $\fff$-free formulas $A_1,\ldots,A_5$, such that there is a derivation:
+  For every derivation $\vlder{\FOKS}{\Deri}{A}{\ttt}$ there are $\fff$-free formulas $A_1,\ldots,A_5$ and a derivation
   \begin{equation*}
     \scalebox{.9}{$
     \vlderivation{
@@ -1735,12 +1740,12 @@ Theorem~\ref{thm:decomposition} is also the reason why we have the rules
 $\wfaD$ and $\cfaD$ in system $\FOKS$, as these rules are derivable
 with the other rules. However, they are needed to obtain this
 decomposition.
-
+%
 %\begin{example}
   Figure~\ref{fig:example-decompose} shows an example of a decomposed derivation in $\FOKS$ of the
   formula $(\exists x. \cneg{p}x) \vlor (\forall y.(py \vlan pfy))$.
 %\end{example}
-
+%
 \begin{figure}
   \begin{equation*}
     \scalebox{.9}{$
@@ -1772,23 +1777,26 @@ decomposition.
     \caption{Example derivation in decomposed form of Theorem~\ref{thm:decomposition}}
     \label{fig:example-decompose}
   \end{figure}
-%
-There is a weaker version of Theorem~\ref{thm:decomposition} that will
+
+A weaker version of Theorem~\ref{thm:decomposition} will
 also be useful:
 %
 \begin{thm}\label{thm:decompositionA}
-  For every derivation $\upsmash{\vlder{\FOKS}{\Deri}{A}{\ttt}}$ there is a formula~$A_1$ not containing any occurrence of $\fff$, such that there is a derivation:
+  For every derivation $\rule{0ex}{4.7ex}\upsmash{\vlder{\FOKS}{\Deri}{A}{\ttt}}$
+there is a formula~$A'$ with no occurrence of $\fff$ and a derivation
   \begin{equation*}
     %\scalebox{.9}{$
     \vlderivation{
       \vlde{\set{\wrD,\cD,\fequ}}{}{A}{
-        \vlde{\FOMLS}{}{A_1}{
+        \vlde{\FOMLS}{}{A'}{
           \vlhy{\ttt}}}}
    % $}
   \end{equation*}
 \end{thm}
+%
+\noindent Here $A'$ corresponds to $A_3$ of Theorem~\ref{thm:decomposition}.
 
-Let us now establish the connection between derivations in $\FOKS$ and
+We now establish the connection between derivations in $\FOKS$ and
 combinatorial proofs.
 
 \begin{thm}\label{thm:CP-DI}
@@ -1815,13 +1823,13 @@ $\Deri_1$, and (ii) the ''flow-graph'' of $\Deri_2$ that traces the
 quantifier- and atom-occurrences in the derivation corresponds exactly
 to the vertex-mapping induced by $\phi$. To give an example, consider
 the derivation in Figure~\ref{fig:example-decompose} which corresponds
-to the right-most combinatorial proof in Figures~\ref{fig:cps}
+to the left-most combinatorial proof in Figures~\ref{fig:cps}
 and~\ref{fig:cps-condensed}.
 
 Thus, combinatorial proofs are closely related to derivations of the
 form~\eqref{eq:decom}, and since by Theorem~\ref{thm:decomposition}
 every derivation can be transformed into that form, we can say that
-combinatorial proofs form a canonical proof representation for first-order
+combinatorial proofs provide a canonical proof representation for first-order
 logic, similarly to what proof nets are for linear
 logic~\cite{girard:96:PN}.
 
@@ -1829,7 +1837,8 @@ Finally, Theorems~\ref{thm:KS1}, \ref{thm:decomposition}
 and~\ref{thm:CP-DI} imply Theorem~\ref{thm:FOCP}, which means that we
 have here an alternative proof of the soundness and completeness for
 first-order combinatorial proofs which is simpler than the one given
-in~\cite{hughes:fopws}.
+in~\cite{hughes:fopws}, and improves with completeness being full
+(a surjection from syntactic KS1 proofs onto combinatorial proofs).
 
 
 
@@ -1841,14 +1850,17 @@ in~\cite{hughes:fopws}.
 \section{Translating between $\FOLK$ and $\FOKS$}
 \label{sec:LK1-KS1}
 
-In this section we prove Theorems~\ref{thm:KS1},
+We prove Theorems~\ref{thm:KS1},
 \ref{thm:decomposition}, and~\ref{thm:decompositionA}, mainly by
 translating derivations to and from the sequent calculus, and by rule
 permutation arguments.
 
 \subsection{The Linear Fragments $\FOMLL$ and $\FOMLS$}
 
-In this section we show the equivalence of $\FOMLL$ and $\FOMLS$.
+% We show the equivalence of $\FOMLL$ and $\FOMLS$.
+% 
+% We show that $\FOMLL$ is equivalent to $\FOMLS$.
+We show that $\FOMLL$ and $\FOMLS$ are equivalent.
 
 \begin{lemma}\label{lem:MLL1->MLS1}
   If $\sqn\Gamma$ is provable in $\FOMLL$ then $\form\Gamma$ is provable in  $\FOMLS$.
@@ -2030,7 +2042,7 @@ other results.
 %%   $$
 %%   \vlderivation{
 %%     \vlin{\cD}{}{\forall x.A}{
-%%       \vlin{\equiv}{(x \notin fv(\forall x.A))}{(\forall x.A) \vlor (\forall x.A)}{
+%%       \vlin{\equiv}{(x \notin \fv(\forall x.A))}{(\forall x.A) \vlor (\forall x.A)}{
 %%         \vlin{\wrD}{}{\forall x.((\forall x.A) \vlor A)}{
 %%           \vlhy{\forall x.\forall x.A}}}}}
 %%   $$.
@@ -3135,7 +3147,9 @@ classical first-order proofs through our work on combinatorial proofs.
 
 \begin{proof}[Proof of Theorem~\ref{thm:LK1-decompose}]
 
-  Note that the instances of $\wrD,\cD$ in $\Deri_2$ are deep, but inside sequent contexts.
+Write $\fv(A)$ for the set of variables which occur free in $A$.
+
+Note that the instances of $\wrD,\cD$ in $\Deri_2$ are deep, but inside sequent contexts.
 
 First, if an instance of $\vlinf{\weakr}{}{\sqn{\Gamma,A}}{\sqn{\Gamma}}$
  is followed by a rule in which $A$ is not in the principal
@@ -3443,11 +3457,11 @@ In the following two cases, we assume $x \neq y$ (otherwise they are trivial).
 \scalebox{.9}{$
 \vlderivation{
   \vlin{\fequ}{}{\forall y.\forall x.A}{
-    \vlin{\wfaD}{(x \notin fv(\forall y.A))}{\forall x.\forall y.A}{
+    \vlin{\wfaD}{(x \notin \fv(\forall y.A))}{\forall x.\forall y.A}{
       \vlhy{\forall y.A}}}}
 \leadsto
 \vlderivation{
-  \vlin{\wfaD}{(x \notin fv(A))}{\forall y.\forall x.A}{
+  \vlin{\wfaD}{(x \notin \fv(A))}{\forall y.\forall x.A}{
     \vlhy{\forall y.A}}}$}
 \end{equation*}
 
@@ -3455,11 +3469,11 @@ In the following two cases, we assume $x \neq y$ (otherwise they are trivial).
 \scalebox{.9}{$
 \vlderivation{
   \vlin{\fequ}{}{\forall x.\forall y.A}{
-    \vlin{\wfaD}{(x \notin fv(A))}{\forall y.\forall x.A}{
+    \vlin{\wfaD}{(x \notin \fv(A))}{\forall y.\forall x.A}{
       \vlhy{\forall y.A}}}}
 \leadsto
 \vlderivation{
-  \vlin{\wfaD}{(x \notin fv(\forall y.A))}{\forall x.\forall y.A}{
+  \vlin{\wfaD}{(x \notin \fv(\forall y.A))}{\forall x.\forall y.A}{
     \vlhy{\forall y.A}}}$}
 \end{equation*}
 
@@ -3506,14 +3520,14 @@ that of the right-hand side.
 \begin{equation*}
 \vlderivation{
   \vlin{\cfaD}{}{(\forall x.A) \vlor B}{
-    \vlin{\fequ}{(x \notin fv(B))}{(\forall x.\forall x.A) \vlor B}{
+    \vlin{\fequ}{(x \notin \fv(B))}{(\forall x.\forall x.A) \vlor B}{
       \vlhy{\forall x.((\forall x.A) \vlor B)}}}}
 \end{equation*}
 
 \begin{equation*}
 \vlderivation{
   \vlin{\cfaD}{}{\forall x.(A \vlor B)}{
-    \vlin{\fequ}{(x \notin fv(B))}{\forall x.\forall x.(A \vlor B)}{
+    \vlin{\fequ}{(x \notin \fv(B))}{\forall x.\forall x.(A \vlor B)}{
       \vlhy{\forall x.((\forall x.A) \vlor B)}}}}
 \end{equation*}
 
@@ -3548,7 +3562,7 @@ that of the right-hand side.
 \begin{equation*}
 \vlderivation{
   \vlin{\me}{}{\forall x.((A \vlor B) \vlan (C \vlor D))}{
-    \vlin{\fequ}{(x \notin fv(B \vlan D))}{\forall x.((A \vlan C) \vlor (B \vlan D))}{
+    \vlin{\fequ}{(x \notin \fv(B \vlan D))}{\forall x.((A \vlan C) \vlor (B \vlan D))}{
       \vlhy{(\forall x.(A \vlan C)) \vlor (B \vlan D)}}}}
 \end{equation*}
 
@@ -3673,7 +3687,7 @@ $\acD$ under $\fequ$ and then permute $\acD$ under $\rr$.
   \begin{equation*}
   \vlderivation{
     \vlin{\acD}{}{\forall x.a}{
-      \vlin{\fequ}{(x \notin fv(a))}{\forall x.(a \vlor a)}{
+      \vlin{\fequ}{(x \notin \fv(a))}{\forall x.(a \vlor a)}{
         \vlin{\wrD}{}{(\forall x.a) \vlor a}{
           \vlhy{\forall x.a}}}}}
   \leadsto
@@ -3684,12 +3698,12 @@ $\acD$ under $\fequ$ and then permute $\acD$ under $\rr$.
   \begin{equation*}
   \vlderivation{
     \vlin{\acD}{}{\forall x.a}{
-      \vlin{\fequ}{(x \notin fv(a))}{\forall x.(a \vlor a)}{
+      \vlin{\fequ}{(x \notin \fv(a))}{\forall x.(a \vlor a)}{
         \vlin{\wrD}{}{a \vlor (\forall x.a)}{
           \vlhy{a}}}}}
   \leadsto
   \vlderivation{
-    \vlin{\wfaD}{(x \notin fv(a))}{\forall x.a}{
+    \vlin{\wfaD}{(x \notin \fv(a))}{\forall x.a}{
       \vlhy{a}}}
   \end{equation*}
 
@@ -4320,7 +4334,7 @@ Sequents are proved using the inference rules of $\FOMLL$:
   \hypo{\vdash \Gamma, A}
   \infer1[$\univ$]{\vdash \Gamma, \forall x A}
 \end{prooftree}
-($x \notin fv(\Gamma)$)
+($x \notin \fv(\Gamma)$)
 \qquad
 \begin{prooftree}
   \hypo{\vdash \Gamma, A[t/x]}
