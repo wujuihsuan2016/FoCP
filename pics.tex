@@ -946,8 +946,10 @@ node[leaf, label={[label distance=1pt]{-90}:${#1}$}]{} edge from parent[{_[sep=#
 
 
 \newcommand\figcps{\begin{figure*}\begin{center}\vspace{1ex}\begin{tikzpicture}\newcommand\radius{3.6}%
-\begin{scope}[shift={(-\radius,5.7)}]{\cponeonformula}\end{scope}
-\begin{scope}[shift={(\radius,5.7)}]{\cptwoonformula}\end{scope}
+% \begin{scope}[shift={(-\radius,5.7)}]{\cponeonformula}\end{scope}
+% \begin{scope}[shift={(\radius,5.7)}]{\cptwoonformula}\end{scope}
+\begin{scope}[shift={(-\radius,5.7)}]{\cptwoonformula}\end{scope}
+\begin{scope}[shift={(\radius,5.7)}]{\cponeonformula}\end{scope}
 \begin{scope}[shift={(-\radius,0)}]{\cpthreeonformula}\end{scope}
 \begin{scope}[shift={(\radius,0)}]{\cpfouronformula}\end{scope}
 \end{tikzpicture}\end{center}%
@@ -1029,8 +1031,10 @@ node[leaf, label={[label distance=1pt]{-90}:${#1}$}]{} edge from parent[{_[sep=#
 
 
 \newcommand\figcpscondensed{\begin{figure*}\begin{center}\vspace{-1ex}\begin{tikzpicture}\newcommand\radius{3.2}%
-  \begin{scope}[shift={(-\radius,1.9)}]\cponeinline\end{scope}
-  \begin{scope}[shift={(\radius,1.9)}]\cptwoinline\end{scope}
+  % \begin{scope}[shift={(-\radius,1.9)}]\cponeinline\end{scope}
+  % \begin{scope}[shift={(\radius,1.9)}]\cptwoinline\end{scope}
+  \begin{scope}[shift={(-\radius,1.9)}]\cptwoinline\end{scope}
+  \begin{scope}[shift={(\radius,1.9)}]\cponeinline\end{scope}
   \begin{scope}[shift={(-\radius,0)}]\cpthreeinline\end{scope}
   \begin{scope}[shift={(\radius,0)}]\cpfourinline\end{scope}
 \end{tikzpicture}\end{center}%
