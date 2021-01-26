@@ -1152,9 +1152,9 @@ set of \bfit{vertices} and $\eG$ is a finite set of \bfit{edges},
 which are two-element subsets of $\vG$. We write $vw$ for an edge
 $\set{v,w}$.
 
-The \bfit{complement} of a graph $\gG=\tuple{\vG,\eG}$ is
-the graph $\compl\gG=\tuple{\vG,\compl\eG}$ where $vw\in\compl\eG$ iff
-$vw\notin\eG$. 
+%The \bfit{complement} of a graph $\gG=\tuple{\vG,\eG}$ is
+%the graph $\compl\gG=\tuple{\vG,\compl\eG}$ where $vw\in\compl\eG$ iff
+%$vw\notin\eG$.
 
 Let $\gG=\tuple{\vG,\eG}$ and $\gH=\tuple{\vH,\eH}$ be graphs such
 that $\vG\cap\vH=\emptyset$. A \bfit{homomorphism}
@@ -1164,8 +1164,8 @@ the graph $\tuple{\vG \cup\vH,\eG\cup \eH}$ and the \bfit{join} $\gG
 \times \gH$ is the graph $\tuple{\vG \cup\vH,\eG \cup \eH \cup \set{vw
 \mid v \in \vG, w \in \vH}}$.  A graph $\gG$ is \bfit{disconnected}
 if $\gG=\gG_1+\gG_2$ for two non-empty graphs $\gG_1,\gG_2$, otherwise
-it is \bfit{connected}. It is \bfit{coconnected} if its complement is
-connected.
+it is \bfit{connected}.
+%It is \bfit{coconnected} if its complement is connected.
 
 A graph $\gG$ is \bfit{labelled} in a set $L$ if each vertex $v\in\vG$
 has an element $\labelof v\in L$ associated with it, its \bfit{label}.  A
@@ -2382,7 +2382,7 @@ subformula rewriting steps, to obtain a sequent $\frameof C$:
   quantifiers, i.e., replace $\exists x_i.A$ by $A$ and replace $\forall
   y_j.B$ by $B$ everywhere.
 \item {\bf Simplify atoms.} After step 2, replace every predicate
-  $p(t_1 \cdots t_n)$ (resp. $\dual p(t_1 \cdots t_n)$) with a nullary
+  $pt_1 \ldots t_n$ (resp. $\dual{p}t_1 \ldots t_n$) with a nullary
   predicate symbol $p$ (resp.~$\dual p$)
 %% \item {\bf Remove units.} All occurrences of $\ttt$ are replaced by
 %%   $q_0\vlor\dual q_0$ and all $\fff$ are replaced by $q_0\vlan\dual
@@ -2490,7 +2490,7 @@ $\tuple{\graphof{\frameof C},\linkingof{\frameof C}}$.
   There is an alternative path of proving Theorem~\ref{thm:MLS1->fonet}
   by translating $\Deri$ to an $\FOMLL$-proof $\Pi$, observing that
   this process preserves the linking and the dualizer. However, for
-  this, we have to extent the construction above to the $\cut$-rule,
+  this, we have to extend the construction above to the $\cut$-rule,
   and then show that linking and dualizer of a sequent proof $\Pi$ are
   invariant under cut elimination. This can be done similarly to
   unification nets in~\cite{hughes:unifn}.
@@ -2677,7 +2677,7 @@ define the \bfit{induced map} $\mapof{\rr}\colon\vgraphof
 Q\to\vgraphof P$ which acts as the identity for
 $\rr\in\set{\me,\fequ}$ and as the canonical injection for
 $\rr\in\set{\wrD,\wfaD}$. For $\rr=\acD$ it maps the vertices
-corresponding to the two atoms in the premise to vertex of the
+corresponding to the two atoms in the premise to the vertex of the
 contracted atom in the conclusion, and for
 $\rr\in\set{\rectif\cfaD,\rectif\mfaD,\rectif\mexD}$ it maps the two vertices
 corresponding to the quantifiers in the premise to the one in the
@@ -2763,9 +2763,9 @@ propositional formulas, i.e., the first two lines in~\eqref{eq:fequ}.
   First, observe that for every inference rule
   $\rr\in\set{\wrD,\wfaD,\acD,\rectif\cfaD,\me,\rectif\mfaD,\rectif\mexD,\fequ}$
   the induced map $\mapof{\rr}\colon\vgraphof Q\to\vgraphof P$ defines
-  a existential preserving graph homomorphism $\graphof Q\to\graphof
+  an existential-preserving graph homomorphism $\graphof Q\to\graphof
   P$ and a fibration on the corresponding binding graphs.  Therefore,
-  their composition $\mapof\Deri$ has the same properties fibration.
+  their composition $\mapof\Deri$ has the same properties of fibration.
 
   For showing that it is also a skew fibration, we construct for
   $\Deri$ its propositional encoding $\PE\Deri$ by
@@ -2862,9 +2862,9 @@ $vw\in\eG$.
    a rule instance $\rr_1$ depends on an instance $\rr_2$, then
    $\rr_2$ occurs below $\rr_1$ in $\DDeri$.
    We can now lift $\DDeri$ stepwise. First, observe that each line of
-   in $\DDeri$ is $\PE\fequ$-equivalent to the propositional encoding $\PE P$ of a
+   $\DDeri$ is $\PE\fequ$-equivalent to the propositional encoding $\PE P$ of a
    first-order formula $P$.  We now have to show
-   that each other instance of $\wrD$ in $\DDeri$ is indeed the image of a correct
+   that each instance of $\wrD$ in $\DDeri$ is indeed the image of a correct
    application of $\wD$ or $\wfaD$ in first-order logic.
    If we have a $\wD$ of the form
    \begin{equation*}
@@ -3059,12 +3059,12 @@ the propositional setting.
 
 The obvious next step in our research is to investigate proof
 composition and normalisation of first-order combinatorial
-proofs. Even in the propositional setting, the normalization of
+proofs. Even in the propositional setting, the normalisation of
 combinatorial proofs is underdeveloped. There exist two different
 procedures for cut elimination~\cite{hughes:invar,str:fscd17}, but
 both have their insufficiencies, and there is no general theory.
 
-Nonetheless, we hope to get new insights in the normalization of
+Nonetheless, we hope to get new insights in the normalisation of
 classical first-order proofs through our work on combinatorial proofs.
 
 %% We conjecture cut-elimination for first-order combinatorial proofs can be achieved via a method that is similar to the 
@@ -3860,7 +3860,7 @@ D))}{
   the height of $\DDeri$, beginning at the top, making a case
   analysis on the topmost rule that is not a~$\fequ$.
   \begin{itemize}
-  \item $\acDx$: We know that the premisse of~\eqref{eq:acDeq} is a
+  \item $\acDx$: We know that the premise of~\eqref{eq:acDeq} is a
     propositional encoding. Hence, $S_1\conhole=\conhole\vlor \PE E$ and
     $S_2\conhole=\conhole\vlor \PE F$ and both $x$ are universals, and
     $\PE E\vlor \PE F$ contains all occurrences of $x$ bound by that
@@ -3892,7 +3892,7 @@ D))}{
     \begin{itemize}
     \item If none of the four principal formulas in the premise is $x$
       or $x\vlor F$ for some formula $F$ and $x\in\VAR$, then this
-      instance of $\me$ can trivially be lifted, and and we can
+      instance of $\me$ can trivially be lifted, and we can
       proceed by induction hypothesis.
   \item If exactly one of the four principal formulas in the premise
     is $x$ for some $x\in\VAR$, then this $x$ is the encoding of an existential in the
