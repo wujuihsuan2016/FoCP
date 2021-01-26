@@ -2871,7 +2871,7 @@ $vw\in\eG$.
    term in a predicate) and $\rr_2$ introduces the atom $x$ as a
    subformula (i.e. the propositional encoding of the binder $x$).  We
    can now permute the $\wD$-instances in $\DDeri$ such that whenever
-   a rule instance $\rr_1$ depends on an instance $\rr_2$, then
+   a rule instance $\rr_1$ is in the scope of an instance $\rr_2$, then
    $\rr_2$ occurs below $\rr_1$ in $\DDeri$.
    We can now lift $\DDeri$ stepwise. First, observe that each line of
    $\DDeri$ is $\PE\fequ$-equivalent to the propositional encoding $\PE P$ of a
@@ -3808,9 +3808,9 @@ D))}{
           \vlhy{\Scons{(x\vlan (E\vlan C))\vlor(x\vlan (F\vlan D))}}}}}
   \end{equation}
   where $x$ occurs in $C\vlor D$. Then premise and conclusion are both
-  proposional encodings, but the whole derivation cannot be
-  lifted. However, since we demand that the the mapping is a fibration
-  (and therefore a momomorphism) on the binding graphs, there must be
+  propositional encodings, but the whole derivation cannot be
+  lifted. However, since we demand that the mapping is a fibration
+  (and therefore a homomorphism) on the binding graphs, there must be
   another instance of $\me$ further below in the derivation:
   \begin{equation}
     \vlderivation{
