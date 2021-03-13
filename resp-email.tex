@@ -1,0 +1,163 @@
+----------------------- REVIEW 1 ---------------------
+SUBMISSION: 51
+TITLE: Combinatorial Proofs and Decomposition Theorems for First-order Logic
+AUTHORS: Dominic Hughes, Lutz Straßburger and Jui-Hsuan Wu
+
+----------- Overall evaluation -----------
+This paper presents a new proof system, called combinatorial proofs, for FO (without the equality predicate).
+The author(s) shows that it is complete and sound and "syntax free".
+Intuitively, combinatorial proofs are proofs/derivations that are represented as graph homomorophisms.
+This is in contrast with traditional systems (such as sequent calculus, resolution, etc)
+which are syntax based.
+
+The motivation is that combinatorial proofs can be used as the notion for equivalence between derivations in different systems.
+That is, two derivations in different systems can be considered ``equal'' if they are translated into the same combinatorial proof.
+
+Similar result has been established by Hughes in [18], which is published as ArXiv paper.
+But the proof in the current paper is much simpler.
+It also allows a translation from combinatorial proofs back to syntactic proofs.
+It should be stressed that the paper only considers FO without the equality predicate.
+
+The outline of the paper is as follows.
+Sect. II introduces sequent calculus which is known to be complete and sound.
+Sect. III introduces fographs, which is a way of representing FO formulas as graphs.
+Sect. IV introduces fonets and combinatorial proofs, where fonets themselves are graph representations of derivations.
+Sect. V introduces a new system called KS1.
+Sect. VI contains the statement of the main results (Theorem 19) along with its decomposition result for the system KS1.
+Roughly, the decomposition result states that every derivation in KS1 can be decomposed into two parts:
+the first part uses only the "linear fragment" of KS1 and the second part uses the rules outside the linear fragment and the equivalent rule \equiv.
+Theorem 19 states that combinatorial proofs are complete and sound,
+where completeness is obtained by applying the decomposition result and show that each part of the derivations can be translated into Combinatorial proofs.
+Sect. VII presents the translation between the sequent calculus and KS1.
+Sect. VIII shows the construction between fonets and proofs using only the linear fragment of KS1.
+Sect. IX shows the construction between fonets and proofs using rules outside the linear fragment.
+
+I find the result interesting and I think it fits LICS well.
+The technical presentation is reasonable enough for me to be convinced of its correctness.
+
+I have some complaints though.
+
+a) The presentation is very dry.
+It is mainly a sequence of definitions, lemmas, theorems, proofs with very little justification/explanation in between.
+For example, fonets, which I think is the most important part, are presented as a definition without any intuitive explanation
+on how they can be used to represent proofs. (See below for more details.)
+Some examples are presented in Figure 4 and 5, but I find them useless due to lack of explanation.
+
+I also suggest the author(s) to provide some broad overview of the proof.
+There is also no description of "the organization of the paper".
+The readers are left to figure out themselves how sections in the paper connect to each other.
+
+b) Some of the definitions, esp. in Sect. III and IV, are very confusing.
+(See below for more details.)
+I have to go back to [18] which use almost the same terminology and definition as the current paper,
+and I find it easier to understand them in [18].
+
+More detailed comments:
+
+I think it should be stressed early (as early as in the abstract) that the paper is about FO without the equality predicate,
+since it is usually considered in standard proof systems.
+
+p.3, left: The notion of colored graphs here does not require adjacent vertices to have different colors, but the one in [18] does.
+Is there a mistake here, since the one in [18] requires different colors?
+
+-> There is no mistake. The requirement mentioned here is never used in the
+paper.
+
+p.3, right: I suppose for fographs it is possible that different vertices have the same label?
+I also find the definition of fographs a bit confusing, since it starts with abstract graph theoretic properties of fographs,
+before presenting the construction of fographs from formulas.
+I suggest to reverse it, by first presenting the construction of fographs (from formulas) before enumerating all the properties of fographs.
+In fact, this is how forgraphs are presented in [18].
+
+->
+
+p3,right: What about the atoms True and False in the fographs?
+They are part of the definition of FO formulas, but are they really needed?
+Almost all results in the paper require that False does not appear in the proof.
+Maybe they can be omitted.
+
+-> The atoms are needed for establishing the equivalence between KS1 and MLS1*.
+(TO CHECK)
+
+p.4, left: The notion of "dual" is not defined yet.
+Again, it is already defined nicely in [18].
+I also suggest to present here some intuitive explanation on how fonets represent proofs.
+The same for the other notions here such as links, leaps, (bi)fibration, skew (bi)fibration, and their relations with derivations in KS1 and LK1.
+Figures 4 and 5 can be easily expand to provide intuitive explanation.
+
+-> Yes, the notion of duality is implicitly suggested by the notation
+\overline{p}.
+
+p.6, Theorem 19: I think it is safe to assume that formulas are rectified, thus, there is no need for \hat{A} here.
+Otherwise, there will be too many notations to remember here.
+
+-> 
+
+p.7, Lemma 22: \overline{S{A}} is not defined yet.
+I assume it is the complement of the corresponding formula for S{A}?
+
+-> Yes, it is.
+
+p.10, right: A\cdot here is just "variable renaming"?
+
+-> We use this notation to simplify the rectified version of rules for
+quantifiers. Variable renaming is a more general notion as it allows rename more
+than one variable.
+
+p.10, left: Why "resource management" in the title of Sect. IX?
+
+-> Like combinatorial proofs for propositional logic, the skew bifibration part
+corresponds to the linear part of the sequent proof. That's why we mention
+resource management in the title though it is not explicitly discussed in the
+paper.
+
+p.11, right: on full fograph homomorphism.
+There is something missing here since the homomorphism is not necessarily injective?
+Or, it is meant to be "strong" homomorphism?
+
+-> The notion of fullness is well defined in category theory and that is exactly
+what we need here.
+
+----------------------- REVIEW 2 ---------------------
+SUBMISSION: 51
+TITLE: Combinatorial Proofs and Decomposition Theorems for First-order Logic
+AUTHORS: Dominic Hughes, Lutz Straßburger and Jui-Hsuan Wu
+
+----------- Overall evaluation -----------
+This paper addresses an important question in proof theory -- when are two proofs considered equivalent. In this case, the logic in question is classical first-order logic. This paper builds on a notion of classical proofs, developed by Hughes, that is based on a graph structure called first-order nets (fonets). Greatly simplified, a fonet can be seen as 'a formula with links between dual atoms', with the formula part represented as a graph encoding series-parallel orders.
+Hughes's technical report (cited as [19]) on this subject lays out much of the foundations for fonets, including a soundness and a completeness theorem w.r.t. a version of LK. However, there is no direct 'sequentialization' theorem for fonets, in the sense that it is not possible to directly extract a sequent proof from a fonet. This paper proposes a different approach to sequentialization by relating fonets, not with sequent calculus, but with a deep-inference proof system called KS1, formulated in the calculus of structures (CoS).
+
+A key technical idea to obtain a tight correspondence between fonets and KS1 is to first obtain a decomposition result for KS1, which decomposes KS1 proofs into a 'linear' part, followed by a classical part in contraction and weakening are applied, and quantifier scopes are rearranged.
+The correspondence between fonets and the linear part of the decomposed proof is then proved by adapting known techniques for proving the correspondence between first-order MLL (multiplicative linear logic) and fonets; whereas the classical part requires new proof techniques but is more manageable.
+
+The sequentialization theorem is one of the important questions surrounding proofnet-like proof representations, so in this sense the result of the paper is of some significance. It is possible to have a proofnet calculi that have no corresponding sequent proofs (e.g., Retore's pomset logic). In this case, it is unlikely sequentialization, in the sense of directly translating fonet to cut-free sequent proofs, is possible. A compromise here is to use a different proof calculus, based on deep inference. In principle, we can translate deep inference proofs to cut-free sequent proofs, using cuts and cut-elimination, but this would likely obscure the structures of the original fonets.
+
+Another interesting aspect of the paper is that it contains probably one of the more interesting applications of the decomposition theorem for calculus of structures. The technical results are believable. I didn't check all the proofs, but a lot of intermediate lemmas, particularly those dealing with decomposition are mostly proved along the standard lines in this area so I don't particularly doubt their correctness.
+
+On the negative side: there is still no theory of cut-elimination for fonets.
+The paper is very dense, with lots of technical lemmas that are hand-waived through. I think it might be better to just omit some of these lemmas and dedicate more space to provide intuitive examples. A slight nitpick on notations for proofs/derivations: the vertical figures for derivations of CoS waste a lot of space that could have been used to improve presentation.
+
+Overall this looks like a solid paper with an interesting and non-trivial result. I recommend acceptance.
+
+Minor comments for the author(s):
+- Lemma 30: you cite [35] for the proof of this lemma, but as far as I know [35] does not discuss first-order quantifiers. I can see a possibility of quantifiers interferring with the atomic interaction rule. For example,
+
+(forall x. A) \/ B
+-------------------
+forall x.(A \/ B)
+---------------------------------
+forall x.(A \/ (px \/ ~px) /\ B))
+
+where x is vacuous in B. It doesn't seem straightforward that ai can be permuted directly above structural equivalence.
+
+-> 
+
+----------------------- REVIEW 3 ---------------------
+SUBMISSION: 51
+TITLE: Combinatorial Proofs and Decomposition Theorems for First-order Logic
+AUTHORS: Dominic Hughes, Lutz Straßburger and Jui-Hsuan Wu
+
+----------- Overall evaluation -----------
+The paper is concerned with canonically representing first-order logic proofs in various proof systems in a more abstract system of "combinatorial proofs". This is a fundamental question in proof theory and hence in computer science. The contribution of the paper is a new deep inference system KS1  for first-order logic. KS1 is closer to combinatorial proofs and the paper provides simpler and more complete results linking the two systems.
+
+  The paper is well written and an enjoyable read. Though not an expert, I believe the contribution is significant and deserves acceptance at LICS.
