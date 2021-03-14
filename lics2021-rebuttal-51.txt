@@ -1,0 +1,87 @@
+All three reviewers see the paper in a positive light, and we thank
+them for their feedback. The complaints of reviewer 1 concern only the
+presentation, which can easily improved with all the helpful comments
+of reviewer 1.
+
+Below we give more detailed answers to the questions raised by
+reviewers 1 and 2.
+
+*********************************************************************
+Answer to review 1:
+===================
+
+We are very grateful for the detailed comments, and we will happily
+follow all suggestions. In particular, we will include an outline of
+the paper, give more intuitive explanations and a broader overview of
+the proof. Also the remark about equality is helpful.
+
+
+> Question p.3: require that adjacent vertices to have different colors?
+
+Indeed, in [18] there is this requirement, but it is not needed
+because of the correctness criterion. Therefore we did not include it.
+
+
+> Question p.3: can different vertices have the same label?
+
+Yes.
+
+
+> Question p.3: What about the atoms True and False in the fographs?
+
+Indeed, in classical logic they are not needed for semantic
+soundness and completeness, because
+
+True = a v -a  and  False = a ^ -a
+
+However, they are part of the language, and they also make the proof
+systems simpler to use. Therefore we decided to include them.
+
+
+> Question p.7: is \overline{S{A}} the complement of S{A} ?
+
+Yes.
+
+
+> Question p.10: A\cdot is variable renaming?
+
+Yes.
+
+> Question p.10: why "resource management"?
+
+We see a combinatorial proof as a way to separate the linear part of a
+proof (in the sense of linear logic) from the resource management of a
+proof (in the sense that contraction and weakening duplicate and
+delete resources). As this section is about contraction and weakening,
+we chose this title. We agree that this needs to be better explained.
+
+
+> Question p.11: "strong" homomorphism?
+
+No, we do not have this condition. Note that this lemma is only about
+weakening, and therefore the needed conditions are full and
+injective. The next lemma is about contraction, where we need
+surjectivity.
+
+
+*********************************************************************
+Answer to review 2:
+===================
+
+Question about the proof of Lemma 30:
+
+Indeed, the structural equivalences concerning the quantifiers are not
+discussed in [35]. But in our case, the equivalences concerning the
+quantifiers are admissible in the system without the exists-rule. In
+particular, in the example given in the review, a proof of
+
+(forall x. A) \/ B
+
+can be straightforwardly transformed into a proof of 
+
+forall x. (A \/ B)
+
+(if x is vacuous in B)
+
+We agree that this should be explained better.
+
