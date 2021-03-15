@@ -11,20 +11,22 @@ Answer to review 1:
 ===================
 
 We are very grateful for the detailed comments, and we will happily
-follow all suggestions. In particular, we will include an outline of
-the paper, give more intuitive explanations and a broader overview of
-the main proof. Also the remark about equality is helpful.
+follow all suggestions. We will include an outline of the paper, give
+more intuitive explanations, and provide a broad overview of
+the main proof. The remark about equality is helpful.
 
 
 > Question p.3: require that adjacent vertices to have different colors?
 
-Indeed, in [18] there is this requirement, but it is not needed
-because of the correctness criterion. Therefore we did not include it.
+It was included in [18] because it is part of the standard definition of
+colouring in graph theory. However, it is redundant, hence optional,
+since it is implied by the preclusion of bimatchings: if vw is edge
+between like-coloured vertices (v~w), then {v,w} is a bimatching.
 
 
 > Question p.3: can different vertices have the same label?
 
-Yes.
+Yes. (See the left of Fig. 1, for example.)
 
 
 > Question p.3: What about the atoms True and False in the fographs?
@@ -35,7 +37,7 @@ soundness and completeness, because
 True = a v -a  and  False = a ^ -a
 
 However, they are part of the language, and they also make the proof
-systems simpler to use. Therefore we decided to include them.
+systems simpler to use. Therefore we kept them.
 
 
 > Question p.7: is \overline{S{A}} the complement of S{A} ?
@@ -59,10 +61,9 @@ explained.
 
 > Question p.11: "strong" homomorphism?
 
-No, we do not have this condition. Note that this lemma is only about
-weakening, and therefore the needed conditions are full and
-injective. The next lemma is about contraction, where we need
-surjectivity.
+No, we do not have this condition. This lemma is only about
+weakening, so the requisite conditions are full and injective. The next
+lemma is about contraction, where we need surjectivity.
 
 
 *********************************************************************
@@ -85,4 +86,3 @@ forall x. (A \/ B)
 (if x is vacuous in B)
 
 We agree that this should be explained better.
-
