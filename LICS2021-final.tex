@@ -990,7 +990,9 @@ paper.
 Fix pairwise disjoint countably infinite sets $\VAR=\set{x,y,z,\ldots}$ of variables,
 $\FUN=\set{f,g,\ldots}$ of function symbols, and 
 $\PRED=\set{p,q,\ldots}$ of predicate symbols. Each function symbol and
-each predicate symbol has a finite arity. The grammars below generate
+each predicate symbol has a finite arity. Each predicate symbol $p$ has a
+\bfit{dual}
+$\dual{p}$. The grammars below generate
 the set $\TERM$ of \bfit{terms}, denoted by $s,t,u,\ldots$, the set
 $\ATOM$ of \bfit{atoms}, denoted by $a,b,c,\ldots$, and the set
 $\FORM$ of \bfit{formulas}, denoted by $A,B,C,\ldots$:
@@ -2877,7 +2879,7 @@ $vw\in\eG$.
    term in a predicate) and $\rr_2$ introduces the atom $x$ as a
    subformula (i.e. the propositional encoding of the binder $x$).  We
    can now permute the $\wD$-instances in $\DDeri$ such that whenever
-   a rule instance $\rr_1$ is in the scope on an instance $\rr_2$, then
+   a rule instance $\rr_1$ is in the scope of an instance $\rr_2$, then
    $\rr_2$ occurs below $\rr_1$ in $\DDeri$.
    Then we can lift $\DDeri$ stepwise. First, observe that each line of
    $\DDeri$ is $\PE\fequ$-equivalent to the propositional encoding $\PE P$ of a
