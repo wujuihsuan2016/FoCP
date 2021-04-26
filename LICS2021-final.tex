@@ -51,7 +51,7 @@
 
 
 
-\documentclass[conference,twosided,10pt]{IEEEtran}
+\documentclass[conference,10pt]{IEEEtran}
 % Some Computer Society conferences also require the compsoc mode option,
 % but others use the standard conference format.
 %
@@ -728,7 +728,11 @@ The main reason for this problem is that formal proofs, as they are
 usually studied in logic, are inextricably tied to the syntactic
 (inference rule based) proof system in which they are carried out. And
 it is difficult to compare two proofs that are produced within two
-different syntactic proof systems, based on different sets of inference rules. Just consider the derivations in Figure~\ref{fig:translate}, showing two proofs of the formula $\peirceformula$ and two proofs of the formula $\veedrinkerformula$, one in the sequent calculus (top) and one in a deep inference system (bottom). It is, \emph{a priori}, not clear how to compare them.
+different syntactic proof systems, based on different sets of inference rules.
+Consider the derivations in Figure~\ref{fig:translate}, showing two proofs of the
+formula $\peirceformula$ and two proofs of the formula $\veedrinkerformula$,
+in sequent calculus (top) and in a deep inference system (bottom).
+It is, \emph{a priori}, not clear how to compare them.%
 %
 \newcommand\lkpeirceproof{
 \vlderivation{
@@ -741,7 +745,7 @@ different syntactic proof systems, based on different sets of inference rules. J
               \vlhy{}}}}}{
         \vlin{\axr}{}{\sqn{\cneg{p}, p}}{
           \vlhy{}}}}}}
-}
+}%
 \newcommand\dipeirceproof{
 \vlderivation{
   \vlin{\acD}{}{\peirceformula}{
@@ -755,7 +759,7 @@ different syntactic proof systems, based on different sets of inference rules. J
                   \vlin{\wrD}{}{(p \vlor \cneg{p}) \vlor q}{
                     \vlin{\aiD}{}{p \vlor \cneg{p}}{
                       \vlhy{\ttt}}}}}}}}}}}}
-}
+}%
 \newcommand\lkdrinkerproof{
 \vlderivation{
   \vlin{\conr}{}{\sqn{\exists x.(\cneg{p}x \vlor (\forall y.py))}}{
@@ -772,7 +776,7 @@ x.(\cneg{p}x \vlor (\forall y.py))}}{
                 \vlin{\weakr}{}{\sqn{\cneg{p}w, pz, \cneg{p}z}}{
                 \vlin{\axr}{}{\sqn{pz, \cneg{p}z}}{
                   \vlhy{}}}}}}}}}}}
-}
+}%
 \newcommand\ksonedrinkerproof{
 \vlderivation{
   \vlin{\acD}{}{\exists x.(\cneg{p}x \vlor (\forall y.py))}{
@@ -788,8 +792,8 @@ x.(\cneg{p}x \vlor (\forall y.py))}}{
                       \vlin{\aiD}{}{\forall y.(py \vlor \cneg{p}y)}{
                         \vlin{\forall}{}{\forall y.\ttt}{
                           \vlhy{\ttt}}}}}}}}}}}}}}
-}
-\begin{figure}\vspace{-2ex}\begin{center}\hspace*{-0ex}\begin{math}
+}%
+\begin{figure}\vspace{-4ex}\begin{center}\hspace*{-0ex}\begin{math}
 \newcommand\peircescale{.75}
 \newcommand\drinkerscale{\peircescale}
 \newcommand\cpscale{.9}
@@ -849,7 +853,7 @@ for sequent proofs in~\cite{hughes:invar}, for deep inference proofs
 in~\cite{str:fscd17}, for Frege systems in~\cite{str:RR-9048}, and for
 tableaux systems and resolution in~\cite{acc:str:18}. This enables a
 natural definition of proof identity for propositional logic: two
-proofs are \emph{the same}, if they are mapped to the same
+proofs are \emph{the same} if they are mapped to the same
 combinatorial proof.
 %
 For example, the left side of Fig.\,\ref{fig:translate} translates
@@ -867,12 +871,12 @@ In this paper we advance the idea that combinatorial proofs can provide
 a notion of proof identity for first-order logic. \emph{First-order
 combinatorial proofs} were introduced by Hughes in~\cite{hughes:fopws}.
 For example, a first-order combinatorial proof of Smullyan's 
-``drinker paradox'' $\drinkerformula=\veedrinkerformula$ is shown on the
-right of Fig.\,\ref{fig:translate}, 
+\emph{drinker paradox} \mbox{$\drinkerformula$} $=$ \mbox{$\veedrinkerformula$}
+is shown on the right of Fig.\,\ref{fig:translate}, 
 a homomorphism from a partially coloured graph to a labelled graph.
 However, even though Hughes proves soundness and completeness, the 
-proof is highly unsatisfactory: (1) the soundness argument is extremely
-long, intricate and cumbersome, and (2) the completeness proof does not 
+proof is unsatisfactory: (1) the soundness argument is long, intricate
+and cumbersome, and (2) the completeness proof does not 
 allow a syntactic proof to be read back from a combinatorial proof, i.e.,
 completeness is not
 \emph{sequentializable} \cite{girard:87} nor
@@ -882,18 +886,18 @@ A fundamental problem is that not all combinatorial
 proofs can be obtained as translations of sequent calculus proofs.
 
 We solve these issues by moving to a deep inference
-system. More precisely, we introduce a new proof system, called
+system. More precisely, we introduce a new proof system,
 $\FOKS$, for first-order logic, that (a) reflects every combinatorial
 proof, i.e., there is a surjection from $\FOKS$ proofs to
-combinatorial proofs, (b) yields far simpler proofs of
+combinatorial proofs, (b) yields simpler proofs of
 soundness and completeness for combinatorial proofs, and (c) admits
 new decomposition theorems establishing a precise correspondence
 between certain syntactic inference rules and certain combinatorial
 notions.
 %
-The right side of Fig.\,\ref{fig:translate}
-illustrates the surjection in (a), and since the syntactic proofs 
-of the two systems both translate to the same combinatorial proof,
+The right of Fig.\,\ref{fig:translate}
+illustrates surjection in (a), and since the syntactic proofs 
+in the two systems translate to the same combinatorial proof,
 they can be considered \emph{the same}.
 
 In general, a \emph{decomposition theorem} provides normal forms of
@@ -908,7 +912,8 @@ resource management of a proof. It has been shown by
 Stra{\ss}burger~\cite{str:07:RTA} that a proof in classical
 propositional logic can be decomposed into a proof of multiplicative
 linear logic, followed by a proof consisting only of contractions and
-weakenings. In this paper we show that the same is possible for
+weakenings (see also \cite[\S4]{hughes:invar}).
+In this paper we show that the same is possible for
 first-order logic.
 
 Combinatorial proofs and deep inference can be seen as opposite ends
@@ -948,7 +953,7 @@ $\FUN=\set{f,g,\ldots}$ of function symbols, and
 $\PRED=\set{p,q,\ldots}$ of predicate symbols. Each function symbol and
 each predicate symbol has a finite arity. Each predicate symbol $p$ has a
 \bfit{dual}
-$\dual{p}$. The grammars below generate
+$\dual{p}$ with $\dual{\dual p}\mkern6mu{\neq}\mkern5mu\dual p$. The grammars below generate
 the set $\TERM$ of \bfit{terms}, denoted by $s,t,u,\ldots$, the set
 $\ATOM$ of \bfit{atoms}, denoted by $a,b,c,\ldots$, and the set
 $\FORM$ of \bfit{formulas}, denoted by $A,B,C,\ldots$:
@@ -962,43 +967,46 @@ $\FORM$ of \bfit{formulas}, denoted by $A,B,C,\ldots$:
 \end{array}
 \end{equation*}
 where the arity of $f$ and $p$ is $n$.
-For better readability we often omit parentheses and write simply $ft_1 \dots t_n$ or $pt_1 \dots t_n$.
+For better readability we often omit parentheses and write $ft_1 \dots t_n$ or $pt_1 \dots t_n$.
 We consider the truth constants
 $\ttt$ (\emph{true}) and $\fff$
-(\emph{false}) as additional atoms, and we consider all formulas in negation
+(\emph{false}) as additional atoms, and consider all formulas in negation
 normal form, where \bfit{negation} $(\dual\cdot)$ is defined on
 atoms and formulas via De Morgan's laws:
 \begin{equation*}
-  \begin{array}{ccc}
-    \dual{\dual a} = a
-    &
+  \begin{array}{c@{\hspace{6ex}}c}
+%    \dual{\dual a} = a
+%    &
   \dual\ttt =\fff &
   \dual{p(t_1,\ldots,t_n)} = \dual{p}(t_1,\ldots,t_n) \\[.5ex]
-  &
+%  &
   \dual\fff = \ttt &
   \dual{\dual p(t_1,\ldots,t_n)} = p(t_1,\ldots,t_n) \\[.5ex]
-  &
+%  &
   \dual{\exists x.A} = \forall x.\dual{A}
   &
-  \dual{A \vlan B} = \dual{A} \ \vlor \ \dual{B} 
-  \\[.5ex]
-  &
+  \dual{A \vlan B} = \dual{A} \ \vlor \ \dual{B} \\[.5ex]
+%  &
   \dual{\forall x.A} = \exists x.\dual{A}
   &
 %  \\[.5ex]
   \dual{A \vlor B} = \dual{A} \ \vlan \ \dual{B}
   \end{array}
 \end{equation*}
-Then we write $A\implies B$ as abbreviation for $\dual A\vlor B$.
+Note that $\dual{\dual a} = a$.
+We write $A\implies B$ as abbreviation for $\dual A\vlor B$.
 
 A formula is \bfit{rectified} if all bound variables are distinct from
 one another and from all free variables. Every formula can be
-transformed into a logically equivalent rectified form, by simply
-renaming the bound variables. If we consider formulas equivalent
-modulo $\alpha$-conversion (renaming of bound variables), then the
+transformed into a logically equivalent rectified form by
+bound variable renaming, e.g.\
+%
+\mbox{$(px \vee \exists xqx) \wedge \exists x r$} $\mapsto$ \mbox{$(px \vee \exists yqy) \wedge \exists zrz$}.
+%
+If we consider formulas equivalent
+modulo bound variable renaming, the
 rectified form of a formula $A$ is uniquely defined, and we denote it
 by $\rectif A$.
-
 
 A \bfit{substitution} is a function $\sigma\colon\VAR\to\TERM$ that is
 the identity almost everywhere. We denote substitutions as
@@ -1026,7 +1034,7 @@ In this paper we use the sequent calculus $\FOLK$, shown in
 Figure~\ref{fig:LK1}, which is a one-sided variant of Gentzen's
 original calculus~\cite{gentzen:35:I} for first-order logic. To
 simplify some technicalities later in this paper, we include
-the $\mixr$-rule.
+the $\mixr$ rule.
 %
 \begin{thm}
   $\FOLK$ is sound and complete for first-order logic.
@@ -1064,6 +1072,8 @@ We will use the cut elimination theorem. The \bfit{cut} rule is
 
 \section{Preliminaries: First-order Graphs}\label{sec:fographs}
 
+% We recall the definition of \emph{first-order graph} or \emph{fograph}
+% \cite[\S3]{hughes:fopws}, used to represent first-order formulas.
 
 \subsection{Graphs}
 
@@ -1085,14 +1095,14 @@ it is \bfit{connected}.
 %It is \bfit{coconnected} if its complement is connected.
 
 A graph $\gG$ is \bfit{labelled} in a set $L$ if each vertex $v\in\vG$
-has an element $\labelof v\in L$ associated with it, its \bfit{label}.
+has a \bfit{label} $\labelof v\in L$ associated with it.
 A graph $\gG$ is (partially) \bfit{coloured} if it carries a partial
 equivalence relation $\linkingof\gG$ on $\vG$; each equivalence class
-is a \bfit{colour}.\footnote{In~\cite{hughes:fopws} it is also
-required that adjacent vertices have different colours, because it
+is a \bfit{colour}.\footnote{In \cite{hughes:fopws}
+adjacent vertices are required to have distinct colours, since it
 is part of the standard definition of colouring in graph
 theory.
-However, this condition is redundant (and therefore ommitted here), since it is implied
+However, this condition is redundant (ommitted here), since it is implied
 by the preclusion of bimatchings in the next section.}
 %Therefore we do not have this additional condition here.}
 A \bfit{vertex renaming} of
@@ -1169,11 +1179,11 @@ cographs for our paper comes from the following well-known fact.
   via the operations $+$ and~$\times$.
 \end{thm}
 
-In a graph $\gG$, the \bfit{neighbourhood} $N(v)$ of a vertex $v \in\vG$ is defined as
-the set $\set{w \mid vw \in\eG}$. A \bfit{module} is a set $M \subseteq \vG$
-such that $N(v) \setminus M = N(w) \setminus M$
+In a graph $\gG$, the \bfit{neighbourhood} $N(v)$ of a vertex $v \in\vG$ is
+$\set{w \mkern-2mu\mid\mkern-2mu vw \mkern-2mu\in\mkern-2mu\eG}$. A \bfit{module} is a set $M \mkern-2mu\subseteq\mkern-2mu \vG$
+with $N(v) \mkern-1mu\setminus\mkern-1mu M = N(w) \mkern-1mu\setminus\mkern-1mu M$
 for all $v, w \in M$. A module $M$ is \bfit{strong} if for every
-module $M'$, we have $M' \subseteq M$, $M \subseteq M'$ or $M \cap M' =
+module $M'$ we have $M' \mkern-2mu\subseteq\mkern-2mu M$, $M \mkern-2mu\subseteq\mkern-2mu M'$ or $M \cap M' =
 \emptyset$. A module is \bfit{proper} if it has two or more vertices.
 
 
@@ -1186,9 +1196,9 @@ module $M'$, we have $M' \subseteq M$, $M \subseteq M'$ or $M \cap M' =
 
 A cograph is \bfit{logical} if every vertex is labelled by either an
 atom or variable, and it has at least one atom-labelled vertex. An
-atom-labelled vertex is called a \bfit{literal} and a
-variable-labelled vertex is called a \bfit{binder}. A binder labelled
-with $x$ is called an \bfit{$x$-binder}. The \bfit{scope} of a binder
+atom-labelled vertex is a \bfit{literal} and a
+variable-labelled vertex is a \bfit{binder}. A binder labelled
+with $x$ is an \bfit{$x$-binder}. The \bfit{scope} of a binder
 $b$ is the smallest proper strong module containing $b$.
 An \bfit{$x$-literal} is a literal whose
 atom contains the variable $x$. An $x$-binder \bfit{binds} every
@@ -1198,15 +1208,15 @@ $v$ in its scope, we have $bv \in \eG$ (resp. $bv \notin \eG$). An
 $x$-binder is \bfit{legal} if its scope contains no other $x$-binder
 and at least one literal.
 %
-\begin{definition}
-A \bfit{first-order graph} or \bfit{fograph} is a logical cograph in which all binders are legal. The
-\bfit{binding graph} of a fograph $\gG$ is the directed graph $\bG=\tuple{\vG,
+\begin{definition}[{\cite[\S3]{hughes:fopws}}]
+A \bfit{first-order graph} or \bfit{fograph} $\gG$ is a logical cograph whose binders are all legal. The
+\bfit{binding graph} of $\gG$ is the directed graph $\bG=\tuple{\vG,
 \set{(b, l) \mid b \text{ binds } l}}$.
 \end{definition}
 %
 \noindent We define a mapping $\graphof\cdot$ from formulas to (labelled)
 graphs, inductively as follows:
-
+%
 \begin{equation*}
   \begin{array}{r@{\;}l@{\hskip4em}r@{\;}l}
     %% \multicolumn{4}{c}{
@@ -1244,7 +1254,7 @@ write $\single\alpha$ for a single-vertex  labelled by $\alpha$.
 \end{proof}
 %
 \begin{remark}
-Note that $\graphof A$ is not necessarily a fograph if $A$ is not
+Note that $\graphof A$ need not be a fograph if $A$ is not
 rectified. If $A = (\forall x. px) \vlor (\forall x. qx)$, then
 $\graphof A = \single x \ \single px \ \single x \ \single qx$,
 the scope of each $x$-binder contains all the vertices, in particular,
@@ -1256,7 +1266,8 @@ scope:
 $\edgepairpic{x}{px}\mkern9mu\edgepairpic{x}{qx}$.
 \end{remark}
 %
-\noindent We define a congruence relation $\fequ$ on formulas by the following equations:
+\noindent We define a congruence relation $\fequ$ on formulas, called \bfit{equivalence},
+by the following equations:
 \begin{equation}
   \label{eq:fequ}
   \begin{array}{c@{\hskip1.5em}c}
@@ -1278,9 +1289,9 @@ $\edgepairpic{x}{px}\mkern9mu\edgepairpic{x}{qx}$.
   \end{array}
 \end{equation}
 where $x$ must not be free in $B$ in the last two equations.
-Two formulas $A$ and $B$ are \bfit{equivalent} if $A \fequ B$. We have the
-following theorem:
-\begin{thm}
+%Two formulas $A$ and $B$ are \bfit{equivalent} if $A \fequ B$.
+%We have the following theorem:
+\begin{thm}[{\cite[\S10]{hughes:fopws}}]
   Let $A,B$ be rectified formulas. Then
   $$
   A\fequ B \iff \graphof A =\graphof B
@@ -1288,13 +1299,15 @@ following theorem:
 \end{thm}
 
 \begin{proof}
-  Straightforward induction on $A$.
+  A straightforward structural induction on formulas.
 \end{proof}
 
 \begin{example}
-  Both $\veedrinkerformula$ and $\variantveedrinkerformula$, which are
-  equivalent modulo $\fequ$, have the same (rectified) fograph
-  $\drinkergraph$, shown below-left.
+  \mbox{$\veedrinkerformula$} $\fequ$ \mbox{$\variantveedrinkerformula$}, and both formulas
+  %The formulas \mbox{$\veedrinkerformula$} and \mbox{$\variantveedrinkerformula$}, which are
+  %equivalent modulo $\fequ$,
+  have the same (rectified) fograph
+  $\drinkergraph$, below-left.
   %
   \begin{equation*}
       \drinkergraphpic
@@ -1307,7 +1320,7 @@ following theorem:
       %
       \drinkerbindinggraphpic
   \end{equation*}
-  Above-middle we show the \emph{cotree} of the underlying
+  Above-center we show the \emph{cotree} of the underlying
   cograph (illustrating the idea behind Theorem~\ref{thm:cograph}) and
   above-right is its binding graph $\bD$.
 \end{example}
@@ -1329,7 +1342,7 @@ following theorem:
 \subsection{Fonets}
 
 Two atoms are \bfit{pre-dual} if they are not $\ttt$ or $\fff$, and their predicate symbols are dual
-(e.g. $p(x, y)$ and $\dual{p}(y, z)$) and two literals are \bfit{pre-dual} if their
+(e.g.\ $p(x, y)$ and $\dual{p}(y, z)$) and two literals are \bfit{pre-dual} if their
 labels (atoms) are pre-dual. A \bfit{linked fograph} $\tuple{\gC,\linkingof\gC}$ is a coloured fograph $\gC$ such
 that every colour (i.e., equivalence class of~$\linkingof\gC$), called a \bfit{link}, consists of two pre-dual literals, and
 every literal is either $\ttt$-labelled or in a link. Hence, in a linked fograph no vertex is labelled~$\fff$.
@@ -1349,14 +1362,14 @@ for all $w \in W$, $N(w) \cap W$ is a singleton. We say that $W$ induces a
 \bfit{bimatching} in $\gC$ if it induces a matching in $\gC$ and a matching in $\lgC$.
 
 
-\begin{definition}
+\begin{definition}[{\cite[\S5]{hughes:fopws}}]
 A \bfit{first-order net} or \bfit{fonet} is a linked fograph which
 has a dualizer but no induced bimatching.  
 \end{definition}
 %
 \begin{figure}[!t]
   \begin{center}
-    \vspace{-1ex}
+    \vspace{-3ex}
     \begin{tikzpicture}[graph]
       \begin{scope}[xshift=-2.2cm]\twolinkfograph\end{scope}
         \begin{scope}[xshift=2.2cm]\twolinkleapgraph\end{scope}
@@ -1368,13 +1381,13 @@ has a dualizer but no induced bimatching.
     leap graph (right).}
 \end{figure}%
 %
-%\noindent
-Figure~\ref{fig:leap} shows a fonet with its dualizer and leap graph.
-
+\noindent
+Figure~\ref{fig:leap} shows a fonet with its dualizer and leap graph.%
+%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\begin{figure*}
+%
+\begin{figure*}%
   $$
   \begin{tikzpicture}\cptwoonformula
   \end{tikzpicture}
@@ -1393,11 +1406,14 @@ Figure~\ref{fig:leap} shows a fonet with its dualizer and leap graph.
     above the formula proved.  Here $x$ and $y$ are variables, $f$ is
     a unary function symbol, $a$ and $b$ are constants (nullary
     function symbols), $p$ is a unary predicate symbol, and $q$ is a
-    binary predicate symbol.}
+    binary predicate symbol. For each skew bifibration $\phi$,
+    the variable substitution $\protect\rsubstof\phi$ is an identity,
+    thus we can omit labels from each (coloured) source fograph
+    (since the label of $v$ in the source is that of $\phi(v)$ in the target).}
   \label{fig:cps}
-\end{figure*}
-
-\begin{figure*}
+\end{figure*}%
+%
+\begin{figure*}\vspace{-2ex}%
   $$
   \begin{tikzpicture}
     \cptwoinline
@@ -1419,16 +1435,17 @@ Figure~\ref{fig:leap} shows a fonet with its dualizer and leap graph.
   \caption{Condensed forms of the four combinatorial proofs in Figure~\ref{fig:cps}. We do not show the lower graph, and indicate the mapping by the position of the vertices of the upper graph.}
   \label{fig:cps-condensed}
   %\vspace{-4ex}
-\end{figure*}
+\end{figure*}%
 
 \subsection{Skew Bifibrations}
 
 A graph homomorphism $\phi\colon \tuple{\vG, \eG} \rightarrow
-\tuple{\vH, \eH}$ is a \bfit{fibration} if for all $v \in \vG$ and
+\tuple{\vH, \eH}$ is a \bfit{fibration} \cite{grothendieck:fibration,Gray:fibration} if
+for all $v \in \vG$ and
 $w\phi(v) \in \eH$, there exists a unique $\tilde{w} \in \vG$ such
 that $\tilde{w}v \in \eG$ and $\phi(\tilde{w}) = w$ (indicated below-left),
-and is a
-\bfit{skew fibration} if for all $v \in \vG$ and $w\phi(v) \in \eH$
+and is a \bfit{skew fibration} \cite[\S3]{hughes:pws} if
+for all $v \in \vG$ and $w\phi(v) \in \eH$
 there exists $\tilde{w} \in \vG$ such that $\tilde{w}v \in \eG$ and
 $\phi(\tilde{w})w \notin \eH$ (indicated below-centre).
 A directed graph homomorphism is a
@@ -1457,7 +1474,7 @@ A fograph homomorphism $\phi\colon\gG \rightarrow \gH$
 if for all existential binders $b$ in
 $\gG$, the binder $\phi(b)$ is existential in $\gH$.
 %
-\begin{definition}
+\begin{definition}[{\cite[\S4]{hughes:fopws}}]
   Let $\gG$ and $\gH$ be fographs. A \bfit{skew bifibration}
   $\phi\colon\gG\to\gH$ is an existential-preserving fograph
   homomorphism that is a skew fibration on $\tuple{\vG, \eG} \to
@@ -1482,20 +1499,20 @@ $\gG$, the binder $\phi(b)$ is existential in $\gH$.
 \end{math}\end{center}\end{example}
 %
 %
-\begin{definition}
+\begin{definition}[{\cite[\S6]{hughes:fopws}}]
 A \bfit{first-order combinatorial proof} (\bfit{FOCP}) of a fograph $\gG$ is a skew
 bifibration $\phi\colon \gC \rightarrow \gG$ where $\gC$ is a fonet. A \bfit{first-order
 combinatorial proof} of a formula $A$ is a combinatorial proof of its graph
 $\graphof{A}$.
 \end{definition}
 %
-Figure~\ref{fig:cps} shows examples of
+\noindent Figure~\ref{fig:cps} shows examples of
 FOCPs (taken from~\cite{hughes:fopws}), each above the formula it proves.
 The same FOCPs are in
 Figure~\ref{fig:cps-condensed} in \emph{condensed form}, with the formula
 graph left implicit.
 
-\begin{thm}[\cite{hughes:fopws}]
+\begin{thm}[{\cite[\S6]{hughes:fopws}}]
   \label{thm:FOCP}
   FOCPs are sound and complete for first-order logic.
 \end{thm}
@@ -1503,7 +1520,7 @@ graph left implicit.
 \begin{remark}
   Our definition of FOCP is slightly more lax than the original
   definition of~\cite{hughes:fopws}, as we allow for a variable
-  renaming $\rsubstof\phi$ which was forced to be the identity
+  renaming $\rsubstof\phi$ which was restricted to be the identity
   in~\cite{hughes:fopws}.
 \end{remark}
 
@@ -1567,13 +1584,13 @@ In contrast to standard proof formalisms, like sequent calculi or
 tableaux, where inference rules decompose the principal formula along
 its root connective, \emph{deep inference rules} apply like
 rewriting rules inside any (positive) formula or sequent
-\bfit{context}, which is denoted as $\Sconhole$, and which is a
+\bfit{context}, which is denoted by $\Sconhole$, and which is a
 formula (resp.~sequent) with exactly one occurrence of the \bfit{hole}
 $\conhole$ in the position of an atom. Then $\Scons A$ is the result
 of replacing the hole $\conhole$ in $\Sconhole$ with $A$.
 
 Figure~\ref{fig:KS1} shows the inference rules for the deep inference
-system~$\FOKS$ that we introduce in this paper. It is a slight
+system~$\FOKS$ introduced in this paper. It is a
 variation of the systems presented by Br\"unnler~\cite{brunnler:phd}
 and Ralph~\cite{ralph:phd} in their PhD-theses. The main differences
 are (i) the explicit presence of the $\mixr$-rule, (ii) a different
@@ -1617,7 +1634,7 @@ general (non-atomic) version of the contraction rule:
 
 We state the main results of this paper here,
 and prove them in later sections. The
-first is routine and expected, but needs to be proved nonetheless:
+first is routine and expected, but must be proved nonetheless:
 
 \begin{thm}\label{thm:KS1}
   $\FOKS$ is sound and complete for first-order logic.
@@ -1800,7 +1817,7 @@ We show that $\FOMLL$ and $\FOMLS$ are equivalent.
   $\FOMLS$. Then the sequent $\sqn{\cneg A,B}$ is provable in $\FOMLL$.
 \end{lemma}
 \begin{proof}
-  This is a straightforward exercise.
+  A routine exercise.
 \end{proof}
 
 \begin{lemma}\label{lem:context}
@@ -1810,7 +1827,7 @@ We show that $\FOMLL$ and $\FOMLS$ are equivalent.
 \end{lemma}
 
 \begin{proof}
-  Straightforward induction on  $\Sconhole$. (see e.g. \cite{gug:str:01})
+  A straightforward induction on $\Sconhole$. (see e.g.~\cite{gug:str:01})
 \end{proof}
 
 \begin{lemma}\label{lem:MLS1->MLL1}
@@ -1823,7 +1840,8 @@ We show that $\FOMLL$ and $\FOMLS$ are equivalent.
   $\vlinf{\rr}{}{\Scons B}{\Scons A}$. By induction hypothesis we have
   a $\FOMLL$ proof $\Proof$ of $\sqn{\Scons A}$.
       By Lemmas~\ref{lem:shallow} and~\ref{lem:context}, we have a $\FOMLL$ proof of
-      $\sqn{\cneg{\Scons A},\Scons B}$. We can compose them via $\cutr$:
+      $\sqn{\cneg{\Scons A},\Scons B}$. We can compose them via
+%  $\cutr$:
       \begin{equation*}
         \vliinf{\cutr}{}{\sqn{\Scons B}}{\sqn{\Scons A}}{\sqn{\cneg{\Scons
           A},\Scons B}}
@@ -1944,7 +1962,7 @@ other results.
       \vlde{\FOMLS}{}{A}{
         \vlhy{\ttt}}}$
   there are formulas $A'$ and $A''$ such that 
-  \begin{equation*}
+  \vspace{-2ex}\begin{equation*}\hspace{-2ex}
     \vlderivation{
       \vlde{\set{\exists}}{}{A}{
         \vlde{\set{\sw,\mix,\fequ}}{}{A'}{
@@ -1971,7 +1989,7 @@ other results.
       \vlde{\set{\wrD,\wfaD,\acD,\cfaD,\me,\mfaD,\mexD,\fequ}}{}{B}{
         \vlhy{A}}}$
   there are formulas $A'$ and $B'$ such that 
-  \begin{equation*}
+  \begin{equation*}\hspace{-3ex}
     \vlderivation{
       \vlde{\set{\wrD,\wfaD,\fequ}}{}{B}{
         \vlde{\set{\acD,\cfaD}}{}{B'}{
@@ -1981,13 +1999,15 @@ other results.
 \end{lemma}
 
 \begin{proof}
-  We first permute all instances of $\wD$ and $\wfaD$ to the bottom of
-  the derivation and then permute in a second step the rules $\cD$ and
+  Permute all $\wD$ and $\wfaD$ instances to the bottom of
+  the derivation, then permute all $\cD$ and
   $\cfaD$ below $\set{\me,\mfaD,\mexD}$. This involves a tedious but
-  straightforward case analysis. However, unlike most other rule
+  routine case analysis. However, unlike most other rule
   permutations in this paper, this has not been done before in the deep
-  inference literature. For this reason, we give the full case
-  analysis in Appendix~\ref{app:cw-decomposition}. Note that this
+  inference literature. 
+%  For this reason, we give the full case
+%  analysis in Appendix~\ref{app:cw-decomposition}.
+  This
   Lemma is the reason for the presence of the rules $\wfaD$ and
   $\cfaD$, as without them the permutation cases in~\eqref{eq:wfa-cfa}
   could not be resolved.
@@ -2082,7 +2102,7 @@ end we can conclude that $\fographof\Pi$ is in fact a fonet.
 \end{thm}
 
 \begin{proof}
-  We have to show that none of the operations above can introduce a
+  We must show that none of the operations above introduces a
   bimatching. For cases 1--6, this is immediate. For case 7, observe
   that there is a potential dependency from each existential binder in
   $\graphof{\Gamma'}$ to the new $x$-binder $\single x$ in
@@ -2098,22 +2118,22 @@ end we can conclude that $\fographof\Pi$ is in fact a fonet.
 \subsection{From $\FOMLS$ Proofs to Fonets}
 
 There is a more direct path from a $\FOMLL$ proof $\Pi$ of a rectified
-sequent $\Gamma$ to the linked fograph $\fographof\Pi$: simply take
+sequent $\Gamma$ to the linked fograph $\fographof\Pi$: take
 the fograph $\graphof\Gamma$, and let the equivalence classes of
 $\linkingof\Pi$ be all the atom pairs that meet in an instance of
-$\ax$, and $\dsubstof\Pi$ is simply the collection of all substitutions
-of all the instances of the $\exists$-rule in $\Pi$.
+$\ax$, and $\dsubstof\Pi$ comprises the substitutions
+at the $\exists$-rules in $\Pi$.
 %
-We have chosen the more cumbersome path above because it gives us a
+We chose the more cumbersome path above because it gives us a
 direct proof of Theorem~\ref{thm:MLL1->fonet}.
 %
 However, for translating $\FOMLS$ derivation into fonets, we employ
 exactly that direct path.
 
-First observe that in a derivation in $\FOMLS$
+In a derivation in $\FOMLS$
 where the conclusion is rectified, every line is also rectified, as
 the only rules involving bound variables are $\forall$ and $\exists$
-which both remove a binder.
+which (upwards) both remove a binder.
 Therefore, we can call such a derivation \bfit{rectified}, and
 for a non-rectified  $\FOMLS$ derivation $\Deri$ we can
 define its \bfit{rectification} $\rectif\Deri$ inductively, by rectifying each
@@ -2125,7 +2145,7 @@ variables.}
 A rectified derivation $\vlder{\FOMLS}{\Deri}{A}{\ttt}$ determines a
 substitution which maps the existential bound variables occurring in
 $A$ to the terms substituted for them in the instances of the
-$\exists$-rule in $\Phi$. We denote this substitution with
+$\exists$-rule in $\Phi$. We denote this substitution by
 $\dsubstof\Phi$ and call it the \bfit{dualizer} of
 $\Deri$. Furthermore, every atom occurring in the conclusion $A$ must
 be consumed by a unique instance of the rule $\aiD$ in $\Deri$. This
@@ -2144,7 +2164,7 @@ $\fographof\Deri=\tuple{\graphof{A},\linkingof{\Deri}}$.
   $\fographof\Deri$ is a fonet and $\dsubstof{\Deri}$ a dualizer for it.
 \end{thm}
 
-For proving this theorem, we have to show that no inference rule in
+To prove this theorem, we have to show that no inference rule in
 $\FOMLS$ can introduce a bimatching. To simplify the argument, we
 introduce the \bfit{frame}~\cite{hughes:unifn} of the linked fograph $\gC$,
 which is a linked (propositional) cograph in which the dependencies
@@ -2212,7 +2232,7 @@ $\tuple{\graphof{\frameof C},\linkingof{\frameof C}}$.
   where $h_1,\ldots,h_n$ range over the indices of the existential
   binders dependent on that $y_j$. It is easy to see how $\DDeri_1$ is
   constructed. The construction of $\DDeri_2$, using $\sw$ and $\fequ$, is standard, see,
-  e.g. \cite{ATS:esslli2019,gug:str:01,brunnler:tiu:01,dissvonlutz}. Then, every
+  e.g.~\cite{ATS:esslli2019,gug:str:01,brunnler:tiu:01,dissvonlutz}. Then, every
   occurrence of $\forall y_j.F$ is replaced by
   $q_{h_1,j}\vlor\cdots\vlor q_{h_n,j}\vlor (\dual
   q_{h_1,j}\vlan\cdots\vlan\dual q_{h_n,j}\vlan F)$ in the derivation
@@ -2381,7 +2401,7 @@ We can now straightforwardly obtain the same result for $\FOMLS$:
 \section{Skew Bifibrations and Resource Management}
 \label{sec:skew}
 
-In this section we establish the relation between skew bifibrations and derivations  in
+In this section we establish the relation between skew bifibrations and derivations in
 $\set{\wrD,\wfaD,\acD,\cfaD,\me,\mfaD,\mexD,\fequ}$. However, 
 if a derivation $\Deri$ contains instances of the rules $\cfaD$, $\mfaD$, and
 $\mexD$ we can no longer naively define the rectification
@@ -2493,7 +2513,7 @@ $x\in\VAR$. Then $\PE{A}$ is defined inductively by:
 \end{lemma}
 
 \begin{proof}
-  Straightforward induction on $A$. 
+  A straightforward induction on $A$. 
 \end{proof}
 
 We use $\PE\fequ$ to denote the restriction of $\fequ$ to
@@ -2775,9 +2795,9 @@ Note that Theorem~\ref{thm:CP-DI} shows at the same time soundness, completeness
 
 \section{Conclusion}
 
-In this paper we have uncovered a close correspondence between
+We uncovered a close correspondence between
 first-order combinatorial proofs and decomposed deep inference
-derivations of system $\FOKS$, and we have shown that every proof in
+derivations of system $\FOKS$, and showed that every proof in
 $\FOKS$ has such a decomposed form.
 
 The most surprising discovery for us was that all technical
@@ -2790,10 +2810,10 @@ proofs. Even in the propositional setting, the normalisation of
 combinatorial proofs is underdeveloped. There exist two different
 procedures for cut elimination for combinatorial proofs in classical
 propositional logic~\cite{hughes:invar,str:fscd17}, but both have
-their insufficiencies, and they have not been extended to other
+their insufficiencies, and have not been extended to other
 logics.
 
-Nonetheless, we hope to get new insights in the normalisation of
+We hope to garner new insights on the normalisation of
 classical first-order proofs through our work on combinatorial proofs.
 
 %% We conjecture cut-elimination for first-order combinatorial proofs can be achieved via a method that is similar to the 
@@ -3661,7 +3681,7 @@ D))}{
           \vlin{\me}{}{\Scons{((\forall x. E)\vlor (\forall x. F))\vlan(C\vlor D)}}{
             \vlhy{\Scons{((\forall x. E)\vlan C)\vlor ((\forall x. F)\vlan D)}}}}}
     \end{equation*}
-  \item In all other cases (e.g. exactly one of the principal formulas
+  \item In all other cases (e.g.\ exactly one of the principal formulas
     is of shape $x\vlor F$ (and none is $x$), we can trivially lift
     the $\me$-instance, as the quantifier structure is not affected.
     \end{itemize}
