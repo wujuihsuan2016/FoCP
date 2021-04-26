@@ -1095,16 +1095,18 @@ it is \bfit{connected}.
 %It is \bfit{coconnected} if its complement is connected.
 
 A graph $\gG$ is \bfit{labelled} in a set $L$ if each vertex $v\in\vG$
-has a \bfit{label} $\labelof v\in L$ associated with it.
+has an associated \bfit{label} $\labelof v\in L$.
 A graph $\gG$ is (partially) \bfit{coloured} if it carries a partial
-equivalence relation $\linkingof\gG$ on $\vG$; each equivalence class
-is a \bfit{colour}.\footnote{In \cite{hughes:fopws}
-adjacent vertices are required to have distinct colours, since it
-is part of the standard definition of colouring in graph
-theory.
-However, this condition is redundant (ommitted here), since it is implied
-by the preclusion of bimatchings in the next section.}
-%Therefore we do not have this additional condition here.}
+equivalence relation $\linkingof\gG$ on $\vG$
+such that $v\linkingof\gG$ only if $vw\tightnotin\eG$; each equivalence class
+is a \bfit{colour}.
+% \footnote{In \cite{hughes:pws} and \cite{hughes:fopws}
+% adjacent vertices must have distinct colours, as
+% is part of the standard definition of colouring in graph
+% theory.
+% We choose to omit this condition, since it is implied
+% by the preclusion of bimatchings in Def.\,\ref{def:fonet}.}
+% %Therefore we do not have this additional condition here.}
 A \bfit{vertex renaming} of
 $\gG=\tuple{\vG,\eG}$ along a bijection
 $(\hat\cdot)\colon\vG\to\hat\vG$ is the graph
