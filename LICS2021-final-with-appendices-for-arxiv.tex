@@ -1097,16 +1097,16 @@ it is \bfit{connected}.
 A graph $\gG$ is \bfit{labelled} in a set $L$ if each vertex $v\in\vG$
 has an associated \bfit{label} $\labelof v\in L$.
 A graph $\gG$ is (partially) \bfit{coloured} if it carries a partial
-equivalence relation $\linkingof\gG$ on $\vG$
-such that $v\linkingof\gG$ only if $vw\tightnotin\eG$; each equivalence class
-is a \bfit{colour}.
-% \footnote{In \cite{hughes:pws} and \cite{hughes:fopws}
-% adjacent vertices must have distinct colours, as
-% is part of the standard definition of colouring in graph
-% theory.
-% We choose to omit this condition, since it is implied
-% by the preclusion of bimatchings in Def.\,\ref{def:fonet}.}
-% %Therefore we do not have this additional condition here.}
+equivalence relation $\linkingof\gG$ on $\vG$;
+%such that $v\linkingof\gG$ only if $vw\tightnotin\eG$;
+each equivalence class is a \bfit{colour}.\footnote{In
+\cite{hughes:pws} and \cite{hughes:fopws}
+adjacent vertices must have distinct colours, following
+the standard definition of colouring in graph
+theory.
+We choose to omit this condition here, as it is implied
+by the preclusion of bimatchings in Def.\,\ref{def:fonet}.}
+%Therefore we do not have this additional condition here.}
 A \bfit{vertex renaming} of
 $\gG=\tuple{\vG,\eG}$ along a bijection
 $(\hat\cdot)\colon\vG\to\hat\vG$ is the graph
@@ -1364,7 +1364,7 @@ for all $w \in W$, $N(w) \cap W$ is a singleton. We say that $W$ induces a
 \bfit{bimatching} in $\gC$ if it induces a matching in $\gC$ and a matching in $\lgC$.
 
 
-\begin{definition}[{\cite[\S5]{hughes:fopws}}]
+\begin{definition}[{\cite[\S5]{hughes:fopws}}]\label{def:fonet}
 A \bfit{first-order net} or \bfit{fonet} is a linked fograph which
 has a dualizer but no induced bimatching.  
 \end{definition}
