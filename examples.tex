@@ -1,0 +1,156 @@
+% Sequent proof of Ex.1
+  \vlderivation{
+      \vlin{\vlor}{}{\sqns{(\exists x.\cneg{p}x) \vlor (\forall y.(py \vlan
+pfy))}}{
+        \vlin{\conr}{}{\sqns{\exists x.\cneg{p}x, \forall y.(py \vlan pfy)}}{
+          \vlin{\forall}{}{\sqns{\exists x.\cneg{p}x, \exists x.\cneg{p}x,
+\forall y.(py \vlan pfy)}}{
+            \vlin{\exists}{}{\sqns{\exists x.\cneg{p}x, \exists x.\cneg{p}x, py \vlan
+pfy}}{
+              \vlin{\exists}{}{\sqns{\cneg{p}y, \exists x.\cneg{p}x, py \vlan pfy}}{
+                \vliin{\vlan}{}{\sqns{\cneg{p}y, \cneg{p}fy, py \vlan pfy}}{
+                  \vlin{\axr}{}{\sqns{\cneg{p}y, py}}{
+                    \vlhy{}}}{
+                  \vlin{\axr}{}{\sqns{\cneg{p}fy, pfy}}{
+                    \vlhy{}}}}}}}}}
+
+% Decomposed proof of Ex.1
+
+    \vlderivation{
+      \vlin{\acD}{}{(\exists x. \cneg{p}x) \vlor (\forall y.(py \vlan pfy))}{
+        \vlin{\mexD}{}{(\exists x. (\cneg{p}x \vlor \cneg{p}x) \vlor (\forall
+          y.(py \vlan pfy))}{
+          \vlin{\fequ}{}{((\exists x. \cneg{p}x) \vlor (\exists x.\cneg{p}x))
+            \vlor (\forall y.(py \vlan pfy)}{
+            \vlin{\exists}{}{\forall y.(((\exists x. \cneg{p}x) \vlor (\exists
+              x.\cneg{p}x)) \vlor (py \vlan pfy))}{
+              \vlin{\exists}{}{\forall y.((\cneg{p}y \vlor (\exists x.\cneg{p}x))
+                \vlor (py \vlan pfy))}{
+                \vlin{\fequ}{}{\forall y.((\cneg{p}y \vlor \cneg{p}fy) \vlor
+                  (py \vlan pfy))}{
+              \vlin{\sw}{}{\forall y.(\cneg{p}y \vlor ((py \vlan pfy)
+                \vlor \cneg{p}fy))}{
+                \vlin{\fequ}{}{\forall y.(\cneg{p}y \vlor (py \vlan (pfy
+                  \vlor \cneg{p}fy)))}{
+                  \vlin{\aiD}{}{\forall y.((\cneg{p}y \vlor py) \vlan (pfy
+                    \vlor \cneg{p}fy))}{
+                    \vlin{\aiD}{}{\forall y.((\cneg{p}y \vlor py) \vlan
+                      \ttt)}{
+                      \vlin{\ttt}{}{\forall y.(\ttt \vlan \ttt)}{
+                        \vlin{\forall}{}{\forall y.\ttt}{
+                          \vlhy{\ttt}}}}}}}}}}}}}}
+
+% Sequent proof of Ex.2 (to check)
+
+    \vlderivation{
+      \vlin{\conr}{}{\sqns{\exists x.((\cneg{p}a \vlan \cneg{p}b) \vlor px)}}{
+        \vlin{\exists}{}{\sqns{\exists x.((\cneg{p}a \vlan \cneg{p}b) \vlor px, \exists x.((\cneg{p}a \vlan \cneg{p}b) \vlor px))}}{
+          \vlin{\exists}{}{\sqns{(\cneg{p}a \vlan \cneg{p}b) \vlor pa, \exists x.((\cneg{p}a \vlan \cneg{p}b) \vlor px))}}{
+            \vlin{\vlor}{}{\sqns{(\cneg{p}a \vlan \cneg{p}b) \vlor pa, (\cneg{p}a
+\vlan \cneg{p}b) \vlor pb}}{
+              \vlin{\vlor}{}{\sqns{\cneg{p}a \vlan \cneg{p}b, pa, (\cneg{p}a
+\vlan \cneg{p}b) \vlor pb}}{
+                \vlin{\weakr^*}{}{\sqns{\cneg{p}a \vlan \cneg{p}b, pa, \cneg{p}a
+\vlan \cneg{p}b, pb}}{
+                  \vliin{\vlan}{}{\sqns{\cneg{p}a \vlan \cneg{p}b, pa, pb}}{
+                    \vlin{\axr}{}{\sqns{\cneg{p}a, pa}}{
+                      \vlhy{}}}{
+                    \vlin{\axr}{}{\sqns{\cneg{p}b, pb}}{
+                      \vlhy{}}}}}}}}}}
+
+% Sequent proof of Ex.3 
+
+    \vlderivation{
+      \vlin{\vlor}{}{\sqns{(\cneg{q}ab \vlan \cneg{q}ba) \vlor (\exists x.
+\exists y.qxy)}}{
+      \vlin{\conr}{}{\sqns{\cneg{q}ab \vlan \cneg{q}ba, \exists x.\exists y.
+qxy}}{
+        \vlin{\exists^*}{}{\sqns{\cneg{q}ab \vlan \cneg{q}ba, \exists x.\exists
+y.qxy, \exists x.\exists y.qxy}}{
+          \vliin{\vlan}{}{\sqns{\cneg{q}ab \vlan \cneg{q}ba, qab, qba}}{
+            \vlin{\axr}{}{\sqns{\cneg{q}ab, qab}}{
+              \vlhy{}}}{
+            \vlin{\axr}{}{\sqns{\cneg{q}ba, qba}}{
+              \vlhy{}}}}}}}
+
+% Decomposed proof of Ex.3
+
+  \vlderivation{
+    \vlin{\acD}{}{(\cneg{q}ab \vlan \cneg{q}ba) \vlor (\exists x. \exists
+y.qxy)}{
+      \vlin{\mexD}{}{(\cneg{q}ab \vlan \cneg{q}ba) \vlor (\exists x. \exists y.
+(qxy \vlor qxy))}{
+        \vlin{\mexD}{}{(\cneg{q}ab \vlan \cneg{q}ba) \vlor (\exists x. ((\exists
+y.qxy) \vlor (\exists y.qxy)))}{
+          \vlin{\exists^*}{}{(\cneg{q}ab \vlan \cneg{q}ba) \vlor ((\exists x.\exists
+y.qxy) \vlor (\exists x.\exists y.qxy))}{
+            \vlin{\equiv}{}{(\cneg{q}ab \vlan \cneg{q}ba) \vlor (qab \vlor
+qba)}{
+              \vlin{\sw}{}{((\cneg{q}ba \vlan \cneg{q}ab) \vlor qab) \vlor
+qba}{
+                \vlin{\equiv}{}{(\cneg{q}ba \vlan (\cneg{q}ab \vlor qab)) \vlor
+qba}{
+                  \vlin{\sw}{}{((qab \vlor \cneg{q}ab) \vlan \cneg{q}ba)
+\vlor qba}{
+                    \vlin{\aiD}{}{(qab \vlor \cneg{q}ab) \vlan (\cneg{q}ba \vlor
+qba)}{
+                      \vlin{\ttt}{}{(qab \vlor \cneg{q}ab) \vlan \ttt}{
+                        \vlin{\aiD}{}{qab \vlor \cneg{q}ab}{
+                          \vlhy{\ttt}}}}}}}}}}}}}    
+
+% Sequent proof of Ex.4
+
+  \vlderivation{
+    \vlin{\vlor}{}{\sqns{(\exists x.(pfx \vlan \cneg{p}x)) \vlor (\forall
+y.(\cneg{p}ffy \vlor py))}}{
+      \vlin{\conr}{}{\sqns{\exists x.(pfx \vlan \cneg{p}x), \forall
+y.(\cneg{p}ffy \vlor py)}}{
+        \vlin{\forall}{}{\sqns{\exists x.(pfx \vlan \cneg{p}x), \exists x.(pfx
+\vlan \cneg{p}x), \forall y.(\cneg{p}ffy \vlor py)}}{
+          \vlin{\exists^*}{}{\sqns{\exists x.(pfx \vlan \cneg{p}x), \exists x.(pfx
+\vlan \cneg{p}x), \cneg{p}ffy \vlor py}}{
+            \vlin{\vlor}{}{\sqns{pffy \vlan \cneg{p}fy, pfy \vlan \cneg{p}y, \cneg{p}ffy \vlor
+py}}{
+              \vliin{\vlan}{}{\sqns{pffy \vlan \cneg{p}fy, pfy \vlan \cneg{p}y,
+\cneg{p}ffy, py}}{
+                \vlin{\axr}{}{\sqns{pffy, \cneg{p}ffy}}{
+                  \vlhy{}}}{
+                \vliin{\vlan}{}{\sqns{\cneg{p}fy, pfy \vlan \cneg{p}y, py}}{
+                  \vlin{\axr}{}{\sqns{\cneg{p}fy, pfy}}{
+                    \vlhy{}}}{
+                  \vlin{\axr}{}{\sqns{\cneg{p}y, py}}{
+                    \vlhy{}}}}}}}}}}
+
+% Decomposed proof of Ex.4
+
+  \vlderivation{
+    \vlin{\acD}{}{(\exists x.(pfx \vlan \cneg{p}x)) \vlor (\forall
+y.(\cneg{p}ffy \vlor py))}{
+      \vlin{\acD}{}{(\exists x.((pfx \vlor pfx) \vlan \cneg{p}x)) \vlor (\forall
+y.(\cneg{p}ffy \vlor py))}{
+        \vlin{\me}{}{(\exists x.((pfx \vlor pfx) \vlan (\cneg{p}x \vlor \cneg{p}x))) \vlor (\forall
+y.(\cneg{p}ffy \vlor py))}{
+          \vlin{\mexD}{}{(\exists x.((pfx \vlan \cneg{p}x) \vlor (pfx \vlan
+\cneg{p}x))) \vlor (\forall y.(\cneg{p}ffy \vlor py))}{
+            \vlin{\equiv}{}{((\exists x.(pfx \vlan \cneg{p}x)) \vlor (\exists
+x.(pfx \vlan \cneg{p}x))) \vlor (\forall y.(\cneg{p}ffy \vlor py))}{
+            \vlin{\forall}{}{\forall y.(((\exists x.(pfx \vlan \cneg{p}x)) \vlor
+(\exists x.(pfx \vlan
+\cneg{p}x))) \vlor (\cneg{p}ffy \vlor py))}{
+              \vlin{\exists}{}{((\exists x.(pfx \vlan \cneg{p}x)) \vlor (\exists x.(pfx \vlan
+\cneg{p}x))) \vlor (\cneg{p}ffy \vlor py)}{
+                 \vlin{\exists}{}{(\exists x.((pfx \vlan \cneg{p}x) \vlor (pfx \vlan
+\cneg{p}x))) \vlor (\cneg{p}ffy \vlor py)}{
+                                  \vlin{\sw}{}{((pffy \vlan \cneg{p}fy) \vlor (pfy \vlan \cneg{p}y))
+\vlor (\cneg{p}ffy \vlor py)}{
+                    \vlin{\sw}{}{(\cneg{p}fy \vlan (pffy \vlor
+\cneg{p}ffy)) \vlor ((pfy \vlan \cneg{p}y) \vlor py)}{
+                      \vlin{\equiv}{}{(\cneg{p}fy \vlan (pffy \vlor \cneg{p}ffy))
+\vlor (pfy \vlan (\cneg{p}y \vlor py))}{
+                        \vlin{\aiD}{}{(\cneg{p}fy \vlor pfy) \vlan (pffy \vlor \cneg{p}ffy) \vlan (\cneg{p}y \vlor py)}{
+                          \vlin{\aiD}{}{(\cneg{p}fy \vlor pfy) \vlan (pffy \vlor
+\cneg{p}ffy) \vlan \ttt}{
+                            \vlin{\aiD}{}{(\cneg{p}fy \vlor pfy) \vlan \ttt \vlan \ttt}{
+                              \vlin{\ttt^*}{}{\ttt \vlan \ttt \vlan \ttt}{
+                                \vlhy{\ttt}}}}}}}}}}}}}}}}}
+
