@@ -416,6 +416,8 @@ node[leaf, label={[label distance=1pt]{-90}:${#1}$}]{} edge from parent[{_[sep=#
 
 
 \newcommand\fibheight{1.2}
+\newcommand\peircefibheight{1.7}
+\newcommand\fibheighttall{1.5}
 
 
 
@@ -465,7 +467,7 @@ node[leaf, label={[label distance=1pt]{-90}:${#1}$}]{} edge from parent[{_[sep=#
 
 \newcommand\drinkerformula{\exists x\mkern1mu(\mkern1mu px\mkern-1mu\implies\mkern-1mu \aypy)}
 \newcommand\veedrinkerformula{\exists x.(\cneg{p}x \vlor (\forall y.py))}
-\newcommand\veedrinkerformulaOLD{\exists x\mkern1mu(\mkern1mu\ppx\mkern-1mu\vee\mkern-1mu \aypy)}
+\newcommand\veedrinkerformulaOLD{\exists x\mkern1mu(\mkern1mu\ppx\mkern-2mu\vee\mkern-1mu \aypy)}
 \newcommand\variantveedrinkerformula{\exists x\mkern2mu\forall y\mkern2mu(\py\mkern-1mu\vee\mkern-1mu\ppx)}
 
 \newcommand\drinkergraph{\gD}
@@ -548,7 +550,7 @@ node[leaf, label={[label distance=1pt]{-90}:${#1}$}]{} edge from parent[{_[sep=#
 }
 
 \newcommand\drinkerfibcoloured{
-\begin{scope}[shift={(0,\fibheight)}]
+\begin{scope}[shift={(0,\fibheighttall)}]
   \drinkercovercoloured
 \end{scope}
 \drinkerbase
@@ -1369,7 +1371,6 @@ node[leaf, label={[label distance=1pt]{-90}:${#1}$}]{} edge from parent[{_[sep=#
 \newcommand\peircextwo{-.3}
 \newcommand\peircexthree{.35}
 \newcommand\peircexfour{1.05}
-\newcommand\peircefibheight{1.8}
 \newcommand\peircecoverradius{.22}%{.3}
 \newcommand\peircey{-.14}
 \newcommand\peircecp{

@@ -1,0 +1,2872 @@
+
+%% bare_conf.tex
+%% V1.4b
+%% 2015/08/26
+%% by Michael Shell
+%% See:
+%% http://www.michaelshell.org/
+%% for current contact information.
+%%
+%% This is a skeleton file demonstrating the use of IEEEtran.cls
+%% (requires IEEEtran.cls version 1.8b or later) with an IEEE
+%% conference paper.
+%%
+%% Support sites:
+%% http://www.michaelshell.org/tex/ieeetran/
+%% http://www.ctan.org/pkg/ieeetran
+%% and
+%% http://www.ieee.org/
+
+%%*************************************************************************
+%% Legal Notice:
+%% This code is offered as-is without any warranty either expressed or
+%% implied; without even the implied warranty of MERCHANTABILITY or
+%% FITNESS FOR A PARTICULAR PURPOSE! 
+%% User assumes all risk.
+%% In no event shall the IEEE or any contributor to this code be liable for
+%% any damages or losses, including, but not limited to, incidental,
+%% consequential, or any other damages, resulting from the use or misuse
+%% of any information contained here.
+%%
+%% All comments are the opinions of their respective authors and are not
+%% necessarily endorsed by the IEEE.
+%%
+%% This work is distributed under the LaTeX Project Public License (LPPL)
+%% ( http://www.latex-project.org/ ) version 1.3, and may be freely used,
+%% distributed and modified. A copy of the LPPL, version 1.3, is included
+%% in the base LaTeX documentation of all distributions of LaTeX released
+%% 2003/12/01 or later.
+%% Retain all contribution notices and credits.
+%% ** Modified files should be clearly indicated as such, including  **
+%% ** renaming them and changing author support contact information. **
+%%*************************************************************************
+
+
+% *** Authors should verify (and, if needed, correct) their LaTeX system  ***
+% *** with the testflow diagnostic prior to trusting their LaTeX platform ***
+% *** with production work. The IEEE's font choices and paper sizes can   ***
+% *** trigger bugs that do not appear when using other class files.       ***                          ***
+% The testflow support page is at:
+% http://www.michaelshell.org/tex/testflow/
+
+
+
+\documentclass[conference,10pt]{IEEEtran}
+% Some Computer Society conferences also require the compsoc mode option,
+% but others use the standard conference format.
+%
+% If IEEEtran.cls has not been installed into the LaTeX system files,
+% manually specify the path to it like:
+% \documentclass[conference]{../sty/IEEEtran}
+
+%%line and pagenumbers to be removed for final version
+%\usepackage[switch]{lineno}
+%\pagestyle{plain}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage[usenames,dvipsnames]{xcolor}% More colours (BrickRed, BlueViolet, ...). Must come before tikz or pstricks. Doc: http://en.wikibooks.org/wiki/LaTeX/Colors
+
+
+\newcommand{\dominic}[1]{{\color{green!60!black}     \noindent[\![\![{\bf Dominic: }#1]\!]\!]}}
+\newcommand{\lutz}[1]{{\color{blue}     \noindent[\![\![{\bf Lutz: }#1]\!]\!]}}
+\newcommand{\juihsuan}[1]{{\color{violet}     \noindent[\![\![{\bf Jui-Hsuan: }#1]\!]\!]}}
+
+
+\newcommand{\todo}[1]{{\color{red}     \noindent[\![\![{\bf TODO: }#1]\!]\!]}}
+\newcommand{\TODO}[1]{\todo{#1}}
+\newcommand{\tocheck}[1][]{{\color{red}     \noindent[\![\![{\bf TO CHECK: }#1]\!]\!]}}
+
+
+
+
+% *** PACKAGES *** %
+%\usepackage{fdsymbol}
+
+\usepackage{xifthen}
+\usepackage[utf8]{inputenc}
+\usepackage{dashbox}
+\usepackage{ebproof}
+%\usepackage{mathtools}% mathtools = bug-fixed amsmath; includes variable length \mapsto as \xmapsto
+\usepackage{amsmath}
+\usepackage{ebproof}
+%\usepackage{stmaryrd}
+\usepackage{virginialake}
+\vlstemheight=12pt
+
+\usepackage{cmll}
+
+
+
+
+
+\usepackage{amsthm}\theoremstyle{plain}
+\newtheorem{thm}{Theorem}%[section]
+\newtheorem{lemma}[thm]{Lemma}
+\newtheorem{proposition}[thm]{Proposition}
+\newtheorem{theorem_}[thm]{Theorem}
+
+\theoremstyle{definition}
+\newtheorem{definition}[thm]{Definition}
+\newtheorem{notation}[thm]{Notation}
+\newtheorem{example}[thm]{Example}
+\newtheorem{remark}[thm]{Remark}
+
+% Some very useful LaTeX packages include:
+% (uncomment the ones you want to load)
+\makeatletter
+ \newcommand{\coloneqq}{%
+ \mathrel{%
+   \rlap{\raisebox{0.3ex}{$\m@th\cdot$}}\raisebox{-0.3ex}{$\m@th\cdot$}%
+   \rlap{\raisebox{0.3ex}{$\m@th\cdot$}}\raisebox{-0.3ex}{$\m@th\cdot$}%
+ }=}
+\makeatother
+
+\newcommand{\dual}[1]{\overline{#1}}
+\newcommand{\cneg}[1]{\dual{#1}}
+
+\newcommand{\VAR}{\textsc{var}}
+\newcommand{\FUN}{\textsc{fun}}
+\newcommand{\PRED}{\textsc{pred}}
+\newcommand{\ATOM}{\textsc{atom}}
+\newcommand{\FORM}{\textsc{form}}
+\newcommand{\TERM}{\textsc{term}}
+
+\newcommand{\samecol}{\sim}
+\newcommand{\fequ}{\equiv}
+\newcommand{\fequp}{\mathrel{\equiv'\mkern-2mu}}
+
+\newcommand{\graph}[1]{\mathcal{#1}}
+\newcommand{\vertices}[1][]{\ifthenelse{\isempty{#1}}{V}{V_{{\graph{#1}}}}}
+\newcommand{\edges}[1][]{\ifthenelse{\isempty{#1}}{E}{E_{\graph{#1}}}}
+\newcommand{\bgraph}[1]{\mathcal{\vec{#1}}}
+\newcommand{\lgraph}[1]{\mathcal{#1}^{\mathsf{L}}}
+\newcommand{\leaps}[1]{L_{#1}}
+
+\newcommand{\vgraphof}[1]{V_{\graphof{#1}}}
+\newcommand{\gA}{\graph{A}}
+\newcommand{\gB}{\graph{B}}
+\newcommand{\gBone}{\graph{B}_1}
+\newcommand{\gC}{\graph{C}}
+\newcommand{\gD}{\graph{D}}
+\newcommand{\gG}{\graph{G}}
+\newcommand{\gH}{\graph{H}}
+\newcommand{\gN}{\graph{N}}
+
+\newcommand{\bA}{\bgraph{A}}
+\newcommand{\bB}{\bgraph{B}}
+\newcommand{\bC}{\bgraph{C}}
+\newcommand{\bD}{\bgraph{D}}
+\newcommand{\bG}{\bgraph{G}}
+\newcommand{\bH}{\bgraph{H}}
+
+\newcommand{\vA}{\vertices[A]}
+\newcommand{\vB}{\vertices[B]}
+\newcommand{\vBone}{V_{\mathcal{B}_1}}
+\newcommand{\vC}{\vertices[C]}
+\newcommand{\vG}{\vertices[G]}
+\newcommand{\vH}{\vertices[H]}
+
+\newcommand{\eA}{\edges[A]}
+\newcommand{\eC}{\edges[C]}
+\newcommand{\eG}{\edges[G]}
+\newcommand{\eH}{\edges[H]}
+
+\newcommand{\sysS}{\mathsf{S}}
+\newcommand{\Deri}{\Phi}
+\newcommand{\DDeri}{\Psi}
+\newcommand{\Proof}{\Pi}
+
+\newcommand{\lgG}{\lgraph{\gG}}
+\newcommand{\lgC}{\lgraph{\gC}}
+
+\newcommand{\lpG}{\leaps{\gG}}
+\newcommand{\lpC}{\leaps{\gC}}
+
+\newcommand{\dualizer}{\delta}
+
+% *** MISC UTILITY PACKAGES ***
+%
+%\usepackage{ifpdf}
+% Heiko Oberdiek's ifpdf.sty is very useful if you need conditional
+% compilation based on whether the output is pdf or dvi.
+% usage:
+% \ifpdf
+%   % pdf code
+% \else
+%   % dvi code
+% \fi
+% The latest version of ifpdf.sty can be obtained from:
+% http://www.ctan.org/pkg/ifpdf
+% Also, note that IEEEtran.cls V1.7 and later provides a builtin
+% \ifCLASSINFOpdf conditional that works the same way.
+% When switching from latex to pdflatex and vice-versa, the compiler may
+% have to be run twice to clear warning/error messages.
+
+
+
+
+
+
+% *** CITATION PACKAGES ***
+%
+%\usepackage{cite}
+% cite.sty was written by Donald Arseneau
+% V1.6 and later of IEEEtran pre-defines the format of the cite.sty package
+% \cite{} output to follow that of the IEEE. Loading the cite package will
+% result in citation numbers being automatically sorted and properly
+% "compressed/ranged". e.g., [1], [9], [2], [7], [5], [6] without using
+% cite.sty will become [1], [2], [5]--[7], [9] using cite.sty. cite.sty's
+% \cite will automatically add leading space, if needed. Use cite.sty's
+% noadjust option (cite.sty V3.8 and later) if you want to turn this off
+% such as if a citation ever needs to be enclosed in parenthesis.
+% cite.sty is already installed on most LaTeX systems. Be sure and use
+% version 5.0 (2009-03-20) and later if using hyperref.sty.
+% The latest version can be obtained at:
+% http://www.ctan.org/pkg/cite
+% The documentation is contained in the cite.sty file itself.
+
+
+
+
+
+
+% *** GRAPHICS RELATED PACKAGES ***
+%
+\ifCLASSINFOpdf
+  % \usepackage[pdftex]{graphicx}
+  % declare the path(s) where your graphic files are
+  % \graphicspath{{../pdf/}{../jpeg/}}
+  % and their extensions so you won't have to specify these with
+  % every instance of \includegraphics
+  % \DeclareGraphicsExtensions{.pdf,.jpeg,.png}
+\else
+  % or other class option (dvipsone, dvipdf, if not using dvips). graphicx
+  % will default to the driver specified in the system graphics.cfg if no
+  % driver is specified.
+  % \usepackage[dvips]{graphicx}
+  % declare the path(s) where your graphic files are
+  % \graphicspath{{../eps/}}
+  % and their extensions so you won't have to specify these with
+  % every instance of \includegraphics
+  % \DeclareGraphicsExtensions{.eps}
+\fi
+% graphicx was written by David Carlisle and Sebastian Rahtz. It is
+% required if you want graphics, photos, etc. graphicx.sty is already
+% installed on most LaTeX systems. The latest version and documentation
+% can be obtained at: 
+% http://www.ctan.org/pkg/graphicx
+% Another good source of documentation is "Using Imported Graphics in
+% LaTeX2e" by Keith Reckdahl which can be found at:
+% http://www.ctan.org/pkg/epslatex
+%
+% latex, and pdflatex in dvi mode, support graphics in encapsulated
+% postscript (.eps) format. pdflatex in pdf mode supports graphics
+% in .pdf, .jpeg, .png and .mps (metapost) formats. Users should ensure
+% that all non-photo figures use a vector format (.eps, .pdf, .mps) and
+% not a bitmapped formats (.jpeg, .png). The IEEE frowns on bitmapped formats
+% which can result in "jaggedy"/blurry rendering of lines and letters as
+% well as large increases in file sizes.
+%
+% You can find documentation about the pdfTeX application at:
+% http://www.tug.org/applications/pdftex
+
+
+
+
+
+% *** MATH PACKAGES ***
+%
+%\usepackage{amsmath}
+% A popular package from the American Mathematical Society that provides
+% many useful and powerful commands for dealing with mathematics.
+%
+% Note that the amsmath package sets \interdisplaylinepenalty to 10000
+% thus preventing page breaks from occurring within multiline equations. Use:
+%\interdisplaylinepenalty=2500
+% after loading amsmath to restore such page breaks as IEEEtran.cls normally
+% does. amsmath.sty is already installed on most LaTeX systems. The latest
+% version and documentation can be obtained at:
+% http://www.ctan.org/pkg/amsmath
+
+
+
+
+
+% *** SPECIALIZED LIST PACKAGES ***
+%
+%\usepackage{algorithmic}
+% algorithmic.sty was written by Peter Williams and Rogerio Brito.
+% This package provides an algorithmic environment fo describing algorithms.
+% You can use the algorithmic environment in-text or within a figure
+% environment to provide for a floating algorithm. Do NOT use the algorithm
+% floating environment provided by algorithm.sty (by the same authors) or
+% algorithm2e.sty (by Christophe Fiorio) as the IEEE does not use dedicated
+% algorithm float types and packages that provide these will not provide
+% correct IEEE style captions. The latest version and documentation of
+% algorithmic.sty can be obtained at:
+% http://www.ctan.org/pkg/algorithms
+% Also of interest may be the (relatively newer and more customizable)
+% algorithmicx.sty package by Szasz Janos:
+% http://www.ctan.org/pkg/algorithmicx
+
+
+
+
+% *** ALIGNMENT PACKAGES ***
+%
+%\usepackage{array}
+% Frank Mittelbach's and David Carlisle's array.sty patches and improves
+% the standard LaTeX2e array and tabular environments to provide better
+% appearance and additional user controls. As the default LaTeX2e table
+% generation code is lacking to the point of almost being broken with
+% respect to the quality of the end results, all users are strongly
+% advised to use an enhanced (at the very least that provided by array.sty)
+% set of table tools. array.sty is already installed on most systems. The
+% latest version and documentation can be obtained at:
+% http://www.ctan.org/pkg/array
+
+
+% IEEEtran contains the IEEEeqnarray family of commands that can be used to
+% generate multiline equations as well as matrices, tables, etc., of high
+% quality.
+
+
+
+
+% *** SUBFIGURE PACKAGES ***
+%\ifCLASSOPTIONcompsoc
+%  \usepackage[caption=false,font=normalsize,labelfont=sf,textfont=sf]{subfig}
+%\else
+%  \usepackage[caption=false,font=footnotesize]{subfig}
+%\fi
+% subfig.sty, written by Steven Douglas Cochran, is the modern replacement
+% for subfigure.sty, the latter of which is no longer maintained and is
+% incompatible with some LaTeX packages including fixltx2e. However,
+% subfig.sty requires and automatically loads Axel Sommerfeldt's caption.sty
+% which will override IEEEtran.cls' handling of captions and this will result
+% in non-IEEE style figure/table captions. To prevent this problem, be sure
+% and invoke subfig.sty's "caption=false" package option (available since
+% subfig.sty version 1.3, 2005/06/28) as this is will preserve IEEEtran.cls
+% handling of captions.
+% Note that the Computer Society format requires a larger sans serif font
+% than the serif footnote size font used in traditional IEEE formatting
+% and thus the need to invoke different subfig.sty package options depending
+% on whether compsoc mode has been enabled.
+%
+% The latest version and documentation of subfig.sty can be obtained at:
+% http://www.ctan.org/pkg/subfig
+
+
+
+
+% *** FLOAT PACKAGES ***
+%
+%\usepackage{fixltx2e}
+% fixltx2e, the successor to the earlier fix2col.sty, was written by
+% Frank Mittelbach and David Carlisle. This package corrects a few problems
+% in the LaTeX2e kernel, the most notable of which is that in current
+% LaTeX2e releases, the ordering of single and double column floats is not
+% guaranteed to be preserved. Thus, an unpatched LaTeX2e can allow a
+% single column figure to be placed prior to an earlier double column
+% figure.
+% Be aware that LaTeX2e kernels dated 2015 and later have fixltx2e.sty's
+% corrections already built into the system in which case a warning will
+% be issued if an attempt is made to load fixltx2e.sty as it is no longer
+% needed.
+% The latest version and documentation can be found at:
+% http://www.ctan.org/pkg/fixltx2e
+
+
+%\usepackage{stfloats}
+% stfloats.sty was written by Sigitas Tolusis. This package gives LaTeX2e
+% the ability to do double column floats at the bottom of the page as well
+% as the top. (e.g., "\begin{figure*}[!b]" is not normally possible in
+% LaTeX2e). It also provides a command:
+%\fnbelowfloat
+% to enable the placement of footnotes below bottom floats (the standard
+% LaTeX2e kernel puts them above bottom floats). This is an invasive package
+% which rewrites many portions of the LaTeX2e float routines. It may not work
+% with other packages that modify the LaTeX2e float routines. The latest
+% version and documentation can be obtained at:
+% http://www.ctan.org/pkg/stfloats
+% Do not use the stfloats baselinefloat ability as the IEEE does not allow
+% \baselineskip to stretch. Authors submitting work to the IEEE should note
+% that the IEEE rarely uses double column equations and that authors should try
+% to avoid such use. Do not be tempted to use the cuted.sty or midfloat.sty
+% packages (also by Sigitas Tolusis) as the IEEE does not format its papers in
+% such ways.
+% Do not attempt to use stfloats with fixltx2e as they are incompatible.
+% Instead, use Morten Hogholm'a dblfloatfix which combines the features
+% of both fixltx2e and stfloats:
+%
+% \usepackage{dblfloatfix}
+% The latest version can be found at:
+% http://www.ctan.org/pkg/dblfloatfix
+
+
+
+
+% *** PDF, URL AND HYPERLINK PACKAGES ***
+%
+%\usepackage{url}
+% url.sty was written by Donald Arseneau. It provides better support for
+% handling and breaking URLs. url.sty is already installed on most LaTeX
+% systems. The latest version and documentation can be obtained at:
+% http://www.ctan.org/pkg/url
+% Basically, \url{my_url_here}.
+
+
+
+
+% *** Do not adjust lengths that control margins, column widths, etc. ***
+% *** Do not use packages that alter fonts (such as pslatex).         ***
+% There should be no need to do such things with IEEEtran.cls V1.6 and later.
+% (Unless specifically asked to do so by the journal or conference you plan
+% to submit to, of course. )
+
+% *** MACROS *** 
+
+% ** SYSTEMS **
+
+\newcommand*{\LK}{\mathsf{LK}}
+\newcommand*{\FOLK}{\mathsf{LK1}}
+\newcommand*{\FOLKcut}{\FOLK\mathord+\cut}
+\newcommand*{\LKm}{\mathsf{LK + mix}}
+\newcommand*{\MLL}{\mathsf{MLL}}
+\newcommand*{\MLLm}{\mathsf{MLL+mix}}
+\newcommand*{\FOMLL}{\mathsf{MLL1^X}} 
+\newcommand*{\FOMLLcut}{\FOMLL\mathord+\cut}
+\newcommand*{\FOMLLm}{\mathsf{MLL1+mix}}
+\newcommand*{\FOKS}{\mathsf{KS1}}
+\newcommand*{\FOMLS}{\mathsf{MLS1^X}}
+
+% ** RULES **
+
+\newcommand{\rr}{\mathsf{r}}
+\newcommand{\ax}{\mathsf{ax}}
+\newcommand{\cut}{\mathsf{cut}}
+\newcommand{\conj}{\mathsf{\wedge}}
+\newcommand{\disj}{\mathsf{\vee}}
+\newcommand{\univ}{\mathsf{\forall}}
+\newcommand{\exist}{\mathsf{\exists}}
+\newcommand{\mix}{\mathsf{mix}}
+\newcommand{\ctr}{\mathsf{ctr}}
+\newcommand{\wk}{\mathsf{wk}}
+
+\newcommand{\axr}{\mathsf{ax}}
+\newcommand{\cutr}{\mathsf{cut}}
+\newcommand{\mixr}{\mathsf{mix}}
+\newcommand{\conr}{\mathsf{ctr}}
+\newcommand{\weakr}{\mathsf{wk}}
+
+\newcommand\aiD {\mathsf{ai}}
+\newcommand\faD {\forall}
+\newcommand\exD {\exists}
+\newcommand\tttD {\ttt}
+\renewcommand\wD {\mathsf{w}}
+\newcommand\wlD {\mathsf{w}}
+\newcommand\wrD {\mathsf{w}}
+\renewcommand\cD {\mathsf{c}}
+\renewcommand\acD {\mathsf{ac}}
+\newcommand\acDx {\mathsf{ac}_x}
+\newcommand\acDeq {\mathsf{ac}_x^\fequ}
+\newcommand\wfaD {\mathsf{w_\forall}}
+\newcommand\cfaD {\mathsf{c_\forall}}
+\newcommand\mfaD {\mathsf{m_\forall}}
+\newcommand\mexD {\mathsf{m_\exists}}
+
+\newcommand{\cons}[1]{\{#1\}}
+\newcommand{\Scons}[1]{S\cons{#1}}
+\newcommand{\conhole}{\cons{\cdot}}
+\newcommand{\Sconhole}{S\conhole}
+
+% ** SYMBOLS **
+
+\newcommand{\cor}{\vee}
+\newcommand{\cand}{\wedge}
+
+% ** SPECIAL **
+
+\newcommand{\Gr}{\mathcal{G}}
+\newcommand{\PE}[1]{#1^\circ}
+\newcommand{\PEp}[1]{\tilde{#1}}
+\newcommand\fv{\textsf{\small fv}}
+
+% ** FONT STYLE **
+
+
+\DeclareTextFontCommand{\bfit}{\bfseries\itshape}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\Pfour}{\mathbf{P_4}}
+
+\newcommand{\tuple}[1]{\langle#1\rangle}
+\newcommand{\pair}[1]{(#1)}
+\newcommand{\set}[1]{\{#1\}}
+\newcommand{\sqn}[1]{\vdash#1}
+\newcommand{\sqns}[1]{\vdash#1\phantom{\vdash}}
+
+\newcommand{\single}[1]{\bullet#1}
+
+\newcommand{\rectif}[1]{\widehat{#1}}
+
+\newcommand{\fographof}[1]{\llbracket#1\rrbracket}
+\newcommand{\graphof}[1]{\llbracket#1\rrbracket}
+%\newcommand{\graphof}[1]{\mathbb{G}(#1)}
+
+\newcommand{\frameof}[1]{#1^\star}
+
+\newcommand{\compl}[1]{#1^\complement}
+%\newcommand{\sublist}[1]{\set{#1}}
+%\newcommand{\subst}[2]{#1\mathord{\scriptstyle\mapsto} #2}
+\newcommand{\sublist}[1]{[#1]}
+\newcommand{\subst}[2]{#1/#2}
+\newcommand{\ssubst}[2]{\sublist{\subst{#1}{#2}}}
+\newcommand{\substof}[1]{\sigma_{\!#1}}
+\newcommand{\rsubstof}[1]{\rho_{#1}}
+\newcommand{\dsubstof}[1]{\delta_{#1}}
+\newcommand{\linkingof}[1]{\sim_{#1}}
+\newcommand{\linking}{\sim}
+\newcommand{\mapof}[1]{\lfloor{#1}\rfloor}
+\newcommand{\labelof}[1]{\ell(#1)}
+%\newcommand{\form}[1]{\mathrm{fm}(#1)}
+\newcommand{\form}[1]{\bigvee\mkern-1mu(\mkern-2mu #1\mkern-2mu)}
+\newcommand{\formtree}[1]{\mathcal{F}(#1)}
+
+\renewcommand{\phi}{\varphi}
+
+\newcommand{\unifstr}[1]{\mathcal{U}(#1)}
+\newcommand{\sqntl}[1]{\left\lceil{#1}\right\rceil}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\quand}{\quad\mbox{and}\quad}
+\newcommand{\qquand}{\qquad\mbox{and}\qquad}
+
+\newcommand{\quor}{\quad\mbox{or}\quad}
+\newcommand{\qquor}{\qquad\mbox{or}\qquad}
+
+% correct bad hyphenation here
+\hyphenation{op-tical net-works semi-conduc-tor}
+
+
+
+
+
+%%%%%%%%% PACKAGES DOMINIC USES FOR CP FIGURES
+\usepackage{tikz}
+\usetikzlibrary{arrows}% e.g. >=latex' or >=stealth'
+\usetikzlibrary{decorations}\usetikzlibrary{shapes.geometric}% better dot/dash in cp fibres
+\usetikzlibrary{chains}% for inline skew fibrations on formulas
+\usetikzlibrary{arrows}% e.g. >=latex' or >=stealth'
+% \usetikzlibrary{arrows.meta}% to easily adjust arrowhead style without adjusting the line style. Problem: no Latex' or Stealth'; package is stale.
+\usetikzlibrary{calc}
+% %	\usetikzlibrary{decorations.markings}
+\usetikzlibrary{matrix}
+\usetikzlibrary{positioning}
+\usepackage{calculator}% e.g. \MULTIPLY{1.3}{4.2}{\resultmacroname} https://tug.org/TUGboat/tb33-3/tb105fuster.pdf  https://mirror.hmc.edu/ctan/macros/latex/contrib/calculator/calculator.pdf
+
+\usepackage{pifont}% for \ding http://willbenton.com/wb-images/pifont.pdf  e.g. for \cross \ding{55} which matches \checkmark or \ding{51}
+\newcommand\cross{\text{\ding{55}}}
+
+%\usepackage{adjustbox}%% CONFLICT %% easier to align boxes (such as proofs) to top with, e.g. \begin{adjustbox}{valign=t,raise=-.6ex} <STUFF> \end{adjustbox} 
+\usepackage{prftree}% ftp://ftp.dante.de/tex-archive/macros/latex/contrib/prftree/prftreedoc.pdf http://get-software.net/macros/latex/contrib/prftree/prftree.sty
+\prflinethickness=.25pt% package default 0.2pt
+\prfinterspace=1.5em% increase default space between proof rule hypotheses
+\prflinepadbefore=0.2ex% default 0.3ex  above proof lines
+\prflinepadafter=0ex%  default 0.3ex  below proof lines
+\prflineextra=0pt% default 0.3em  proof line overhang each side
+
+\input{pics.tex}
+
+
+
+
+
+\begin{document}
+\vlnosmallleftlabels%
+\bstctlcite{refs:BSTcontrol}%
+%
+% paper title
+% Titles are generally capitalized except for words such as a, an, and, as,
+% at, but, by, for, in, nor, of, on, or, the, to and up, which are usually
+% not capitalized unless they are the first or last word of the title.
+% Linebreaks \\ can be used within to get better formatting as desired.
+% Do not put math or special symbols in the title.
+\title{Combinatorial Proofs and Decomposition Theorems for First-order Logic}
+
+
+% author names and affiliations
+% use a multiple column layout for up to three different
+% affiliations
+
+\author{
+  \IEEEauthorblockN{Dominic J.\ D.\ Hughes}
+  \IEEEauthorblockA{%
+	Logic Group\\
+	U.C.\ Berkeley\\
+	USA}
+\and
+\IEEEauthorblockN{Lutz Straßburger}
+\IEEEauthorblockA{Inria, Equipe Partout\\
+Ecole Polytechnique, LIX \\ %UMR 7161\\
+France}
+\and
+\IEEEauthorblockN{Jui-Hsuan Wu}
+\IEEEauthorblockA{Ecole Normale Supérieure\\
+France}}
+
+% conference papers do not typically use \thanks and this command
+% is locked out in conference mode. If really needed, such as for
+% the acknowledgment of grants, issue a \IEEEoverridecommandlockouts
+% after \documentclass
+
+% for over three affiliations, or if they all won't fit within the width
+% of the page, use this alternative format:
+% 
+%\author{\IEEEauthorblockN{Michael Shell\IEEEauthorrefmark{1},
+%Homer Simpson\IEEEauthorrefmark{2},
+%James Kirk\IEEEauthorrefmark{3}, 
+%Montgomery Scott\IEEEauthorrefmark{3} and
+%Eldon Tyrell\IEEEauthorrefmark{4}}
+%\IEEEauthorblockA{\IEEEauthorrefmark{1}School of Electrical and Computer Engineering\\
+%Georgia Institute of Technology,
+%Atlanta, Georgia 30332--0250\\ Email: see http://www.michaelshell.org/contact.html}
+%\IEEEauthorblockA{\IEEEauthorrefmark{2}Twentieth Century Fox, Springfield, USA\\
+%Email: homer@thesimpsons.com}
+%\IEEEauthorblockA{\IEEEauthorrefmark{3}Starfleet Academy, San Francisco, California 96678-2391\\
+%Telephone: (800) 555--1212, Fax: (888) 555--1212}
+%\IEEEauthorblockA{\IEEEauthorrefmark{4}Tyrell Inc., 123 Replicant Street, Los Angeles, California 90210--4321}}
+
+
+
+
+% use for special paper notices
+%\IEEEspecialpapernotice{(Invited Paper)}
+
+%% \newcommand{\longer}[2]{#1}
+%% \newcommand{\shorter}[2]{#2}
+
+%% %\let\choice=\longer
+%% \let\choice=\shorter
+
+\IEEEoverridecommandlockouts
+\IEEEpubid{\makebox[\columnwidth]{978-1-6654-4895-6/21/\$31.00~
+\copyright2021 IEEE \hfill} \hspace{\columnsep}\makebox[\columnwidth]{ }}
+
+
+% make the title area
+\maketitle
+
+% As a general rule, do not put math, special symbols or citations
+% in the abstract
+\begin{abstract}
+  We uncover a close relationship between combinatorial and
+  syntactic proofs for first-order logic (without equality). Whereas syntactic proofs are
+  formalized in a deductive proof system based on inference rules,
+  a combinatorial proof is a syntax-free presentation of a proof
+  that is independent from any set of inference rules. We show that
+  the two proof representations are related via a deep inference
+  decomposition theorem that establishes a new kind of normal form
+  for syntactic proofs. This yields (a) a simple proof
+  of soundness and completeness for first-order combinatorial
+  proofs, and (b) a full completeness theorem: every combinatorial
+  proof is the image of a syntactic proof.
+\end{abstract}
+
+% no keywords
+
+
+
+
+% For peer review papers, you can put extra information on the cover
+% page as needed:
+% \ifCLASSOPTIONpeerreview
+% \begin{center} \bfseries EDICS Category: 3-BBND \end{center}
+% \fi
+%
+% For peerreview papers, this IEEEtran command inserts a page break and
+% creates the second title. It will be ignored for other modes.
+%\IEEEpeerreviewmaketitle
+
+%\linenumbers
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Introduction}
+
+First-order predicate logic is a cornerstone of modern
+logic. Since its formalisation by Frege~\cite{frege:79} it has seen a
+growing usage in many fields of mathematics and computer science. Upon
+the development of proof theory by Hilbert~\cite{hilbert:22},
+\emph{proofs} became first-class citizens as mathematical objects that
+could be studied on their own. Since Gentzen's \emph{sequent
+calculus}~\cite{gentzen:35:I,gentzen:35:II}, many other proof systems
+have been developed that allow the implementation of efficient proof
+search, for example \emph{analytic tableaux}~\cite{smullyan:68} or
+\emph{resolution}~\cite{robinson:65}. Despite the immense progress
+made in proof theory in general and in the area of
+automated and interactive theorem provers in
+particular, we still have
+no satisfactory notion of proof identity for first-order logic. In
+this respect, proof theory is quite different from any other
+mathematical field. For example in group theory, two groups are
+\emph{the same} iff they are isomorphic; in topology, two spaces are
+\emph{the same} iff they are homeomorphic; etc. In proof theory, we
+have no such notion telling us when two proofs are \emph{the same},
+even though Hilbert was considering this problem as a possible 24th
+problem~\cite{thiele:03} for his famous lecture in
+1900~\cite{hilbert:00}, before proof theory existed as a mathematical
+field.
+
+The main reason for this problem is that formal proofs, as they are
+usually studied in logic, are inextricably tied to the syntactic
+(inference rule based) proof system in which they are carried out. And
+it is difficult to compare two proofs that are produced within two
+different syntactic proof systems, based on different sets of inference rules.
+Consider the derivations in Figure~\ref{fig:translate}, showing two proofs of the
+formula $\peirceformula$ and two proofs of the formula $\veedrinkerformula$,
+in sequent calculus (top) and in a deep inference system (bottom).
+It is, \emph{a priori}, not clear how to compare them.%
+%
+\newcommand\lkpeirceproof{
+\vlderivation{
+  \vlin{\vlor}{}{\sqn{\peirceformula}}{
+    \vlin{\conr}{}{\sqn{(\cneg{p} \vlor q) \vlan \cneg{p}, p}}{
+      \vliin{\vlan}{}{\sqn{(\cneg{p} \vlor q) \vlan \cneg{p}, p, p}}{
+        \vlin{\vlor}{}{\sqn{\cneg{p} \vlor q, p}}{
+          \vlin{\weakr}{}{\sqn{\cneg{p}, q, p}}{
+            \vlin{\axr}{}{\sqn{\cneg{p}, p}}{
+              \vlhy{}}}}}{
+        \vlin{\axr}{}{\sqn{\cneg{p}, p}}{
+          \vlhy{}}}}}}
+}%
+\newcommand\dipeirceproof{
+\vlderivation{
+  \vlin{\acD}{}{\peirceformula}{
+    \vlin{\fequ}{}{((\cneg{p} \vlor q) \vlan \cneg{p}) \vlor (p \vlor p)}{
+      \vlin{\sw}{}{(\cneg{p} \vlan (\cneg{p} \vlor q)) \vlor p) \vlor p}{
+        \vlin{\fequ}{}{(\cneg{p} \vlan ((\cneg{p} \vlor q) \vlor p)) \vlor p)}{
+          \vlin{\sw}{}{(p \vlor (\cneg{p} \vlor q)) \vlan \cneg{p}) \vlor p}{
+            \vlin{\aiD}{}{(p \vlor (\cneg{p} \vlor q)) \vlan (\cneg{p} \vlor p)}{
+              \vlin{\tttD}{}{(p \vlor (\cneg{p} \vlor q)) \vlan \ttt}{
+                \vlin{\fequ}{}{p \vlor (\cneg{p} \vlor q)}{
+                  \vlin{\wrD}{}{(p \vlor \cneg{p}) \vlor q}{
+                    \vlin{\aiD}{}{p \vlor \cneg{p}}{
+                      \vlhy{\ttt}}}}}}}}}}}}
+}%
+\newcommand\lkdrinkerproof{
+\vlderivation{
+  \vlin{\conr}{}{\sqn{\exists x.(\cneg{p}x \vlor (\forall y.py))}}{
+    \vlin{\exists}{}{\sqn{\exists x.(\cneg{p}x \vlor (\forall y.py)),\exists
+x.(\cneg{p}x \vlor (\forall y.py))}}{
+      \vlin{\vlor}{}{\sqn{\cneg{p}w \vlor (\forall y.py), \exists
+x.(\cneg{p}x \vlor (\forall y.py))}}{
+        \vlin{\forall}{}{\sqn{\cneg{p}w, \forall y.py, \exists
+x.(\cneg{p}x \vlor (\forall y.py))}}{
+          \vlin{\exists}{}{\sqn{\cneg{p}w, pz, \exists
+x.(\cneg{p}x \vlor (\forall y.py))}}{
+            \vlin{\vlor}{}{\sqn{\cneg{p}w, pz, \cneg{p}z \vlor (\forall y.py)}}{
+              \vlin{\weakr}{}{\sqn{\cneg{p}w, pz, \cneg{p}z, \forall y.py}}{
+                \vlin{\weakr}{}{\sqn{\cneg{p}w, pz, \cneg{p}z}}{
+                \vlin{\axr}{}{\sqn{pz, \cneg{p}z}}{
+                  \vlhy{}}}}}}}}}}}
+}%
+\newcommand\ksonedrinkerproof{
+\vlderivation{
+  \vlin{\acD}{}{\exists x.(\cneg{p}x \vlor (\forall y.py))}{
+    \vlin{\mfaD}{}{\exists x.(\cneg{p}x \vlor (\forall y.(py \vlor py)))}{
+      \vlin{\acD}{}{\exists x.(\cneg{p}x \vlor ((\forall y.py) \vlor (\forall y.py)))}{
+        \vlin{\fequ}{}{\exists x.((\cneg{p}x \vlor \cneg{p}x) \vlor ((\forall y.py) \vlor (\forall y.py)))}{
+          \vlin{\mexD}{}{\exists x.((\cneg{p}x \vlor (\forall y.py)) \vlor (\cneg{p}x \vlor (\forall y.py)))}{
+            \vlin{\exists}{}{(\exists x.(\cneg{p}x \vlor (\forall y.py))) \vlor (\exists x.(\cneg{p}x \vlor (\forall y.py)))}{
+              \vlin{\fequ}{}{(\cneg{p}w \vlor (\forall y.py)) \vlor (\exists x.(\cneg{p}x \vlor (\forall y.py)))}{
+                \vlin{\exists}{}{\forall y.((\cneg{p}w \vlor py) \vlor (\exists x.(\cneg{p}x \vlor (\forall y.py))))}{
+                  \vlin{\fequ}{}{\forall y.((\cneg{p}w \vlor py) \vlor (\cneg{p}y \vlor (\forall y.py)))}{
+                    \vlin{\wD}{}{\forall y.((py \vlor \cneg{p}y) \vlor (\cneg{p}w \vlor (\forall y.py)))}{
+                      \vlin{\aiD}{}{\forall y.(py \vlor \cneg{p}y)}{
+                        \vlin{\forall}{}{\forall y.\ttt}{
+                          \vlhy{\ttt}}}}}}}}}}}}}}
+}%
+\begin{figure}\vspace{-4ex}\begin{center}\hspace*{-0ex}\begin{math}
+\newcommand\peircescale{.78}
+\newcommand\drinkerscale{\peircescale}
+\newcommand\cpscale{.95}
+\begin{array}{@{}c@{\hspace{4ex}}c@{}}
+{}\scalebox{\peircescale}{$\lkpeirceproof$}
+&
+{}\scalebox{\drinkerscale}{$\lkdrinkerproof$}
+\\[15ex]
+\downarrow
+&
+\downarrow
+\\[3ex]
+\vctr{\scalebox{\cpscale}{\peircecppic}}
+&
+\vctr{\raisebox{-2ex}[16.5ex]{\scalebox{\cpscale}{\drinkerfibcolouredpic}}}
+\\[12ex]
+\uparrow
+&
+\uparrow
+\\[4ex]
+{}\scalebox{\peircescale}{$\dipeirceproof$}
+&
+{}\scalebox{\drinkerscale}{$\ksonedrinkerproof$}
+%
+\end{array}
+\end{math}\hspace*{-8ex}\end{center}\caption{Left:
+syntactic proofs in sequent calculus (above)
+and the calculus of structures (below)
+which translate to the same propositional combinatorial proof (centre).
+%
+Right:
+syntactic proofs 
+in sequent calculus (above)
+and the new calculus $\FOKS$ introduced in this paper (below),
+which translate to the same first-order combinatorial proof (centre).%
+}\label{fig:translate}\vspace{-4ex}\end{figure}%
+
+This is where \emph{combinatorial proofs} come in. They were
+introduced by Hughes~\cite{hughes:pws} for classical propositional
+logic as a syntax-free notion of proof, and as a potential solution
+to Hilbert's 24th problem~\cite{hughes:invar} (see
+also~\cite{str:hilbert:24}). The basic idea is to abstract away from
+the syntax of the inference rules used in inductively-generated proofs
+and consider the proof as a combinatorial object, more precisely
+as a special kind of
+graph homomorphism. For example, a propositional combinatorial
+proof of Peirce's law $\peirceimpliesformula=\peirceformula$ is shown mid-left in
+Fig.\,\ref{fig:translate},
+%depicted below-left,
+a homomorphism from a 4-vertex graph with two colours (above) to a 4-vertex graph labelled with
+propositional variables (below); dotted vertical lines define the homomorphism, from above to below.
+%
+
+Several authors have illustrated how syntactic proofs in various
+proof systems can be translated to propositional combinatorial proofs:
+for sequent proofs in~\cite{hughes:invar}, for deep inference proofs
+in~\cite{str:fscd17}, for Frege systems in~\cite{str:RR-9048}, and for
+tableaux systems and resolution in~\cite{acc:str:18}. This enables a
+natural definition of proof identity for propositional logic: two
+proofs are \emph{the same} if they are mapped to the same
+combinatorial proof.
+%
+For example, the left side of Fig.\,\ref{fig:translate} translates
+syntactic proofs from sequent calculus and the calculus of structures into
+the same combinatorial proofs, witnessing that the two syntactic proofs,
+from different systems, are \emph{the same}.
+
+Recently, Acclavio and Stra\ss burger extended this notion to relevant
+logics~\cite{acc:str:relevant} and to modal
+logics~\cite{acc:str:modal}, and Heijlties, Hughes and Stra\ss burger
+have provided combinatorial proofs for intuitionistic propositional
+logic~\cite{HHS:lics19}.
+
+In this paper we advance the idea that combinatorial proofs can provide
+a notion of proof identity for first-order logic. \emph{First-order
+combinatorial proofs} were introduced by Hughes in~\cite{hughes:fopws}.
+For example, a first-order combinatorial proof of Smullyan's 
+\emph{drinker paradox} \mbox{$\drinkerformula$} $=$ \mbox{$\veedrinkerformula$}
+is shown on the right of Fig.\,\ref{fig:translate}, 
+a homomorphism from a 5-vertex partially coloured graph (with one colour) to a 4-vertex labelled graph.
+However, even though Hughes proves soundness and completeness, the 
+proof is unsatisfactory: (1) the soundness argument is long, intricate
+and cumbersome, and (2) the completeness proof does not 
+allow a syntactic proof to be read back from a combinatorial proof, i.e.,
+completeness is not
+\emph{sequentializable} \cite{girard:87} nor
+\emph{full}~\cite{abramsky:jagadeesan:94}. 
+%
+A fundamental problem is that not all combinatorial
+proofs can be obtained as translations of sequent calculus proofs.
+
+We solve these issues by moving to a deep inference
+system. More precisely, we introduce a new proof system,
+$\FOKS$, for first-order logic, that (a) reflects every combinatorial
+proof, i.e., there is a surjection from $\FOKS$ proofs to
+combinatorial proofs, (b) yields simpler proofs of
+soundness and completeness for combinatorial proofs, and (c) admits
+new decomposition theorems establishing a precise correspondence
+between certain syntactic inference rules and certain combinatorial
+notions.
+%
+The right of Fig.\,\ref{fig:translate}
+illustrates surjection in (a), and since the syntactic proofs 
+in the two systems translate to the same combinatorial proof,
+they can be considered \emph{the same}.
+
+In general, a \emph{decomposition theorem} provides normal forms of
+proofs, separating subsets of inference rules of a proof system. A
+prominent example of a decomposition theorem is Herbrand's
+theorem~\cite{herbrand:phd}, which allows a separation between the
+propositional part and the quantifier part in a first-order
+proof~\cite{gentzen:35:II,brunnler:06:herbrand}. Through the advent of
+deep inference, new kinds of proof decompositions became possible,
+most notably the separation between the linear part of a proof and the
+resource management of a proof. It has been shown by
+Stra{\ss}burger~\cite{str:07:RTA} that a proof in classical
+propositional logic can be decomposed into a proof of multiplicative
+linear logic, followed by a proof consisting only of contractions and
+weakenings (see also \cite[\S4]{hughes:invar}).
+In this paper we show that the same is possible for
+first-order logic.
+
+Combinatorial proofs and deep inference can be seen as opposite ends
+of a spectrum: whereas deep inference allows for a very fine
+granularity of inference rules---one inference rule in a standard
+formalism, like sequent calculus or semantic tableaux, is usually
+simulated by a sequence of different deep inference
+rules---combinatorial proofs have completely abolished the concept of
+inference rule. And yet, there is a close relationship between the
+two, realized through a decomposition theorem, as we establish in this
+paper.
+
+\medskip
+\noindent
+    {\bf Outline:} This paper has three parts. First,
+    in Sections~\ref{sec:fologic}--\ref{sec:foks} we present the
+    preliminaries on first-order logic, first-order graphs,
+    first-order combinatorial proofs, and the first-order proof system
+    $\FOKS$. Second, in Section~\ref{sec:main} we state the main
+    results. And third, in
+    Sections~\ref{sec:LK1-KS1}--\ref{sec:summary} we give their
+    proofs.
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Preliminaries: First-order Logic}\label{sec:fologic}
+
+\subsection{Terms and Formulas}
+
+Fix pairwise disjoint countably infinite sets $\VAR=\set{x,y,z,\ldots}$ of variables,
+$\FUN=\set{f,g,\ldots}$ of function symbols, and 
+$\PRED=\set{p,q,\ldots}$ of predicate symbols. Each function symbol and
+each predicate symbol has a finite arity. Each predicate symbol $p$ has a
+\bfit{dual}
+$\dual{p}$ with $\dual{\dual p}\mkern6mu{\neq}\mkern5mu\dual p$. The grammars below generate
+the set $\TERM$ of \bfit{terms}, denoted by $s,t,u,\ldots$, the set
+$\ATOM$ of \bfit{atoms}, denoted by $a,b,c,\ldots$, and the set
+$\FORM$ of \bfit{formulas}, denoted by $A,B,C,\ldots$:
+\begin{equation*}
+  \begin{array}{r@{~}l}
+    t &\coloneqq~ x \mid f(t_1,\dots,t_n)
+    \\[.5ex]
+    a &\coloneqq~ \ttt\mid\fff\mid p(t_1,\dots,t_n) \mid \dual p(t_1,\dots,t_n)
+    \\[.5ex]
+    A &\coloneqq~ a \mid A\vlan A \mid A\vlor A \mid \exists x.A \mid \forall x.A
+\end{array}
+\end{equation*}
+where the arity of $f$ and $p$ is $n$.
+For better readability we often omit parentheses and write $ft_1 \dots t_n$ or $pt_1 \dots t_n$.
+We consider the truth constants
+$\ttt$ (\emph{true}) and $\fff$
+(\emph{false}) as additional atoms, and consider all formulas in negation
+normal form, where \bfit{negation} $(\dual\cdot)$ is defined on
+atoms and formulas via De Morgan's laws:
+\begin{equation*}
+  \begin{array}{c@{\hspace{6ex}}c}
+%    \dual{\dual a} = a
+%    &
+  \dual\ttt =\fff &
+  \dual{p(t_1,\ldots,t_n)} = \dual{p}(t_1,\ldots,t_n) \\[.5ex]
+%  &
+  \dual\fff = \ttt &
+  \dual{\dual p(t_1,\ldots,t_n)} = p(t_1,\ldots,t_n) \\[.5ex]
+%  &
+  \dual{\exists x.A} = \forall x.\dual{A}
+  &
+  \dual{A \vlan B} = \dual{A} \ \vlor \ \dual{B} \\[.5ex]
+%  &
+  \dual{\forall x.A} = \exists x.\dual{A}
+  &
+%  \\[.5ex]
+  \dual{A \vlor B} = \dual{A} \ \vlan \ \dual{B}
+  \end{array}
+\end{equation*}
+Note $\dual{\dual a} = a$.
+We write $A\implies B$ as an abbreviation for $\dual A\vlor B$.
+
+A formula is \bfit{rectified} if all bound variables are distinct from
+one another and from all free variables. Every formula can be
+transformed into a logically equivalent rectified form by
+bound variable renaming, e.g.\
+%
+\mbox{$(px \vee \exists xqx) \wedge \exists x r$} $\mapsto$ \mbox{$(px \vee \exists yqy) \wedge \exists zrz$}.
+%
+If we consider formulas equivalent
+modulo bound variable renaming ($\alpha$-conversion), the
+rectified form of a formula $A$ is unique, and we denote it
+by $\rectif A$.
+
+A \bfit{substitution} is a function $\sigma\colon\VAR\to\TERM$ that is
+the identity almost everywhere. We denote substitutions as
+$\sigma=\sublist{\subst{x_1}{t_1},\ldots,\subst{x_n}{t_n}}$, where
+$\sigma(x_i)=t_i$ for $i=1..n$ and $\sigma(x)=x$ for all
+$x\notin\set{x_1,\ldots,x_n}$. 
+Write $A\sigma$ for the formula
+obtained from $A$ by applying $\sigma$, i.e., by simultaneously
+replacing all occurrences of $x_i$ by $t_i$.
+A \bfit{variable renaming} is a substitution $\rho$ with $\rho(x)\in\VAR$ for all variables $x$.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Sequent Calculus $\FOLK$}
+
+\bfit{Sequents}, denoted by $\Gamma,\Delta,\ldots$, are finite
+multisets of formulas, written as lists, separated by comma. The
+\bfit{corresponding formula} of a (non-empty) sequent $\Gamma=A_1,A_2,\ldots,A_n$
+is the disjunction of its formulas: $\form\Gamma=A_1\vlor
+A_2\vlor\cdots\vlor A_n$. A sequent is \bfit{rectified} iff its
+corresponding formula is.
+
+In this paper we use the sequent calculus $\FOLK$, shown in
+Figure~\ref{fig:LK1}, which is a one-sided variant of Gentzen's
+original calculus~\cite{gentzen:35:I} for first-order logic. To
+simplify some technicalities later in this paper, we include
+the $\mixr$ rule.
+%
+\begin{thm}
+  $\FOLK$ is sound and complete for first-order logic.
+\end{thm}
+%
+\noindent For a proof, see any standard textbook, e.g.~\cite{TS:00}.
+
+The linear fragment of $\FOLK$, i.e., the fragment without the rules
+$\conr$ (\emph{contraction}) and $\weakr$ (\emph{weakening}) defines
+\emph{first-order multiplicative linear
+logic}~\cite{girard:87,girard:88} \emph{with
+mix}~\cite{fleury:retore:94,bellin:97}~(MLL1+mix). We denote that
+system here with $\FOMLL$ (shown in Figure~\ref{fig:LK1} in the dashed
+box).
+
+We will use the cut elimination theorem. The \bfit{cut} rule is
+\begin{equation}
+  \vliinf{\cutr}{}{\sqn{\Gamma,\Delta}}{\sqn{\Gamma,A}}{\sqn{\dual A,\Delta}}
+\end{equation}
+
+\begin{thm}
+  \label{thm:cutelim}
+  If a sequent $\sqn\Gamma$ is provable in $\FOLKcut$ then it is also
+  provable in $\FOLK$. Furthermore, if $\sqn\Gamma$ is provable in
+  $\FOMLLcut$ then it is also provable in $\FOMLL$.
+\end{thm}
+%
+\noindent As before, this is standard, see e.g.~\cite{TS:00} for a proof.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\section{Preliminaries: First-order Graphs}\label{sec:fographs}
+
+% We recall the definition of \emph{first-order graph} or \emph{fograph}
+% \cite[\S3]{hughes:fopws}, used to represent first-order formulas.
+
+\subsection{Graphs}
+
+A \bfit{graph} $\gG=\tuple{\vG,\eG}$ is a pair where $\vG$ is a finite
+set of \bfit{vertices} and $\eG$ is a finite set of \bfit{edges},
+which are two-element subsets of $\vG$. We write $vw$ for an edge
+$\set{v,w}$.
+
+
+Let $\gG=\tuple{\vG,\eG}$ and $\gH=\tuple{\vH,\eH}$ be graphs such
+that $\vG\cap\vH=\emptyset$. A \bfit{homomorphism}
+$\phi\colon\gG\to\gH$ is a function $\phi\colon\vG\to\vH$ such that if
+$vw\in\eG$ then $\phi(v)\phi(w)\in\eH$. The \bfit{union} $\gG +\gH$ is
+the graph $\tuple{\vG \cup\vH,\eG\cup \eH}$ and the \bfit{join} $\gG
+\times \gH$ is the graph $\tuple{\vG \cup\vH,\eG \cup \eH \cup \set{vw
+\mid v \in \vG, w \in \vH}}$.  A graph $\gG$ is \bfit{disconnected}
+if $\gG=\gG_1+\gG_2$ for two non-empty graphs $\gG_1,\gG_2$, otherwise
+it is \bfit{connected}.
+%It is \bfit{coconnected} if its complement is connected.
+
+A graph $\gG$ is \bfit{labelled} in a set $L$ if each vertex $v\in\vG$
+has an associated \bfit{label} $\labelof v\in L$.
+A graph $\gG$ is (partially) \bfit{coloured} if it carries a partial
+equivalence relation $\linkingof\gG$ on $\vG$;
+%such that $v\linkingof\gG$ only if $vw\tightnotin\eG$;
+each equivalence class is a \bfit{colour}.\footnote{In
+\cite{hughes:pws} and \cite{hughes:fopws}
+adjacent vertices must have distinct colours, following
+the standard definition of colouring in graph
+theory.
+We choose to omit this condition here, as it is implied
+by the preclusion of bimatchings in Def.\,\ref{def:fonet}.}
+%Therefore we do not have this additional condition here.}
+A \bfit{vertex renaming} of
+$\gG=\tuple{\vG,\eG}$ along a bijection
+$(\hat\cdot)\colon\vG\to\hat\vG$ is the graph
+$\hat\gG=\tuple{\hat\vG,\set{\hat v\hat w\mid vw\in\eG}}$, with
+colouring and/or labelling inherited (i.e., $\hat v\samecol\hat w$ if
+$v\samecol w$, and $\ell(\hat v)=\ell(v)$). Following standard graph
+theory, we identify graphs modulo vertex renaming.
+
+A \bfit{directed graph} $\gG =\tuple{\vG,\eG}$ is a set $\vG$ of
+\bfit{vertices} and a set $\eG\subseteq \vG\times\vG$ of \bfit{direct edges}.
+A \bfit{directed graph homomorphism}
+$\phi\colon\tuple{\vG,\eG}\to\tuple{\vH,\eH}$ is a function $\phi\colon\vG\to\vH$ such that if
+$\pair{v,w}\in\eG$ then $\pair{\phi(v),\phi(w)}\in\eH$.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{figure}[!t]
+  \begin{center}
+    \framebox{%
+      $
+      \begin{array}{@{}c@{}}
+        \dbox{%
+          $
+          \begin{array}{c}
+            \vlinf{\axr}{}{\sqn{a,\cneg a}}{}
+            \qquad
+            \vlinf{\vlor}{}{\sqn{\Gamma,A\vlor B}}{\sqn{\Gamma,A,B}}
+            \qquad
+            \vliinf{\vlan}{}{\sqn{\Gamma,A\vlan B, \Delta}}{\sqn{\Gamma,A}}{\sqn{B,\Delta}}
+            \\ \\[-1ex]
+            \vlinf{\ttt}{}{\sqn{\ttt}}{}
+            \qquad\;
+            \vlinf{\fff}{}{\sqn{\Gamma,\fff}}{\sqn{\Gamma}}
+            \qquad\;
+            \vliinf{\mixr}{}{\sqn{\Gamma,\Delta}}{\sqn\Gamma}{\sqn\Delta}
+            \\ \\[-1ex]
+            \vlinf{\exists}{}{\sqn{\Gamma,\exists x.A}}{\sqn{\Gamma,A\ssubst{x}{t}}}
+            \qquad
+            \vlinf{\forall}{\text{($x$ not free in $\Gamma$)}}{\sqn{\Gamma,\forall x.A}}{\sqn{\Gamma,A}}
+          \end{array}
+          $%
+        }%
+        \\\\[-1ex]
+        \vlinf{\conr}{}{\sqn{\Gamma,A}}{\sqn{\Gamma,A,A}}
+        \qquad
+        \vlinf{\weakr}{}{\sqn{\Gamma,A}}{\sqn{\Gamma}}
+      \end{array}
+      $
+    }
+  \end{center}
+  \caption{Sequent calculi $\FOLK$ (all rules) and $\FOMLL$ (rules in the dashed box)}
+  \label{fig:LK1}
+\end{figure}
+
+\subsection{Cographs}
+
+A graph $\gH=\tuple{\vH,\eH}$ is a \bfit{subgraph} of a graph
+$\gG=\tuple{\vG,\eG}$ if $\vH\subseteq\vG$ and $\eH\subseteq\eG$. It
+is \bfit{induced} if $v,w\in\vH$ and $vw\in\eG$ implies $vw\in\eH$. An induced
+subgraph of $\gG=\tuple{\vG,\eG}$ is uniquely determined by its set of vertices
+$V$ and we denote it by $\gG[V]$.
+A graph is \bfit{$\gH$-free} if it does not contain $\gH$ as an induced
+subgraph.  The graph $\Pfour$ is the (undirected) graph
+$\tuple{\set{v_1, v_2, v_3, v_4},\set{v_1v_2, v_2v_3, v_3v_4}}$.  A
+\bfit{cograph} is a $P_4$-free undirected graph. The interest in
+cographs for our paper comes from the following well-known fact.
+
+\begin{thm}[\cite{Ler71,CLS81}]\label{thm:cograph}
+  A graph is a cograph iff it can be constructed from the singletons
+  via the operations $+$ and~$\times$.
+\end{thm}
+
+In a graph $\gG$, the \bfit{neighbourhood} $N(v)$ of a vertex $v \in\vG$ is
+$\set{w \mkern-2mu\mid\mkern-2mu vw \mkern-2mu\in\mkern-2mu\eG}$. A \bfit{module} is a set $M \mkern-2mu\subseteq\mkern-2mu \vG$
+with $N(v) \mkern-1mu\setminus\mkern-1mu M = N(w) \mkern-1mu\setminus\mkern-1mu M$
+for all $v, w \in M$. A module $M$ is \bfit{strong} if for every
+module $M'$ we have $M' \mkern-2mu\subseteq\mkern-2mu M$, $M \mkern-2mu\subseteq\mkern-2mu M'$ or $M \cap M' =
+\emptyset$. A module is \bfit{proper} if it has two or more vertices.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+\subsection{Fographs}
+
+A cograph is \bfit{logical} if every vertex is labelled by either an
+atom or variable, and it has at least one atom-labelled vertex. An
+atom-labelled vertex is a \bfit{literal} and a
+variable-labelled vertex is a \bfit{binder}. A binder labelled
+with $x$ is an \bfit{$x$-binder}. The \bfit{scope} of a binder
+$b$ is the smallest proper strong module containing $b$.
+An \bfit{$x$-literal} is a literal whose
+atom contains the variable $x$. An $x$-binder \bfit{binds} every
+$x$-literal in its scope.  In a logical cograph $\gG$, a binder $b$ is
+\bfit{existential} (resp. \bfit{universal}) if, for every other vertex
+$v$ in its scope, we have $bv \in \eG$ (resp. $bv \notin \eG$). An
+$x$-binder is \bfit{legal} if its scope contains no other $x$-binder
+and at least one literal.
+%
+\begin{definition}[{\cite[\S3]{hughes:fopws}}]
+A \bfit{first-order graph} or \bfit{fograph} $\gG$ is a logical cograph whose binders are all legal. The
+\bfit{binding graph} of $\gG$ is the directed graph $\bG=\tuple{\vG,
+\set{(b, l) \mid b \text{ binds } l}}$.
+\end{definition}
+%
+\noindent We define a mapping $\graphof\cdot$ from formulas to (labelled)
+graphs, inductively as follows:
+%
+\begin{equation*}
+  \begin{array}{r@{\;}l@{\hskip4em}r@{\;}l}
+    %% \multicolumn{4}{c}{
+    %%   \quad\graphof{\ttt}=\single\ttt
+    %%   \qquad
+    %%   \graphof{\fff}=\single\fff
+    %%   \qquad
+    %% \graphof{a} = \single a \hbox{\hskip1em(for any atom $a$)} } \\[1.1ex]
+    \graphof{a} &= \single a \rlap{\hskip1em(for any atom $a$)}  \\[.9ex]
+    \graphof{A \cor B} &= \graphof{A} + \graphof{B} &
+    \graphof{\exists x . A} &= \single x \times \graphof{A} \\[.9ex]
+    \graphof{A \cand B} &= \graphof{A} \times \graphof{B} &
+    \graphof{\forall x . A} &= \single x + \graphof{A}    
+  \end{array}
+\end{equation*}
+where we
+write $\single\alpha$ for a single-vertex  labelled by $\alpha$.
+
+\begin{example}
+  Here is the fograph of the drinker formula $\drinkerformula=\veedrinkerformula$:
+  \;\;
+  \hbox{\begin{tikzpicture}[baseline={([yshift={-1.5ex}]current bounding box.north)}]
+      \drinkerbase
+  \end{tikzpicture}}
+\end{example}
+
+\begin{lemma}
+  If $A$ is a rectified formula then $\graphof A$ is a fograph.
+\end{lemma}
+
+\begin{proof}
+  That $\graphof A$ is a logical cograph follows immediately from the definition and Theorem~\ref{thm:cograph}.
+  The fact that every binder of $\graphof A$ is legal can be proved by
+  structural induction on $A$.
+\end{proof}
+%
+\begin{remark}
+Note that $\graphof A$ need not be a fograph if $A$ is not
+rectified. If $A = (\forall x. px) \vlor (\forall x. qx)$, then
+$\graphof A = \single x \ \single px \ \single x \ \single qx$,
+the scope of each $x$-binder contains all the vertices, in particular,
+the other $x$-binder. On the other hand, there are non-rectified
+formulas which are translated to fographs by $\graphof\cdot$. For
+example, in the graph of $(\exists x. px) \vlor (\exists x. qx)$,
+both $x$-binders are legal, as they are not in each other's
+scope:
+$\edgepairpic{x}{px}\mkern9mu\edgepairpic{x}{qx}$.
+\end{remark}
+%
+\noindent We define a congruence relation $\fequ$ on formulas, called \bfit{equivalence},
+by the following equations:
+\begin{equation}
+  \label{eq:fequ}
+  \begin{array}{c@{\hskip1.5em}c}
+    A \vlan B \fequ B \vlan A
+    &
+    (A \vlan B) \vlan C \fequ A \vlan (B \vlan C) 
+    \\
+    A \vlor B \fequ B \vlor A
+    &
+    (A \vlor B) \vlor C \fequ A \vlor (B \vlor C)
+    \\
+    \forall x . \forall y . A \fequ \forall y . \forall x . A
+    &
+    \forall x . (A \vlor B) \fequ (\forall x . A) \vlor B
+    \\
+    \exists x . \exists y . A \fequ \exists y . \exists x . A
+    &
+    \exists x . (A \vlan B) \fequ (\exists x . A) \vlan B
+  \end{array}
+\end{equation}
+where $x$ must not be free in $B$ in the last two equations.
+%Two formulas $A$ and $B$ are \bfit{equivalent} if $A \fequ B$.
+%We have the following theorem:
+\begin{thm}[{\cite[\S10]{hughes:fopws}}]
+  Let $A,B$ be rectified formulas. Then
+  $$
+  A\fequ B \iff \graphof A =\graphof B
+  $$
+\end{thm}
+
+\begin{proof}
+  A straightforward structural induction on formulas.
+\end{proof}
+
+\begin{example}
+  \mbox{$\veedrinkerformula$} $\fequ$ \mbox{$\variantveedrinkerformula$}, and both formulas
+  %The formulas \mbox{$\veedrinkerformula$} and \mbox{$\variantveedrinkerformula$}, which are
+  %equivalent modulo $\fequ$,
+  have the same (rectified) fograph
+  $\drinkergraph$, below-left.
+  %
+  \begin{equation*}
+      \drinkergraphpic
+      %
+      \hspace{8ex}
+      %
+      \drinkercotreepic
+      %
+      \hspace{8ex}
+      %
+      \drinkerbindinggraphpic
+  \end{equation*}
+  Above-center we show the \emph{cotree} of the underlying
+  cograph (illustrating the idea behind Theorem~\ref{thm:cograph}) and
+  above-right is its binding graph $\bD$.
+\end{example}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+
+\section{First-order Combinatorial Proofs}\label{sec:focp}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Fonets}
+
+Two atoms are \bfit{pre-dual} if they are not $\ttt$ or $\fff$, and their predicate symbols are dual
+(e.g.\ $p(x, y)$ and $\dual{p}(y, z)$) and two literals are \bfit{pre-dual} if their
+labels (atoms) are pre-dual. A \bfit{linked fograph} $\tuple{\gC,\linkingof\gC}$ is a coloured fograph $\gC$ such
+that every colour (i.e., equivalence class of~$\linkingof\gC$), called a \bfit{link}, consists of two pre-dual literals, and
+every literal is either $\ttt$-labelled or in a link. Hence, in a linked fograph no vertex is labelled~$\fff$.
+
+Let $\gC$ be a linked fograph. The set of links can be seen as a unification problem
+by identifying dual predicate symbols. A \bfit{dualizer} of $\gC$ is a substitution $\delta$
+unifying all the links of~$\gC$. Since a first-order unification problem is either
+unsolvable or has a most general unifier, we can define the notion of \bfit{most
+general dualizer}. A \bfit{dependency} is a pair $\set{\single x, \single y}$ of an
+existential binder $\single x$ and a universal binder $\single y$ such that the most
+general dualizer assigns to $x$ a term containing $y$. A \bfit{leap} is either a
+link or a dependency. The \bfit{leap graph} $\lgC$ of $\gC$ is the undirected
+graph $\tuple{\vC, \lpC}$ where $\lpC$ is the set of leaps of $\gC$.
+A vertex set $W \subseteq \vC$ induces a \bfit{matching} in
+$\gC$ if $W\neq\emptyset$ and 
+for all $w \in W$, $N(w) \cap W$ is a singleton. We say that $W$ induces a
+\bfit{bimatching} in $\gC$ if it induces a matching in $\gC$ and a matching in $\lgC$.
+
+
+\begin{definition}[{\cite[\S5]{hughes:fopws}}]\label{def:fonet}
+A \bfit{first-order net} or \bfit{fonet} is a linked fograph which
+has a dualizer but no induced bimatching.  
+\end{definition}
+%
+\begin{figure}[!t]
+  \begin{center}
+    \vspace{-3ex}
+    \begin{tikzpicture}[graph]
+      \begin{scope}[xshift=-2.2cm]\twolinkfograph\end{scope}
+        \begin{scope}[xshift=2.2cm]\twolinkleapgraph\end{scope}
+    \end{tikzpicture}\vspace{-4ex}
+  \end{center}%
+  \caption{\label{fig:leap}A fonet (left) with
+    dualizer $\protect\twolinkassignment$
+    and its
+    leap graph (right).}
+\end{figure}%
+%
+\noindent
+Figure~\ref{fig:leap} shows a fonet with its dualizer and leap graph.%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+\begin{figure*}%
+  $$
+  \begin{tikzpicture}\cptwoonformula
+  \end{tikzpicture}
+  \qquad
+  \begin{tikzpicture}\cponeonformula
+  \end{tikzpicture}
+  \qquad
+  \begin{tikzpicture}\cpthreeonformula
+  \end{tikzpicture}
+  \qquad
+  \begin{tikzpicture}\cpfouronformula
+  \end{tikzpicture}
+  $$
+  \vskip-2ex
+  \caption{Four combinatorial proofs, each shown
+    above the formula proved.  Here $x$ and $y$ are variables, $f$ is
+    a unary function symbol, $a$ and $b$ are constants (nullary
+    function symbols), $p$ is a unary predicate symbol, and $q$ is a
+    binary predicate symbol. For each skew bifibration $\phi$,
+    the variable substitution $\protect\rsubstof\phi$ is an identity,
+    thus we can omit labels from each (coloured) source fograph
+    (since the label of $v$ in the source is that of $\phi(v)$ in the target).}
+  \label{fig:cps}
+\end{figure*}%
+%
+\begin{figure*}\vspace{-2ex}%
+  $$
+  \begin{tikzpicture}
+    \cptwoinline
+  \end{tikzpicture}
+  \qquad\;
+  \begin{tikzpicture}
+    \cponeinline
+  \end{tikzpicture}
+  \qquad\;
+  \begin{tikzpicture}
+    \cpthreeinline
+  \end{tikzpicture}
+  \qquad\;
+  \begin{tikzpicture}
+    \cpfourinline
+  \end{tikzpicture}
+  $$
+  \vskip-2ex
+  \caption{Condensed forms of the four combinatorial proofs in Figure~\ref{fig:cps}. We do not show the lower graph, and indicate the mapping by the position of the vertices of the upper graph.}
+  \label{fig:cps-condensed}
+  %\vspace{-4ex}
+\end{figure*}%
+
+\subsection{Skew Bifibrations}
+
+A graph homomorphism $\phi\colon \tuple{\vG, \eG} \rightarrow
+\tuple{\vH, \eH}$ is a \bfit{fibration} \cite{grothendieck:fibration,Gray:fibration} if
+for all $v \in \vG$ and
+$w\phi(v) \in \eH$, there exists a unique $\tilde{w} \in \vG$ such
+that $\tilde{w}v \in \eG$ and $\phi(\tilde{w}) = w$ (indicated below-left),
+and is a \bfit{skew fibration} \cite[\S3]{hughes:pws} if
+for all $v \in \vG$ and $w\phi(v) \in \eH$
+there exists $\tilde{w} \in \vG$ such that $\tilde{w}v \in \eG$ and
+$\phi(\tilde{w})w \notin \eH$ (indicated below-centre).
+A directed graph homomorphism is a
+\bfit{fibration} if for all $v \in \vG$ and $\pair{w,\phi(v)} \in
+\eH$, there exists a unique $\tilde{w} \in \vG$ such that $\pair{\tilde{w},v}
+\in \eG$ and $\phi(\tilde{w}) = w$ (indicated below-right).
+%
+\liftingdiagrams
+%
+A \bfit{fograph homomorphism} $\phi=\tuple{\phi,\rsubstof\phi}$ is a
+pair where $\phi\colon\gG\to\gH$ is a graph homomorphism between the
+underlying graphs, and $\rsubstof\phi$, also called the
+\bfit{substitution induced by $\phi$}, is a variable renaming
+such that
+for all $v\in\vG$ we have
+$\labelof{\phi(v)}=\rsubstof\phi(\labelof v)$,
+and $\rsubstof\phi$ is the identity on variables not in $\gG$.
+%
+Note that $\phi$ necessarily maps binders to binders
+and literals to literals.
+%
+Since $\rsubstof\phi$ is fully determined by $\phi$ alone, we often
+leave $\rsubstof\phi$ implicit.
+A fograph homomorphism $\phi\colon\gG \rightarrow \gH$
+\bfit{preserves existentials}
+if for all existential binders $b$ in
+$\gG$, the binder $\phi(b)$ is existential in $\gH$.
+%
+\begin{definition}[{\cite[\S4]{hughes:fopws}}]
+  Let $\gG$ and $\gH$ be fographs. A \bfit{skew bifibration}
+  $\phi\colon\gG\to\gH$ is an existential-preserving fograph
+  homomorphism that is a skew fibration on $\tuple{\vG, \eG} \to
+  \tuple{\vH, \eH}$ and a fibration on the binding graphs $\bG\to\bH$.
+\end{definition}
+%
+\begin{example}
+  Below-left is a skew bifibration, whose binding fibration
+  is below-centre. When the labels on the source fograph can be inferred
+  (modulo renaming),
+  we often omit the labelling in the upper graph, as below-right.
+  \begin{center}\begin{math}
+  \scalebox{.9}{
+  \begin{tikzpicture}[graph]\drinkerfiblabelledpair{x}{x}
+  \end{tikzpicture}
+  \quad
+  \begin{tikzpicture}[graph]\drinkerbindingfiblabelled{x}{x}
+  \end{tikzpicture}
+  \quad
+  \begin{tikzpicture}[graph]\drinkerfib
+  \end{tikzpicture}}
+\end{math}\end{center}\end{example}
+%
+%
+\begin{definition}[{\cite[\S6]{hughes:fopws}}]
+A \bfit{first-order combinatorial proof} (\bfit{FOCP}) of a fograph $\gG$ is a skew
+bifibration $\phi\colon \gC \rightarrow \gG$ where $\gC$ is a fonet. A \bfit{first-order
+combinatorial proof} of a formula $A$ is a combinatorial proof of its graph
+$\graphof{A}$.
+\end{definition}
+%
+\noindent Figure~\ref{fig:cps} shows examples of
+FOCPs (taken from~\cite{hughes:fopws}), each above the formula it proves.
+The same FOCPs are in
+Figure~\ref{fig:cps-condensed} in \emph{condensed form}, with the formula
+graph left implicit.
+
+\begin{thm}[{\cite[\S6]{hughes:fopws}}]
+  \label{thm:FOCP}
+  FOCPs are sound and complete for first-order logic.
+\end{thm}
+%
+\begin{remark}
+  Our definition of FOCP is slightly more lax than the original
+  definition of~\cite{hughes:fopws}, as we allow for a variable
+  renaming $\rsubstof\phi$ which was restricted to be the identity
+  in~\cite{hughes:fopws}.
+\end{remark}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\section{First-order Deep Inference system $\FOKS$}\label{sec:foks}
+
+
+\begin{figure}
+  \begin{center}
+    \framebox{%
+      $
+      \begin{array}{@{}c@{}}
+        \dbox{%
+          $
+          \begin{array}{c}
+            \vlinf{\faD}{}{\Scons{\forall x.\ttt}}{\Scons\ttt}
+            \qquad
+            \vlinf{\aiD}{}{\Scons{a\vlor\cneg a}}{\Scons\ttt}
+            \qquad
+            \vlinf{\tttD}{}{\Scons{A\vlan\ttt}}{\Scons A}
+            \\ \\[-1ex]
+            \vlinf{\sw}{}{\Scons{(A\vlan B)\vlor C}}{\Scons{A\vlan (B\vlor C)}}
+            \qquad
+            \vlinf{\mix}{}{\Scons{A\vlor B}}{\Scons{A\vlan B}}            
+            \\ \\[-1ex]
+            \vlinf{\exD}{}{\Scons{\exists x.A}}{\Scons{A\ssubst x t}}
+            \qquad
+            \vlinf{\fequ}{\text{(where $A\fequ B$)}}{\Scons{A}}{\Scons{B}}
+          \end{array}
+          $
+        }
+        \\ \\[-1ex]
+        \vlinf{\wrD}{}{\Scons{A\vlor B}}{\Scons{A}}
+        \quad\;
+        \vlinf{\me}{}{\Scons{(A\vlor B)\vlan(C\vlor D)}}{\Scons{(A\vlan C)\vlor(B\vlan D)}}
+        \quad\;
+        \vlinf{\acD}{}{\Scons{a}}{\Scons{a\vlor a}}
+        \\ \\[-1ex]
+        \vlinf{\mfaD}{}{\Scons{\forall x.(A\vlor B)}}{\Scons{(\forall x.A)\vlor(\forall x.B)}}
+        \qquad
+        \vlinf{\mexD}{}{\Scons{\exists x.(A\vlor B)}}{\Scons{(\exists x.A)\vlor(\exists x.B)}}        
+        \\ \\[-1ex]
+        \vlinf{\wfaD}{\text{($x$ not free in $A$)}}{\Scons{\forall x.A}}{\Scons{A}}
+        \qquad
+        \vlinf{\cfaD}{}{\Scons{\forall x. A}}{\Scons{\forall x.\forall x.A}}
+      \end{array}
+      $
+    }
+  \end{center}
+  \caption{Deep inference systems $\FOKS$ (all rules) and $\FOMLS$ (rules in the dashed box)}
+  \label{fig:KS1}
+  \vskip-.2ex
+\end{figure}
+%
+In contrast to standard proof formalisms, like sequent calculi or
+tableaux, where inference rules decompose the principal formula along
+its root connective, \emph{deep inference rules} apply like
+rewriting rules inside any (positive) formula or sequent
+\bfit{context}, which is denoted by $\Sconhole$, and which is a
+formula (resp.~sequent) with exactly one occurrence of the \bfit{hole}
+$\conhole$ in the position of an atom. Then $\Scons A$ is the result
+of replacing the hole $\conhole$ in $\Sconhole$ with $A$.
+
+Figure~\ref{fig:KS1} shows the inference rules for the deep inference
+system~$\FOKS$ introduced in this paper. It is a
+variation of the systems presented by Br\"unnler~\cite{brunnler:phd}
+and Ralph~\cite{ralph:phd} in their PhD-theses. The main differences
+are (i) the explicit presence of the $\mixr$-rule, (ii) a different
+choice of how the formula equivalence $\fequ$ is defined, (iii) an
+explicit rule for the equivalence, and (iv) new inference rules
+$\wfaD$ and $\cfaD$. The reason behind these design choices is to
+obtain the correspondence with combinatorial proofs and the full
+completeness result.
+
+We consider here only the cut-free fragment, as cut-elimination for
+deep inference systems has already been discussed
+elsewhere (e.g.~\cite{brunnler:06:herbrand,alertubella:guglielmi:18}).%
+\footnote{In the deep
+inference literature, the cut-free fragment is also called the
+\emph{down-fragment}. But as we do not discuss the \emph{up-fragment}
+here, we omit the down-arrows $\downarrow$ in the rule names.}
+%
+As with the sequent system $\FOLK$, we also need for $\FOKS$ the
+\emph{linear fragment}, $\FOMLS$, and that is shown
+in Figure~\ref{fig:KS1} in the dashed box.
+
+We write $\vlder{\sysS}{\Deri}{A}{B}$ to denote a derivation $\Deri$
+from $B$ to $A$ using the rules from system $\sysS$. A formula $A$ is
+\bfit{provable} in a system $\sysS$ if there is a derivation in
+$\sysS$ from $\ttt$ to $A$.
+
+We will for some results also employ the
+general (non-atomic) version of the contraction rule:
+\begin{equation}
+  \vlinf{\cD}{}{\Scons{A}}{\Scons{A\vlor A}}  
+\end{equation}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\section{Main Results}
+\label{sec:main}
+
+We state the main results of this paper here,
+and prove them in later sections. The
+first is routine and expected, but must be proved nonetheless:
+
+\begin{thm}\label{thm:KS1}
+  $\FOKS$ is sound and complete for first-order logic.
+\end{thm}
+
+Our second result is more surprising, as it is a very strong
+decomposition result for first-order logic.
+
+\begin{thm}\label{thm:decomposition}
+  For every derivation $\vlder{\FOKS}{\Deri}{A}{\ttt}$ there are $\fff$-free formulas $A_1,\ldots,A_5$ and a derivation
+  \begin{equation*}
+    \scalebox{.9}{$
+    \vlderivation{
+      \vlde{\set{\wrD,\wfaD,\fequ}}{}{A}{
+        \vlde{\set{\acD,\cfaD}}{}{A_1}{
+          \vlde{\set{\me,\mfaD,\mexD,\fequ}}{}{A_2}{
+            \vlde{\set{\exD}}{}{A_3}{
+              \vlde{\set{\sw,\mix,\fequ}}{}{A_4}{
+                \vlde{\set{\faD,\aiD,\tttD}}{}{A_5}{
+                  \vlhy{\ttt}}}}}}}}
+    $}
+  \end{equation*}
+\end{thm}
+\noindent
+This theorem is stronger than the existing decompositions for
+first-order logic, which either separate only atomic contraction and
+atomic weakening~\cite{brunnler:phd} or only
+contraction~\cite{ralph:phd} or only the quantifiers in form of a
+Herbrand theorem~\cite{brunnler:06:locality,ralph:phd}.
+
+Theorem~\ref{thm:decomposition} is also the reason why we have the rules
+$\wfaD$ and $\cfaD$ in system $\FOKS$, as these rules are derivable
+with the other rules. However, they are needed to obtain this
+decomposition.
+%
+%\begin{example}
+  Figure~\ref{fig:example-decompose} shows an example of a decomposed derivation in $\FOKS$ of the
+  formula $(\exists x. \cneg{p}x) \vlor (\forall y.(py \vlan pfy))$.
+%\end{example}
+%
+\begin{figure}
+  \begin{equation*}
+    \scalebox{.9}{$
+    \vlderivation{
+      \vlin{\acD}{}{(\exists x. \cneg{p}x) \vlor (\forall y.(py \vlan pfy))}{
+        \vlin{\mexD}{}{(\exists x. (\cneg{p}x \vlor \cneg{p}x) \vlor (\forall
+          y.(py \vlan pfy))}{
+          \vlin{\fequ}{}{((\exists x. \cneg{p}x) \vlor (\exists x.\cneg{p}x))
+            \vlor (\forall y.(py \vlan pfy)}{
+            \vlin{\exists}{}{\forall y.(((\exists x. \cneg{p}x) \vlor (\exists
+              x.\cneg{p}x)) \vlor (py \vlan pfy))}{
+              \vlin{\exists}{}{\forall y.((\cneg{p}y \vlor (\exists x.\cneg{p}x))
+                \vlor (py \vlan pfy))}{
+                \vlin{\fequ}{}{\forall y.((\cneg{p}y \vlor \cneg{p}fy) \vlor
+                  (py \vlan pfy))}{
+              \vlin{\sw}{}{\forall y.(\cneg{p}y \vlor ((py \vlan pfy)
+                \vlor \cneg{p}fy))}{
+                \vlin{\fequ}{}{\forall y.(\cneg{p}y \vlor (py \vlan (pfy
+                  \vlor \cneg{p}fy)))}{
+                  \vlin{\aiD}{}{\forall y.((\cneg{p}y \vlor py) \vlan (pfy
+                    \vlor \cneg{p}fy))}{
+                    \vlin{\aiD}{}{\forall y.((\cneg{p}y \vlor py) \vlan
+                      \ttt)}{
+                      \vlin{\ttt}{}{\forall y.(\ttt \vlan \ttt)}{
+                        \vlin{\forall}{}{\forall y.\ttt}{
+                          \vlhy{\ttt}}}}}}}}}}}}}}
+    $}
+  \end{equation*}    
+    \caption{Example derivation in decomposed form of Theorem~\ref{thm:decomposition}}
+    \label{fig:example-decompose}
+  \end{figure}
+
+A weaker version of Theorem~\ref{thm:decomposition} will
+also be useful:
+%
+\begin{thm}\label{thm:decompositionA}
+  For every derivation $\rule{0ex}{4.7ex}\upsmash{\vlder{\FOKS}{\Deri}{A}{\ttt}}$
+there is a formula~$A'$ with no occurrence of $\fff$ and a derivation
+  \begin{equation*}
+    %\scalebox{.9}{$
+    \vlderivation{
+      \vlde{\set{\wrD,\cD,\fequ}}{}{A}{
+        \vlde{\FOMLS}{}{A'}{
+          \vlhy{\ttt}}}}
+   % $}
+  \end{equation*}
+\end{thm}
+%
+\noindent Here $A'$ corresponds to $A_3$ of Theorem~\ref{thm:decomposition}.
+
+We now establish the connection between derivations in $\FOKS$ and
+combinatorial proofs.
+
+\begin{thm}\label{thm:CP-DI}
+  Let  $\phi\colon\gC\to\gA$ be a combinatorial proof and let $A$ be a formula with $\gA=\graphof A$. Then there is a derivation
+  \begin{equation}
+    \label{eq:decom}
+    \vlderivation{
+      \vlde{\set{\wrD,\wfaD,\acD,\cfaD,\me,\mfaD,\mexD,\fequ}}{\Deri_2}{A}{
+        \vlde{\FOMLS}{\Deri_1}{A'}{
+          \vlhy{\ttt}}}}
+  \end{equation}
+  for some $A'\fequ C\rsubstof\phi$ where $C$ is a formula with $\graphof
+  C=\gC$ and $\rsubstof\phi$ is the variable renaming substitution
+  induced by~$\phi$.  Conversely,
+  whenever we have a derivation as in~\eqref{eq:decom} above, such that $\fff$ does not occur in~$A'$, then
+  there is a combinatorial proof $\phi\colon\gC\to\graphof A$ such
+  that $\gC=\graphof{\rectif{A'}}$.
+\end{thm}
+
+Furthermore, in the proof of Theorem~\ref{thm:CP-DI}, we will see that
+(i) the links in the fonet $\gC$ correspond precisely to the pairs of
+atoms that meet in the instances of the $\aiD$-rule in the derivation
+$\Deri_1$, and (ii) the ''flow-graph'' of $\Deri_2$ that traces the
+quantifier- and atom-occurrences in the derivation corresponds exactly
+to the vertex-mapping induced by $\phi$. To give an example, consider
+the derivation in Figure~\ref{fig:example-decompose} which corresponds
+to the left-most combinatorial proof in Figures~\ref{fig:cps}
+and~\ref{fig:cps-condensed}.
+
+Thus, combinatorial proofs are closely related to derivations of the
+form~\eqref{eq:decom}, and since by Theorem~\ref{thm:decomposition}
+every derivation can be transformed into that form, we can say that
+combinatorial proofs provide a canonical proof representation for first-order
+logic, similarly to what proof nets are for linear
+logic~\cite{girard:96:PN}.
+
+Finally, Theorems~\ref{thm:KS1}, \ref{thm:decomposition}
+and~\ref{thm:CP-DI} imply Theorem~\ref{thm:FOCP}, which means that we
+have here an alternative proof of the soundness and completeness for
+first-order combinatorial proofs which is simpler than the one given
+in~\cite{hughes:fopws}, and improves with completeness being full
+(a surjection from syntactic KS1 proofs onto combinatorial proofs).
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Translating between $\FOLK$ and $\FOKS$}
+\label{sec:LK1-KS1}
+
+We prove Theorems~\ref{thm:KS1},
+\ref{thm:decomposition}, and~\ref{thm:decompositionA}, mainly by
+translating derivations to and from the sequent calculus, and by rule
+permutation arguments.
+
+\subsection{The Linear Fragments $\FOMLL$ and $\FOMLS$}
+
+We show that $\FOMLL$ and $\FOMLS$ are equivalent.
+
+\begin{lemma}\label{lem:MLL1->MLS1}
+  If $\sqn\Gamma$ is provable in $\FOMLL$ then $\form\Gamma$ is provable in  $\FOMLS$.
+\end{lemma}
+
+\begin{proof}
+  This is a straightforward induction on the proof of $\sqn\Gamma$ in
+  $\FOMLL$, making a case analysis on the bottommost rule instance. We
+  show here only the case of
+%%  $\downsmash{\vlinf{\fff}{}{\sqn{\Delta,\fff}}{\sqn\Delta}}$ and
+  $\vlinf{\forall}{}{\sqn{\Delta,\forall x.A}}{\sqn{\Delta,A}}$ (all
+  other cases are simpler or have been shown before,
+  e.g.~\cite{brunnler:phd}): By induction hypothesis, there is a proof
+  of $\form\Delta\vlor A$ in $\FOMLS$. We can prefix every line in
+  that proof by $\forall x$ and then compose the following derivation:
+  \begin{center}\vspace{-2ex}\scalebox{.9}{\begin{math}
+    \vlderivation{
+      \vlin{\fequ}{}{\form\Delta\vlor\forall x.A}{
+        \vlde{\FOMLS}{}{\forall x.\form\Delta\vlor A}{
+          \vlin{\forall}{}{\forall x.\ttt}{
+            \vlhy{\ttt}}}}}
+  \end{math}}\end{center}
+  where we can apply the $\fequ$-rule because $x$ is not free in $\Delta$.
+\end{proof}
+
+\begin{lemma}\label{lem:shallow}
+  Let $\vlinf{\rr}{}{\Scons B}{\Scons A}$ be an inference rule in
+  $\FOMLS$. Then the sequent $\sqn{\cneg A,B}$ is provable in $\FOMLL$.
+\end{lemma}
+\begin{proof}
+  A routine exercise.
+\end{proof}
+
+\begin{lemma}\label{lem:context}
+  Let $A,B$ be formulas, and let $\Sconhole$ be a (positive)
+  context. If $\sqn{\cneg A,B}$ is provable in $\FOMLL$, then so is
+  $\sqn{\cneg{\Scons A},\Scons B}$.
+\end{lemma}
+
+\begin{proof}
+  A straightforward induction on $\Sconhole$. (see e.g.~\cite{gug:str:01})
+\end{proof}
+
+\begin{lemma}\label{lem:MLS1->MLL1}
+  If a formula $C$ is provable in $\FOMLS$ then $\sqn C$ is provable in  $\FOMLL$. 
+\end{lemma}
+
+\begin{proof}
+  We proceed by induction on the number of inference steps in the
+  proof of $C$ in $\FOMLS$. Consider the bottommost rule instance
+  $\vlinf{\rr}{}{\Scons B}{\Scons A}$. By induction hypothesis we have
+  a $\FOMLL$ proof $\Proof$ of $\sqn{\Scons A}$.
+      By Lemmas~\ref{lem:shallow} and~\ref{lem:context}, we have a $\FOMLL$ proof of
+      $\sqn{\cneg{\Scons A},\Scons B}$. We can compose them via
+%  $\cutr$:
+      \begin{equation*}
+        \vliinf{\cutr}{}{\sqn{\Scons B}}{\sqn{\Scons A}}{\sqn{\cneg{\Scons
+          A},\Scons B}}
+      \end{equation*}
+      and then apply Theorem~\ref{thm:cutelim}.
+  \end{proof}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Contraction and Weakening}
+
+The first observation here is that Lemmas~\ref{lem:MLL1->MLS1}--\ref{lem:MLS1->MLL1} from above also hold for $\FOLK$ and $\FOKS$. We therefore immediately have:
+
+\begin{thm}\label{thm:LK1-KS1}
+  For every sequent $\Gamma$, we have that $\sqn\Gamma$ is provable in
+  $\FOLK$ if and only if $\form\Gamma$ is provable in $\FOKS$.
+\end{thm}
+
+Then Theorem~\ref{thm:KS1} is an immediate consequence. Let us now
+proceed with providing further lemmas that will be needed for the
+other results.
+
+\begin{lemma}
+  \label{lem:ac}
+  The $\cD$-rule is derivable in $\set{\acD,\me,\mfaD,\mexD,\fequ}$. 
+\end{lemma}
+
+\begin{proof}
+  This can be shown by a straightforward induction on $A$ (for details, see e.g.~\cite{brunnler:phd}).
+\end{proof}
+
+\begin{lemma}
+  \label{lem:me}
+  $\wfaD,\cfaD,\me,\mfaD,\mexD$ are derivable in \hbox{$\set{\wrD,\cD,\fequ}$}. 
+\end{lemma}
+
+\begin{proof}
+  We only show the cases for $\wfaD$ and $\cfaD$ (for the others see~\cite{brunnler:phd}):
+  \vadjust{\vskip-2ex}
+  \begin{equation}
+    \label{eq:wfa-cfa}
+  \qquad
+  \vlderivation{
+    \vlin{\cD}{}{\forall x.A}{
+      \vlin{\fequ}{}{\forall x.(A \vlor A)}{
+        \vlin{\wrD}{}{A \vlor (\forall x.A)}{
+          \vlhy{A}}}}}
+  \qquad
+  \quad
+  \vlderivation{
+    \vlin{\cD}{}{\forall x.A}{
+      \vlin{\equiv}{}{(\forall x.A) \vlor (\forall x.A)}{
+        \vlin{\wrD}{}{\forall x.((\forall x.A) \vlor A)}{
+          \vlhy{\forall x.\forall x.A}}}}}
+  \end{equation}
+  where in the first derivation, $x$ is not free in $A$, and in the second one not free in $\forall x.A$.
+\end{proof}
+
+\begin{lemma}\label{lem:cw-atomic}
+  Let $A$ and $B$ be formulas. Then
+  \begin{equation*}
+    \vlderivation{
+      \vlde{\set{\wrD,\cD,\fequ}}{}{B}{
+        \vlhy{A}}}
+    \qquad
+    \iff
+    \qquad
+    \vlderivation{
+      \vlde{\set{\wrD,\wfaD,\acD,\cfaD,\me,\mfaD,\mexD,\fequ}}{}{B}{
+        \vlhy{A}}}
+  \end{equation*}
+\end{lemma}
+
+\begin{proof}
+  Immediately from Lemmas~\ref{lem:ac} and~\ref{lem:me}.
+\end{proof}
+
+\begin{remark}
+  Observe that Lemma~\ref{lem:cw-atomic} would also hold with the rules $\wfaD$ and~$\cfaD$ removed.
+\end{remark}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Rule Permutations}
+
+\begin{thm}\label{thm:LK1-decompose}
+  Let $\Gamma$ be a sequent. If\/ $\sqn\Gamma$ is provable in $\FOLK$ (as depicted on the left below) then there is a sequent
+  $\Gamma'$ not containing any $\fff$, such that there is a derivation as shown on the right below:\vadjust{\vskip-2ex}
+  \begin{equation*}
+    \vlderivation{
+        \vltrl{}{\FOLK}{\Deri}{\sqns{\Gamma}}{
+          \vlhy{\quad}}{
+          \vlhy{}}{
+          \vlhy{}}}
+    \qquad
+    \Longrightarrow
+    \qquad
+    \vlderivation{
+      \vlde{\set{\wrD,\cD,\fequ}}{\Deri_2}{\sqns{\form{\Gamma}}}{
+        \vltrl{}{\FOMLL}{\Deri_1}{\sqns{\form{\Gamma'}}}{
+          \vlhy{\quad}}{
+          \vlhy{}}{
+          \vlhy{}}}}
+  \end{equation*}
+\end{thm}
+
+\begin{proof}
+  First, we can replace every instance of the $\fff$-rule in $\Deri$ by
+  $\weakr$. Then the instances of $\weakr$ and $\conr$ are replaced by
+  $\wD$ and $\cD$, which can then be permuted down.
+  Details are in
+  Appendix~A of~\cite{HSW21:arxiv}.
+\end{proof}
+
+
+\begin{lemma}\label{lem:MLS1-decomposition}
+  For every derivation
+  $\vlderivation{
+      \vlde{\FOMLS}{}{A}{
+        \vlhy{\ttt}}}$
+  there are formulas $A'$ and $A''$ such that 
+  \vspace{-2ex}\begin{equation*}\hspace{-2ex}
+    \vlderivation{
+      \vlde{\set{\exists}}{}{A}{
+        \vlde{\set{\sw,\mix,\fequ}}{}{A'}{
+          \vlde{\set{\forall,\aiD,\tttD}}{}{A''}{
+            \vlhy{\ttt}}}}}
+  \end{equation*}
+\end{lemma}
+
+\begin{proof}
+  First, observe that the $\exists$ rule can be permuted under all the
+  other rules since $A\ssubst{x}{t}$ has the same structure as $A$ and
+  none of the other rules has a premise of the form $\Scons{\exists
+    x.A}$. It suffices now to prove that all rules in $\set{\forall,
+    \aiD, \tttD}$ can be permuted over the rules in $\set{\sw, \mix,
+    \fequ}$, which is straightforward. For $\sw$, $\mix$, and the $\fequ$-instances that
+  do not involve the quantifiers, the details can be found
+  in~\cite{dissvonlutz}. The $\fequ$-instances concerning the
+  quantifiers are admissible if the \hbox{$\exists$-rule} is not present.
+\end{proof}
+
+\begin{lemma}\label{lem:cw-decomposition}
+  For every derivation
+  $\vlderivation{
+      \vlde{\set{\wrD,\wfaD,\acD,\cfaD,\me,\mfaD,\mexD,\fequ}}{}{B}{
+        \vlhy{A}}}$
+  there are formulas $A'$ and $B'$ such that 
+  \begin{equation*}\hspace{-3ex}
+    \vlderivation{
+      \vlde{\set{\wrD,\wfaD,\fequ}}{}{B}{
+        \vlde{\set{\acD,\cfaD}}{}{B'}{
+          \vlde{\set{\me,\mfaD,\mexD,\fequ}}{}{A'}{
+            \vlhy{A}}}}}
+  \end{equation*}
+\end{lemma}
+
+\begin{proof}
+  Permute all $\wD$ and $\wfaD$ instances to the bottom of
+  the derivation, then permute all $\cD$ and
+  $\cfaD$ below $\set{\me,\mfaD,\mexD}$. This involves a tedious but
+  routine case analysis. However, unlike most other rule
+  permutations in this paper, this has not been done before in the deep
+  inference literature. 
+  For this reason, we give the full case
+  analysis in Appendix~B of~\cite{HSW21:arxiv}.
+  This
+  Lemma is the reason for the presence of the rules $\wfaD$ and
+  $\cfaD$, as without them the permutation cases in~\eqref{eq:wfa-cfa}
+  could not be resolved.
+\end{proof}
+
+We can now complete the proof of Theorems~\ref{thm:decomposition} and~\ref{thm:decompositionA}.
+
+\begin{proof}[Proof of Theorem~\ref{thm:decompositionA}]
+  Assume we have a proof of $A$ in $\FOKS$. By
+  Theorem~\ref{thm:LK1-KS1} we have a proof of $\sqn A$ in $\FOLK$ to
+  which we can apply Theorem~\ref{thm:LK1-decompose}. Finally, we
+  apply Lemma~\ref{lem:MLL1->MLS1} to get the desired shape.
+\end{proof}
+
+\begin{proof}[Proof of Theorem~\ref{thm:decomposition}]
+  Assume we have a proof of $A$ in $\FOKS$. We first apply
+  Theorem~\ref{thm:decompositionA}, and then
+  Lemma~\ref{lem:MLS1-decomposition} to the upper half and
+  Lemmas~\ref{lem:cw-atomic} and~\ref{lem:cw-decomposition} to the lower half.
+\end{proof}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Fonets and Linear Proofs}
+\label{sec:linear}
+
+%%\todo{}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{From $\FOMLL$ Proofs to Fonets}
+
+Let $\Pi$ be a $\FOMLL$ proof of a rectified sequent $\sqn\Gamma$ not containing $\fff$. We now show
+how $\Pi$ is translated into a linked fograph
+$\fographof\Pi=\tuple{\graphof\Gamma,\linkingof\Pi}$. We proceed
+inductively, making a case analysis on the last rule in $\Pi$. At the
+same time we are constructing a dualizer $\dsubstof\Pi$, so that in the
+end we can conclude that $\fographof\Pi$ is in fact a fonet.
+\begin{enumerate}
+  \addtolength\itemsep{.7ex}
+\item $\Pi$ is $\upsmash{\vlinf{\axr}{}{\sqn{a,\cneg a}}{}}$ : Then the only
+  link is $\set{a, \dual{a}}$, and $\dsubstof\Pi$ is empty.
+\item $\Pi$ is $\smash{\vlinf{\ttt}{}{\sqn{\ttt}}{}}$ : Then
+  $\linkingof\Pi$ and $\dsubstof\Pi$ are both empty.
+\item The last rule in $\Pi$ is $\vliinf{\mixr}{}{\sqn{\Gamma',\Gamma''}}{\sqn\Gamma'}{\sqn\Gamma''}$ :
+  By induction hypothesis, we have proofs $\Pi'$ and $\Pi''$ of $\Gamma'$ and $\Gamma''$, respectively. We have
+  $\graphof{\Gamma}=\graphof{\Gamma'}+\graphof{\Gamma''}$ and we can let
+  $\linkingof\Pi\;=\;\linkingof{\Pi'}\cup\linkingof{\Pi''}$ and
+  $\dsubstof\Pi=\dsubstof{\Pi'}\cup\dsubstof{\Pi''}$.
+\item The last rule in $\Pi$ is $\vlinf{\vlor}{}{\sqn{\Gamma_1,A\vlor
+    B}}{\sqn{\Gamma_1,A,B}}$ : By induction hypothesis, there is
+  a proof $\Pi'$ of $\Gamma'={\Gamma_1,A,B}$. We have
+  $\graphof{\Gamma}=\graphof{\Gamma'}$ and let
+  $\linkingof\Pi\;=\;\linkingof{\Pi'}$ and
+  $\dsubstof\Pi=\dsubstof{\Pi'}$.
+\item The last rule in $\Pi$ is $\vliinf{\vlan}{}{\sqn{\Gamma_1,A\vlan
+    B, \Gamma_2}}{\sqn{\Gamma_1,A}}{\sqn{B,\Gamma_2}}$ : By induction
+  hypothesis, we have proofs $\Pi'$ and $\Pi''$ of
+  $\Gamma'=\Gamma_1,A$ and $\Gamma''=B,\Gamma_2$, respectively. We
+  have $\graphof{\Gamma}=\graphof{\Gamma_1}+\mbox{$(\graphof A\times\graphof
+  B)$}+\graphof{\Gamma_2}$ and we let
+  $\linkingof\Pi\;=\;\linkingof{\Pi'}\cup\linkingof{\Pi''}$ and
+  $\dsubstof\Pi=\dsubstof{\Pi'}\cup\dsubstof{\Pi''}$.
+\item The last rule in $\Pi$ is
+  $\vlinf{\exists}{}{\sqn{\Gamma_1,\exists x.A}}
+  {\sqn{\Gamma_1,A\ssubst{x}{t}}}$ : By induction hypothesis, there is
+  a proof $\Pi'$ of $\Gamma'={\Gamma_1,A\ssubst{x}{t}}$.  For each atom in
+  $\Gamma'=\Gamma_1, A \ssubst{x}{t}$, there is a corresponding atom
+  in $\Gamma=\Gamma_1, \exists x.A$. We can therefore define the
+  linking $\linkingof{\Pi}$ from the linking $\linkingof{\Pi'}$ via
+  this correspondence. Then, we let $\dsubstof\Pi$ be
+  $\dsubstof{\Pi'}+\ssubst{x}{t}$. Since $\Gamma$ is rectified $x$
+  does not yet occur in $\dsubstof{\Pi'}$. Hence $\dsubstof\Pi$ is a
+  dualizer of $\fographof\Pi$.
+\item The last rule in $\Pi$ is $\vlinf{\forall}{\text{($x$ not free
+    in $\Gamma_1$)}}{\sqn{\Gamma_1,\forall x.A}}{\sqn{\Gamma_1,A}}$ :
+  By induction hypothesis, there is a proof $\Pi'$ of
+  $\Gamma'={\Gamma_1,A}$, which has the same atoms as in
+  $\Gamma=\Gamma_1, \forall x.A$.  Hence, we can let
+  $\linkingof\Pi\;=\;\linkingof{\Pi'}$ and
+  $\dsubstof\Pi=\dsubstof{\Pi'}$. 
+\end{enumerate}
+%\end{itemize}
+
+\begin{thm}
+  \label{thm:MLL1->fonet}
+  If $\Pi$ is a $\FOMLL$ proof of a rectified $\fff$-free sequent $\sqn\Gamma$,
+  then $\fographof\Pi$ is a fonet and $\dsubstof\Pi$ a dualizer for it.
+\end{thm}
+
+\begin{proof}
+  We must show that none of the operations above introduces a
+  bimatching. For cases 1--6, this is immediate. For case 7, observe
+  that there is a potential dependency from each existential binder in
+  $\graphof{\Gamma'}$ to the new $x$-binder $\single x$ in
+  $\graphof{\Gamma}$. However, observe that this $\single x$ vertex is
+  not connected to any vertex in $\graphof{\Gamma'}$, and hence no
+  such new dependency can be extended to a bimatching. That
+  $\dsubstof\Pi$ is a dualizer for $\fographof\Pi$ follows immediately
+  from the construction. Hence,  $\fographof\Pi$ is a fonet.
+\end{proof}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{From $\FOMLS$ Proofs to Fonets}
+
+There is a more direct path from a $\FOMLL$ proof $\Pi$ of a rectified
+sequent $\Gamma$ to the linked fograph $\fographof\Pi$: take
+the fograph $\graphof\Gamma$, and let the equivalence classes of
+$\linkingof\Pi$ be all the atom pairs that meet in an instance of
+$\ax$, and $\dsubstof\Pi$ comprises the substitutions
+at the $\exists$-rules in $\Pi$.
+%
+We chose the more cumbersome path above because it gives us a
+direct proof of Theorem~\ref{thm:MLL1->fonet}.
+%
+However, for translating $\FOMLS$ derivation into fonets, we employ
+exactly that direct path.
+
+In a derivation in $\FOMLS$
+where the conclusion is rectified, every line is also rectified, as
+the only rules involving bound variables are $\forall$ and $\exists$
+which (upwards) both remove a binder.
+Therefore, we can call such a derivation \bfit{rectified}, and
+for a non-rectified  $\FOMLS$ derivation $\Deri$ we can
+define its \bfit{rectification} $\rectif\Deri$ inductively, by rectifying each
+line, proceeding step-wise
+from conclusion to premise.\footnote{As for formulas,
+the rectification of a derivation is unique up to renaming of bound
+variables.}
+
+A rectified derivation $\vlder{\FOMLS}{\Deri}{A}{\ttt}$ determines a
+substitution which maps the existential bound variables occurring in
+$A$ to the terms substituted for them in the instances of the
+$\exists$-rule in $\Phi$. We denote this substitution by
+$\dsubstof\Phi$ and call it the \bfit{dualizer} of
+$\Deri$. Furthermore, every atom occurring in the conclusion $A$ must
+be consumed by a unique instance of the rule $\aiD$ in $\Deri$. This
+allows us to define a (partial) equivalence relation $\linkingof\Deri$
+on the atom occurrences in $A$ by $a\linkingof\Deri b$ if $a$ and $b$
+are consumed by the same instance of $\aiD$ in~$\Deri$. We call
+$\linkingof\Deri$ the \bfit{linking} of~$\Deri$, and define
+$\fographof\Deri=\tuple{\graphof{A},\linkingof{\Deri}}$.
+
+
+
+%\todo{example here}
+
+\begin{thm}\label{thm:MLS1->fonet}
+  Let $\vlder{\FOMLS}{\Deri}{A}{\ttt}$ be a rectified derivation where $A$ is $\fff$-free. Then
+  $\fographof\Deri$ is a fonet and $\dsubstof{\Deri}$ a dualizer for it.
+\end{thm}
+
+To prove this theorem, we have to show that no inference rule in
+$\FOMLS$ can introduce a bimatching. To simplify the argument, we
+introduce the \bfit{frame}~\cite{hughes:unifn} of the linked fograph $\gC$,
+which is a linked (propositional) cograph in which the dependencies
+between the binders in $\gC$ are encoded as links. 
+
+More formally, let $C$ be a formula with $\graphof C=\gC$, to which we
+exhaustively apply the following
+subformula rewriting steps, to obtain a sequent $\frameof C$:
+\begin{enumerate}
+\item {\bf Encode dependencies as fresh links.} For each dependency
+  $\set{\single {x_i},\single {y_j}}$ in $\gC$, with corresponding
+  subformulas $\exists x_i. A$ and $\forall y_j. B$ in $C$, we pick a
+  fresh (nullary) predicate symbol $q_{i,j}$, and then replace $\exists
+  x_i. A$ by $\dual q_{i,j} \cand \exists x_i. A$, and replace $\forall y_j. B$ by
+  $q_{i,j} \cor \forall y_j. B$.
+\item {\bf Erase quantifiers.} After step 1, remove all the
+  quantifiers, i.e., replace $\exists x_i.A$ by $A$ and replace $\forall
+  y_j.B$ by $B$ everywhere.
+\item {\bf Simplify atoms.} After step 2, replace every predicate
+  $pt_1 \ldots t_n$ (resp. $\dual{p}t_1 \ldots t_n$) with a nullary
+  predicate symbol $p$ (resp.~$\dual p$)
+\end{enumerate}
+Then $\linkingof{\frameof C}$ consists of the pairs induced by
+$\linkingof\gC$ and the new pairs $\set{q_{i,j},\dual q_{i,j}}$ introduced in
+step~1 above.
+We call $\frameof C$ the \bfit{frame} of $C$ and we define the \bfit{frame} of $\gC$, denoted
+$\frameof\gC$, as
+$\tuple{\graphof{\frameof C},\linkingof{\frameof C}}$.
+
+\begin{lemma}\label{lem:frame}
+  If a linked fograph $\gC$ has an induced bimatching then so does its frame $\frameof\gC$. 
+\end{lemma}
+
+\begin{proof}
+  Immediately from the construction of the frame.
+\end{proof}
+
+\begin{proof}[Proof of Theorem~\ref{thm:MLS1->fonet}]
+  From $\Deri$ we construct a derivation $\frameof\Deri$ of $\frameof
+  A$ in the propositional fragment of $\FOMLS$, such that
+  \hbox{$\fographof{\frameof\Deri}=\frameof{\fographof\Deri}$}.  The
+  rules $\aiD,\tttD,\mix$ and $\sw$ are translated trivially, and for
+  $\fequ$, it suffices to observe that the frame construction is
+  invariant under $\fequ$. Finally, for the rules $\forall$ and
+  $\exists$, proceed as follows. Every instance of $\forall$ is
+  replaced by the derivation on the right below:\footnote{For better
+  readability we omit superfluous parentheses, knowing that we always
+  have $\fequ$ incorporating associativity and commutativity of
+  $\vlan$ and $\vlor$.} \vadjust{\vskip-4ex}
+  \begin{equation*}
+    \scalebox{.95}{$
+    \vlinf{\forall}{}{\Scons{\forall y_j.\ttt}}{\Scons{\ttt}}
+    %\qquad
+    \;\leadsto
+    %\qquad
+    \vlderivation{
+      \vlde{\set{\sw,\fequ}}{\DDeri_2}{\Scons{q_{h_1,j}\vlor\cdots\vlor
+          q_{h_n,j}\vlor(\dual q_{h_1,j}\vlan\cdots\vlan\dual
+          q_{h_n,j}\vlan\ttt)}}{
+        \vlde{\set{\aiD,\tttD}}{\DDeri_1}{
+          \Scons{(q_{h_1,j}\vlor \dual q_{h_1,j})\vlan\cdots\vlan(q_{h_n,j}\vlor \dual q_{h_n,j})\vlan\ttt}}{
+          \vlhy{\ttt}}}}
+    $}
+  \end{equation*}
+  where $h_1,\ldots,h_n$ range over the indices of the existential
+  binders dependent on that $y_j$. It is easy to see how $\DDeri_1$ is
+  constructed. The construction of $\DDeri_2$, using $\sw$ and $\fequ$, is standard, see,
+  e.g.~\cite{ATS:esslli2019,gug:str:01,brunnler:tiu:01,dissvonlutz}. Then, every
+  occurrence of $\forall y_j.F$ is replaced by
+  $q_{h_1,j}\vlor\cdots\vlor q_{h_n,j}\vlor (\dual
+  q_{h_1,j}\vlan\cdots\vlan\dual q_{h_n,j}\vlan F)$ in the derivation
+  below that $\forall$-instance. Now, observe that all instances of
+  the $\exists$-rule introducing $x_i$ dependent on $y_j$ must occur
+  below in the derivation (otherwise $\Deri$ would not be rectified).
+  Now consider such an instance $\vlinf{\exists}{}{\Scons{\exists
+      x_i.B}}{\Scons{B\ssubst {x_i} t}}$.  Its context $\Sconhole$
+  must contain all the $\forall y_j$ the $\exists x_i$ depends on,
+  such that $B$ is in their scope. Following the translation of the
+  $\forall$ rules above, we can therefore translate the $\exists$-rule
+  instance by the following derivation
+  \begin{equation*}
+    \vlder{\set{\sw,\fequ}}{\DDeri_3}{ S_0\cons{S_1\cons{\cdots
+          S_{l-1}\cons{S_{l}\cons{\dual q_{i,k_1}\vlan\dual
+              q_{i,k_2}\vlan\cdots q_{i,k_l}\vlan B'}}\cdots}}}{
+      S_0\cons{\dual q_{i,k_1}\vlan S_1\cons{\dual
+          q_{i,k_2}\vlan\cdots S_{l-1}\cons{\dual q_{i,k_l}\vlan
+            S_{l}\cons{B'}}\cdots}}}
+  \end{equation*}
+  where $k_1,\ldots,k_l$ are the indices of the universal binders
+  on which that $x_i$ depends, and $B'$ is $B$ in which all predicates
+  are replaced by a nullary one (step~3 in the frame construction). The
+  derivation $\DDeri_3$ can be constructed in the same way as
+  $\DDeri_2$.
+
+  Doing this to all instances of the rules $\forall$ and $\exists$ in
+  $\Deri$ yields indeed a propositional derivation $\frameof\Deri$
+  with
+  \hbox{$\fographof{\frameof\Deri}=\frameof{\fographof\Deri}$}. It has
+  been shown by Retor\'e~\cite{retore:pomset:RR} and
+  rediscovered by Stra{\ss}burger~\cite{dissvonlutz} that
+  $\fographof{\frameof\Deri}=\tuple{\graphof{\frameof
+      C},\linkingof{\frameof\Deri}}$ cannot contain an induced
+  bimatching. By Lemma~\ref{lem:frame}, $\fographof{\Deri}$ does not
+  have an induced bimatching either. Furthermore, it follows from the
+  definition of $\dsubstof\Deri$ that it is a dualizer for
+  $\fographof{\Deri}$.
+\end{proof}
+
+\begin{remark}
+  There is an alternative path of proving Theorem~\ref{thm:MLS1->fonet}
+  by translating $\Deri$ to an $\FOMLL$-proof $\Pi$, observing that
+  this process preserves the linking and the dualizer. However, for
+  this, we have to extend the construction from the previous subsection to the $\cut$-rule,
+  and then show that linking and dualizer of a sequent proof $\Pi$ are
+  invariant under cut elimination. This can be done similarly to
+  unification nets in~\cite{hughes:unifn}.
+\end{remark}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{From Fonets to $\FOMLL$ Proofs}
+
+Now we are going to show how from a given fonet
+$\tuple{\gC,\linkingof\gC}$ we can construct a sequent proof $\Pi$ in
+$\FOMLL$ such that $\fographof\Pi=\tuple{\gC,\linkingof\gC}$. In the
+proof net literature, this operation is also called
+\emph{sequentialization}. The basic idea behind our sequentialization
+is to use the frame of $\gC$, to which  we can apply the \emph{splitting tensor
+theorem}, and then reconstruct the sequent proof $\Pi$.
+
+Let $\Gamma$ be a propositional sequent and $\linkingof\Gamma$ be a
+linking for $\graphof\Gamma$. A conjunction formula $A\vlan B$ is
+\bfit{splitting} or a \bfit{splitting tensor} if
+$\Gamma=\Gamma',A\vlan B,\Gamma''$ and
+$\mathord{\linkingof\Gamma}=\mathord{\linking_1}\cup\linking_2$, such
+that $\linking_1$ is a linking for $\graphof{\Gamma',A}$ and
+$\linking_2$ is a linking for $\graphof{B,\Gamma''}$, i.e., removing
+the $\vlan$ from $A\vlan B$ splits the linked fograph $\tuple{
+  \graphof\Gamma,\linkingof\Gamma}$ into two fographs.
+We say that $\tuple{
+  \graphof\Gamma,\linkingof\Gamma}$ is \bfit{mixed} iff 
+$\Gamma=\Gamma',\Gamma''$ and
+$\mathord{\linkingof\Gamma}=\mathord{\linking_1}\cup\linking_2$, such
+that $\linking_1$ is a linking for $\graphof{\Gamma'}$ and
+$\linking_2$ is a linking for $\graphof{\Gamma''}$.
+Finally, $\tuple{
+  \graphof\Gamma,\linkingof\Gamma}$ is \bfit{splittable} if it is mixed or has a splitting tensor.
+
+
+\begin{thm}
+  \label{thm:splitting}
+  Let $\Gamma$ be a $\fff$-free propositional sequent containing only atoms
+  and $\vlan$-formulas, and $\linkingof\Gamma$ be a
+  linking for $\graphof\Gamma$. If $\tuple{
+    \graphof\Gamma,\linkingof\Gamma}$ does not induce a bimatching then it is splittable.
+\end{thm}
+
+This is the well-known splitting-tensor-theorem
+\cite{girard:87,danos:regnier:89}, adapted for the presence of
+$\mix$. In the setting of linked cographs, it has first been proved by
+Retor\'e~\cite{retore:03,retore:99} and then rediscovered by Hughes~\cite{hughes:pws}.
+We use it now for our sequentialization:
+
+\begin{thm}
+  \label{thm:fonet->MLL1}
+  Let $\tuple{\gC,\linkingof\gC}$ be a fonet, and let $\Gamma$ be a sequent with $\graphof\Gamma=\gC$. Then there is an
+  $\FOMLL$-proof $\Pi$ of $\Gamma$, such that
+  $\fographof\Pi=\tuple{\gC,\linkingof\gC}$.
+\end{thm}
+
+\begin{proof}
+  Let $\dsubstof\gC$ be the dualizer of $\tuple{\gC,\linkingof\gC}$.  We
+  proceed by induction on the size of $\Gamma$ (i.e., the number of
+  symbols in it, without counting the commas). If $\Gamma$ contains a
+  formula with $\vlor$-root, or a formula $\forall x.A$, we can
+  immediately apply the $\vlor$-rule or the $\forall$-rule of $\FOMLL$
+  and proceed by induction hypothesis. If $\Gamma$ contains a formula
+  $\exists x.A$ such that the corresponding binder $\single x$ in $\gC$
+  has no dependency, then we can apply the $\exists$-rule, choosing the
+  term $t$ as determined by $\dsubstof\gC$, and proceed by induction
+  hypothesis.  Hence, we can now assume that $\Gamma$ contains only
+  atoms, $\vlan$-formulas, or formulas of shape $\exists x.A$, where
+  the vertex $\single x$ has dependencies. Then the frame
+  $\tuple{\graphof{\frameof\Gamma},\linkingof{\frameof\Gamma}}$ does
+  not induce a bimatching and contains only atoms and
+  $\vlan$-formulas, and is therefore splittable. If it is mixed, then
+  we can apply the $\mix$-rule to $\Gamma$ and apply the induction
+  hypothesis to the two components. If it is not mixed then there must
+  be a splitting tensor. If the splitting $\vlan$ is already in
+  $\Gamma$, then we can apply the $\vlan$-rule and proceed by
+  induction hypothesis on the two branches. However, if
+  $\frameof\Gamma$ is not mixed and all splitting tensors are
+  $\vlan$-formulas introduced in step~1 of the frame construction,
+  then we get a contradiction as in that case there must be a $\vlor$- or $\forall$-formula in $\Gamma$.
+\end{proof}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{From Fonets to $\FOMLS$ Proofs}
+
+We can now straightforwardly obtain the same result for $\FOMLS$:
+
+\begin{thm}
+  \label{thm:fonet->MLS1}
+  Let $\tuple{\gC,\linkingof\gC}$ be a fonet, and let $C$ be a formula with $\graphof C=\gC$. Then there is
+  a derivation $\vlder{\FOMLS}{\Deri}{C}{\ttt}$ such that $\fographof\Deri=\tuple{\gC,\linkingof\gC}$.
+\end{thm}
+
+\begin{proof}
+  We apply Theorem~\ref{thm:fonet->MLL1} to obtain a sequent
+  proof~$\Pi$ of \hbox{$\sqn C$} with
+  $\fographof\Pi=\tuple{\gC,\linkingof\gC}$. Then we apply
+  Lemma~\ref{lem:MLL1->MLS1}, observing that the translation from
+  $\FOMLL$ to $\FOMLS$ preserves linking and dualizer.
+\end{proof}
+
+\begin{remark}
+  Note that it is also possible to do a direct ``sequentialization''
+  into the deep inference system $\FOMLS$, using the techniques
+  presented in \cite{dissvonlutz} and \cite{str:MLL2}.
+\end{remark}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\section{Skew Bifibrations and Resource Management}
+\label{sec:skew}
+
+In this section we establish the relation between skew bifibrations and derivations in
+$\set{\wrD,\wfaD,\acD,\cfaD,\me,\mfaD,\mexD,\fequ}$. However, 
+if a derivation $\Deri$ contains instances of the rules $\cfaD$, $\mfaD$, and
+$\mexD$ we can no longer naively define the rectification
+$\rectif\Deri$ as in the previous section for $\FOMLS$, as these two
+rules cannot be applied if premise and conclusion are rectified. For
+this reason we define here rectified versions $\rectif\cfaD$,  $\rectif\mfaD$ and
+$\rectif\mexD$, shown below:\vadjust{\vskip-1ex}
+\begin{equation*}
+  \scalebox{1}{$
+  \vlinf{\rectif\cfaD}{}{\Scons{\forall x.Ax}}{\Scons{\forall y.\forall x.Ax}}
+  \hskip3em
+  \begin{array}{c}
+    \vlinf{\rectif\mfaD}{}{\Scons{\forall x.(Ax\vlor Bx)}}{\Scons{(\forall y.Ay)\vlor(\forall z.Bz)}}
+    \\ \\[-1ex]
+    \vlinf{\rectif\mexD}{}{\Scons{\exists x.(Ax\vlor Bx)}}{\Scons{(\exists y.Ay)\vlor(\exists z.Bz)}}
+  \end{array}
+  $}
+\end{equation*}
+Here, we use the notation $A\cdot$ for a formula $A$ with occurrences
+of a placeholder $\cdot$ for a variable. Then $Ax$ stands for the
+results of replacing that placeholder with $x$, and also indicating
+that $x$ must not occur in $A\cdot$. Then $\forall x.Ax$ and $\forall
+y.Ay$ are the same formula modulo renaming of the bound variable bound
+by the outermost $\forall$-quantifier. We also demand that the variables $x$, $y$, and $z$ do
+not occur in the context $\Sconhole$.
+
+Note that in an instance of $\rectif\mfaD$ or $\rectif\mexD$ (as shown
+above), we can have $x=y$ or $x=z$, but not both if the premise is
+rectified. If $x=y$ and $x=z$ we have $\mfaD$ and
+$\mexD$ as special cases of $\rectif\mfaD$ and $\rectif\mexD$, respectively. And similarly,  if $x=y$ then $\cfaD$
+is a special case of $\rectif\cfaD$.
+
+For a derivation $\Deri$ in
+$\set{\wrD,\wfaD,\acD,\cfaD,\me,\mfaD,\mexD,\fequ}$, we can now construct the
+\bfit{rectification} $\rectif\Deri$ by rectifying each line of $\Deri$, yielding
+a derivation in
+$\set{\wrD,\wfaD,\acD,\rectif\cfaD,\me,\rectif\mfaD,\rectif\mexD,\fequ}$.
+
+For each instance $\vlinf{\rr}{}{P}{Q}$ of an inference rule in
+$\set{\wrD,\wfaD,\acD,\rectif\cfaD,\me,\rectif\mfaD,\rectif\mexD,\fequ}$ we can
+define the \bfit{induced map} $\mapof{\rr}\colon\vgraphof
+Q\to\vgraphof P$ which acts as the identity for
+$\rr\in\set{\me,\fequ}$ and as the canonical injection for
+$\rr\in\set{\wrD,\wfaD}$. For $\rr=\acD$ it maps the vertices
+corresponding to the two atoms in the premise to the vertex of the
+contracted atom in the conclusion, and for
+$\rr\in\set{\rectif\cfaD,\rectif\mfaD,\rectif\mexD}$ it maps the two vertices
+corresponding to the quantifiers in the premise to the one in the
+conclusion (and acts as the identity on all other vertices).
+For a
+derivation $\Deri$ in
+$\set{\wrD,\wfaD,\acD,\rectif\cfaD,\me,\rectif\mfaD,\rectif\mexD,\fequ}$ we can then define
+the \bfit{induced map} $\mapof\Deri$ as the composition of the induced
+maps of the rule instances in $\Deri$.
+
+\begin{lemma}\label{lem:cw->rectif}
+  Let $\downsmash{\vlderivation{
+    \vlde{\set{\wrD,\wfaD,\acD,\cfaD,\me,\mfaD,\mexD,\fequ}}{\Deri}{B}{
+      \vlhy{A}}}}$ be given.
+  %%a derivation.
+  Then there is a rectified derivation
+  $\vlderivation{
+    \vlde{\set{\wrD,\wfaD,\acD,\rectif\cfaD,\me,\rectif\mfaD,\rectif\mexD,\fequ}}{\rectif\Deri}{\rectif
+      B}{ \vlhy{\rectif A}}}$, such that the induced maps
+  $\mapof\Deri\colon\graphof{A}\to\graphof{B}$ and
+  $\mapof{\rectif\Deri}\colon\graphof{\rectif A}\to\graphof{\rectif
+    B}$ are equal up to a variable renaming of the vertex labels.
+\end{lemma}
+
+\begin{proof}
+  Immediate from the definition.
+\end{proof}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{From Contraction and Weakening to Skew Bifibrations}
+
+
+\begin{lemma}\label{lem:cw->skew}
+  Let $\vlderivation{
+    \vlde{\set{\wrD,\wfaD,\acD,\rectif\cfaD,\me,\rectif\mfaD,\rectif\mexD,\fequ}}{\Deri}{B}{
+      \vlhy{A}}}$ be a rectified derivation. Then the induced map
+  $\mapof\Deri\colon\graphof{A}\to\graphof{B}$ is a skew bifibration.
+\end{lemma}
+
+Before we show the proof of this lemma, we introduce another useful
+concept: the \bfit{propositional encoding} $\PE{A}$ of a formula $A$,
+which is a propositional formula with the property that $\graphof{\PE
+  A}=\graphof{A}$. For this, we introduce new propositional variables
+that have the same names as the (first-order) variables
+$x\in\VAR$. Then $\PE{A}$ is defined inductively by:
+\begin{equation*}
+  \begin{array}{r@{\;=\;}l}
+    \PE{a} & a\\
+    \PE{(A \cor B)} &  \PE{A} \cor \PE{B} \\
+    \PE{(A \cand B)} & \PE{A} \cand \PE{B}
+  \end{array}
+  \qquad
+  \begin{array}{r@{\;=\;}l}
+    \PE{(\forall x A)} & x \cor \PE{A}\\
+    \PE{(\exists x A)} & x \cand \PE{A}
+  \end{array}
+\end{equation*}
+
+\begin{lemma}
+  \label{lem:PE}
+  For every formula $A$, we have $\graphof{\PE A}=\graphof{A}$.
+\end{lemma}
+
+\begin{proof}
+  A straightforward induction on $A$. 
+\end{proof}
+
+We use $\PE\fequ$ to denote the restriction of $\fequ$ to
+propositional formulas, i.e., the first two lines in~\eqref{eq:fequ}.
+
+\begin{proof}[Proof of Lemma~\ref{lem:cw->skew}]
+  First, observe that for every inference rule
+  $\rr\in\set{\wrD,\wfaD,\acD,\rectif\cfaD,\me,\rectif\mfaD,\rectif\mexD,\fequ}$
+  the induced map $\mapof{\rr}\colon\vgraphof Q\to\vgraphof P$ defines
+  an existential-preserving graph homomorphism $\graphof Q\to\graphof
+  P$ and a fibration on the corresponding binding graphs.  Therefore,
+  their composition $\mapof\Deri$ has the same properties of fibration.
+
+  For showing that it is also a skew fibration, we construct for
+  $\Deri$ its propositional encoding $\PE\Deri$ by
+  translating every line into its propositional encoding.
+  The instances
+  of the rules $\rectif\mfaD$ and $\rectif\mexD$ are replaced by:
+  \begin{equation*}
+    \scalebox{.85}{$
+    \vlderivation{
+      \vlin{\rectif\acD}{}{\Scons{x\vlor(\PE{(Ax)}\vlor\PE{(Bx)})}}{
+        \vlin{\fequ}{}{\Scons{(y\vlor z)\vlor(\PE{(Ay)}\vlor\PE{(Bz)})}}{
+          \vlhy{\Scons{(y\vlor\PE{(Ay)})\vlor (z\vlor\PE{(Bz)})}}}}}
+    \qquad\!
+    \vlderivation{
+      \vlin{\rectif\acD}{}{\Scons{x\vlan(\PE{(Ax)}\vlor\PE{(Bx)})}}{
+        \vlin{\me}{}{\Scons{(y\vlor z)\vlan(\PE{(Ay)}\vlor\PE{(Bz)})}}{
+          \vlhy{\Scons{(y\vlan\PE{(Ay)})\vlor (z\vlan\PE{(Bz)})}}}}}
+    $}
+  \end{equation*}
+  respectively, where $\rectif\acD$ is a $\acD$ that renames the
+  variables---the propositional variable, as well as the first-order
+  variable of the same name---as everything is rectified, there is no
+  ambiguity here. Any instance of a rule $\wD$, $\acD$, $\me$, or
+  $\fequ$ is translated to an instance of the same rule,
+  $\rectif\cfaD$ is translated to $\rectif\acD$, and $\wfaD$ is
+  translated to $\wD$.
+
+  This gives us a derivation $\vlderivation{
+    \vlde{\set{\wrD,\acD,\rectif\acD,\me,\PE\fequ}}{\PE\Deri}{\PE B}{
+      \vlhy{\PE A}}}$ such that $\mapof{\PE\Deri}=\mapof\Deri$. It has
+  been shown in~\cite{str:07:RTA} that $\mapof{\PE\Deri}$ is a skew
+  fibration.
+  Hence,
+  $\mapof\Deri$ is a skew fibration.
+\end{proof}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{From Skew Bifibrations to Contraction and Weakening}
+
+\begin{lemma}\label{lem:skew->cw}
+  Let $\gA$ and $\gB$ be fographs, let $\phi\colon\gA\to\gB$ be a skew
+  bifibration, and let $A$ and $B$ be formulas with $\graphof A=\gA$
+  and $\graphof B=\gB$. Then there are derivations
+  \begin{equation*}
+    \vlderivation{
+      \vlde{\set{\wrD,\wfaD,\acD,\rectif\cfaD,\me,\rectif\mfaD,\rectif\mexD,\fequ}}{\rectif\Deri}{B}{
+        \vlhy{A}}}
+    \quand
+    \vlderivation{
+      \vlde{\set{\wrD,\wfaD,\acD,\cfaD,\me,\mfaD,\mexD,\fequ}}{\Deri}{B}{
+        \vlhy{A\rsubstof\phi}}}
+  \end{equation*}
+  such that $\mapof{\rectif\Deri}=\phi$ and $\rectif{\Deri}$ is a
+  rectification of $\Deri$, and $\rsubstof\phi$ is the substitution
+  induced by $\phi$.
+\end{lemma}
+
+In the proof of this lemma, we make use of the following concept: Let
+$\vlder{\sysS}{\DDeri}{Q}{P}$ be a derivation where $P$ and $Q$ are
+propositional formulas (possibly using variable $x\in\VAR$ at the
+places of atoms).  We say that $\DDeri$ can be \bfit{lifted} to
+$\sysS'$ if there are (first-order) formulas $C$ and $D$ such that $P=\PE C$ and
+$Q=\PE D$ and there is a derivation $\vlder{\sysS'}{\DDeri'}{D}{C}$.
+
+We say a fograph homomorphism $\phi\colon\gG\to\gH$ is \bfit{full} if
+for all $v,w\in\vG$, we have that $\phi(v)\phi(w)\in\eH$ implies
+$vw\in\eG$.
+
+\begin{lemma}\label{lem:fullinj->w}
+  Let $\phi\colon\gG\to\gH$ be full and injective skew bifibration
+  such that $\rsubstof\phi$ is the identity substitution, and let $G$
+  and $H$ be formulas with $\graphof G=\gG$ and $\graphof H=\gH$. Then
+  there is a derivation $\vlder{\set{\wrD,\wfaD,\fequ}}{\Deri}{H}{G}$.
+\end{lemma}
+
+\begin{proof}
+   By \cite[Proposition~7.6.1]{str:07:RTA}, we have a derivation
+   $\vlder{\set{\wrD,\PE\fequ}}{\DDeri}{\PE H}{\PE G}$. In order to
+   lift $\DDeri$, we need to reorganize the instances of
+   $\wD$. If $H$ contains a subformula $\forall x.A$ which is not
+   present in $G$, the $\wD$-instances in $\DDeri$ could introduce the
+   parts of the propositional encoding $x\vlor A$ independently.  We
+   say that an instance $\rr_1$ of $\wD$ in $\Deri$ is \emph{in the
+   scope} of an instance $\rr_2$ of $\wD$ if $\rr_1$ introduced
+   formulas that contain a free variable $x$ (i.e., $x$ occurs in a
+   term in a predicate) and $\rr_2$ introduces the atom $x$ as a
+   subformula (i.e. the propositional encoding of the binder $x$).  We
+   can now permute the $\wD$-instances in $\DDeri$ such that whenever
+   a rule instance $\rr_1$ is in the scope of an instance $\rr_2$, then
+   $\rr_2$ occurs below $\rr_1$ in $\DDeri$.
+   Then we can lift $\DDeri$ stepwise. First, observe that each line of
+   $\DDeri$ is $\PE\fequ$-equivalent to the propositional encoding $\PE P$ of a
+   first-order formula $P$.  We now have to show
+   that each instance of $\wrD$ in $\DDeri$ is indeed the image of a correct
+   application of $\wD$ or $\wfaD$ in first-order logic.
+   If we have a $\wD$ of the form
+   \begin{equation*}
+     \scalebox{1}{$
+     \vlinf{\wD}{}{\PE S\cons{x\vlor \PE A}}{\PE S\cons{\PE A}}
+     \qquor
+     \vlinf{\wD}{}{\PE S\cons{(x\vlor \PE B)\vlor \PE A}}{\PE S\cons{\PE A}}
+     $}
+   \end{equation*}
+   then $x$ cannot occur freely in $A$, as otherwise the fibration
+   property would be violated. We can therefore lift these instances to
+   \begin{equation*}
+      \scalebox{1}{$
+    \vlinf{\wfaD}{}{S\cons{\forall x. A}}{S\cons{A}}
+     \qquor
+     \vlinf{\wD}{}{S\cons{(\forall x. B)\vlor A}}{S\cons{A}}
+     $}
+   \end{equation*}
+   respectively.     
+  If a  weakening happens inside a subformula $x\vlor \PE C$ or $x\vlan
+  \PE C$ in $\DDeri$, then there are the following cases:
+  \begin{equation*}%\small
+    \scalebox{.9}{$
+    \vlinf{\wD}{}{\PE S\cons{x\vlor\PE  D\vlor \PE C}}{\PE S\cons{x\vlor\PE  C}}
+    \quad
+    \vlinf{\wD}{}{\PE S\cons{x\vlan (\PE D\vlor \PE C)}}{\PE S\cons{x\vlan\PE  C}}
+    \quad
+    \vlinf{\wD}{}{\PE S\cons{(x\vlor\PE  D)\vlan \PE C}}{\PE S\cons{x\vlan \PE C}}
+    $}
+  \end{equation*}
+  The first two cases can be lifted to
+  \begin{equation*}
+    \vlinf{\wD}{}{S\cons{\forall x.( D\vlor C)}}{S\cons{\forall x.  C}}
+    \quand
+     \vlinf{\wD}{}{S\cons{\exists x.( D\vlor C)}}{S\cons{\exists x.  C}}
+  \end{equation*}
+  respectively. But in the third case,  an $\exists$-quantifier would be
+  transformed into an $\forall$-quantifier. But as $\phi$ has to
+  preserve existentials, this third case cannot occur. All other situations can be lifted trivially, giving us
+  $\vlder{\set{\wrD,\wfaD,\fequ}}{\Deri}{H}{G}$ as desired.
+\end{proof}
+
+\begin{lemma}\label{lem:surj->cm}
+  Let $\phi\colon\gG\to\gH$ be a surjective skew
+  bifibration, and let $G$ and $H$ be formulas with $\graphof G=\gG$
+  and $\graphof H=\gH$. Then there is a derivation
+  \begin{equation*}
+    \vlderivation{
+      \vlde{\set{\acD,\cfaD,\me,\mfaD,\mexD,\fequ}}{\Deri}{H}{
+        \vlhy{G\rsubstof\phi}}}
+  \end{equation*}
+  where  $\rsubstof\phi$ is the substitution
+  induced by $\phi$.
+\end{lemma}
+
+\begin{proof}
+  By \cite[Proposition~7.5]{str:ral:tableaux19}, there is a derivation
+  $\vlder{\set{\acD,\me,\PE\fequ}}{\DDeri}{\PE
+    H}{\PE{(G\substof\phi)}}$.  We can lift $\DDeri$ to a first-order
+  derivation in $\set{\acD,\cfaD,\me,\mfaD,\mexD,\fequ}$, in a similar
+  way as in the previous lemma.
+  The technical details are in
+  Appendix~C of~\cite{HSW21:arxiv}.
+\end{proof}
+  
+\begin{proof}[Proof of Lemma~\ref{lem:skew->cw}]
+  Let $\vB'\subseteq\vB$ be the image of $\phi$, and let $\gB_1$ be
+  the subgraph of $\gB$ induced by $\vB'$. Hence, we have two maps
+  $\phi''\colon\gA\to\gB_1$ being a surjection and $\phi'\colon
+  \gB_1\to\gB$ being a full injection.  Both, $\phi'$ and $\phi''$
+  remain skew bifibrations.  Furthermore, $\gB_1$ is also a fograph.
+  Let $B_1$ be a formula with $\graphof{B_1}=\gB_1$.
+    We can apply Lemmas~\ref{lem:fullinj->w}
+  and~\ref{lem:surj->cm} to obtain derivations
+  \begin{equation*}
+    \vlder{\set{\wrD,\wfaD,\fequ}}{\Deri'}{B}{B_1}
+    \qquand
+     \vlder{\set{\acD,\cfaD,\me,\mfaD,\mexD,\fequ}}{\Deri''}{B_1}{
+        A\rsubstof{\phi''}}
+  \end{equation*}
+  As $\rsubstof{\phi'}$ is the identity, we have
+  $\rsubstof{\phi''}=\rsubstof{\phi}$. Hence, the composition of
+  $\Deri''$ and $\Deri'$ is the desired derivation $\Deri$.  Then
+  $\rectif\Deri$ can be constructed by rectifying $\Deri$, where the
+  variables to be used in $A$ are already given. That
+  $\phi=\mapof{\rectif\Deri}$ follows immediately from the
+  construction.
+\end{proof}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Summary and Proof of Main Result}
+\label{sec:summary}
+
+The only theorem of Section~\ref{sec:main} that has not yet been
+proved is Theorem~\ref{thm:CP-DI} establishing the full correspondence
+between decomposed proofs in $\FOKS$ and combinatorial proofs. We show
+the proof here, by summarizing the results of the previous two
+Sections~\ref{sec:linear} and~\ref{sec:skew}.
+
+\begin{proof}[Proof of Theorem~\ref{thm:CP-DI}]
+  First, assume we have a combinatorial proof $\phi\colon\gC\to\gA$
+   and a formula $A$ with $\gA=\graphof A$.
+  Let $C$ be a formula with $\graphof C=\gC$, and let $\rsubstof\phi$
+  be the substitution induced by $\phi$.
+  By Lemma~\ref{lem:skew->cw} there is a derivation
+  \begin{equation*}
+    \vlder{\set{\wrD,\wfaD,\acD,\cfaD,\me,\mfaD,\mexD,\fequ}}{\Deri_2}{A}{C\rsubstof\phi}
+  \end{equation*}
+  Since $\gC$ is a fonet, we have by Theorem~\ref{thm:fonet->MLS1} a derivation
+  \begin{equation*}
+    \vlder{\FOMLS}{\Deri'_1}{C}{\ttt}
+  \end{equation*}
+  This derivation remains valid if we apply the substitution
+  $\rsubstof\phi$ to every line in $\Deri'_1$, yielding the derivation
+  $\Deri_1$ of $C\rsubstof\phi$ as desired.
+
+  Conversely, assume we have a decomposed derivation
+  \begin{equation}
+    \label{eq:decomx}
+    \vlderivation{
+      \vlde{\set{\wrD,\wfaD,\acD,\cfaD,\me,\mfaD,\mexD,\fequ}}{\Deri_2}{A}{
+        \vlde{\FOMLS}{\Deri_1}{A'}{
+          \vlhy{\ttt}}}}
+  \end{equation}
+  Then we can transform $\Deri_1$ into a rectified form
+  $\rectif\Deri_1$, proving $\rectif A'$. By
+  Theorem~\ref{thm:MLS1->fonet}, the linked fograph
+  $\fographof{\rectif\Deri_1}=\tuple{\fographof{\rectif
+      A'},\linkingof{\rectif\Deri_1}}$ is a fonet.  Then, by
+  Lemma~\ref{lem:cw->rectif}, there is a rectified derivation
+  $\vlderivation{
+    \vlde{\set{\wrD,\wfaD,\acD,\rectif\cfaD,\me,\rectif\mfaD,\rectif\mexD,\fequ}}{\rectif{\Deri_2}}{\rectif
+      A}{ \vlhy{\rectif{A'}}}}$ whose induced map
+  $\mapof{\rectif{\Deri_2}}\colon\graphof{\rectif{A'}}\to\graphof{\rectif
+    A}$ is the same as the induced map
+  $\mapof{\Deri_2}\colon\graphof{A'}\to\graphof{A}$ of $\Deri_2$. By
+  Lemma~\ref{lem:cw->skew}, this map is a skew bifibration. Hence, we
+  have a combinatorial proof $\phi\colon\gC\to\graphof{A}$ with
+  $\gC=\graphof{\rectif{A'}}$.
+%%  \lutz{shit, something's wrong...}
+  %% Let $\downsmash{\vlderivation{
+  %%   \vlde{\set{\wrD,\acD,\cfaD,\me,\mfaD,\mexD,\fequ}}{\Deri}{B}{
+  %%     \vlhy{A}}}}$ be a derivation. Then there is a recified derivation
+  %% $\vlderivation{
+  %%   \vlde{\set{\wrD,\rectif\acD,\rectif\cfaD,\me,\rectif\mfaD,\rectif\mexD,\fequ}}{\rectif\Deri}{\rectif
+  %%     B}{ \vlhy{\rectif A}}}$, such that the induced maps
+  %% $\mapof\Deri\colon\graphof{A}\to\graphof{B}$ and
+  %% $\mapof{\rectif\Deri}\colon\graphof{\rectif A}\to\graphof{\rectif
+  %%   B}$ are equal up to a variable renaming of the vertex labels.
+  %% for some $A'\fequ C\sigma$ where $C$ is a formula with $\graphof
+  %% C=\gC$ and $\sigma$ is a variable renaming substitution.  Conversely,
+  %% whenever we have a derivation as in~\eqref{eq:decom} above, then
+  %% there is a combinatorial proof $\phi\colon\gC\to\graphof A$ such
+  %% that $\gC=\graphof{\rectif{A'}}$.
+\end{proof}
+
+Note that Theorem~\ref{thm:CP-DI} shows at the same time soundness, completeness, and full completeness, as
+\begin{enumerate}
+\item every proof in $\FOKS$ can be translated into a combinatorial proof, and
+\item every combinatorial proof is the image of a $\FOKS$-proof under that translation.
+\end{enumerate}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Conclusion}
+
+We uncovered a close correspondence between
+first-order combinatorial proofs and decomposed deep inference
+derivations of system $\FOKS$, and showed that every proof in
+$\FOKS$ has such a decomposed form.
+
+The most surprising discovery for us was that all technical
+difficulties in our work could be reduced (in a non-trivial way) to
+the propositional setting.
+
+The obvious next step in our research is to investigate proof
+composition and normalisation of first-order combinatorial
+proofs. Even in the propositional setting, the normalisation of
+combinatorial proofs is underdeveloped. There exist two different
+procedures for cut elimination for combinatorial proofs in classical
+propositional logic~\cite{hughes:invar,str:fscd17}, but both have
+their insufficiencies, and have not been extended to other
+logics.
+
+We hope to garner new insights on the normalisation of
+classical first-order proofs through our work on combinatorial proofs.
+
+
+% conference papers do not normally have an appendix
+
+
+% use section* for acknowledgment
+%\section*{Acknowledgment}
+
+
+%The authors would like to thank...
+
+
+
+
+
+% trigger a \newpage just before the given reference
+% number - used to balance the columns on the last page
+% adjust value as needed - may need to be readjusted if
+% the document is modified later
+%\IEEEtriggeratref{8}
+% The "triggered" command can be changed if desired:
+%\IEEEtriggercmd{\enlargethispage{-5in}}
+
+% references section
+
+% can use a bibliography generated by BibTeX as a .bbl file
+% BibTeX documentation can be easily obtained at:
+% http://mirror.ctan.org/biblio/bibtex/contrib/doc/
+% The IEEEtran BibTeX style support page is at:
+% http://www.michaelshell.org/tex/ieeetran/bibtex/
+%\bibliographystyle{IEEEtran}
+% argument is your BibTeX string definitions and bibliography database(s)
+%\bibliography{IEEEabrv,../bib/paper}
+%
+% <OR> manually copy in the resultant .bbl file
+% set second argument of \begin to the number of references
+% (used to reserve space for the reference number labels box)
+
+\bibliographystyle{IEEEtran}
+\bibliography{refs}
+
+%\begin{thebibliography}{1}
+
+%\bibitem{IEEEhowto:kopka}
+%H.~Kopka and P.~W. Daly, \emph{A Guide to \LaTeX}, 3rd~ed.\hskip 1em plus
+%  0.5em minus 0.4em\relax Harlow, England: Addison-Wesley, 1999.
+
+%\end{thebibliography}
+
+%\clearhalfpage
+
+%\vskip3em
+
+\end{document}
+
