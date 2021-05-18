@@ -1,4 +1,41 @@
+\documentclass[a4paper]{article}
+
+\usepackage{amsmath}
+\usepackage{virginialake}
+
+\newcommand{\dual}[1]{\overline{#1}}
+\newcommand{\cneg}[1]{\dual{#1}}
+
+\newcommand{\axr}{\mathsf{ax}}
+\newcommand{\cutr}{\mathsf{cut}}
+\newcommand{\mixr}{\mathsf{mix}}
+\newcommand{\conr}{\mathsf{ctr}}
+\newcommand{\weakr}{\mathsf{wk}}
+
+\newcommand\aiD {\mathsf{ai}}
+\newcommand\faD {\forall}
+\newcommand\exD {\exists}
+\newcommand\tttD {\ttt}
+\renewcommand\wD {\mathsf{w}}
+\newcommand\wlD {\mathsf{w}}
+\newcommand\wrD {\mathsf{w}}
+\renewcommand\cD {\mathsf{c}}
+\renewcommand\acD {\mathsf{ac}}
+\newcommand\acDx {\mathsf{ac}_x}
+\newcommand\acDeq {\mathsf{ac}_x^\fequ}
+\newcommand\wfaD {\mathsf{w_\forall}}
+\newcommand\cfaD {\mathsf{c_\forall}}
+\newcommand\mfaD {\mathsf{m_\forall}}
+\newcommand\mexD {\mathsf{m_\exists}}
+
+\newcommand{\fequ}{\equiv}
+
+\newcommand{\sqns}[1]{\vdash#1\phantom{\vdash}}
+
+\begin{document}
+
 % Sequent proof of Ex.1
+\begin{equation*}
   \vlderivation{
       \vlin{\vlor}{}{\sqns{(\exists x.\cneg{p}x) \vlor (\forall y.(py \vlan
 pfy))}}{
@@ -13,9 +50,10 @@ pfy}}{
                     \vlhy{}}}{
                   \vlin{\axr}{}{\sqns{\cneg{p}fy, pfy}}{
                     \vlhy{}}}}}}}}}
+\end{equation*}
 
 % Decomposed proof of Ex.1
-
+\begin{equation*}
     \vlderivation{
       \vlin{\acD}{}{(\exists x. \cneg{p}x) \vlor (\forall y.(py \vlan pfy))}{
         \vlin{\mexD}{}{(\exists x. (\cneg{p}x \vlor \cneg{p}x) \vlor (\forall
@@ -39,9 +77,10 @@ pfy}}{
                       \vlin{\ttt}{}{\forall y.(\ttt \vlan \ttt)}{
                         \vlin{\forall}{}{\forall y.\ttt}{
                           \vlhy{\ttt}}}}}}}}}}}}}}
+\end{equation*}
 
 % Sequent proof of Ex.2 (to check)
-
+\begin{equation*}
     \vlderivation{
       \vlin{\conr}{}{\sqns{\exists x.((\cneg{p}a \vlan \cneg{p}b) \vlor px)}}{
         \vlin{\exists}{}{\sqns{\exists x.((\cneg{p}a \vlan \cneg{p}b) \vlor px, \exists x.((\cneg{p}a \vlan \cneg{p}b) \vlor px))}}{
@@ -57,9 +96,10 @@ pfy}}{
                       \vlhy{}}}{
                     \vlin{\axr}{}{\sqns{\cneg{p}b, pb}}{
                       \vlhy{}}}}}}}}}}
+\end{equation*}
 
 % Sequent proof of Ex.3 
-
+\begin{equation*}
     \vlderivation{
       \vlin{\vlor}{}{\sqns{(\cneg{q}ab \vlan \cneg{q}ba) \vlor (\exists x.
 \exists y.qxy)}}{
@@ -72,9 +112,10 @@ y.qxy, \exists x.\exists y.qxy}}{
               \vlhy{}}}{
             \vlin{\axr}{}{\sqns{\cneg{q}ba, qba}}{
               \vlhy{}}}}}}}
+\end{equation*}
 
 % Decomposed proof of Ex.3
-
+\begin{equation*}
   \vlderivation{
     \vlin{\acD}{}{(\cneg{q}ab \vlan \cneg{q}ba) \vlor (\exists x. \exists
 y.qxy)}{
@@ -97,9 +138,10 @@ qba)}{
                       \vlin{\ttt}{}{(qab \vlor \cneg{q}ab) \vlan \ttt}{
                         \vlin{\aiD}{}{qab \vlor \cneg{q}ab}{
                           \vlhy{\ttt}}}}}}}}}}}}}    
+\end{equation*}
 
 % Sequent proof of Ex.4
-
+\begin{equation*}
   \vlderivation{
     \vlin{\vlor}{}{\sqns{(\exists x.(pfx \vlan \cneg{p}x)) \vlor (\forall
 y.(\cneg{p}ffy \vlor py))}}{
@@ -120,9 +162,10 @@ py}}{
                     \vlhy{}}}{
                   \vlin{\axr}{}{\sqns{\cneg{p}y, py}}{
                     \vlhy{}}}}}}}}}}
+\end{equation*}
 
 % Decomposed proof of Ex.4
-
+\begin{equation*}
   \vlderivation{
     \vlin{\acD}{}{(\exists x.(pfx \vlan \cneg{p}x)) \vlor (\forall
 y.(\cneg{p}ffy \vlor py))}{
@@ -153,4 +196,6 @@ x.(pfx \vlan \cneg{p}x))) \vlor (\forall y.(\cneg{p}ffy \vlor py))}{
                             \vlin{\aiD}{}{(\cneg{p}fy \vlor pfy) \vlan \ttt \vlan \ttt}{
                               \vlin{\ttt^*}{}{\ttt \vlan \ttt \vlan \ttt}{
                                 \vlhy{\ttt}}}}}}}}}}}}}}}}}
+\end{equation*}
 
+\end{document}
