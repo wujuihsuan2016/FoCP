@@ -198,4 +198,17 @@ x.(pfx \vlan \cneg{p}x))) \vlor (\forall y.(\cneg{p}ffy \vlor py))}{
                                 \vlhy{\ttt}}}}}}}}}}}}}}}}}
 \end{equation*}
 
+% Decomposed proof of the drinker formula
+\begin{equation*}
+\vlderivation{
+  \vlin{\fequ}{}{\exists x.(\cneg{p}x \vlor (\forall y.py))}{
+    \vlin{\mexD}{}{\exists x.((\forall y.py) \vlor \cneg{p}x)}{
+      \vlin{\exists}{}{(\exists x.(\forall y.py)) \vlor (\exists x.\cneg{p}x)}{
+        \vlin{\fequ}{}{(\forall y.py) \vlor (\exists x.\cneg{p}x)}{
+          \vlin{\exists}{}{\forall y.(py \vlor (\exists x.\cneg{p}x))}{
+            \vlin{\aiD}{}{\forall y.(py \vlor \cneg{p}y)}{
+              \vlin{\forall}{}{\forall y.\ttt}{
+                \vlhy{\ttt}}}}}}}}} 
+\end{equation*}
+
 \end{document}
